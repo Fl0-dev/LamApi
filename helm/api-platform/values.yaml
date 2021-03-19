@@ -43,9 +43,9 @@ mercure:
   # Change me!
   jwtToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOltdfX0.Oo0yg7y4yMa1vr_bziltxuTCqb8JVHKxp-f_FwwOim0"
   # Change me!
-  publisherJwtKey: "!ChangeMe!"
+  publisherJwtKey: "pTbCYO7%*5%5H"
   # Change me!
-  subscriberJwtKey: "!ChangeMe!"
+  subscriberJwtKey: "xhGWBT#j3dt5"
 
 # Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
 postgresql:
