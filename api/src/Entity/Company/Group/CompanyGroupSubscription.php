@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity\Company;
+namespace App\Entity\Company\Group;
 
 use App\Trait\UseCreatedDate;
 use App\Trait\UseUuid;
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-class CompanySubscription
+class CompanyGroupSubscription
 {
     use UseUuid;
     use UseCreatedDate;
@@ -30,7 +30,7 @@ class CompanySubscription
     /**
      * CompanySubscription Group
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\CompanyGroup", inversedBy="subscription")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group", inversedBy="subscription")
      */
     private CompanyGroup $companyGroup;
 
@@ -44,8 +44,9 @@ class CompanySubscription
     /**
      * CompanySubscription constructor
      */
-    public function __construct()
+    public function __construct(CompanyGroup $companyGroup)
     {
+        $this->companyGroup = $companyGroup;
         $this->createdDate = new \DateTime;
     }
 

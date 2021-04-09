@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity\Company;
+namespace App\Entity\Company\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyEntity\CompanyEntityOffices;
-use App\Entity\Company\CompanyEntity\CompanyEntityTeam;
+use App\Entity\Company\Group\CompanyGroup;
 use App\Entity\Offer;
 use App\Repository\CompanyEntityRepository;
 use App\Trait\UseSlug;
@@ -24,12 +24,11 @@ class CompanyEntity extends CompanyEntityRepository
     use UseUuid;
     use UseSlug;
     use CompanyEntityOffices;
-    use CompanyEntityTeam;
 
     /**
      * CompanyEntity Group
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\CompanyGroup", inversedBy="entities")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="entities")
      */
     private CompanyGroup $companyGroup;
 
@@ -45,12 +44,31 @@ class CompanyEntity extends CompanyEntityRepository
     /**
      * CompanyEntity Contructor
      */
-    public function __construct()
+    public function __construct(CompanyGroup $companyGroup)
     {
+        $this->companyGroup = $companyGroup;
         $this->offers = new ArrayCollection();
         $this->adresses = new ArrayCollection();
         $this->teamMedias = new ArrayCollection();
         $this->officesMedias = new ArrayCollection();
+    }
+
+    /**
+     * Get the CompanyGroup
+     */
+    public function getCompanyGroup(): CompanyGroup
+    {
+        return $this->companyGroup;
+    }
+
+    /**
+     * Set the CompanyGroup
+     */
+    public function setCompanyGroup(CompanyGroup $companyGroup): self
+    {
+        $this->companyGroup = $companyGroup;
+
+        return $this;
     }
 
     /**

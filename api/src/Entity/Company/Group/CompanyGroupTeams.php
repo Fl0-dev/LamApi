@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Company\CompanyEntity;
+namespace App\Entity\Company\Group;
 
 use App\Entity\Media;
 use App\Utils\Utils;
@@ -24,43 +24,32 @@ const WORKFORCES = [
 ];
 
 /**
- * CompanyEntity Team
+ * CompanyGroup Team
  */
-trait CompanyEntityTeam
+trait CompanyGroupTeams
 {
     /**
-     * CompanyEntityTeam Workforce
+     * CompanyGroupTeam Workforce
      *
      * @ORM\Column(type="integer")
      */
     private ?int $workforce = null;
 
     /**
-     * CompanyEntityTeam Middle Age
+     * CompanyGroupTeam Middle Age
      *
      * @ORM\Column(type="integer")
      */
     private ?int $middleAge = null;
 
     /**
-     * Introduction text for the team
+     * CompanyGroupTeam Medias
      *
-     * @ORM\Column(type="string")
+     * @var ArrayCollection<CompanyGroupTeam>
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", mappedBy="companyGroup", cascade={"persist"})
      */
-    private ?string $teamIntro = null;
-
-    /**
-     * CompanyEntityTeam Medias
-     *
-     * @var ArrayCollection<Media>
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Media")
-     * @ORM\JoinTable(name="company_entity_team_medias",
-     *      joinColumns={@JoinColumn(name="company_entity_team_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="media_id", referencedColumnName="id")}
-     * )
-     */
-    private iterable $teamMedias;
+    private iterable $teams;
 
     /**
      * Get workforce range label for the given workforce id
@@ -87,7 +76,7 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Get CompanyEntityTeam workforce
+     * Get CompanyGroupTeam workforce
      */
     public function getWorkforce(): ?int
     {
@@ -95,7 +84,7 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Set CompanyEntityTeam workforce
+     * Set CompanyGroupTeam workforce
      */
     public function setWorkforce(?int $workforce): self
     {
@@ -107,7 +96,7 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Check if the CompanyEntityTeam has a valid Workforce value
+     * Check if the CompanyGroupTeam has a valid Workforce value
      */
     public function hasWorkforce(): bool
     {
@@ -117,7 +106,7 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Get CompanyEntityTeam Middle Age
+     * Get CompanyGroupTeam Middle Age
      */
     public function getMiddleAge(): ?int
     {
@@ -125,7 +114,7 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Set CompanyEntityTeam Middle Age
+     * Set CompanyGroupTeam Middle Age
      */
     public function setMiddleAge(?int $middleAge): self
     {
@@ -135,7 +124,7 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Check if the CompanyEntityTeam has a valid Middle Age value
+     * Check if the CompanyGroupTeam has a valid Middle Age value
      */
     public function hasMiddleAge(): bool
     {
@@ -145,64 +134,34 @@ trait CompanyEntityTeam
     }
 
     /**
-     * Get the Introduction text for the Team
+     * Get CompanyGroupTeam Teams
      */
-    public function getTeamIntro(): ?string
+    public function getTeams(): ArrayCollection
     {
-        return $this->teamIntro;
+        return $this->teams;
     }
 
     /**
-     * Set the Introduction text for the Team
+     * Set CompanyGroupTeam Team Medias
      */
-    public function setTeamIntro(?string $teamIntro): self
+    public function setTeams(ArrayCollection|array|null $teams): self
     {
-        $this->teamIntro = $teamIntro;
+        $teams = Utils::createArrayCollection($teams);
+
+        $this->teams = $teams;
 
         return $this;
     }
 
     /**
-     * Check if Team has a valid Introduction text
+     * Check if CompanyGroupTeam has valid Team Medias
      */
-    public function hasTeamIntro(): bool
+    public function hasTeams()
     {
-        $teamIntro = $this->getTeamIntro();
+        $teams = $this->getTeams();
 
-        return (is_string($teamIntro) && strlen($teamIntro) > 0);
-    }
-
-    /**
-     * Get CompanyEntityTeam Team Medias
-     */
-    public function getTeamMedias(): ArrayCollection
-    {
-        return $this->teamMedias;
-    }
-
-    /**
-     * Set CompanyEntityTeam Team Medias
-     */
-    public function setTeamMedias(ArrayCollection|array|null $teamMedias): self
-    {
-        $teamMedias = Utils::createArrayCollection($teamMedias);
-
-        $this->teamMedias = $teamMedias;
-
-        return $this;
-    }
-
-    /**
-     * Check if CompanyEntityTeam has valid Team Medias
-     */
-    public function hasTeamMedias()
-    {
-        $teamMedias = $this->getTeamMedias();
-
-        return (
-            $teamMedias instanceof ArrayCollection
-            && $teamMedias->count() > 0
-            && Utils::checkArrayValuesObject($teamMedias, Media::class)
-        );
+        return $teams instanceof ArrayCollection
+            && !$teams->isEmpty()
+            && Utils::checkArrayValuesObject($teams, CompanyGroupTeam::class);
     }
 }

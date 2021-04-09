@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Company\CompanyGroup;
+namespace App\Entity\Company\Group;
 
 use App\Entity\Organisation;
 use App\Entity\Social;

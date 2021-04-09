@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Company\CompanyEntity;
+namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Media;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Company\CompanyGroup;
+namespace App\Entity\Company\Group;
 
 use App\Entity\Media;
 use App\Entity\Media\Image as MediaImage;
@@ -23,7 +23,6 @@ trait CompanyGroupIdentity
      * CompanyGroup Logo
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Media\Image")
-     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id")
      */
     private ?MediaImage $logo = null;
 
@@ -52,7 +51,6 @@ trait CompanyGroupIdentity
      * Media (image or video) of the header page CompanyGroup
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Media")
-     * @ORM\JoinColumn(name="header_media_id", referencedColumnName="id")
      */
     private MediaImage|MediaVideo|null $headerMedia = null;
 
@@ -60,7 +58,6 @@ trait CompanyGroupIdentity
      * Main CompanyGroup media (image or video)
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Media")
-     * @ORM\JoinColumn(name="main_media_id", referencedColumnName="id")
      */
     private MediaImage|MediaVideo|null $mainMedia = null;
 

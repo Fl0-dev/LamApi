@@ -2,7 +2,7 @@
 
 namespace App\Entity\Company\CompanyEntity;
 
-use App\Entity\Address;
+use App\Entity\Localisation\Address;
 use App\Entity\Media;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,7 +18,11 @@ trait CompanyEntityOffices
      *
      * @var ArrayCollection<Address>
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Address", mappedBy="companyEntity", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Localisation\Address")
+     * @ORM\JoinTable(name="company_entity_offices_addresses",
+     *      joinColumns={@JoinColumn(name="company_entity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="address_id", referencedColumnName="id")}
+     * )
      */
     private iterable $addresses;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Company\CompanyGroup;
+namespace App\Entity\Company\Group;
 
 use App\Entity\JobType;
 use App\Utils\Utils;
@@ -41,7 +41,7 @@ trait CompanyGroupActivity
      *
      * @var ArrayCollection<CompanyBadge>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\CompanyGroup\CompanyBadge")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyBadge")
      * @ORM\JoinTable(name="company_group_job_types",
      *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="job_type_slug", referencedColumnName="slug")}
@@ -54,7 +54,7 @@ trait CompanyGroupActivity
      *
      * @var ArrayCollection<CompanyTool>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\CompanyGroup\CompanyTool")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company\CompanyTool")
      * @ORM\JoinTable(name="company_group_tools",
      *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="tool_id", referencedColumnName="id")}
@@ -145,7 +145,9 @@ trait CompanyGroupActivity
     {
         $tools = $this->getTools();
 
-        return $tools instanceof ArrayCollection && !$tools->isEmpty();
+        return $tools instanceof ArrayCollection
+            && !$tools->isEmpty()
+            && Utils::checkArrayValuesObject($tools, CompanyTool::class);
     }
 
     /**

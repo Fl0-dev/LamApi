@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Entity\Company;
+namespace App\Entity\Company\Group;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Company\CompanyGroup\CompanyGroupActivity;
-use App\Entity\Company\CompanyGroup\CompanyGroupCommunication;
-use App\Entity\Company\CompanyGroup\CompanyGroupIdentity;
+use App\Entity\Company\Entity\CompanyEntity;
+use App\Entity\Company\Group\CompanyGroupActivity;
+use App\Entity\Company\Group\CompanyGroupCommunication;
+use App\Entity\Company\Group\CompanyGroupIdentity;
 use App\Functional\EntityWorkflow;
 use App\Trait\UseCreatedDate;
 use App\Trait\UseSlug;
@@ -35,9 +36,9 @@ class CompanyGroup
     /**
      * CompanyGroup Subscription
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Company\CompanySubscription")
+     * @ORM\OneToOne(targetEntity="App\Entity\Company\CompanyGroupSubscription")
      */
-    private CompanySubscription $subscription;
+    private CompanyGroupSubscription $subscription;
 
     /**
      * CompanyGroup Primary Color (hexadecimal)
@@ -115,7 +116,7 @@ class CompanyGroup
     /**
      * Get CompanyGroup Subscription
      */
-    public function getSubscription(): CompanySubscription
+    public function getSubscription(): CompanyGroupSubscription
     {
         return $this->subscription;
     }
@@ -123,7 +124,7 @@ class CompanyGroup
     /**
      * Set CompanyGroup Subscription
      */
-    public function setSubscription(CompanySubscription $subscription): self
+    public function setSubscription(CompanyGroupSubscription $subscription): self
     {
         if (self::isSubscription($subscription)) {
             $this->subscription = $subscription;
@@ -145,7 +146,7 @@ class CompanyGroup
      */
     static public function isSubscription($subscription): bool
     {
-        return $subscription instanceof CompanySubscription && $subscription->hasSlug();
+        return $subscription instanceof CompanyGroupSubscription && $subscription->hasSlug();
     }
 
     /**
