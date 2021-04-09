@@ -3,6 +3,7 @@
 namespace App\Entity\Company\Group;
 
 use App\Entity\JobType;
+use App\Entity\Tool;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -52,9 +53,9 @@ trait CompanyGroupActivity
     /**
      * Tools used in the CompanyGroup
      *
-     * @var ArrayCollection<CompanyTool>
+     * @var ArrayCollection<Tool>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\CompanyTool")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tool")
      * @ORM\JoinTable(name="company_group_tools",
      *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="tool_id", referencedColumnName="id")}
@@ -147,7 +148,7 @@ trait CompanyGroupActivity
 
         return $tools instanceof ArrayCollection
             && !$tools->isEmpty()
-            && Utils::checkArrayValuesObject($tools, CompanyTool::class);
+            && Utils::checkArrayValuesObject($tools, Tool::class);
     }
 
     /**
