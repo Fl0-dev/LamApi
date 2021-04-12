@@ -31,8 +31,8 @@ trait CompanyGroupActivity
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\JobType")
      * @ORM\JoinTable(name="company_group_job_types",
-     *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="job_type_slug", referencedColumnName="slug")}
+     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="job_type_slug", referencedColumnName="slug")}
      * )
      */
     private iterable $jobTypes;
@@ -40,12 +40,12 @@ trait CompanyGroupActivity
     /**
      * CompanyGroup Badges
      *
-     * @var ArrayCollection<CompanyBadge>
+     * @var ArrayCollection<CompanyGroupBadge>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyBadge")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyGroupBadge")
      * @ORM\JoinTable(name="company_group_job_types",
-     *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="job_type_slug", referencedColumnName="slug")}
+     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="job_type_slug", referencedColumnName="slug")}
      * )
      */
     private iterable $badges;
@@ -57,8 +57,8 @@ trait CompanyGroupActivity
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Tool")
      * @ORM\JoinTable(name="company_group_tools",
-     *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="tool_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tool_id", referencedColumnName="id")}
      * )
      */
     private iterable $tools;
@@ -196,7 +196,7 @@ trait CompanyGroupActivity
     {
         $badges = Utils::createArrayCollection($badges);
 
-        if (CompanyBadge::areBadges($badges) || $badges->isEmpty()) {
+        if (CompanyGroupBadge::areBadges($badges) || $badges->isEmpty()) {
             $this->badges = $badges;
         }
 

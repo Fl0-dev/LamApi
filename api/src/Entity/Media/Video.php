@@ -2,7 +2,7 @@
 
 namespace App\Entity\Media;
 
-use App\Entity\Media;
+use App\Entity\Media\Media;
 
 class Video extends Media
 {

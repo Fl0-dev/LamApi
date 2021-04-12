@@ -3,9 +3,10 @@
 namespace App\Entity\Localisation;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Trait\UseSlug;
-use App\Trait\UseUuid;
+use App\Trait\Slug;
+use App\Trait\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Localisation: Region
@@ -18,8 +19,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 )]
 class Region
 {
-    use UseUuid;
-    use UseSlug;
+    use Uuid;
+    use Slug;
 
     /**
      * Region Departments

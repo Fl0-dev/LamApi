@@ -34,8 +34,8 @@ trait CompanyGroupCommunication
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Organisation")
      * @ORM\JoinTable(name="company_group_ecosystem",
-     *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="organisation_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="organisation_id", referencedColumnName="id")}
      * )
      */
     private iterable $ecosystem;

@@ -6,6 +6,7 @@ use App\Entity\Localisation\Address;
 use App\Entity\Tool;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Offer Details
@@ -80,7 +81,7 @@ trait OfferDetails
     /**
      * Offer Localisation
      *
-     * @OneToOne(targetEntity="App\Entity\Localisation\Address")
+     * @ORM\OneToOne(targetEntity="App\Entity\Localisation\Address")
      */
     private ?Address $address = null;
 
@@ -91,8 +92,8 @@ trait OfferDetails
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Tool")
      * @ORM\JoinTable(name="offer_tools",
-     *      joinColumns={@JoinColumn(name="offer_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="tool_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tool_id", referencedColumnName="id")}
      * )
      */
     private iterable $tools;

@@ -3,8 +3,9 @@
 namespace App\Entity\Localisation;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Trait\UseSlug;
-use App\Trait\UseUuid;
+use App\Trait\Slug;
+use App\Trait\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Address
@@ -17,8 +18,8 @@ use App\Trait\UseUuid;
 )]
 class City
 {
-    use UseUuid;
-    use UseSlug;
+    use Uuid;
+    use Slug;
 
     /**
      * City Department

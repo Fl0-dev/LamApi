@@ -1,8 +1,9 @@
 <?php
 namespace App\Entity\Offer;
 
-use App\Entity\Offer;
-use App\Trait\UseUuid;
+use App\Entity\Offer\Offer;
+use App\Trait\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Offer External Platform
@@ -11,7 +12,7 @@ use App\Trait\UseUuid;
  */
 class OfferExternalPlatform
 {
-    use UseUuid;
+    use Uuid;
 
     const PLATFORM_TALENTPLUG = 'talentplug';
 
@@ -22,7 +23,7 @@ class OfferExternalPlatform
     /**
      * Offer that matches in App Database
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Offer")
+     * @ORM\OneToOne(targetEntity="App\Entity\Offer\Offer")
      */
     private Offer $offer;
 

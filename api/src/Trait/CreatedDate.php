@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Trait for using CreatedDate
  */
-trait UseCreatedDate
+trait CreatedDate
 {
     /**
      * Date when CompanyGroup was created

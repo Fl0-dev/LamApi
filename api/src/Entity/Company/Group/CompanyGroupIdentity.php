@@ -2,9 +2,9 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Entity\Media;
-use App\Entity\Media\Image as MediaImage;
-use App\Entity\Media\Video as MediaVideo;
+use App\Entity\Media\Media;
+use App\Entity\Media\Image;
+use App\Entity\Media\Video;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +17,7 @@ trait CompanyGroupIdentity
     /**
      * CompanyGroup Name
      *
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length=100)
      */
     private ?string $name = null;
 
@@ -26,52 +26,52 @@ trait CompanyGroupIdentity
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Media\Image")
      */
-    private ?MediaImage $logo = null;
+    private ?Image $logo = null;
 
     /**
      * Year of the CompanyGroup creation
      *
-     * @ORM\Column(type="int")
+     * @ORM\Column(type="integer")
      */
     private ?int $creationYear = null;
 
     /**
      * Global HR Mail Address
      *
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length=255)
      */
     private ?string $globalHrMailAddress = null;
 
     /**
      * CompanyGroup Turnover
      *
-     * @ORM\Column(type="int")
+     * @ORM\Column(type="integer")
      */
     private ?int $turnover = null;
 
     /**
      * Media (image or video) of the header page CompanyGroup
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      */
-    private MediaImage|MediaVideo|null $headerMedia = null;
+    private Image|Video|null $headerMedia = null;
 
     /**
      * Main CompanyGroup media (image or video)
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      */
-    private MediaImage|MediaVideo|null $mainMedia = null;
+    private Image|Video|null $mainMedia = null;
 
     /**
      * List of other medias
      *
      * @var ArrayCollection<Media>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Media")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Media\Media")
      * @ORM\JoinTable(name="company_group_medias",
-     *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="media_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")}
      * )
      */
     private iterable $medias;
@@ -79,14 +79,14 @@ trait CompanyGroupIdentity
     /**
      * "Who are we" CompanyGroup
      *
-     * @ORM\Column(type="string", length="5000")
+     * @ORM\Column(type="string", length=5000)
      */
     private ?string $usText = null;
 
     /**
      * CompanyGroup values
      *
-     * @ORM\Column(type="string", length="5000")
+     * @ORM\Column(type="string", length=5000)
      */
     private ?string $values = null;
 
@@ -121,7 +121,7 @@ trait CompanyGroupIdentity
     /**
      * Get CompanyGroup Logo
      */
-    public function getLogo(): ?MediaImage
+    public function getLogo(): ?Image
     {
         return $this->logo;
     }
@@ -129,7 +129,7 @@ trait CompanyGroupIdentity
     /**
      * Set CompanyGroup Logo
      */
-    public function setLogo(?MediaImage $logo): self
+    public function setLogo(?Image $logo): self
     {
         $this->logo = $logo;
 
@@ -143,7 +143,7 @@ trait CompanyGroupIdentity
     {
         $logo = $this->getLogo();
 
-        return $logo instanceof MediaImage && $logo->hasSrc();
+        return $logo instanceof Image && $logo->hasSrc();
     }
 
     /**
@@ -261,7 +261,7 @@ trait CompanyGroupIdentity
     /**
      * Get Media (image or video) of the CompanyGroup Page Header
      */
-    public function getHeaderMedia(): MediaImage|MediaVideo|null
+    public function getHeaderMedia(): Image|Video|null
     {
         return $this->headerMedia;
     }
@@ -269,7 +269,7 @@ trait CompanyGroupIdentity
     /**
      * Set Media (image or video) of the CompanyGroup Page Header
      */
-    public function setHeaderMedia(MediaImage|MediaVideo|null $headerMedia): self
+    public function setHeaderMedia(Image|Video|null $headerMedia): self
     {
         $this->headerMedia = $headerMedia;
 
@@ -289,7 +289,7 @@ trait CompanyGroupIdentity
     /**
      * Get CompanyGroup Main Media (image or video)
      */
-    public function getMainMedia(): MediaImage|MediaVideo|null
+    public function getMainMedia(): Image|Video|null
     {
         return $this->mainMedia;
     }
@@ -297,7 +297,7 @@ trait CompanyGroupIdentity
     /**
      * Set CompanyGroup Main Media (image or video)
      */
-    public function setMainMedia(MediaImage|MediaVideo|null $mainMedia): self
+    public function setMainMedia(Image|Video|null $mainMedia): self
     {
         $this->mainMedia = $mainMedia;
 

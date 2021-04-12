@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Entity\Company\CompanyEntity;
+namespace App\Entity\Company\Entity;
 
 use App\Entity\Localisation\Address;
-use App\Entity\Media;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,8 +19,8 @@ trait CompanyEntityOffices
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Localisation\Address")
      * @ORM\JoinTable(name="company_entity_offices_addresses",
-     *      joinColumns={@JoinColumn(name="company_entity_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="address_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="company_entity_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
      * )
      */
     private iterable $addresses;

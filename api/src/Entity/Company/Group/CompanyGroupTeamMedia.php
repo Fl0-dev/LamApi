@@ -2,8 +2,8 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Entity\Media;
-use App\Trait\UseUuid;
+use App\Entity\Media\Media;
+use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CompanyGroupTeamMedia
 {
-    use UseUuid;
+    use Uuid;
 
     /**
      * CompanyGroupTeam
@@ -25,14 +25,14 @@ class CompanyGroupTeamMedia
     /**
      * Media
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      */
     private ?Media $media = null;
 
     /**
      * Description
      *
-     * @ORM\Column(type="string", length="5000")
+     * @ORM\Column(type="string", length=5000)
      */
     private ?string $description = null;
 

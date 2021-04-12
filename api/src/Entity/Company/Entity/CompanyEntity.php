@@ -3,12 +3,11 @@
 namespace App\Entity\Company\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Company\CompanyEntity\CompanyEntityOffices;
+use App\Entity\Company\Entity\CompanyEntityOffices;
 use App\Entity\Company\Group\CompanyGroup;
-use App\Entity\Offer;
-use App\Repository\CompanyEntityRepository;
-use App\Trait\UseSlug;
-use App\Trait\UseUuid;
+use App\Entity\Offer\Offer;
+use App\Trait\Slug;
+use App\Trait\Uuid;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,10 +18,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 #[ApiResource]
-class CompanyEntity extends CompanyEntityRepository
+class CompanyEntity
 {
-    use UseUuid;
-    use UseSlug;
+    use Uuid;
+    use Slug;
     use CompanyEntityOffices;
 
     /**
@@ -37,7 +36,7 @@ class CompanyEntity extends CompanyEntityRepository
      *
      * @var ArrayCollection<Offer>
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Offer", mappedBy="companyEntity", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Offer\Offer", mappedBy="companyEntity", cascade={"persist"})
      */
     private iterable $offers;
 

@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
     collectionOperations: ['get'],
     itemOperations: ['get'],
 )]
-class CompanyBadge
+class CompanyGroupBadge
 {
     const ID_LABEL = 'label';
     const ID_FILENAME = 'image-uri';

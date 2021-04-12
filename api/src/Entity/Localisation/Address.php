@@ -2,8 +2,7 @@
 
 namespace App\Entity\Localisation;
 
-use App\Trait\UseUuid;
-use App\Utils\Utils;
+use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,19 +12,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Address
 {
-    use UseUuid;
+    use Uuid;
 
     /**
      * Name
      *
-     * @ORM\Column(type="string", length="50")
+     * @ORM\Column(type="string", length=50)
      */
     private ?string $name = null;
 
     /**
      * Street
      *
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length=255)
      */
     private ?string $street = null;
 
@@ -39,14 +38,14 @@ class Address
     /**
      * Postal Code
      *
-     * @ORM\Column(type="string", length="10")
+     * @ORM\Column(type="string", length=10)
      */
     private ?string $postalCode = null;
 
     /**
      * HR Mail Address
      *
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string", length=255)
      */
     private ?string $hrMailAddress = null;
 

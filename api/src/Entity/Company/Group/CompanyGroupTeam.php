@@ -2,7 +2,7 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Trait\UseUuid;
+use App\Trait\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class CompanyGroupTeam
 {
-    use UseUuid;
+    use Uuid;
 
     /**
      * CompanyGroup
@@ -26,7 +26,7 @@ class CompanyGroupTeam
     /**
      * Name
      *
-     * @ORM\Column(type="string", length="50")
+     * @ORM\Column(type="string", length=50)
      */
     private ?string $name = null;
 
@@ -37,8 +37,8 @@ class CompanyGroupTeam
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeamMedia")
      * @ORM\JoinTable(name="company_group_team_medias",
-     *      joinColumns={@JoinColumn(name="company_group_team_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="media_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="company_group_team_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")}
      * )
      */
     private iterable $medias;

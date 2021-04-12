@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Media;
 
 use App\Utils\Utils;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Trait\UseUuid;
+use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -54,7 +54,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Media extends File
 {
-    use UseUuid;
+    use Uuid;
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 

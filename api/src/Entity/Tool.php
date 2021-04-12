@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Media;
+use App\Entity\Media\Media;
 use App\Entity\Media\Image as MediaImage;
 use App\Entity\Media\Video as MediaVideo;
-use App\Trait\UseUuid;
+use App\Trait\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource]
 class Tool
 {
-    use UseUuid;
+    use Uuid;
 
     /**
      * Name
@@ -54,7 +54,7 @@ class Tool
     /**
      * Media (image or video) of the header page Tool
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      * @ORM\JoinColumn(name="header_media_id", referencedColumnName="id")
      */
     private MediaImage|MediaVideo|null $headerMedia;

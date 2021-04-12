@@ -2,8 +2,7 @@
 
 namespace App\Entity\Media;
 
-use App\Entity\Media;
-use App\Utils\Utils;
+use App\Entity\Media\Media;
 
 class Image extends Media
 {

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Utils\Utils;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Social

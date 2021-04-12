@@ -3,12 +3,12 @@
 namespace App\Trait;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\Uuid as SFUuid;
 
 /**
  * Trait for using Uuid
  */
-trait UseUuid
+trait Uuid
 {
     /**
      * Uuid Property
@@ -16,12 +16,12 @@ trait UseUuid
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private ?Uuid $id = null;
+    private ?SFUuid $id = null;
 
     /**
      * Get Uuid value
      */
-    public function getId(): ?Uuid
+    public function getId(): ?SFUuid
     {
         return $this->id;
     }
@@ -29,7 +29,7 @@ trait UseUuid
     /**
      * Set Uuid value
      */
-    public function setId(Uuid $id): self
+    public function setId(SFUuid $id): self
     {
         $this->id = $id;
 
@@ -41,6 +41,6 @@ trait UseUuid
      */
     public function hasId(): bool
     {
-        return $this->id instanceof Uuid;
+        return $this->id instanceof SFUuid;
     }
 }

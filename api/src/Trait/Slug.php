@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Trait for using Slug
  */
-trait UseSlug
+trait Slug
 {
     /**
      * Slug

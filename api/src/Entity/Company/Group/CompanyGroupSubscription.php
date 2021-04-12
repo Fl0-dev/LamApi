@@ -1,8 +1,9 @@
 <?php
 namespace App\Entity\Company\Group;
 
-use App\Trait\UseCreatedDate;
-use App\Trait\UseUuid;
+use App\Entity\Subscription;
+use App\Trait\CreatedDate;
+use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,34 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CompanyGroupSubscription
 {
-    use UseUuid;
-    use UseCreatedDate;
-
-    const SUBSCRIPTION_SLUG_BEGINNER = 'beginner';
-    const SUBSCRIPTION_SLUG_RECRUITER = 'recruiter';
-    const SUBSCRIPTION_SLUG_EMPLOYER_BRAND = 'employer_brand';
-
-    const SUBSCRIPTIONS_SLUGS = [
-        self::SUBSCRIPTION_SLUG_BEGINNER,
-        self::SUBSCRIPTION_SLUG_RECRUITER,
-        self::SUBSCRIPTION_SLUG_EMPLOYER_BRAND
-    ];
-
-    const SUBSCRIPTION_SLUG_DEFAULT = self::SUBSCRIPTION_SLUG_BEGINNER;
+    use Uuid;
+    use CreatedDate;
 
     /**
-     * CompanySubscription Group
+     * CompanyGroup
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group", inversedBy="subscription")
+     * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="subscription")
      */
     private CompanyGroup $companyGroup;
 
     /**
-     * CompanySubscription Slug
+     * Subscription
      *
-     * @ORM\Column(type="string")
+     * @ORM\OneToOne(targetEntity="App\Entity\Subscription")
      */
-    private string $slug;
+    private Subscription $subscription;
 
     /**
      * CompanySubscription constructor
@@ -63,7 +52,7 @@ class CompanyGroupSubscription
      */
     public function setCompanyGroup(CompanyGroup $companyGroup): self
     {
-        $this->company = $companyGroup;
+        $this->companyGroup = $companyGroup;
 
         return $this;
     }
@@ -71,44 +60,36 @@ class CompanyGroupSubscription
     /**
      * Check if has a valid CompanyGroup attached to
      */
-    public function hasCompanyGroup()
+    public function hasCompanyGroup(): bool
     {
         return $this->companyGroup instanceof CompanyGroup;
     }
 
     /**
-     * Get CompanySubscription Slug
+     * Get the Subscription
      */
-    public function getSlug(): string
+    public function getSubscription(): Subscription
     {
-        return $this->slug;
+        return $this->subscription;
     }
 
     /**
-     * Set CompanySubscription Slug
+     * Set the Subscription
      */
-    public function setSlug(string $slug): self
+    public function setSubscription(Subscription $subscription): self
     {
-        if (self::isSlug($slug)) {
-            $this->slug = $slug;
-        }
+        $this->subscription = $subscription;
 
         return $this;
     }
 
     /**
-     * Check if the CompanySubscription has a valid Slug value
+     * Check if has a valid Subscription
      */
-    public function hasSlug(): bool
+    public function hasSubscription(): bool
     {
-        return self::isSlug($this->getSlug());
-    }
+        $subscription = $this->getSubscription();
 
-    /**
-     * Check if given Subscription Slug is valid
-     */
-    static public function isSlug(string $slug): bool
-    {
-        return is_string($slug) && array_key_exists($slug, self::SUBSCRIPTIONS_SLUGS);
+        return $subscription instanceof Subscription && $subscription->hasSlug();
     }
 }

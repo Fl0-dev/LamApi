@@ -8,9 +8,9 @@ use App\Entity\Company\Group\CompanyGroupActivity;
 use App\Entity\Company\Group\CompanyGroupCommunication;
 use App\Entity\Company\Group\CompanyGroupIdentity;
 use App\Functional\EntityWorkflow;
-use App\Trait\UseCreatedDate;
-use App\Trait\UseSlug;
-use App\Trait\UseUuid;
+use App\Trait\CreatedDate;
+use App\Trait\Slug;
+use App\Trait\Uuid;
 use App\Utils\Constants;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,9 +24,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class CompanyGroup
 {
-    use UseUuid;
-    use UseSlug;
-    use UseCreatedDate;
+    use Uuid;
+    use Slug;
+    use CreatedDate;
 
     use EntityWorkflow;
     use CompanyGroupIdentity;
@@ -36,7 +36,7 @@ class CompanyGroup
     /**
      * CompanyGroup Subscription
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Company\CompanyGroupSubscription")
+     * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroupSubscription", mappedBy="companyGroup")
      */
     private CompanyGroupSubscription $subscription;
 
@@ -73,7 +73,7 @@ class CompanyGroup
      *
      * @var ArrayCollection<CompanyEntity>
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Company\CompanyEntity", mappedBy="companyGroup", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Company\Entity\CompanyEntity", mappedBy="companyGroup", cascade={"persist"})
      */
     private iterable $entities;
 
@@ -146,7 +146,7 @@ class CompanyGroup
      */
     static public function isSubscription($subscription): bool
     {
-        return $subscription instanceof CompanyGroupSubscription && $subscription->hasSlug();
+        return $subscription instanceof CompanyGroupSubscription && $subscription->hasSubscription();
     }
 
     /**

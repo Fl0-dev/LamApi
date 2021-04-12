@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Offer;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\Entity\CompanyEntity;
@@ -8,9 +8,9 @@ use App\Entity\Offer\OfferDetails;
 use App\Entity\Offer\OfferContent;
 use App\Repository\OfferRepository;
 use App\Functional\EntityWorkflow;
-use App\Trait\UseCreatedDate;
-use App\Trait\UseSlug;
-use App\Trait\UseUuid;
+use App\Trait\CreatedDate;
+use App\Trait\Slug;
+use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,9 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class Offer extends OfferRepository
 {
-    use UseUuid;
-    use UseSlug;
-    use UseCreatedDate;
+    use Uuid;
+    use Slug;
+    use CreatedDate;
 
     use EntityWorkflow;
     use OfferDetails;
@@ -32,7 +32,7 @@ class Offer extends OfferRepository
     /**
      * ID for the CompanyEntity that owns the offer
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\CompanyEntity", inversedBy="offers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Entity\CompanyEntity", inversedBy="offers")
      */
     private CompanyEntity $companyEntity;
 
