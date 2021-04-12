@@ -7,18 +7,18 @@ use App\Trait\UseUuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CompanyGroup Team Interview
+ * CompanyGroup Team Media
  *
  * @ORM\Entity
  */
-class CompanyGroupInterview
+class CompanyGroupTeamMedia
 {
     use UseUuid;
 
     /**
      * CompanyGroupTeam
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", inversedBy="interviews")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", inversedBy="medias")
      */
     private CompanyGroupTeam $companyGroupTeam;
 

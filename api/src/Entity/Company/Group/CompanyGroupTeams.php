@@ -2,7 +2,6 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Entity\Media;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;

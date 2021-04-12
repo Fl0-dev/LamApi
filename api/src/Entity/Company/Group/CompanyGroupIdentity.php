@@ -5,6 +5,8 @@ namespace App\Entity\Company\Group;
 use App\Entity\Media;
 use App\Entity\Media\Image as MediaImage;
 use App\Entity\Media\Video as MediaVideo;
+use App\Utils\Utils;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +62,19 @@ trait CompanyGroupIdentity
      * @ORM\ManyToOne(targetEntity="App\Entity\Media")
      */
     private MediaImage|MediaVideo|null $mainMedia = null;
+
+    /**
+     * List of other medias
+     *
+     * @var ArrayCollection<Media>
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Media")
+     * @ORM\JoinTable(name="company_group_medias",
+     *      joinColumns={@JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="media_id", referencedColumnName="id")}
+     * )
+     */
+    private iterable $medias;
 
     /**
      * "Who are we" CompanyGroup
@@ -297,6 +312,38 @@ trait CompanyGroupIdentity
         $mainMedia = $this->getMainMedia();
 
         return $mainMedia instanceof Media && $mainMedia->hasSrc();
+    }
+
+    /**
+     * Get list of other medias
+     */
+    public function getMedias(): ArrayCollection
+    {
+        return $this->medias;
+    }
+
+    /**
+     * Set list of other medias
+     */
+    public function setMedias(ArrayCollection|array|null $medias): self
+    {
+        $medias = Utils::createArrayCollection($medias);
+
+        $this->medias = $medias;
+
+        return $this;
+    }
+
+    /**
+     * Check if Other Medias
+     */
+    public function hasMedias(): bool
+    {
+        $medias = $this->getMedias();
+
+        return $medias instanceof ArrayCollection
+            && !$medias->isEmpty()
+            && Utils::checkArrayValuesObject($medias, Media::class);
     }
 
     /**

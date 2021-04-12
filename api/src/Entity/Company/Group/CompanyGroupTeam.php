@@ -2,7 +2,6 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Entity\Media;
 use App\Trait\UseUuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,28 +33,15 @@ class CompanyGroupTeam
     /**
      * Medias
      *
-     * @var ArrayCollection<Media>
+     * @var ArrayCollection<CompanyGroupTeamMedia>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Media")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeamMedia")
      * @ORM\JoinTable(name="company_group_team_medias",
      *      joinColumns={@JoinColumn(name="company_group_team_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="media_id", referencedColumnName="id")}
      * )
      */
     private iterable $medias;
-
-    /**
-     * Interviews
-     *
-     * @var ArrayCollection<CompanyGroupTeamInterview>
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeamInterview")
-     * @ORM\JoinTable(name="company_group_team_interviews",
-     *      joinColumns={@JoinColumn(name="company_group_team_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="interview_id", referencedColumnName="id")}
-     * )
-     */
-    private iterable $interviews;
 
     /**
      * Contructor
@@ -104,7 +90,27 @@ class CompanyGroupTeam
     }
 
     /**
-     * Check if has valid Medias
+     * Add a Media
+     */
+    public function addMedia(CompanyGroupTeamMedia $media): self
+    {
+        $this->medias->add($media);
+
+        return $this;
+    }
+
+    /**
+     * Remove a Media
+     */
+    public function removeMedia(CompanyGroupTeamMedia $media): self
+    {
+        $this->medias->remove($media);
+
+        return $this;
+    }
+
+    /**
+     * Check if has valid CompanyGroupTeamMedias
      */
     public function hasMedias()
     {
@@ -112,6 +118,6 @@ class CompanyGroupTeam
 
         return $medias instanceof ArrayCollection
             && !$medias->isEmpty()
-            && Utils::checkArrayValuesObject($medias, Media::class);
+            && Utils::checkArrayValuesObject($medias, CompanyGroupTeamMedia::class);
     }
 }
