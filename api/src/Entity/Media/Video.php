@@ -3,6 +3,7 @@
 namespace App\Entity\Media;
 
 use App\Entity\Media\Media;
+use Doctrine\ORM\Mapping as ORM;
 
 
 /**
