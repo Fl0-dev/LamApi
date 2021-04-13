@@ -113,35 +113,29 @@ class Media extends File
         $this->setFilePath($filePath);
     }
 
-    // /**
-    //  * Check if this Media is an image
-    //  *
-    //  * @return bool
-    //  */
-    // public function isImage()
-    // {
-    //     return self::TYPE_IMAGE === $this->getType();
-    // }
+    /**
+     * Check if this Media is an Image
+     */
+    public function isImage(): bool
+    {
+        return self::TYPE_IMAGE === $this->getType();
+    }
 
-    // /**
-    //  * Check if this Media is a video
-    //  *
-    //  * @return bool
-    //  */
-    // public function isVideo()
-    // {
-    //     return self::TYPE_VIDEO === $this->getType();
-    // }
+    /**
+     * Check if this Media is a Video
+     */
+    public function isVideo(): bool
+    {
+        return self::TYPE_VIDEO === $this->getType();
+    }
 
-    // /**
-    //  * Get the value of type
-    //  *
-    //  * @return string
-    //  */
-    // public function getType()
-    // {
-    //     return $this->type;
-    // }
+    /**
+     * Get the Type
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
 
     // /**
     //  * Set the value of type
