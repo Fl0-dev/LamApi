@@ -4,6 +4,10 @@ namespace App\Entity\Media;
 
 use App\Entity\Media\Media;
 
+
+/**
+ * @ORM\Entity
+ */
 class Video extends Media
 {
     /**
@@ -25,7 +29,7 @@ class Video extends Media
     {
         $this->setFilePath($src);
         $this->setAutoplay($autoplay);
-        $this->setTypeVideo();
+        // $this->setTypeVideo();
     }
 
     /**

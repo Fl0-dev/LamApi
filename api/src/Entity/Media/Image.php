@@ -3,7 +3,11 @@
 namespace App\Entity\Media;
 
 use App\Entity\Media\Media;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ */
 class Image extends Media
 {
     const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
@@ -15,30 +19,30 @@ class Image extends Media
     /**
      * Image Width in pixels
      *
-     * @var int
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $width;
+    private ?int $width = null;
 
     /**
      * Image Height in pixels
      *
-     * @var int
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $height;
+    private ?int $height = null;
 
     /**
      * Image alt attribute
      *
-     * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $alt;
+    private ?string $alt = null;
 
     /**
      * Contains  title to display under image zoomed
      *
-     * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $title;
+    private ?string $title = null;
 
     /**
      * Image Constructor
@@ -48,7 +52,7 @@ class Image extends Media
     public function __construct($src)
     {
         $this->setFilePath($src);
-        $this->setTypeImage();
+        // $this->setTypeImage();
     }
 
     /**

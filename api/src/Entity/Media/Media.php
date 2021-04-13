@@ -15,6 +15,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *      "image" = "Image",
+ *      "video" = "Video"
+ * })
+ *
  * @ApiResource(
  *     iri="http://schema.org/MediaObject",
  *     normalizationContext={
@@ -55,6 +62,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Media extends File
 {
     use Uuid;
+
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 
@@ -77,21 +85,21 @@ class Media extends File
     /**
      * @var string|null
      *
-     * @ORM\Column(nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $filePath;
 
-    /**
-     * Media Type (img or video)
-     *
-     * @var string
-     */
-    private $type;
+    // /**
+    //  * Media Type (img or video)
+    //  *
+    //  * @ORM\Column(type="string", nullable=true)
+    //  */
+    // private $type;
 
     /**
      * Media alt attribute
      *
-     * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
     private $alt;
 
@@ -105,75 +113,75 @@ class Media extends File
         $this->setFilePath($filePath);
     }
 
-    /**
-     * Check if this Media is an image
-     *
-     * @return bool
-     */
-    public function isImage()
-    {
-        return self::TYPE_IMAGE === $this->getType();
-    }
+    // /**
+    //  * Check if this Media is an image
+    //  *
+    //  * @return bool
+    //  */
+    // public function isImage()
+    // {
+    //     return self::TYPE_IMAGE === $this->getType();
+    // }
 
-    /**
-     * Check if this Media is a video
-     *
-     * @return bool
-     */
-    public function isVideo()
-    {
-        return self::TYPE_VIDEO === $this->getType();
-    }
+    // /**
+    //  * Check if this Media is a video
+    //  *
+    //  * @return bool
+    //  */
+    // public function isVideo()
+    // {
+    //     return self::TYPE_VIDEO === $this->getType();
+    // }
 
-    /**
-     * Get the value of type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
+    // /**
+    //  * Get the value of type
+    //  *
+    //  * @return string
+    //  */
+    // public function getType()
+    // {
+    //     return $this->type;
+    // }
 
-    /**
-     * Set the value of type
-     *
-     * @param string $type Media type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        if (in_array($type, [self::TYPE_IMAGE, self::TYPE_VIDEO])) {
-            $this->type = $type;
-        }
+    // /**
+    //  * Set the value of type
+    //  *
+    //  * @param string $type Media type
+    //  *
+    //  * @return self
+    //  */
+    // public function setType($type)
+    // {
+    //     if (in_array($type, [self::TYPE_IMAGE, self::TYPE_VIDEO])) {
+    //         $this->type = $type;
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    /**
-     * Set type on Image
-     *
-     * @return self
-     */
-    public function setTypeImage()
-    {
-        $this->type = self::TYPE_IMAGE;
+    // /**
+    //  * Set type on Image
+    //  *
+    //  * @return self
+    //  */
+    // public function setTypeImage()
+    // {
+    //     $this->type = self::TYPE_IMAGE;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    /**
-     * Set type on Video
-     *
-     * @return self
-     */
-    public function setTypeVideo()
-    {
-        $this->type = self::TYPE_VIDEO;
+    // /**
+    //  * Set type on Video
+    //  *
+    //  * @return self
+    //  */
+    // public function setTypeVideo()
+    // {
+    //     $this->type = self::TYPE_VIDEO;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get the value of src
