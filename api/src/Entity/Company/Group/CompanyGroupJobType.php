@@ -3,41 +3,41 @@
 namespace App\Entity\Company\Group;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Badge;
+use App\Entity\JobType;
 use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CompanyEntity Badge
+ * Company JobType
  *
  * @ORM\Entity
  */
 #[ApiResource]
-class CompanyGroupBadge
+class CompanyGroupJobType
 {
     use Uuid;
 
     /**
      * CompanyGroup
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="badges")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="jobTypes")
      */
     private ?CompanyGroup $companyGroup = null;
 
     /**
-     * Badge
+     * JobType
      *
-     * @ORM\Column(type="badge")
+     * @ORM\Column(type="job_type")
      */
-    private ?Badge $badge = null;
+    private ?JobType $jobType = null;
 
     /**
-     * Constructor
+     * CompanyJobType constructor
      */
-    public function __construct(?CompanyGroup $companyGroup = null, ?Badge $badge = null)
+    public function __construct(?CompanyGroup $companyGroup = null, ?JobType $jobType = null)
     {
         $this->setCompanyGroup($companyGroup);
-        $this->setBadge($badge);
+        $this->setJobType($jobType);
     }
 
     /**
@@ -67,30 +67,30 @@ class CompanyGroupBadge
     }
 
     /**
-     * Get the Badge
+     * Get the JobType
      */
-    public function getBadge(): ?Badge
+    public function getJobType(): ?JobType
     {
-        return $this->badge;
+        return $this->jobtype;
     }
 
     /**
-     * Set the Badge
+     * Set the JobType
      */
-    public function setBadge(?Badge $badge): self
+    public function setJobType(?JobType $jobtype): self
     {
-        $this->badge = $badge;
+        $this->jobtype = $jobtype;
 
         return $this;
     }
 
     /**
-     * Check if has a valid Badge
+     * Check if has a valid JobType
      */
-    public function hasBadge(): bool
+    public function hasJobType(): bool
     {
-        $badge = $this->getBadge();
+        $jobtype = $this->getJobType();
 
-        return $badge instanceof Badge && $badge->hasSlug();
+        return $jobtype instanceof JobType && $jobtype->hasSlug();
     }
 }

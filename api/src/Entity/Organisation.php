@@ -2,94 +2,60 @@
 
 namespace App\Entity;
 
+use App\Entity\Media\Image;
+use App\Trait\Uuid;
 use App\Utils\Utils;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Organisation (Partners...)
+ *
+ * @ORM\Entity
+ */
 class Organisation
 {
-    /**
-     * WP Post ID
-     *
-     * @var int
-     */
-    private $id;
+    use Uuid;
 
     /**
-     * Organisation name
+     * Name
      *
-     * @var string
+     * @ORM\Column(type="string")
      */
-    private $name;
+    private ?string $name = null;
 
     /**
-     * Organisation logo
+     * Logo
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Image")
      */
-    private $logo;
+    private ?Image $logo = null;
 
     /**
      * Organisation website
      *
-     * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $website;
+    private ?string $website = null;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
     }
 
     /**
-     * Get the value of id
-     *
-     * @return int
+     * Get Name
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param int $id WP Post ID
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = (int) $id;
-
-        return $this;
-    }
-
-    /**
-     * Check if Organisation has a valid ID value
-     *
-     * @return bool
-     */
-    public function hasId()
-    {
-        $id = $this->getId();
-
-        return is_int($id) && $id > 0;
-    }
-
-    /**
-     * Get Organisation name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * Set Organisation name
-     *
-     * @param string $name Organisation name
-     *
-     * @return self
+     * Set Name
      */
-    public function setName(string $name)
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -97,17 +63,27 @@ class Organisation
     }
 
     /**
-     * Get Organisation logo
+     * Check if has a valid Name
      */
-    public function getLogo()
+    public function hasName(): bool
+    {
+        $name = $this->getName();
+
+        return is_string($name) && strlen($name) > 0;
+    }
+
+    /**
+     * Get Logo
+     */
+    public function getLogo(): ?Image
     {
         return $this->logo;
     }
 
     /**
-     * Set Organisation logo
+     * Set Logo
      */
-    public function setLogo($logo)
+    public function setLogo(?Image $logo): self
     {
         $this->logo = $logo;
 
@@ -115,34 +91,38 @@ class Organisation
     }
 
     /**
-     * Get Organisation website
+     * Check if has a valid Logo
      */
-    public function getWebsite()
+    public function hasLogo(): bool
+    {
+        $logo = $this->getLogo();
+
+        return $logo instanceof Image && $logo->hasSrc();
+    }
+
+    /**
+     * Get Website URL
+     */
+    public function getWebsite(): ?string
     {
         return $this->website;
     }
 
     /**
-     * Check if has website
-     *
-     * @return bool
+     * Set Website URL
      */
-    public function hasWebsite()
-    {
-        return Utils::isUrl($this->getWebsite());
-    }
-
-    /**
-     * Set Organisation website
-     *
-     * @param string $website Organisation website
-     *
-     * @return self
-     */
-    public function setWebsite(string $website)
+    public function setWebsite(string $website): self
     {
         $this->website = $website;
 
         return $this;
+    }
+
+    /**
+     * Check if has a valid Website URL
+     */
+    public function hasWebsite(): bool
+    {
+        return Utils::isUrl($this->getWebsite());
     }
 }

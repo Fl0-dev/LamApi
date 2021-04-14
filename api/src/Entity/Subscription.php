@@ -10,7 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Company Subscription
  */
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: ['get'],
+    itemOperations: ['get'],
+)]
 class Subscription
 {
     const SUBSCRIPTION_SLUG_BEGINNER = 'beginner';
@@ -36,8 +39,9 @@ class Subscription
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(?string $slug = null)
     {
+        $this->setSlug($slug);
     }
 
     /**

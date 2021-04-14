@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity\Company\Group;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Subscription;
 use App\Trait\CreatedDate;
 use App\Trait\Uuid;
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
+#[ApiResource]
 class CompanyGroupSubscription
 {
     use Uuid;
@@ -21,19 +23,19 @@ class CompanyGroupSubscription
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="subscription")
      */
-    private CompanyGroup $companyGroup;
+    private ?CompanyGroup $companyGroup = null;
 
     /**
      * Subscription
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Subscription")
+     * @ORM\Column(type="subscription")
      */
-    private Subscription $subscription;
+    private ?Subscription $subscription = null;
 
     /**
      * CompanySubscription constructor
      */
-    public function __construct(CompanyGroup $companyGroup)
+    public function __construct(?CompanyGroup $companyGroup = null)
     {
         $this->companyGroup = $companyGroup;
         $this->createdDate = new \DateTime;
@@ -42,7 +44,7 @@ class CompanyGroupSubscription
     /**
      * Get the CompanyGroup attached to
      */
-    public function getCompanyGroup(): CompanyGroup
+    public function getCompanyGroup(): ?CompanyGroup
     {
         return $this->companyGroup;
     }
@@ -50,7 +52,7 @@ class CompanyGroupSubscription
     /**
      * Set the CompanyGroup attached to
      */
-    public function setCompanyGroup(CompanyGroup $companyGroup): self
+    public function setCompanyGroup(?CompanyGroup $companyGroup): self
     {
         $this->companyGroup = $companyGroup;
 
@@ -68,7 +70,7 @@ class CompanyGroupSubscription
     /**
      * Get the Subscription
      */
-    public function getSubscription(): Subscription
+    public function getSubscription(): ?Subscription
     {
         return $this->subscription;
     }
@@ -76,7 +78,7 @@ class CompanyGroupSubscription
     /**
      * Set the Subscription
      */
-    public function setSubscription(Subscription $subscription): self
+    public function setSubscription(?Subscription $subscription): self
     {
         $this->subscription = $subscription;
 

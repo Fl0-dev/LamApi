@@ -2,7 +2,7 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Entity\JobType;
+use App\Entity\Badge;
 use App\Entity\Tool;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,13 +27,9 @@ trait CompanyGroupActivity
     /**
      * CompanyGroup Jobs Types
      *
-     * @var ArrayCollection<JobType>
+     * @var ArrayCollection<CompanyGroupJobType>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\JobType")
-     * @ORM\JoinTable(name="company_group_job_types",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="job_type_slug", referencedColumnName="slug")}
-     * )
+     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupJobType", mappedBy="companyGroup")
      */
     private iterable $jobTypes;
 
@@ -42,11 +38,7 @@ trait CompanyGroupActivity
      *
      * @var ArrayCollection<CompanyGroupBadge>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyGroupBadge")
-     * @ORM\JoinTable(name="company_group_job_types",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="job_type_slug", referencedColumnName="slug")}
-     * )
+     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupBadge", mappedBy="companyGroup")
      */
     private iterable $badges;
 
@@ -172,6 +164,26 @@ trait CompanyGroupActivity
     }
 
     /**
+     * Add a JobType
+     */
+    public function addJobType(CompanyGroupJobType $jobType): self
+    {
+        $this->entities->add($jobType);
+
+        return $this;
+    }
+
+    /**
+     * Remove a JobType
+     */
+    public function removeJobType(CompanyGroupJobType $jobType): self
+    {
+        $this->entities->remove($jobType);
+
+        return $this;
+    }
+
+    /**
      * Check if the CompanyGroup has Job Types
      */
     public function hasJobTypes(): bool
@@ -196,9 +208,29 @@ trait CompanyGroupActivity
     {
         $badges = Utils::createArrayCollection($badges);
 
-        if (CompanyGroupBadge::areBadges($badges) || $badges->isEmpty()) {
+        if (Badge::areBadges($badges) || $badges->isEmpty()) {
             $this->badges = $badges;
         }
+
+        return $this;
+    }
+
+    /**
+     * Add a Badge
+     */
+    public function addBadge(CompanyGroupBadge $badge): self
+    {
+        $this->entities->add($badge);
+
+        return $this;
+    }
+
+    /**
+     * Remove a Badge
+     */
+    public function removeBadge(CompanyGroupBadge $badge): self
+    {
+        $this->entities->remove($badge);
 
         return $this;
     }
