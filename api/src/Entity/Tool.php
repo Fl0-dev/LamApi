@@ -145,7 +145,7 @@ class Tool
     }
 
     /**
-     * Get the value of description
+     * Get Description
      */
     public function getDescription(): ?string
     {
@@ -153,7 +153,7 @@ class Tool
     }
 
     /**
-     * Set the value of description
+     * Set Description
      */
     public function setDescription(?string $description): self
     {

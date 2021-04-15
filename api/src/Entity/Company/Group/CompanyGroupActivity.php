@@ -15,7 +15,7 @@ trait CompanyGroupActivity
      *
      * @ORM\Column(type="string")
      */
-    private ?string $customerDesc = null;
+    private ?string $customersDesc = null;
 
     /**
      * Number of CompanyGroup customers
@@ -58,17 +58,17 @@ trait CompanyGroupActivity
     /**
      * Get general description of CompanyGroup Customers
      */
-    public function getCustomerDesc(): ?string
+    public function getCustomersDesc(): ?string
     {
-        return $this->customerDesc;
+        return $this->customersDesc;
     }
 
     /**
      * Set general description of CompanyGroup customers
      */
-    public function setCustomerDesc(?string $customerDesc): self
+    public function setCustomersDesc(?string $customersDesc): self
     {
-        $this->customerDesc = $customerDesc;
+        $this->customersDesc = $customersDesc;
 
         return $this;
     }
@@ -76,11 +76,11 @@ trait CompanyGroupActivity
     /**
      * Check if the CompanyGroup has Customers description
      */
-    public function hasCustomerDesc(): ?string
+    public function hasCustomersDesc(): ?string
     {
-        $customerDesc = trim($this->getCustomerDesc());
+        $customersDesc = trim($this->getCustomersDesc());
 
-        return (is_string($customerDesc) && strlen($customerDesc) > 0);
+        return (is_string($customersDesc) && strlen($customersDesc) > 0);
     }
 
     /**

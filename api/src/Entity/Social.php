@@ -13,13 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Social
 {
-    /**
-     * Social ID
-     *
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private ?Uuid $id = null;
+    use Uuid;
 
     /**
      * LinkedIn URL
@@ -61,32 +55,6 @@ class Social
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Get Social ID
-     */
-    public function getId(): ?Uuid
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set Social ID
-     */
-    public function setId(Uuid $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Check if Social has a valid ID value
-     */
-    public function hasId(): bool
-    {
-        return $this->id instanceof Uuid;
     }
 
     /**

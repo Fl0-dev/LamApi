@@ -37,6 +37,13 @@ class CompanyGroupTeamMedia
     private ?string $description = null;
 
     /**
+     * Media Destination (carousel, interviews...)
+     *
+     * @ORM\Column(type="string", length=50)
+     */
+    private ?string $destination = null;
+
+    /**
      * CompanyGroupInterview Contructor
      */
     public function __construct(CompanyGroupTeam $companyGroupTeam)
@@ -109,12 +116,40 @@ class CompanyGroupTeamMedia
     }
 
     /**
-     * Check if has Description
+     * Check if has valid Description
      */
     public function hasDescription()
     {
         $description = $this->getDescription();
 
         return is_string($description) && strlen($description) > 0;
+    }
+
+    /**
+     * Get Destination
+     */
+    public function getDestination(): ?string
+    {
+        return $this->destination;
+    }
+
+    /**
+     * Set Destination
+     */
+    public function setDestination(?string $destination): self
+    {
+        $this->destination = trim($destination);
+
+        return $this;
+    }
+
+    /**
+     * Check if has valid Destination
+     */
+    public function hasDestination()
+    {
+        $destination = $this->getDestination();
+
+        return is_string($destination) && strlen($destination) > 0;
     }
 }

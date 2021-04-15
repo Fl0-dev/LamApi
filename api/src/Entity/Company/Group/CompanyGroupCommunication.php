@@ -3,6 +3,7 @@
 namespace App\Entity\Company\Group;
 
 use App\Entity\Organisation;
+use App\Entity\Pool;
 use App\Entity\Social;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,17 +29,30 @@ trait CompanyGroupCommunication
     private ?Social $social = null;
 
     /**
-     * CompanyGroup Ecosystem
+     * CompanyGroup Pools
+     *
+     * @var ArrayCollection<Pool>
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Pool")
+     * @ORM\JoinTable(name="company_group_pools",
+     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="pool_id", referencedColumnName="id")}
+     * )
+     */
+    private iterable $pools;
+
+    /**
+     * CompanyGroup Partners
      *
      * @var ArrayCollection<Organisation>
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Organisation")
-     * @ORM\JoinTable(name="company_group_ecosystem",
+     * @ORM\JoinTable(name="company_group_partners",
      *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="organisation_id", referencedColumnName="id")}
      * )
      */
-    private iterable $ecosystem;
+    private iterable $partners;
 
     /**
      * Get CompanyGroup Website
@@ -97,32 +111,106 @@ trait CompanyGroupCommunication
     }
 
     /**
-     * Get CompanyGroup Ecosystem
+     * Get Pools
      */
-    public function getEcosystem(): ArrayCollection
+    public function getPools(): ArrayCollection
     {
-        return $this->ecosystem;
+        return $this->pools;
     }
 
     /**
-     * Set CompanyGroup Ecosystem
+     * Set Pools
      */
-    public function setEcosystem(ArrayCollection|array|null $ecosystem)
+    public function setPools(ArrayCollection|array|null $pools)
     {
-        $ecosystem = Utils::createArrayCollection($ecosystem);
+        $pools = Utils::createArrayCollection($pools);
 
-        $this->ecosystem = $ecosystem;
+        $this->pools = $pools;
 
         return $this;
     }
 
     /**
-     * Check if the CompanyGroup has a valid Ecosystem
+     * Add a Pool
      */
-    public function hasEcosystem(): bool
+    public function addPool(Pool $partner): self
     {
-        $ecosystem = $this->getEcosystem();
+        $this->pools->add($partner);
 
-        return ($ecosystem instanceof ArrayCollection && !$ecosystem->isEmpty());
+        return $this;
+    }
+
+    /**
+     * Remove a Pool
+     */
+    public function removePool(Pool $partner): self
+    {
+        $this->pools->remove($partner);
+
+        return $this;
+    }
+
+    /**
+     * Check if has valid Pools
+     */
+    public function hasPools(): bool
+    {
+        $pools = $this->getPools();
+
+        return $pools instanceof ArrayCollection
+            && !$pools->isEmpty()
+            && Utils::checkArrayValuesObject($pools, Pool::class);
+    }
+
+    /**
+     * Get Partners
+     */
+    public function getPartners(): ArrayCollection
+    {
+        return $this->partners;
+    }
+
+    /**
+     * Set Partners
+     */
+    public function setPartners(ArrayCollection|array|null $partners)
+    {
+        $partners = Utils::createArrayCollection($partners);
+
+        $this->partners = $partners;
+
+        return $this;
+    }
+
+    /**
+     * Add a Partner
+     */
+    public function addPartner(Organisation $partner): self
+    {
+        $this->partners->add($partner);
+
+        return $this;
+    }
+
+    /**
+     * Remove a Partner
+     */
+    public function removePartner(Organisation $partner): self
+    {
+        $this->partners->remove($partner);
+
+        return $this;
+    }
+
+    /**
+     * Check if has valid Partners
+     */
+    public function hasPartners(): bool
+    {
+        $partners = $this->getPartners();
+
+        return $partners instanceof ArrayCollection
+            && !$partners->isEmpty()
+            && Utils::checkArrayValuesObject($partners, Organisation::class);
     }
 }

@@ -48,21 +48,21 @@ class CompanyGroup
     private ?string $color = null;
 
     /**
-     * Code Parrain of the CompanyGroup
+     * Referral Code
      *
      * @ORM\Column(type="string")
      */
-    private ?string $codeParrain = null;
+    private ?string $referralCode = null;
 
     /**
-     * True if in Site Carrière view, false else
+     * True if has a Career Website view on our platform
      *
      * @ORM\Column(type="boolean")
      */
-    private bool $siteCarriere = false;
+    private bool $careerWebsite = false;
 
     /**
-     * True if Open to Recruitment, false else
+     * True if Open to Recruitment
      *
      * @ORM\Column(type="boolean")
      */

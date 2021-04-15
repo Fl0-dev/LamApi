@@ -102,7 +102,7 @@ class Badge
      */
     public function setSlug($slug): self
     {
-        if (self::isValidSlug($slug)) {
+        if (self::isSlug($slug)) {
             $this->slug = $slug;
         }
 
@@ -114,23 +114,15 @@ class Badge
      */
     public function hasSlug(): bool
     {
-        return self::isValidSlug($this->getSlug());
+        return self::isSlug($this->getSlug());
     }
 
     /**
      * Check if given Badge Slug is valid
      */
-    public static function isValidSlug($slug): bool
+    public static function isSlug($slug): bool
     {
         return is_string($slug) && array_key_exists($slug, self::BADGES);
-    }
-
-    /**
-     * Check if is valid Badge
-     */
-    public function isValidBadge(): bool
-    {
-        return $this->hasSlug();
     }
 
     /**

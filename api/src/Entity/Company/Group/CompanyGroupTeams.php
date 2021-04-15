@@ -28,25 +28,25 @@ const WORKFORCES = [
 trait CompanyGroupTeams
 {
     /**
-     * CompanyGroupTeam Workforce
+     * CompanyGroup Workforce
      *
      * @ORM\Column(type="integer")
      */
     private ?int $workforce = null;
 
     /**
-     * CompanyGroupTeam Middle Age
+     * CompanyGroup Middle Age
      *
      * @ORM\Column(type="integer")
      */
     private ?int $middleAge = null;
 
     /**
-     * CompanyGroupTeam Medias
+     * CompanyGroup Teams
      *
      * @var ArrayCollection<CompanyGroupTeam>
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", mappedBy="companyGroup", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", mappedBy="companyGroup", cascade={"persist", "remove"})
      */
     private iterable $teams;
 

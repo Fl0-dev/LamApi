@@ -32,6 +32,13 @@ class CompanyGroupBadge
     private ?Badge $badge = null;
 
     /**
+     * Description of Badge for this CompanyGroup (why they are this badge)
+     *
+     * @ORM\Column(type="string")
+     */
+    private ?string $description = null;
+
+    /**
      * Constructor
      */
     public function __construct(?CompanyGroup $companyGroup = null, ?Badge $badge = null)
@@ -92,5 +99,33 @@ class CompanyGroupBadge
         $badge = $this->getBadge();
 
         return $badge instanceof Badge && $badge->hasSlug();
+    }
+
+    /**
+     * Get Description
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set Description
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->description = trim($description);
+
+        return $this;
+    }
+
+    /**
+     * Check if has a valid Description
+     */
+    public function hasDescription(): bool
+    {
+        $description = $this->getDescription();
+
+        return is_string($description) && strlen($description) > 0;
     }
 }
