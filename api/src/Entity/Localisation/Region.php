@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 #[ApiResource(
+    routePrefix: '/localisation',
     collectionOperations: ['get'],
     itemOperations: ['get'],
 )]

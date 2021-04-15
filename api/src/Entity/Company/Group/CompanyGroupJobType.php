@@ -2,7 +2,6 @@
 
 namespace App\Entity\Company\Group;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\JobType;
 use App\Trait\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-#[ApiResource]
 class CompanyGroupJobType
 {
     use Uuid;

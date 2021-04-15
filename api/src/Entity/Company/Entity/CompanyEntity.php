@@ -17,7 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-#[ApiResource]
+#[ApiResource(
+    routePrefix: '/company'
+)]
 class CompanyEntity
 {
     use Uuid;
