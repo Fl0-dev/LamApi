@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
+use App\Trait\Uuid;
 use App\Utils\Utils;
-use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
