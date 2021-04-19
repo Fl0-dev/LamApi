@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Media\Media;
-use App\Entity\Media\Image as MediaImage;
-use App\Entity\Media\Video as MediaVideo;
+use App\Entity\Media\MediaImage;
+use App\Entity\Media\MediaVideo;
 use App\Trait\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,7 +32,7 @@ class Tool
     /**
      * Logo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Image")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\MediaImage")
      * @ORM\JoinColumn(name="logo_id", referencedColumnName="id")
      */
     private ?MediaImage $logo = null;

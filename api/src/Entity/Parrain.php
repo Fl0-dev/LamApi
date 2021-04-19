@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Company\Group\CompanyGroup;
 use App\Repository\ParrainRepository;
-use App\Entity\Media\Image;
+use App\Entity\Media\MediaImage;
 use App\Utils\Utils;
 
 class Parrain extends ParrainRepository
@@ -33,7 +33,7 @@ class Parrain extends ParrainRepository
     /**
      * Parrain Logo
      *
-     * @var Image
+     * @var MediaImage
      */
     private $logo;
 
@@ -159,7 +159,7 @@ class Parrain extends ParrainRepository
     /**
      * Get Parrain logo
      *
-     * @return Image
+     * @return MediaImage
      */
     public function getLogo()
     {
@@ -169,13 +169,13 @@ class Parrain extends ParrainRepository
     /**
      * Set Parrain logo
      *
-     * @param Image $logo Parrain logo
+     * @param MediaImage $logo Parrain logo
      *
      * @return self
      */
     public function setLogo($logo)
     {
-        if ($logo instanceof Image) {
+        if ($logo instanceof MediaImage) {
             $this->logo = $logo;
         }
 
@@ -191,7 +191,7 @@ class Parrain extends ParrainRepository
     {
         $logo = $this->getLogo();
 
-        return ($logo instanceof Image && $logo->hasSrc());
+        return ($logo instanceof MediaImage && $logo->hasSrc());
     }
 
     /**

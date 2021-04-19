@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Media\Image;
+use App\Entity\Media\MediaImage;
 use App\Trait\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,9 +26,9 @@ class Organisation
     /**
      * Logo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Image")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Media\MediaImage")
      */
-    private ?Image $logo = null;
+    private ?MediaImage $logo = null;
 
     /**
      * Organisation website
@@ -75,7 +75,7 @@ class Organisation
     /**
      * Get Logo
      */
-    public function getLogo(): ?Image
+    public function getLogo(): ?MediaImage
     {
         return $this->logo;
     }
@@ -83,7 +83,7 @@ class Organisation
     /**
      * Set Logo
      */
-    public function setLogo(?Image $logo): self
+    public function setLogo(?MediaImage $logo): self
     {
         $this->logo = $logo;
 
@@ -97,7 +97,7 @@ class Organisation
     {
         $logo = $this->getLogo();
 
-        return $logo instanceof Image && $logo->hasSrc();
+        return $logo instanceof MediaImage && $logo->hasSrc();
     }
 
     /**

@@ -18,8 +18,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *      "image" = "Image",
- *      "video" = "Video"
+ *      "image" = "MediaImage",
+ *      "video" = "MediaVideo"
  * })
  *
  * @ApiResource(

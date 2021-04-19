@@ -5,18 +5,15 @@ namespace App\Entity\Media;
 use App\Entity\Media\Media;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  */
-class Video extends Media
+class MediaVideo extends Media
 {
     /**
-     * Media autoplay video
-     *
-     * @var bool
+     * Media Autoplay Video
      */
-    private $autoplay;
+    private bool $autoplay = false;
 
     /**
      * Media Constructor
