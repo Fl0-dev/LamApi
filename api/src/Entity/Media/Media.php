@@ -59,7 +59,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * )
  * @Vich\Uploadable
  */
-class Media extends File
+abstract class Media extends File
 {
     use Uuid;
 

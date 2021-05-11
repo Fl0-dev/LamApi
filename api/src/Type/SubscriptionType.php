@@ -8,7 +8,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 /**
  * Subscription Doctrine Custom Type
  */
-class SubscriptionType extends Type
+final class SubscriptionType extends Type
 {
     const SUBSCRIPTION_TYPE_NAME = 'subscription';
 

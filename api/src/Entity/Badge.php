@@ -89,6 +89,11 @@ class Badge
         $this->setSlug($slug);
     }
 
+    public function __toString()
+    {
+        return $this->getSlug();
+    }
+
     /**
      * Get Badge Slug
      */

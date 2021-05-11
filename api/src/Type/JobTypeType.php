@@ -8,7 +8,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 /**
  * JobType Doctrine Custom Type
  */
-class JobTypeType extends Type
+final class JobTypeType extends Type
 {
     const JOB_TYPE_TYPE_NAME = 'job_type';
 

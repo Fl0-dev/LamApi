@@ -44,6 +44,11 @@ class Subscription
         $this->setSlug($slug);
     }
 
+    public function __toString()
+    {
+        return $this->getSlug();
+    }
+
     /**
      * Get Slug
      */

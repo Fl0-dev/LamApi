@@ -8,7 +8,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 /**
  * Badge Doctrine Custom Type
  */
-class BadgeType extends Type
+final class BadgeType extends Type
 {
     const BADGE_TYPE_NAME = 'badge';
 
