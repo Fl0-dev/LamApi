@@ -25,9 +25,9 @@ class City
     /**
      * City Department
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Department", inversedBy="cities")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Department")
      */
-    private ?string $department = null;
+    private ?Department $department = null;
 
     /**
      * City Zip Code
@@ -48,7 +48,6 @@ class City
      */
     public function __construct()
     {
-
     }
 
     /**

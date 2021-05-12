@@ -5,7 +5,6 @@ namespace App\Entity\Localisation;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Trait\Slug;
 use App\Trait\Uuid;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,14 +27,7 @@ class Department
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Region", inversedBy="departments")
      */
-    private $region = null;
-
-    /**
-     * Department Cities
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Localisation\City", mappedBy="department")
-     */
-    private ?ArrayCollection $cities = null;
+    private ?Region $region = null;
 
     /**
      * Department Code
@@ -56,25 +48,6 @@ class Department
      */
     public function __construct()
     {
-
-    }
-
-    /**
-     * Get Cities of the Department
-     */
-    public function getCities(): ?ArrayCollection
-    {
-        return $this->cities;
-    }
-
-    /**
-     * Set Cities of the Department
-     */
-    public function setCities(?ArrayCollection $cities): self
-    {
-        $this->cities = $cities;
-
-        return $this;
     }
 
     /**

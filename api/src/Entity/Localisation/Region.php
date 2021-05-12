@@ -5,7 +5,6 @@ namespace App\Entity\Localisation;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Trait\Slug;
 use App\Trait\Uuid;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,13 +21,6 @@ class Region
 {
     use Uuid;
     use Slug;
-
-    /**
-     * Region Departments
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Localisation\Department", mappedBy="region")
-     */
-    private ?ArrayCollection $departments = null;
 
     /**
      * Region Code
@@ -49,25 +41,6 @@ class Region
      */
     public function __construct()
     {
-
-    }
-
-    /**
-     * Get Departments of the Region
-     */
-    public function getDepartments(): ?ArrayCollection
-    {
-        return $this->departments;
-    }
-
-    /**
-     * Set Departments of the Region
-     */
-    public function setDepartments(?ArrayCollection $departments): self
-    {
-        $this->departments = $departments;
-
-        return $this;
     }
 
     /**
@@ -104,5 +77,15 @@ class Region
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Check if has a valid Name
+     */
+    public function hasName(): bool
+    {
+        $name = $this->getName();
+
+        return is_string($name) && strlen($name) > 0;
     }
 }
