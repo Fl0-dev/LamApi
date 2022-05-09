@@ -10,35 +10,35 @@ trait OfferContent
     /**
      * Missions
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private ?string $missions = null;
 
     /**
      * Offer Needs
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private ?string $needs = null;
 
     /**
      * The reasons to work with the Offer's Company
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private ?string $worksWithUs = null;
 
     /**
      * Prospects with the Offer's Company
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private ?string $prospectsWithUs = null;
 
     /**
      * Recruitment Process
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private ?string $recruitmentProcess = null;
 

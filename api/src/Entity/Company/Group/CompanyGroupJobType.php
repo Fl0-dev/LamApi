@@ -3,7 +3,7 @@
 namespace App\Entity\Company\Group;
 
 use App\Entity\JobType;
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

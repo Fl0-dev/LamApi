@@ -2,8 +2,8 @@
 namespace App\Entity\Company\Group;
 
 use App\Entity\Subscription;
-use App\Trait\CreatedDate;
-use App\Trait\Uuid;
+use App\Transversal\CreatedDate;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

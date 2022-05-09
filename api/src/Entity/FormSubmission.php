@@ -4,8 +4,8 @@
 
 // use DateTime;
 // use App\Repository\FormSubmissionRepository;
-// use App\Trait\CreatedDate;
-// use App\Trait\Uuid;
+// use App\Transversal\CreatedDate;
+// use App\Transversal\Uuid;
 // use App\Utils\Utils;
 
 // class FormSubmission extends FormSubmissionRepository

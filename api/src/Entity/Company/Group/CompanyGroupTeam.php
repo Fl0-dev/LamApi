@@ -2,7 +2,7 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;

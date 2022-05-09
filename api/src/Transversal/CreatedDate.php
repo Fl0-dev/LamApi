@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Trait;
+namespace App\Transversal;
 
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,5 +45,15 @@ trait CreatedDate
     public function hasCreatedDate(): bool
     {
         return $this->getCreatedDate() instanceof \DateTime;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedDateBeforePersist(): void
+    {
+        if (!$this->hasCreatedDate()) {
+            $this->setCreatedDate(new \DateTime());
+        }
     }
 }

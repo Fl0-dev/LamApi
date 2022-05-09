@@ -2,7 +2,7 @@
 namespace App\Entity\Offer;
 
 use App\Entity\Offer\Offer;
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

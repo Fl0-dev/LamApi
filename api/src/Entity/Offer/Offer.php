@@ -8,10 +8,10 @@ use App\Entity\Offer\OfferDetails;
 use App\Entity\Offer\OfferContent;
 use App\Repository\OfferRepository;
 use App\Functional\EntityWorkflow;
-use App\Trait\CreatedDate;
-use App\Trait\LastModifiedDate;
-use App\Trait\Slug;
-use App\Trait\Uuid;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
+use App\Transversal\Slug;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

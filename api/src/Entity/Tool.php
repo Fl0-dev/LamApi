@@ -6,7 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Media\Media;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,14 +40,14 @@ class Tool
     /**
      * URL
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private ?string $url = null;
 
     /**
      * Description
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $description = null;
 

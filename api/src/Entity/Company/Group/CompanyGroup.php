@@ -8,9 +8,9 @@ use App\Entity\Company\Group\CompanyGroupActivity;
 use App\Entity\Company\Group\CompanyGroupCommunication;
 use App\Entity\Company\Group\CompanyGroupIdentity;
 use App\Functional\EntityWorkflow;
-use App\Trait\CreatedDate;
-use App\Trait\Slug;
-use App\Trait\Uuid;
+use App\Transversal\CreatedDate;
+use App\Transversal\Slug;
+use App\Transversal\Uuid;
 use App\Utils\Constants;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,10 +20,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Company Group
  *
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
-#[ApiResource(
-    routePrefix: '/company'
-)]
+#[ApiResource(routePrefix: '/company')]
 class CompanyGroup
 {
     use Uuid;
@@ -45,14 +44,14 @@ class CompanyGroup
     /**
      * CompanyGroup Primary Color (hexadecimal)
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private ?string $color = null;
 
     /**
      * Referral Code
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private ?string $referralCode = null;
 

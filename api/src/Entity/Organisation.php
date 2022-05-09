@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Media\MediaImage;
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 

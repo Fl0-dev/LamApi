@@ -3,7 +3,7 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;

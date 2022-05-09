@@ -3,7 +3,7 @@
 namespace App\Entity\Company\Group;
 
 use App\Entity\Media\Media;
-use App\Trait\Uuid;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,7 +32,7 @@ class CompanyGroupTeamMedia
     /**
      * Description
      *
-     * @ORM\Column(type="string", length=5000)
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $description = null;
 

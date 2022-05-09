@@ -13,14 +13,14 @@ trait CompanyGroupActivity
     /**
      * General description of CompanyGroup customers
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private ?string $customersDesc = null;
 
     /**
      * Number of CompanyGroup customers
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private ?int $customersNumber = null;
 

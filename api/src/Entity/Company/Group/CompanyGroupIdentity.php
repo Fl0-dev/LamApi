@@ -31,21 +31,21 @@ trait CompanyGroupIdentity
     /**
      * Year of the CompanyGroup creation
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private ?int $creationYear = null;
 
     /**
      * Global HR Mail Address
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $globalHrMailAddress = null;
 
     /**
      * CompanyGroup Turnover
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private ?int $turnover = null;
 
@@ -79,14 +79,14 @@ trait CompanyGroupIdentity
     /**
      * "Who are we" CompanyGroup
      *
-     * @ORM\Column(type="string", length=5000)
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $usText = null;
 
     /**
      * CompanyGroup values
      *
-     * @ORM\Column(type="string", length=5000)
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $values = null;
 

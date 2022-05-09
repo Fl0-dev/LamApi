@@ -3,8 +3,8 @@
 namespace App\Entity\Localisation;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Trait\Slug;
-use App\Trait\Uuid;
+use App\Transversal\Slug;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
