@@ -22,11 +22,7 @@ class CompanyGroupJobType
      */
     private ?CompanyGroup $companyGroup = null;
 
-    /**
-     * JobType
-     *
-     * @ORM\Column(type="job_type")
-     */
+    
     private ?JobType $jobType = null;
 
     /**

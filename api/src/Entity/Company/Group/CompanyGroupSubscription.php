@@ -23,11 +23,7 @@ class CompanyGroupSubscription
      */
     private ?CompanyGroup $companyGroup = null;
 
-    /**
-     * Subscription
-     *
-     * @ORM\Column(type="subscription")
-     */
+    #[ORM\ManyToOne(targetEntity: Subscription::class)]
     private ?Subscription $subscription = null;
 
     /**

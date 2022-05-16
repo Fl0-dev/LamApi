@@ -10,20 +10,16 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210511103509 extends AbstractMigration
+final class Version20220516120227 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP SEQUENCE greeting_id_seq CASCADE');
-        $this->addSql('CREATE DOMAIN Badge AS VARCHAR(50)');
-        $this->addSql('CREATE DOMAIN JobType AS VARCHAR(50)');
-        $this->addSql('CREATE DOMAIN Subscription AS VARCHAR(50)');
         $this->addSql('CREATE TABLE address (id UUID NOT NULL, city_id UUID DEFAULT NULL, name VARCHAR(50) NOT NULL, street VARCHAR(255) NOT NULL, postal_code VARCHAR(10) NOT NULL, hr_mail_address VARCHAR(255) NOT NULL, latitude DOUBLE PRECISION NOT NULL, longitude DOUBLE PRECISION NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_D4E6F818BAC62AF ON address (city_id)');
         $this->addSql('COMMENT ON COLUMN address.id IS \'(DC2Type:uuid)\'');
@@ -41,7 +37,7 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_430B3959F5B7AF75 ON company_entity_offices_addresses (address_id)');
         $this->addSql('COMMENT ON COLUMN company_entity_offices_addresses.company_entity_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN company_entity_offices_addresses.address_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE company_group (id UUID NOT NULL, logo_id UUID DEFAULT NULL, header_media_id UUID DEFAULT NULL, main_media_id UUID DEFAULT NULL, social_id UUID DEFAULT NULL, color VARCHAR(255) NOT NULL, referral_code VARCHAR(255) NOT NULL, career_website BOOLEAN NOT NULL, open_to_recruitment BOOLEAN NOT NULL, slug VARCHAR(255) NOT NULL, created_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, name VARCHAR(100) NOT NULL, creation_year INT NOT NULL, global_hr_mail_address VARCHAR(255) NOT NULL, turnover INT NOT NULL, us_text VARCHAR(5000) NOT NULL, values VARCHAR(5000) NOT NULL, customers_desc VARCHAR(255) NOT NULL, customers_number INT NOT NULL, website VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE company_group (id UUID NOT NULL, logo_id UUID DEFAULT NULL, header_media_id UUID DEFAULT NULL, main_media_id UUID DEFAULT NULL, social_id UUID DEFAULT NULL, color VARCHAR(255) DEFAULT NULL, referral_code VARCHAR(255) DEFAULT NULL, career_website BOOLEAN NOT NULL, open_to_recruitment BOOLEAN NOT NULL, slug VARCHAR(255) NOT NULL, created_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, name VARCHAR(100) NOT NULL, creation_year INT DEFAULT NULL, global_hr_mail_address VARCHAR(255) DEFAULT NULL, turnover INT DEFAULT NULL, us_text TEXT DEFAULT NULL, values TEXT DEFAULT NULL, customers_desc VARCHAR(255) DEFAULT NULL, customers_number INT DEFAULT NULL, website VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_2A31E6A0F98F144A ON company_group (logo_id)');
         $this->addSql('CREATE INDEX IDX_2A31E6A05B42DC0F ON company_group (header_media_id)');
         $this->addSql('CREATE INDEX IDX_2A31E6A033BDCC00 ON company_group (main_media_id)');
@@ -71,15 +67,15 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C81332B89E6B1585 ON company_group_partners (organisation_id)');
         $this->addSql('COMMENT ON COLUMN company_group_partners.company_group_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN company_group_partners.organisation_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE company_group_badge (id UUID NOT NULL, company_group_id UUID DEFAULT NULL, badge Badge NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE company_group_badge (id UUID NOT NULL, company_group_id UUID DEFAULT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_B70DDBE2E6C3CC2A ON company_group_badge (company_group_id)');
         $this->addSql('COMMENT ON COLUMN company_group_badge.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN company_group_badge.company_group_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE company_group_job_type (id UUID NOT NULL, company_group_id UUID DEFAULT NULL, job_type JobType NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE company_group_job_type (id UUID NOT NULL, company_group_id UUID DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_2CEA42B4E6C3CC2A ON company_group_job_type (company_group_id)');
         $this->addSql('COMMENT ON COLUMN company_group_job_type.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN company_group_job_type.company_group_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE company_group_subscription (id UUID NOT NULL, company_group_id UUID DEFAULT NULL, subscription Subscription NOT NULL, created_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE company_group_subscription (id UUID NOT NULL, company_group_id UUID DEFAULT NULL, created_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_FCBAC955E6C3CC2A ON company_group_subscription (company_group_id)');
         $this->addSql('COMMENT ON COLUMN company_group_subscription.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN company_group_subscription.company_group_id IS \'(DC2Type:uuid)\'');
@@ -92,7 +88,7 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_1DEC6661EA9FDD75 ON company_group_team_medias (media_id)');
         $this->addSql('COMMENT ON COLUMN company_group_team_medias.company_group_team_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN company_group_team_medias.media_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE company_group_team_media (id UUID NOT NULL, company_group_team_id UUID DEFAULT NULL, media_id UUID DEFAULT NULL, description VARCHAR(5000) NOT NULL, destination VARCHAR(50) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE company_group_team_media (id UUID NOT NULL, company_group_team_id UUID DEFAULT NULL, media_id UUID DEFAULT NULL, description TEXT DEFAULT NULL, destination VARCHAR(50) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_541C7545D34EAEDF ON company_group_team_media (company_group_team_id)');
         $this->addSql('CREATE INDEX IDX_541C7545EA9FDD75 ON company_group_team_media (media_id)');
         $this->addSql('COMMENT ON COLUMN company_group_team_media.id IS \'(DC2Type:uuid)\'');
@@ -108,7 +104,7 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN media_image.id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE media_video (id UUID NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN media_video.id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE offer (id UUID NOT NULL, company_entity_id UUID DEFAULT NULL, address_id UUID DEFAULT NULL, provided BOOLEAN NOT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, created_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, last_modified_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, job_title INT NOT NULL, contract_type VARCHAR(255) NOT NULL, fully_telework BOOLEAN NOT NULL, weekly_hours DOUBLE PRECISION NOT NULL, level_of_study INT NOT NULL, start_asap BOOLEAN NOT NULL, start_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, salary_min DOUBLE PRECISION NOT NULL, salary_max DOUBLE PRECISION NOT NULL, experience INT NOT NULL, missions VARCHAR(255) NOT NULL, needs VARCHAR(255) NOT NULL, works_with_us VARCHAR(255) NOT NULL, prospects_with_us VARCHAR(255) NOT NULL, recruitment_process VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE offer (id UUID NOT NULL, company_entity_id UUID DEFAULT NULL, address_id UUID DEFAULT NULL, provided BOOLEAN NOT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, created_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, last_modified_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, job_title INT NOT NULL, contract_type VARCHAR(255) NOT NULL, fully_telework BOOLEAN NOT NULL, weekly_hours DOUBLE PRECISION NOT NULL, level_of_study INT NOT NULL, start_asap BOOLEAN NOT NULL, start_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, salary_min DOUBLE PRECISION NOT NULL, salary_max DOUBLE PRECISION NOT NULL, experience INT NOT NULL, missions TEXT NOT NULL, needs TEXT NOT NULL, works_with_us TEXT NOT NULL, prospects_with_us TEXT NOT NULL, recruitment_process TEXT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_29D6873EB23EF7AD ON offer (company_entity_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_29D6873EF5B7AF75 ON offer (address_id)');
         $this->addSql('COMMENT ON COLUMN offer.id IS \'(DC2Type:uuid)\'');
@@ -133,7 +129,7 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN region.id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE social (id UUID NOT NULL, linkedin VARCHAR(255) NOT NULL, twitter VARCHAR(255) NOT NULL, facebook VARCHAR(255) NOT NULL, instagram VARCHAR(255) NOT NULL, youtube VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN social.id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE tool (id UUID NOT NULL, logo_id UUID DEFAULT NULL, header_media_id UUID DEFAULT NULL, name VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE tool (id UUID NOT NULL, logo_id UUID DEFAULT NULL, header_media_id UUID DEFAULT NULL, name VARCHAR(255) NOT NULL, url VARCHAR(255) DEFAULT NULL, description TEXT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_20F33ED1F98F144A ON tool (logo_id)');
         $this->addSql('CREATE INDEX IDX_20F33ED15B42DC0F ON tool (header_media_id)');
         $this->addSql('COMMENT ON COLUMN tool.id IS \'(DC2Type:uuid)\'');
@@ -179,10 +175,9 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('ALTER TABLE pool ADD CONSTRAINT FK_AF91A986BF396750 FOREIGN KEY (id) REFERENCES organisation (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE tool ADD CONSTRAINT FK_20F33ED1F98F144A FOREIGN KEY (logo_id) REFERENCES media_image (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE tool ADD CONSTRAINT FK_20F33ED15B42DC0F FOREIGN KEY (header_media_id) REFERENCES media (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('DROP TABLE greeting');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
@@ -223,8 +218,6 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('ALTER TABLE company_group DROP CONSTRAINT FK_2A31E6A0FFEB5B27');
         $this->addSql('ALTER TABLE company_group_tools DROP CONSTRAINT FK_A3074D888F7B22CC');
         $this->addSql('ALTER TABLE offer_tools DROP CONSTRAINT FK_69D7A39E8F7B22CC');
-        $this->addSql('CREATE SEQUENCE greeting_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE greeting (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('DROP TABLE address');
         $this->addSql('DROP TABLE city');
         $this->addSql('DROP TABLE company_entity');
@@ -253,8 +246,5 @@ final class Version20210511103509 extends AbstractMigration
         $this->addSql('DROP TABLE social');
         $this->addSql('DROP TABLE tool');
         $this->addSql('DROP TABLE "user"');
-        $this->addSql('DROP DOMAIN IF EXISTS Badge');
-        $this->addSql('DROP DOMAIN IF EXISTS JobType');
-        $this->addSql('DROP DOMAIN IF EXISTS Subscription');
     }
 }
