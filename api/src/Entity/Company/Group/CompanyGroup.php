@@ -8,9 +8,7 @@ use App\Entity\Company\Group\CompanyGroupActivity;
 use App\Entity\Company\Group\CompanyGroupCommunication;
 use App\Entity\Company\Group\CompanyGroupIdentity;
 use App\Functional\EntityWorkflow;
-use App\Transversal\CreatedDate;
-use App\Transversal\Slug;
-use App\Transversal\Uuid;
+use App\Transversal\TechnicalProperties;
 use App\Utils\Constants;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,9 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource(routePrefix: '/company')]
 class CompanyGroup
 {
-    use Uuid;
-    use Slug;
-    use CreatedDate;
+    use TechnicalProperties;
 
     use EntityWorkflow;
     use CompanyGroupIdentity;

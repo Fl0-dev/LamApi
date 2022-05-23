@@ -8,10 +8,7 @@ use App\Entity\Offer\OfferDetails;
 use App\Entity\Offer\OfferContent;
 use App\Repository\OfferRepository;
 use App\Functional\EntityWorkflow;
-use App\Transversal\CreatedDate;
-use App\Transversal\LastModifiedDate;
-use App\Transversal\Slug;
-use App\Transversal\Uuid;
+use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,10 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class Offer extends OfferRepository
 {
-    use Uuid;
-    use Slug;
-    use CreatedDate;
-    use LastModifiedDate;
+    use TechnicalProperties;
 
     use EntityWorkflow;
     use OfferDetails;

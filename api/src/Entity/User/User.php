@@ -3,6 +3,8 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -44,6 +46,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class User implements UserInterface
 {
     use Uuid;
+    use CreatedDate;
+    use LastModifiedDate;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)

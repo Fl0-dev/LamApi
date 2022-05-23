@@ -6,8 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\Entity\CompanyEntityOffices;
 use App\Entity\Company\Group\CompanyGroup;
 use App\Entity\Offer\Offer;
-use App\Transversal\Slug;
-use App\Transversal\Uuid;
+use App\Transversal\TechnicalProperties;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,8 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class CompanyEntity
 {
-    use Uuid;
-    use Slug;
+    use TechnicalProperties;
+
     use CompanyEntityOffices;
 
     /**
