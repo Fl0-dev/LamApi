@@ -35,6 +35,7 @@ class CompanyGroup
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroupSubscription", mappedBy="companyGroup")
      */
+
     private CompanyGroupSubscription $subscription;
 
     /**

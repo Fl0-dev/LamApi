@@ -22,11 +22,7 @@ class CompanyGroupBadge
      */
     private ?CompanyGroup $companyGroup = null;
 
-    /**
-     * Badge
-     *
-     * @ORM\Column(type="badge")
-     */
+    #[ORM\ManyToOne(targetEntity: Badge::class)]
     private ?Badge $badge = null;
 
     /**

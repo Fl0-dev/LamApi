@@ -28,6 +28,7 @@ class CompanyGroupSubscription
      *
      * @ORM\Column(type="subscription")
      */
+
     private ?Subscription $subscription = null;
 
     /**
