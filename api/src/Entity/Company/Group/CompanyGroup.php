@@ -30,7 +30,12 @@ class CompanyGroup
     use CompanyGroupActivity;
     use CompanyGroupCommunication;
 
-    #[ORM\ManyToOne(targetEntity: CompanyGroupSubscription::class)]
+    /**
+     * CompanyGroup Subscription
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroupSubscription", mappedBy="companyGroup")
+     */
+
     private CompanyGroupSubscription $subscription;
 
     /**

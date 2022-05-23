@@ -25,7 +25,7 @@ class Department
     /**
      * Department Region
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Region", inversedBy="departments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Region")
      */
     private ?Region $region = null;
 

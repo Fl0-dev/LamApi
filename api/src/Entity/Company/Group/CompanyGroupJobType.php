@@ -22,7 +22,7 @@ class CompanyGroupJobType
      */
     private ?CompanyGroup $companyGroup = null;
 
-    
+    #[ORM\ManyToOne(targetEntity: JobType::class)]
     private ?JobType $jobType = null;
 
     /**
