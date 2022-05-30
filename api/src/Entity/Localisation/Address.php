@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Address
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: LocalisationRepository::class)]
 class Address
 {
     use Uuid;
@@ -17,50 +17,50 @@ class Address
     /**
      * Name
      *
-     * @ORM\Column(type="string", length=50)
      */
+    #[ORM\Column(type: "string", length: 50)]
     private ?string $name = null;
 
     /**
      * Street
      *
-     * @ORM\Column(type="string", length=255)
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $street = null;
 
     /**
      * City
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\City")
      */
+    #[ORM\ManyToOne(targetEntity: City::class)]
     private $city;
 
     /**
      * Postal Code
      *
-     * @ORM\Column(type="string", length=10)
      */
+    #[ORM\Column(type: "string", length: 10)]
     private ?string $postalCode = null;
 
     /**
      * HR Mail Address
      *
-     * @ORM\Column(type="string", length=255)
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $hrMailAddress = null;
 
     /**
      * Latitude
      *
-     * @ORM\Column(type="float")
      */
+    #[ORM\Column(type: "float")]
     private ?float $latitude = null;
 
     /**
      * Longitude
      *
-     * @ORM\Column(type="float")
      */
+    #[ORM\Column(type: "float")]
     private ?float $longitude = null;
 
     /**

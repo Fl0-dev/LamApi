@@ -10,8 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * CompanyGroup Team
  *
- * @ORM\Entity
  */
+#[ORM\Entity]
 class CompanyGroupTeam
 {
     use Uuid;
@@ -19,15 +19,15 @@ class CompanyGroupTeam
     /**
      * CompanyGroup
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="teams")
      */
+    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy:"teams")]
     private CompanyGroup $companyGroup;
 
     /**
      * Name
      *
-     * @ORM\Column(type="string", length=50)
      */
+    #[ORM\Column(type: "string", length: 50)]
     private ?string $name = null;
 
     /**
@@ -35,12 +35,11 @@ class CompanyGroupTeam
      *
      * @var ArrayCollection<CompanyGroupTeamMedia>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeamMedia")
-     * @ORM\JoinTable(name="company_group_team_medias",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_team_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: CompanyGroupTeamMedia::class)]
+    #[ORM\JoinTable(name: "company_group_team_medias")]
+    #[ORM\JoinColumn(name: "company_group_team_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id")]
     private iterable $medias;
 
     /**

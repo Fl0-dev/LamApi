@@ -192,7 +192,7 @@ trait File
     /**
      * Set indicator File exists
      *
-     * @param bool $fileExists Image fileExists
+     * @param bool $fileExists MediaImage fileExists
      *
      * @return self
      */
@@ -206,7 +206,7 @@ trait File
     }
 
     /**
-     * Check if the file behind Image src exists and set fileExists indicator
+     * Check if the file behind MediaImage src exists and set fileExists indicator
      *
      * @return boolean
      */
@@ -225,7 +225,7 @@ trait File
     }
 
     /**
-     * Get Image File Size
+     * Get MediaImage File Size
      *
      * @return int|null
      */
@@ -235,7 +235,7 @@ trait File
     }
 
     /**
-     * Set Image File Size if isn't already
+     * Set MediaImage File Size if isn't already
      *
      * @param boolean $force
      *
@@ -258,7 +258,7 @@ trait File
     }
 
     /**
-     * Check if Image has a valid File Size
+     * Check if MediaImage has a valid File Size
      *
      * @return boolean
      */
@@ -270,7 +270,7 @@ trait File
     }
 
     /**
-     * Check if Image has a File Size equals or lower than given Max File Size (in bytes)
+     * Check if MediaImage has a File Size equals or lower than given Max File Size (in bytes)
      *
      * @param int $maxFileSize Max File Size in bytes
      *
@@ -306,7 +306,7 @@ trait File
     public function downloadFile()
     {
         // Gives us access to the download_url() and wp_handle_sideload() functions.
-        require_once( ABSPATH . 'wp-admin/includes/file.php' );
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
 
         $timeout = 5;
 
@@ -379,7 +379,7 @@ trait File
         return false;
     }
 
-        /**
+    /**
      * Check if given file url is a valid file url
      */
     public static function isFileExistsFromUrl(string $fileUrl): bool

@@ -6,17 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 class UserConsumer extends User
 {
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
+    #[ORM\Column(type: "date", nullable: true)]
     private $birthdate;
 
     /**
      * Indicates if the user wanted explicitly create its account (true)
      * or if it's Lamacompta without consentment (false)
      *
-     * @ORM\Column(type="boolean", nullable=true)
      */
+    #[ORM\Column(type: "boolean", nullable: true)]
     private $optin;
 
     public function __construct()

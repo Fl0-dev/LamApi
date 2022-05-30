@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Offer External Platform
  *
- * @ORM\Entity
  */
+#[ORM\Entity]
 class OfferExternalPlatform
 {
     use Uuid;
@@ -23,22 +23,22 @@ class OfferExternalPlatform
     /**
      * Offer that matches in App Database
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Offer\Offer")
      */
+    #[ORM\OneToOne(targetEntity: Offer::class)]
     private Offer $offer;
 
     /**
      * Name of External Platform from which the Offer comes (Talentplug...)
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private string $platform;
 
     /**
      * Offer ID on External Platform to let make matching
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $externalId = null;
 
     /**

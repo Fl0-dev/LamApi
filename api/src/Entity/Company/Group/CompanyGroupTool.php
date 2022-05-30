@@ -2,17 +2,17 @@
 
 namespace App\Entity\Company\Group;
 
-use App\Entity\JobType;
+use App\Entity\Tool;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Company JobType
+ * CompanyEntity Tool
  *
  */
-#[ORM\Entity(repositoryClass: CompanyGroupJobTypeRepository::class)]
-#[ORM\Table(name: "company_group_has_job_type")]
-class CompanyGroupJobType
+#[ORM\Entity()]
+#[ORM\Table(name: "company_group_has_tool")]
+class CompanyGroupTool
 {
     use Uuid;
 
@@ -20,19 +20,19 @@ class CompanyGroupJobType
      * CompanyGroup
      *
      */
-    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "jobTypes")]
+    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "tools")]
     private ?CompanyGroup $companyGroup = null;
 
-    #[ORM\ManyToOne(targetEntity: JobType::class, inversedBy: "companyGroups")]
-    private ?JobType $jobType = null;
+    #[ORM\ManyToOne(targetEntity: Tool::class, inversedBy: "companyGroups")]
+    private ?Tool $tool = null;
 
     /**
-     * CompanyJobType constructor
+     * Constructor
      */
-    public function __construct(?CompanyGroup $companyGroup = null, ?JobType $jobType = null)
+    public function __construct(?CompanyGroup $companyGroup = null, ?Tool $tool = null)
     {
         $this->setCompanyGroup($companyGroup);
-        $this->setJobType($jobType);
+        $this->setTool($tool);
     }
 
     /**
@@ -62,30 +62,30 @@ class CompanyGroupJobType
     }
 
     /**
-     * Get the JobType
+     * Get the Tool
      */
-    public function getJobType(): ?JobType
+    public function getTool(): ?Tool
     {
-        return $this->jobtype;
+        return $this->tool;
     }
 
     /**
-     * Set the JobType
+     * Set the Tool
      */
-    public function setJobType(?JobType $jobtype): self
+    public function setTool(?Tool $tool): self
     {
-        $this->jobtype = $jobtype;
+        $this->tool = $tool;
 
         return $this;
     }
 
     /**
-     * Check if has a valid JobType
+     * Check if has a valid Tool
      */
-    public function hasJobType(): bool
+    public function hasTool(): bool
     {
-        $jobtype = $this->getJobType();
+        $tool = $this->getTool();
 
-        return $jobtype instanceof JobType && $jobtype->hasSlug();
+        return $tool instanceof Tool && $tool->hasSlug();
     }
 }

@@ -17,19 +17,17 @@ trait CompanyEntityOffices
      *
      * @var ArrayCollection<Address>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Localisation\Address")
-     * @ORM\JoinTable(name="company_entity_offices_addresses",
-     *      joinColumns={@ORM\JoinColumn(name="company_entity_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: Address::class)]
+    #[ORM\JoinTable(name: "company_entity_offices_addresses")]
+    #[ORM\JoinColumn(name: "company_entity_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "address_id", referencedColumnName: "id")]
     private iterable $addresses;
 
     /**
      * Number of CompanyEntity Offices
-     *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: "integer")]
     private ?int $officesNumber = null;
 
     /**

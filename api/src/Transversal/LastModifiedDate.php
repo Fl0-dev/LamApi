@@ -13,8 +13,8 @@ trait LastModifiedDate
     /**
      * Date when was last modified
      *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: "datetime")]
     private ?\DateTime $lastModifiedDate = null;
 
     /**

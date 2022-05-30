@@ -2,8 +2,9 @@
 
 namespace App\Transversal;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid as SFUuid;
+use Symfony\Component\Uid\UuidV4 as SFUuid;
 
 /**
  * Trait for using Uuid
@@ -13,11 +14,12 @@ trait Uuid
     /**
      * Uuid Property
      *
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class=Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator::class)
      */
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: SFUuid::class)]
+    #[ApiProperty(identifier: true)]
     private ?SFUuid $id = null;
 
     /**

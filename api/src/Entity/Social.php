@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Social
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: SocialRepository::class)]
 class Social
 {
     use Uuid;
@@ -18,36 +18,36 @@ class Social
     /**
      * LinkedIn URL
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $linkedin = null;
 
     /**
      * Twitter URL
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $twitter = null;
 
     /**
      * Facebook URL
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $facebook = null;
 
     /**
      * Instagram URL
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $instagram = null;
 
     /**
      * Youtube URL
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $youtube = null;
 
     /**

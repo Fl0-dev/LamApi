@@ -4,7 +4,7 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
 
 # "php" stage
@@ -19,7 +19,7 @@ RUN apk add --no-cache \
 		git \
 	;
 
-ARG APCU_VERSION=5.1.19
+ARG APCU_VERSION=5.1.21
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -55,9 +55,15 @@ RUN set -eux; \
 	apk del .build-deps
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
+	docker-php-ext-install -j$(nproc) pdo_pgsql; \
+	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
+	apk del .pgsql-deps
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
-COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini

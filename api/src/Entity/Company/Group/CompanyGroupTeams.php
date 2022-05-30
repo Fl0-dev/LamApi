@@ -30,15 +30,15 @@ trait CompanyGroupTeams
     /**
      * CompanyGroup Workforce
      *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: "integer")]
     private ?int $workforce = null;
 
     /**
      * CompanyGroup Middle Age
      *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: "integer")]
     private ?int $middleAge = null;
 
     /**
@@ -46,8 +46,8 @@ trait CompanyGroupTeams
      *
      * @var ArrayCollection<CompanyGroupTeam>
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", mappedBy="companyGroup", cascade={"persist", "remove"})
      */
+    #[ORM\OneToMany(targetEntity: CompanyGroupTeam::class, mappedBy: "companyGroup", cascade: ["persist", "remove"])]
     private iterable $teams;
 
     /**

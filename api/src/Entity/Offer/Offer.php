@@ -11,13 +11,10 @@ use App\Functional\EntityWorkflow;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Offer
- *
- * @ORM\Entity
- */
+
 #[ApiResource]
-class Offer extends OfferRepository
+#[ORM\Entity(repositoryClass:OfferRepository::class)]
+class Offer
 {
     use TechnicalProperties;
 
@@ -28,22 +25,22 @@ class Offer extends OfferRepository
     /**
      * ID for the CompanyEntity that owns the offer
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Entity\CompanyEntity", inversedBy="offers")
      */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Company\Entity\CompanyEntity", inversedBy: "offers")]
     private CompanyEntity $companyEntity;
 
     /**
      * Indicates if the Offer is provided or not
      *
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: "boolean")]
     private bool $provided = false;
 
     /**
      * Offer title
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $title = null;
 
     /**

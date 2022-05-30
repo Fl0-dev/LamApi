@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Transversal\TechnicalProperties;
 use App\Utils\Utils;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Company Subscription
@@ -14,8 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
     collectionOperations: ['get'],
     itemOperations: ['get'],
 )]
+#[ORM\Entity(repositoryClass: SubscriptionRepository::class)]
 class Subscription
 {
+
     const SUBSCRIPTION_SLUG_BEGINNER = 'beginner';
     const SUBSCRIPTION_SLUG_RECRUITER = 'recruiter';
     const SUBSCRIPTION_SLUG_EMPLOYER_BRAND = 'employer_brand';
@@ -28,13 +32,7 @@ class Subscription
 
     const SUBSCRIPTION_SLUG_DEFAULT = self::SUBSCRIPTION_SLUG_BEGINNER;
 
-    /**
-     * Slug
-     *
-     * @ApiProperty(identifier=true)
-     */
-    #[Assert\NotBlank]
-    private string $slug;
+    use TechnicalProperties;
 
     /**
      * Constructor

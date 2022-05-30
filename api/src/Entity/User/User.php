@@ -11,86 +11,67 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @ApiResource(
- *     itemOperations={
- *          "get"={
- *             "path"="/users/{id}",
- *             "swagger_context"={
- *                 "tags"={"User"}
- *             }
- *          }
- *     },
- *     collectionOperations={
- *         "post"={
- *             "path"="/users",
- *             "method"="POST",
- *             "swagger_context"={
- *                 "tags"={"User"},
- *                 "summary"={"Create a new user"}
- *             }
- *         },
- *         "get"={
- *             "path"="/users",
- *             "method"="GET",
- *             "swagger_context"={
- *                 "tags"={"User"}
- *             }
- *          }
- *     },
- * )
- *
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
- */
+#[ApiResource(
+    itemOperations: [
+        "get" => [
+            "path" => "/users/{id}",
+            "swagger_context" => [
+                "tags" => ["User"]
+            ]
+        ]
+    ],
+    collectionOperations: [
+        "post" => [
+            "path" => "/users",
+            "method" => "POST",
+            "swagger_context" => [
+                "tags" => ["User"],
+                "summary" => "Create a new user"
+            ]
+        ],
+        "get" => [
+            "path" => "/users",
+            "method" => "GET",
+            "swagger_context" => [
+                "tags" => ["User"]
+            ]
+        ]
+    ]
+)]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface
 {
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    #[ORM\Column(type: "string", length: 180, unique: true)]
     private $email;
 
-    /**
-     * @var ArrayCollection<UserRole> User's roles
-     *
-     * @ORM\Column(type="json")
-     */
-    private $roles;
+    #[ORM\Column(type: "json")]
+    private $roles = [];
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=180)
-     */
+    #[ORM\Column(type: "string", length: 180)]
     private $firstname;
 
-    /**
-     * @ORM\Column(type="string", length=180)
-     */
+    #[ORM\Column(type: "string", length: 180)]
     private $lastname;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: "datetime")]
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private $apiToken;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->roles = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -118,40 +99,28 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): ArrayCollection
+    public function getRoles(): array
     {
         $roles = $this->roles;
-
-        if ($roles instanceof ArrayCollection) {
-            $roles = $roles->toArray();
-        }
-
         // guarantee every user at least has ROLE_USER
-        $roles[] = UserRole::USER;
-        $roles = array_unique($roles);
+        $roles[] = 'ROLE_USER';
 
-        return new ArrayCollection($roles);
+        return array_unique($roles);
     }
 
-    public function setRoles($roles): self
+    public function setRoles(array $roles): self
     {
-        if (is_array($roles)) {
-            $roles = new ArrayCollection($roles);
-        }
-
-        if ($roles instanceof ArrayCollection) {
-            $this->roles = $roles;
-        }
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function addRole(UserRole $role): self
-    {
-        $this->roles->add($role);
+    // public function addRole(UserRole $role): self
+    // {
+    //     $this->roles->add($role);
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @see UserInterface

@@ -9,8 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CompanyEntity Badge
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: CompanyGroupBadgeRepository::class)]
+#[ORM\Table(name: "company_group_has_badge")]
 class CompanyGroupBadge
 {
     use Uuid;
@@ -18,18 +19,18 @@ class CompanyGroupBadge
     /**
      * CompanyGroup
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="badges")
      */
+    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "badges")]
     private ?CompanyGroup $companyGroup = null;
 
-    #[ORM\ManyToOne(targetEntity: Badge::class)]
+    #[ORM\ManyToOne(targetEntity: Badge::class, inversedBy: "companyGroups")]
     private ?Badge $badge = null;
 
     /**
      * Description of Badge for this CompanyGroup (why they are this badge)
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $description = null;
 
     /**

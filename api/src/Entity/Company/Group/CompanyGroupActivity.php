@@ -12,48 +12,24 @@ trait CompanyGroupActivity
 {
     /**
      * General description of CompanyGroup customers
-     *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $customersDesc = null;
 
     /**
      * Number of CompanyGroup customers
-     *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: "integer", nullable: true)]
     private ?int $customersNumber = null;
 
-    /**
-     * CompanyGroup Jobs Types
-     *
-     * @var ArrayCollection<CompanyGroupJobType>
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupJobType", mappedBy="companyGroup")
-     */
-    private iterable $jobTypes;
+    #[ORM\OneToMany(targetEntity: CompanyGroupBadge::class, mappedBy: "companyGroup")]
+    private $badges;
 
-    /**
-     * CompanyGroup Badges
-     *
-     * @var ArrayCollection<CompanyGroupBadge>
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Company\Group\CompanyGroupBadge", mappedBy="companyGroup")
-     */
-    private iterable $badges;
+    #[ORM\OneToMany(targetEntity: CompanyGroupJobType::class, mappedBy: "companyGroup")]
+    private $jobTypes;
 
-    /**
-     * Tools used in the CompanyGroup
-     *
-     * @var ArrayCollection<Tool>
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tool")
-     * @ORM\JoinTable(name="company_group_tools",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tool_id", referencedColumnName="id")}
-     * )
-     */
-    private iterable $tools;
+    #[ORM\OneToMany(targetEntity: CompanyGroupTool::class, mappedBy: "companyGroup")]
+    private $tools;
 
     /**
      * Get general description of CompanyGroup Customers

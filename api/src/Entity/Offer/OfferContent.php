@@ -2,6 +2,8 @@
 
 namespace App\Entity\Offer;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Offer Content
  */
@@ -10,36 +12,36 @@ trait OfferContent
     /**
      * Missions
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $missions = null;
 
     /**
      * Offer Needs
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $needs = null;
 
     /**
      * The reasons to work with the Offer's Company
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $worksWithUs = null;
 
     /**
      * Prospects with the Offer's Company
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $prospectsWithUs = null;
 
     /**
      * Recruitment Process
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $recruitmentProcess = null;
 
 

@@ -17,50 +17,50 @@ trait CompanyGroupIdentity
     /**
      * CompanyGroup Name
      *
-     * @ORM\Column(type="string", length=100)
      */
+    #[ORM\Column(type: "string", length: 100)]
     private ?string $name = null;
 
     /**
      * CompanyGroup Logo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\MediaImage")
      */
+    #[ORM\ManyToOne(targetEntity: MediaImage::class)]
     private ?MediaImage $logo = null;
 
     /**
      * Year of the CompanyGroup creation
      *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: "integer", nullable: true)]
     private ?int $creationYear = null;
 
     /**
      * Global HR Mail Address
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $globalHrMailAddress = null;
 
     /**
      * CompanyGroup Turnover
      *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: "integer", nullable: true)]
     private ?int $turnover = null;
 
     /**
      * Media (image or video) of the header page CompanyGroup
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      */
+    #[ORM\ManyToOne(targetEntity: Media::class)]
     private MediaImage|MediaVideo|null $headerMedia = null;
 
     /**
      * Main CompanyGroup media (image or video)
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      */
+    #[ORM\ManyToOne(targetEntity: Media::class)]
     private MediaImage|MediaVideo|null $mainMedia = null;
 
     /**
@@ -68,26 +68,25 @@ trait CompanyGroupIdentity
      *
      * @var ArrayCollection<Media>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Media\Media")
-     * @ORM\JoinTable(name="company_group_medias",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\JoinTable(name: "company_group_medias")]
+    #[ORM\JoinColumn(name: "company_group_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id")]
     private iterable $medias;
 
     /**
      * "Who are we" CompanyGroup
      *
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $usText = null;
 
     /**
      * CompanyGroup values
      *
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $values = null;
 
     /**

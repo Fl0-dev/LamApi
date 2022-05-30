@@ -4,14 +4,15 @@ namespace App\Entity\Localisation;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Transversal\Slug;
+use App\Transversal\TechnicalProperties;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Localisation: Region
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: LocalisationRepository::class)]
 #[ApiResource(
     routePrefix: '/localisation',
     collectionOperations: ['get'],
@@ -19,21 +20,20 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class Region
 {
-    use Uuid;
-    use Slug;
+    use TechnicalProperties;
 
     /**
      * Region Code
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $code = null;
 
     /**
      * Region Name
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $name = null;
 
     /**

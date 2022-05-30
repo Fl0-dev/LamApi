@@ -13,9 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Company Entity
- *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: CompanyRepository::class)]
 #[ApiResource(
     routePrefix: '/company'
 )]
@@ -27,9 +26,8 @@ class CompanyEntity
 
     /**
      * CompanyEntity Group
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="entities")
      */
+    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "entities")]
     private CompanyGroup $companyGroup;
 
     /**
@@ -37,8 +35,8 @@ class CompanyEntity
      *
      * @var ArrayCollection<Offer>
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Offer\Offer", mappedBy="companyEntity", cascade={"persist"})
      */
+    #[ORM\OneToMany(targetEntity: Offer::class, mappedBy: "companyEntity", cascade: ["persist"])]
     private iterable $offers;
 
     /**
