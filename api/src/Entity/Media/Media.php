@@ -90,13 +90,6 @@ abstract class Media
     private $filePath;
 
     /**
-     * Media Type (img or video)
-     *
-     */
-    #[ORM\Column(type: "string", nullable: true)]
-    private $type;
-
-    /**
      * Media alt attribute
      *
      */

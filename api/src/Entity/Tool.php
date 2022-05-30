@@ -60,9 +60,6 @@ class Tool
     #[ORM\JoinColumn(name: "header_media_id", referencedColumnName: "id")]
     private MediaImage|MediaVideo|null $headerMedia;
 
-    #[ORM\OneToMany(targetEntity: CompanyGroupTool::class, mappedBy: "tool")]
-    private $companyGroups;
-
     /**
      * Constructor
      */
