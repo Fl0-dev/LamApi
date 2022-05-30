@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CompanyGroup Team Media
  *
- * @ORM\Entity
  */
+#[ORM\Entity]
 class CompanyGroupTeamMedia
 {
     use Uuid;
@@ -18,29 +18,29 @@ class CompanyGroupTeamMedia
     /**
      * CompanyGroupTeam
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company\Group\CompanyGroupTeam", inversedBy="medias")
      */
+    #[ORM\ManyToOne(targetEntity: CompanyGroupTeam::class, inversedBy:"medias")]
     private CompanyGroupTeam $companyGroupTeam;
 
     /**
      * Media
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
      */
+    #[ORM\ManyToOne(targetEntity: Media::class)]
     private ?Media $media = null;
 
     /**
      * Description
      *
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $description = null;
 
     /**
      * Media Destination (carousel, interviews...)
      *
-     * @ORM\Column(type="string", length=50)
      */
+    #[ORM\Column(type: "string", length: 50)]
     private ?string $destination = null;
 
     /**

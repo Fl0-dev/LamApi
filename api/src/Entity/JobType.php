@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
+use App\Entity\Company\Group\CompanyGroupJobType;
+use App\Transversal\TechnicalProperties;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -13,28 +15,27 @@ use Doctrine\Common\Collections\ArrayCollection;
     collectionOperations: ['get'],
     itemOperations: ['get'],
 )]
+#[ORM\Entity]
 class JobType
 {
-    const JOB_TYPES = [
-        'expertise-comptable'   => 'Expertise comptable',
-        'audit-commissariat'    => 'Audit / Commissariat aux comptes',
-        'juridique'             => 'Juridique',
-        'social-paie'           => 'Social / Paie',
-        'conseil'               => 'Conseil',
-        'gestion-patrimoine'    => 'Gestion de patrimoine',
-        'transmission-cession'  => 'Transmission / Cession',
-        'fiscalite'             => 'Fiscalité',
-        'gestion-pilotage'      => 'Gestion / Pilotage',
-        'informatique'          => 'Informatique',
-        'comm-market'           => 'Communication / Marketing'
-    ];
+    // const JOB_TYPES = [
+    //     'expertise-comptable'   => 'Expertise comptable',
+    //     'audit-commissariat'    => 'Audit / Commissariat aux comptes',
+    //     'juridique'             => 'Juridique',
+    //     'social-paie'           => 'Social / Paie',
+    //     'conseil'               => 'Conseil',
+    //     'gestion-patrimoine'    => 'Gestion de patrimoine',
+    //     'transmission-cession'  => 'Transmission / Cession',
+    //     'fiscalite'             => 'Fiscalité',
+    //     'gestion-pilotage'      => 'Gestion / Pilotage',
+    //     'informatique'          => 'Informatique',
+    //     'comm-market'           => 'Communication / Marketing'
+    // ];
 
-    /**
-     * JobType Slug
-     *
-     * @ApiProperty(identifier=true)
-     */
-    private ?string $slug = null;
+    use TechnicalProperties;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $label = null;
 
     /**
      * Constructor
@@ -50,59 +51,11 @@ class JobType
     }
 
     /**
-     * Get JobType Slug
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set JobType Slug
-     */
-    public function setSlug($slug): self
-    {
-        if (self::isValidSlug($slug)) {
-            $this->slug = $slug;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if JobType has a valid Slug value
-     */
-    public function hasSlug(): bool
-    {
-        return self::isValidSlug($this->getSlug());
-    }
-
-    /**
-     * Check if given JobType Slug is valid
-     */
-    public static function isValidSlug($slug): bool
-    {
-        return is_string($slug) && array_key_exists($slug, self::JOB_TYPES);
-    }
-
-    /**
      * Check if is valid JobType
      */
     public function isValidJobType(): bool
     {
         return $this->hasSlug();
-    }
-
-    /**
-     * Get JobType Label
-     */
-    public function getLabel(): ?string
-    {
-        if ($this->hasSlug()) {
-            return self::JOB_TYPES[$this->getSlug()];
-        }
-
-        return null;
     }
 
     /**
@@ -135,5 +88,17 @@ class JobType
         }
 
         return $isOk;
+    }
+
+    /**
+     * Set the value of label
+     *
+     * @return  self
+     */ 
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
     }
 }

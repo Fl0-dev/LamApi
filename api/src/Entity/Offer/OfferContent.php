@@ -2,6 +2,8 @@
 
 namespace App\Entity\Offer;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Offer Content
  */
@@ -10,36 +12,36 @@ trait OfferContent
     /**
      * Missions
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $missions = null;
 
     /**
      * Offer Needs
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $needs = null;
 
     /**
      * The reasons to work with the Offer's Company
      *
-     * @ORM\Column(type="text")
      */
-    private ?string $worksWithUs = null;
+    #[ORM\Column(type: "text")]
+    private ?string $workWithUs = null;
 
     /**
      * Prospects with the Offer's Company
      *
-     * @ORM\Column(type="text")
      */
-    private ?string $prospectsWithUs = null;
+    #[ORM\Column(type: "text")]
+    private ?string $prospectWithUs = null;
 
     /**
      * Recruitment Process
      *
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: "text")]
     private ?string $recruitmentProcess = null;
 
 
@@ -103,17 +105,17 @@ trait OfferContent
     /**
      * Get Works With Us
      */
-    public function getWorksWithUs(): ?string
+    public function getWorkWithUs(): ?string
     {
-        return $this->worksWithUs;
+        return $this->workWithUs;
     }
 
     /**
      * Set Works With Us
      */
-    public function setWorksWithUs(?string $worksWithUs): self
+    public function setWorkWithUs(?string $workWithUs): self
     {
-        $this->worksWithUs = trim($worksWithUs);
+        $this->workWithUs = trim($workWithUs);
 
         return $this;
     }
@@ -121,27 +123,27 @@ trait OfferContent
     /**
      * Check if has valid Works With Us
      */
-    public function hasWorksWithUs(): bool
+    public function hasWorkWithUs(): bool
     {
-        $worksWithUs = $this->getWorksWithUs();
+        $workWithUs = $this->getWorkWithUs();
 
-        return is_string($worksWithUs) && strlen($worksWithUs) > 0;
+        return is_string($workWithUs) && strlen($workWithUs) > 0;
     }
 
     /**
      * Get Prospects With Us
      */
-    public function getProspectsWithUs(): ?string
+    public function getProspectWithUs(): ?string
     {
-        return $this->prospectsWithUs;
+        return $this->prospectWithUs;
     }
 
     /**
      * Set Prospects With Us
      */
-    public function setProspectsWithUs(?string $prospectsWithUs): self
+    public function setProspectWithUs(?string $prospectWithUs): self
     {
-        $this->prospectsWithUs = trim($prospectsWithUs);
+        $this->prospectWithUs = trim($prospectWithUs);
 
         return $this;
     }
@@ -149,11 +151,11 @@ trait OfferContent
     /**
      * Check if has valid Prospects With Us
      */
-    public function hasProspectsWithUs(): bool
+    public function hasProspectWithUs(): bool
     {
-        $prospectsWithUs = $this->getProspectsWithUs();
+        $prospectWithUs = $this->getProspectWithUs();
 
-        return is_string($prospectsWithUs) && strlen($prospectsWithUs) > 0;
+        return is_string($prospectWithUs) && strlen($prospectWithUs) > 0;
     }
 
     /**

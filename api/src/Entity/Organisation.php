@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Organisation (Partners...)
  *
- * @ORM\Entity
+
  */
+#[ORM\Entity]
 class Organisation
 {
     use Uuid;
@@ -19,22 +20,22 @@ class Organisation
     /**
      * Name
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $name = null;
 
     /**
      * Logo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\MediaImage")
      */
+    #[ORM\ManyToOne(targetEntity: MediaImage::class)]
     private ?MediaImage $logo = null;
 
     /**
      * Organisation website
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $website = null;
 
     /**

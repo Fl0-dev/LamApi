@@ -13,8 +13,8 @@ trait CreatedDate
     /**
      * Date when CompanyGroup was created
      *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: "datetime")]
     private ?\DateTime $createdDate = null;
 
     /**

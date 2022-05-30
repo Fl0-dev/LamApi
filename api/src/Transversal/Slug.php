@@ -13,8 +13,8 @@ trait Slug
     /**
      * Slug
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $slug = null;
 
     /**

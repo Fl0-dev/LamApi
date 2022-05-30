@@ -17,15 +17,15 @@ trait CompanyGroupCommunication
     /**
      * CompanyGroup Website
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $website = null;
 
     /**
      * CompanyGroup Social Networks
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Social")
      */
+    #[ORM\OneToOne(targetEntity: Social::class)]
     private ?Social $social = null;
 
     /**
@@ -33,12 +33,11 @@ trait CompanyGroupCommunication
      *
      * @var ArrayCollection<Pool>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Pool")
-     * @ORM\JoinTable(name="company_group_pools",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="pool_id", referencedColumnName="id")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: Pool::class)]
+    #[ORM\JoinTable(name: "company_group_pools")]
+    #[ORM\JoinColumn(name: "company_group_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "pool_id", referencedColumnName: "id")]
     private iterable $pools;
 
     /**
@@ -46,12 +45,11 @@ trait CompanyGroupCommunication
      *
      * @var ArrayCollection<Organisation>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organisation")
-     * @ORM\JoinTable(name="company_group_partners",
-     *      joinColumns={@ORM\JoinColumn(name="company_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="organisation_id", referencedColumnName="id")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: Organisation::class)]
+    #[ORM\JoinTable(name: "company_group_partners")]
+    #[ORM\JoinColumn(name: "company_group_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "organisation_id", referencedColumnName: "id")]
     private iterable $partners;
 
     /**

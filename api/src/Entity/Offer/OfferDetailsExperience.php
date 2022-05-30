@@ -2,6 +2,7 @@
 
 namespace App\Entity\Offer;
 
+use Doctrine\ORM\Mapping as ORM;
 use App\Utils\Utils;
 
 /**
@@ -12,8 +13,8 @@ trait OfferDetailsExperience
     /**
      * ID of Experience required for this Offer
      *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: "integer")]
     private ?int $experience = null;
 
     /**

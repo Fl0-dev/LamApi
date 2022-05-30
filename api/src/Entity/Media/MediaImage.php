@@ -2,12 +2,10 @@
 
 namespace App\Entity\Media;
 
-use App\Entity\Media\Media;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: MediaRepository::class)]
+#[ORM\Table(name: "media_image")]
 class MediaImage extends Media
 {
     const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
@@ -17,37 +15,37 @@ class MediaImage extends Media
     const MAX_IMAGE_FILE_SIZE = 307200; // 307 200 octets = 300 Kio (for Windows)
 
     /**
-     * Image Width in pixels
+     * MediaImage Width in pixels
      *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: "integer", nullable: true)]
     private ?int $width = null;
 
     /**
-     * Image Height in pixels
+     * MediaImage Height in pixels
      *
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: "integer", nullable: true)]
     private ?int $height = null;
 
     /**
-     * Image alt attribute
+     * MediaImage alt attribute
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $alt = null;
 
     /**
      * Contains  title to display under image zoomed
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $title = null;
 
     /**
-     * Image Constructor
+     * MediaImage Constructor
      *
-     * @param string $src Image URI
+     * @param string $src MediaImage URI
      */
     public function __construct($src)
     {
@@ -56,7 +54,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Set Image Dimensions informations (width and height)
+     * Set MediaImage Dimensions informations (width and height)
      *
      * @return self
      */
@@ -88,7 +86,7 @@ class MediaImage extends Media
     /**
      * Set image width
      *
-     * @param int|null $width Image width
+     * @param int|null $width MediaImage width
      *
      * @return self
      */
@@ -100,7 +98,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Check if Image has width
+     * Check if MediaImage has width
      *
      * @return bool
      */
@@ -124,7 +122,7 @@ class MediaImage extends Media
     /**
      * Set image height
      *
-     * @param int|null $height Image height
+     * @param int|null $height MediaImage height
      *
      * @return self
      */
@@ -136,7 +134,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Check if Image has height
+     * Check if MediaImage has height
      *
      * @return bool
      */
@@ -160,7 +158,7 @@ class MediaImage extends Media
     /**
      * Set image alt attribute
      *
-     * @param string|null $alt Image alt attribute
+     * @param string|null $alt MediaImage alt attribute
      *
      * @return self
      */
@@ -172,7 +170,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Check if Image has alt attribute
+     * Check if MediaImage has alt attribute
      *
      * @return bool
      */
@@ -208,7 +206,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Check if Image has a valid title
+     * Check if MediaImage has a valid title
      *
      * @return boolean
      */
@@ -220,7 +218,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Resize Image
+     * Resize MediaImage
      *
      * @param int $width
      * @param int $height
@@ -239,8 +237,8 @@ class MediaImage extends Media
         // if ($this->hasEditor()) {
         //     $editor = $this->getEditor();
 
-        //     // If given width is the same as default WP Editor Image width (1200px), don't resize because
-        //     // WP Image Editor resize automatically on this width and cause $result error (stupid...)
+        //     // If given width is the same as default WP Editor MediaImage width (1200px), don't resize because
+        //     // WP MediaImage Editor resize automatically on this width and cause $result error (stupid...)
         //     if (self::DEFAULT_WP_IMAGE_EDITOR_WIDTH !== $width) {
         //         $result = $editor->resize($width, $height, false);
 
@@ -265,7 +263,7 @@ class MediaImage extends Media
     }
 
     /**
-     * Compress Image
+     * Compress MediaImage
      *
      * @param int $quality
      *
@@ -365,7 +363,8 @@ class MediaImage extends Media
      *
      * @return resource
      */
-    function imageCreateFromAny($filepath) {
+    function imageCreateFromAny($filepath)
+    {
         $type = exif_imagetype($filepath);
 
         $allowedTypes = array(

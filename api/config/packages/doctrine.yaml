@@ -10,16 +10,6 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         server_version: '13'
 
-        types:
-            badge: App\Type\BadgeType
-            job_type: App\Type\JobTypeType
-            subscription: App\Type\SubscriptionType
-
-        mapping_types:
-            badge: badge
-            job_type: job_type
-            subscription: subscription
-
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -27,7 +17,7 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                type: annotation
+                # type: annotation
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App

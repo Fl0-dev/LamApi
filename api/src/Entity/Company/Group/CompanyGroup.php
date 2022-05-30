@@ -4,7 +4,6 @@ namespace App\Entity\Company\Group;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\Entity\CompanyEntity;
-use App\Entity\Company\Group\CompanyGroupActivity;
 use App\Entity\Company\Group\CompanyGroupCommunication;
 use App\Entity\Company\Group\CompanyGroupIdentity;
 use App\Functional\EntityWorkflow;
@@ -13,14 +12,14 @@ use App\Utils\Constants;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Company Group
- *
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks()
  */
+#[ORM\Entity, HasLifecycleCallbacks]
 #[ApiResource(routePrefix: '/company')]
+#[ORM\Table(name: "company_group")]
 class CompanyGroup
 {
     use TechnicalProperties;
@@ -32,47 +31,40 @@ class CompanyGroup
 
     /**
      * CompanyGroup Subscription
-     *
-     * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroupSubscription", mappedBy="companyGroup")
      */
-
+    #[ORM\OneToOne(targetEntity: CompanyGroupSubscription::class, mappedBy: "companyGroup")]
     private CompanyGroupSubscription $subscription;
 
     /**
      * CompanyGroup Primary Color (hexadecimal)
-     *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $color = null;
 
     /**
      * Referral Code
-     *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $referralCode = null;
 
     /**
      * True if has a Career Website view on our platform
-     *
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: "boolean")]
     private bool $careerWebsite = false;
 
     /**
      * True if Open to Recruitment
-     *
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: "boolean")]
     private bool $openToRecruitment = false;
 
     /**
      * CompanyGroup Entities
      *
      * @var ArrayCollection<CompanyEntity>
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Company\Entity\CompanyEntity", mappedBy="companyGroup", cascade={"persist"})
      */
+    #[ORM\OneToMany(targetEntity: CompanyEntity::class, mappedBy: "companyGroup", cascade: ["persist"])]
     private iterable $entities;
 
     /**

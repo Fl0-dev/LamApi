@@ -192,7 +192,7 @@ trait File
     /**
      * Set indicator File exists
      *
-     * @param bool $fileExists Image fileExists
+     * @param bool $fileExists MediaImage fileExists
      *
      * @return self
      */
@@ -206,7 +206,7 @@ trait File
     }
 
     /**
-     * Check if the file behind Image src exists and set fileExists indicator
+     * Check if the file behind MediaImage src exists and set fileExists indicator
      *
      * @return boolean
      */
@@ -225,7 +225,7 @@ trait File
     }
 
     /**
-     * Get Image File Size
+     * Get MediaImage File Size
      *
      * @return int|null
      */
@@ -235,7 +235,7 @@ trait File
     }
 
     /**
-     * Set Image File Size if isn't already
+     * Set MediaImage File Size if isn't already
      *
      * @param boolean $force
      *
@@ -258,7 +258,7 @@ trait File
     }
 
     /**
-     * Check if Image has a valid File Size
+     * Check if MediaImage has a valid File Size
      *
      * @return boolean
      */
@@ -270,7 +270,7 @@ trait File
     }
 
     /**
-     * Check if Image has a File Size equals or lower than given Max File Size (in bytes)
+     * Check if MediaImage has a File Size equals or lower than given Max File Size (in bytes)
      *
      * @param int $maxFileSize Max File Size in bytes
      *
@@ -288,84 +288,6 @@ trait File
     }
 
     /**
-     * Download File In Uploads Directory
-     *
-     * Eg.
-     *
-     * $file = download_file( `file-url` );
-     *
-     * if( $file['success'] ) {
-     *     $file_abs_url = $file['data']['file'];
-     *     $file_url     = $file['data']['file'];
-     *     $file_type    = $file['data']['type'];
-     * }
-     *
-     * @param  string $file Download File URL.
-     * @return array        Downloaded file data.
-     */
-    public function downloadFile()
-    {
-        // Gives us access to the download_url() and wp_handle_sideload() functions.
-        require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
-        $timeout = 5;
-
-        $fileUrl = $this->getSrc();
-
-        // Download file to temp dir.
-        $tempFile = download_url($fileUrl, $timeout);
-
-        // WP Error.
-        if (is_wp_error($tempFile)) {
-            return [
-                'success' => false,
-                'data'    => $tempFile->get_error_message(),
-            ];
-        }
-
-        // Array based on $_FILE as seen in PHP file uploads.
-        $fileArgs = [
-            'name'     => basename($fileUrl),
-            'tmp_name' => $tempFile,
-            'error'    => 0,
-            'size'     => filesize($tempFile)
-        ];
-
-        $overrides = [
-            // Tells WordPress to not look for the POST form fields that would normally be present as
-            // we downloaded the file from a remote server, so there will be no form fields
-            // Default is true
-            'test_form'   => false,
-
-            // Setting this to false lets WordPress allow empty files, not recommended.
-            // Default is true
-            'test_size'   => true,
-
-            // A properly uploaded file will pass this test. There should be no reason to override this one.
-            'test_upload' => true,
-        ];
-
-        // Move the temporary file into the uploads directory.
-        $results = wp_handle_sideload($fileArgs, $overrides);
-
-        if (isset($results['error'])) {
-            return [
-                'success' => false,
-                'data'    => $results,
-            ];
-        }
-
-        $this->path = Utils::getArrayValue('file', $results);
-        $this->src  = Utils::getArrayValue('url', $results);
-        $this->fileExists = true;
-
-        return [
-            'success' => true,
-            'data'    => $results
-        ];
-    }
-
-    /**
      * Remove file on Disk
      *
      * @return boolean True if unlink executed successfuly, false otherwise
@@ -379,7 +301,7 @@ trait File
         return false;
     }
 
-        /**
+    /**
      * Check if given file url is a valid file url
      */
     public static function isFileExistsFromUrl(string $fileUrl): bool

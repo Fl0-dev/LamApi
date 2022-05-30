@@ -6,62 +6,60 @@ use App\Utils\Utils;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Transversal\Uuid;
+use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *      "image" = "MediaImage",
- *      "video" = "MediaVideo"
- * })
- *
- * @ApiResource(
- *     iri="http://schema.org/MediaObject",
- *     normalizationContext={
- *         "groups"={"media_object_read"}
- *     },
- *     collectionOperations={
- *         "post"={
- *             "controller"=CreateMediaObjectAction::class,
- *             "deserialize"=false,
- *             "security"="is_granted('ROLE_USER')",
- *             "validation_groups"={"Default", "media_object_create"},
- *             "openapi_context"={
- *                 "requestBody"={
- *                     "content"={
- *                         "multipart/form-data"={
- *                             "schema"={
- *                                 "type"="object",
- *                                 "properties"={
- *                                     "file"={
- *                                         "type"="string",
- *                                         "format"="binary"
- *                                     }
- *                                 }
- *                             }
- *                         }
- *                     }
- *                 }
- *             }
- *         },
- *         "get"
- *     },
- *     itemOperations={
- *         "get"
- *     }
- * )
- * @Vich\Uploadable
- */
-abstract class Media extends File
+
+
+
+#[ApiResource(
+    iri: "http://schema.org/MediaObject",
+    normalizationContext: ["groups" => ["media_object_read"]],
+    collectionOperations: [
+        "post" => [
+            "controller" => CreateMediaObjectAction::class,
+            "deserialize" => false,
+            "security" => "is_granted('ROLE_USER')",
+            "validation_groups" => ["Default", "media_object_create"],
+            "openapi_context" => [
+                "requestBody" => [
+                    "content" => [
+                        "multipart/form-data" => [
+                            "schema" => [
+                                "type" => "object",
+                                "properties" => [
+                                    "file" => [
+                                        "type" => "string",
+                                        "format" => "binary"
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        "get"
+    ],
+    itemOperations: [
+        "get"
+    ]
+)]
+#[Vich\Uploadable]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap([
+    "image" => "MediaImage",
+    "video" => "MediaVideo"
+])]
+#[ORM\Entity]
+abstract class Media
 {
-    use Uuid;
+    use TechnicalProperties;
 
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
@@ -69,38 +67,33 @@ abstract class Media extends File
     /**
      * @var string|null
      *
-     * @ApiProperty(iri="http://schema.org/contentUrl")
-     * @Groups({"media_object_read"})
      */
+    #[ApiProperty(iri: "http://schema.org/contentUrl")]
+    #[Groups(["media_object_read"])]
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private $contentUrl;
 
     /**
      * @var File|null
      *
-     * @Assert\NotNull(groups={"media_object_create"})
-     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
      */
-    private $file;
+    #[Assert\NotNull()]
+    #[Groups(["media_object_create"])]
+    #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
+    private ?File $file;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private $filePath;
-
-    // /**
-    //  * Media Type (img or video)
-    //  *
-    //  * @ORM\Column(type="string", nullable=true)
-    //  */
-    // private $type;
 
     /**
      * Media alt attribute
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private $alt;
 
     /**
@@ -233,5 +226,53 @@ abstract class Media extends File
         $this->alt = $alt;
 
         return $this;
+    }
+
+    /**
+     * Get the value of contentUrl
+     */ 
+    public function getContentUrl()
+    {
+        return $this->contentUrl;
+    }
+
+    /**
+     * Set the value of contentUrl
+     *
+     * @return  self
+     */ 
+    public function setContentUrl($contentUrl)
+    {
+        $this->contentUrl = $contentUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of file
+     */ 
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set the value of file
+     *
+     * @return  self
+     */ 
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of filePath
+     */ 
+    public function getFilePath()
+    {
+        return $this->filePath;
     }
 }

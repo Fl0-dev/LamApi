@@ -4,14 +4,15 @@ namespace App\Entity\Localisation;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Transversal\Slug;
+use App\Transversal\TechnicalProperties;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Address
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: LocalisationRepository::class)]
 #[ApiResource(
     routePrefix: '/localisation',
     collectionOperations: ['get'],
@@ -19,28 +20,27 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class City
 {
-    use Uuid;
-    use Slug;
+    use TechnicalProperties;
 
     /**
      * City Department
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Department")
      */
+    #[ORM\ManyToOne(targetEntity: Department::class)]
     private ?Department $department = null;
 
     /**
      * City Zip Code
      *
-     * @ORM\Column(type="string")
      */
-    private ?string $zipCode = null;
+    #[ORM\Column(type: "string", length: 10)]
+    private ?string $postalCode = null;
 
     /**
      * City Name
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $name = null;
 
     /**

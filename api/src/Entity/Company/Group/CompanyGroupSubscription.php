@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Company Subscription
  *
- * @ORM\Entity
  */
+#[ORM\Entity]
 class CompanyGroupSubscription
 {
     use Uuid;
@@ -19,16 +19,15 @@ class CompanyGroupSubscription
     /**
      * CompanyGroup
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Company\Group\CompanyGroup", inversedBy="subscription")
      */
+    #[ORM\OneToOne(targetEntity: CompanyGroup::class, inversedBy: "subscription")]
     private ?CompanyGroup $companyGroup = null;
 
     /**
      * Subscription
      *
-     * @ORM\Column(type="subscription")
      */
-
+    #[ORM\OneToOne(targetEntity: Subscription::class)]
     private ?Subscription $subscription = null;
 
     /**

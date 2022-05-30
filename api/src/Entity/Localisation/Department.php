@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Localisation: Department
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: LocalisationRepository::class)]
 #[ApiResource(
     routePrefix: '/localisation',
     collectionOperations: ['get'],
@@ -25,22 +25,22 @@ class Department
     /**
      * Department Region
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation\Region")
      */
+    #[ORM\ManyToOne(targetEntity: Region::class)]
     private ?Region $region = null;
 
     /**
      * Department Code
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $code = null;
 
     /**
      * Department Name
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $name = null;
 
     /**

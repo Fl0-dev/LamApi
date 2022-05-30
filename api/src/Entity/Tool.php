@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Company\Group\CompanyGroupTool;
 use App\Entity\Media\Media;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
-use App\Transversal\Uuid;
+use App\Transversal\TechnicalProperties;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,49 +15,49 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Company Tool
  *
- * @ORM\Entity
  */
+#[ORM\Entity(repositoryClass: ToolRepository::class)]
 #[ApiResource]
 class Tool
 {
-    use Uuid;
+    use TechnicalProperties;
 
     /**
      * Name
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     #[Assert\NotBlank]
     private ?string $name = null;
 
     /**
      * Logo
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\MediaImage")
-     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: MediaImage::class)]
+    #[ORM\JoinColumn(name: "logo_id", referencedColumnName: "id")]
     private ?MediaImage $logo = null;
 
     /**
      * URL
      *
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $url = null;
 
     /**
      * Description
      *
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $description = null;
 
     /**
      * Media (image or video) of the header page Tool
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media\Media")
-     * @ORM\JoinColumn(name="header_media_id", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: Media::class)]
+    #[ORM\JoinColumn(name: "header_media_id", referencedColumnName: "id")]
     private MediaImage|MediaVideo|null $headerMedia;
 
     /**

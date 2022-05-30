@@ -18,64 +18,64 @@ trait OfferDetails
     /**
      * Offer Job Title ID
      *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: "integer")]
     private ?int $jobTitle = null;
 
     /**
      * Offer Contract type
      *
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     private ?string $contractType = null;
 
     /**
      * Offer Fully Telework indicator
      *
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: "boolean")]
     private bool $fullyTelework = false;
 
     /**
      * Weekly volume hours for this Offer
      *
-     * @ORM\Column(type="float")
      */
+    #[ORM\Column(type: "float")]
     private ?float $weeklyHours = null;
 
     /**
      * Level of study required for this Offer
      *
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: "integer")]
     private ?int $levelOfStudy = null;
 
     /**
      * Indicates if the job starts as soon as possible
      *
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: "boolean")]
     private bool $startASAP = false;
 
     /**
      * Offer Start Date
      *
-     * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: "datetime")]
     private ?\DateTime $startDate = null;
 
     /**
      * Proposed Salary Min
      *
-     * @ORM\Column(type="float")
      */
+    #[ORM\Column(type: "float")]
     private ?float $salaryMin = null;
 
     /**
      * Proposed Salary Max
      *
-     * @ORM\Column(type="float")
      */
+    #[ORM\Column(type: "float")]
     private ?float $salaryMax = null;
 
     /**
@@ -83,6 +83,7 @@ trait OfferDetails
      *
      * @ORM\OneToOne(targetEntity="App\Entity\Localisation\Address")
      */
+    #[ORM\OneToOne(targetEntity:Address::class)]
     private ?Address $address = null;
 
     /**
@@ -90,12 +91,11 @@ trait OfferDetails
      *
      * @var ArrayCollection<Tool>
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tool")
-     * @ORM\JoinTable(name="offer_tools",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tool_id", referencedColumnName="id")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity:Tool::class)]
+    #[ORM\JoinTable(name: "offer_tools")]
+    #[ORM\JoinColumn(name: "offer_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "tool_id", referencedColumnName: "id")]
     private iterable $tools;
 
 
