@@ -27,7 +27,7 @@ class CompanyGroupSubscription
      * Subscription
      *
      */
-    #[ORM\OneToOne(targetEntity: Subscription::class, inversedBy: "companyGroup")]
+    #[ORM\OneToOne(targetEntity: Subscription::class)]
     private ?Subscription $subscription = null;
 
     /**

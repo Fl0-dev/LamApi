@@ -26,7 +26,7 @@ class Region
      * Region Code
      *
      */
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: "string", length: 3)]
     private ?string $code = null;
 
     /**

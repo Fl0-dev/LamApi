@@ -4,11 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Company\Group\CompanyGroupBadge;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
-
-use function PHPSTORM_META\type;
 
 /**
  * CompanyEntity Badge
@@ -93,8 +90,6 @@ class Badge
     #[ORM\Column(type: "string")]
     private ?string $badgePath = null;
 
-    #[ORM\OneToMany(targetEntity: CompanyGroupBadge::class, mappedBy: "badge")]
-    private $companyGroups;
     /**
      * Constructor
      */

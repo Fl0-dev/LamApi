@@ -37,9 +37,6 @@ class JobType
     #[ORM\Column(type: "string", length: 255)]
     private ?string $label = null;
 
-    #[ORM\OneToMany(targetEntity: CompanyGroupJobType::class, mappedBy: "jobType")]
-    private $companyGroups;
-
     /**
      * Constructor
      */

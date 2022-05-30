@@ -23,7 +23,7 @@ class CompanyGroupJobType
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "jobTypes")]
     private ?CompanyGroup $companyGroup = null;
 
-    #[ORM\ManyToOne(targetEntity: JobType::class, inversedBy: "companyGroups")]
+    #[ORM\ManyToOne(targetEntity: JobType::class)]
     private ?JobType $jobType = null;
 
     /**

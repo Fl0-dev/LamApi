@@ -23,7 +23,7 @@ class CompanyGroupTool
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "tools")]
     private ?CompanyGroup $companyGroup = null;
 
-    #[ORM\ManyToOne(targetEntity: Tool::class, inversedBy: "companyGroups")]
+    #[ORM\ManyToOne(targetEntity: Tool::class)]
     private ?Tool $tool = null;
 
     /**

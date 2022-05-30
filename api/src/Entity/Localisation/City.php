@@ -34,7 +34,7 @@ class City
      *
      */
     #[ORM\Column(type: "string", length: 10)]
-    private ?string $zipCode = null;
+    private ?string $postalCode = null;
 
     /**
      * City Name

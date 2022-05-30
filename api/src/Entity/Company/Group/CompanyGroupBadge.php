@@ -23,14 +23,14 @@ class CompanyGroupBadge
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: "badges")]
     private ?CompanyGroup $companyGroup = null;
 
-    #[ORM\ManyToOne(targetEntity: Badge::class, inversedBy: "companyGroups")]
+    #[ORM\ManyToOne(targetEntity: Badge::class)]
     private ?Badge $badge = null;
 
     /**
      * Description of Badge for this CompanyGroup (why they are this badge)
      *
      */
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: "text")]
     private ?string $description = null;
 
     /**

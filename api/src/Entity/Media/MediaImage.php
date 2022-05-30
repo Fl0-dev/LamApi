@@ -2,15 +2,12 @@
 
 namespace App\Entity\Media;
 
-use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[ORM\Table(name: "media_image")]
 class MediaImage extends Media
 {
-    use Uuid;
-
     const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
     const DEFAULT_MAX_IMAGE_WIDTH = 1200;
     const DEFAULT_MIN_IMAGE_QUALITY = 40;
