@@ -154,6 +154,16 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
     public function getFirstname(): ?string
     {
         return $this->firstname;
