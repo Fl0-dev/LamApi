@@ -1,0 +1,103 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>er</help_text><element><id>UMLClass</id><coordinates><x>440</x><y>0</y><w>130</w><h>160</h></coordinates><panel_attributes>user
+-
+- id : uuid
+- token : string
+- created_at : datetime
+- update_at :datetime
+- status : string
+- password : string
+- roles : JSON
+- type : ?
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>120</x><y>320</y><w>140</w><h>60</h></coordinates><panel_attributes>user_admin
+-
+- id : user_id
+-level : string
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>220</y><w>130</w><h>90</h></coordinates><panel_attributes>user_physical
+-
+- id : user_id
+- firstname : string
+- lastname : string
+- email : string
+- type : ?
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>220</y><w>140</w><h>130</h></coordinates><panel_attributes>user_abstract
+-
+- id : user_id
+- name : string
+- slug : string
+- category : string
+- contact_email : string
+- contact_phone : string
+- type : ?
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>250</x><y>280</y><w>100</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>80;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>150</y><w>110</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>90;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>150</y><w>120</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;100;70</additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>300</y><w>60</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;40;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>390</y><w>140</w><h>110</h></coordinates><panel_attributes>user_consumer
+-
+- id : user_id
+- optin : boolean
+- birthdate : datetime
+- type : ?
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>320</y><w>180</w><h>90</h></coordinates><panel_attributes>user_api
+-
+- id : user_id
+- token_local : string
+- token_qualification : string
+- token_production : string
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>290</y><w>110</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;90;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>320</x><y>560</y><w>140</w><h>60</h></coordinates><panel_attributes>employer
+-
+- id : user_id
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>550</y><w>200</w><h>140</h></coordinates><panel_attributes>applicant
+-
+- id : user_id
+- level_of_study : level_of_study_id
+- experience : experience_id
+- message_perso : text
+- linkedIn : string
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>490</y><w>80</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>60;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>490</y><w>120</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;100;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>530</y><w>140</w><h>70</h></coordinates><panel_attributes>applicant_cv
+-
+- id : user_id
+- url : string
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>650</y><w>270</w><h>80</h></coordinates><panel_attributes>applicant_search_contract_type
+-
+- id : user_id
+- contract_type : contract_type_id
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>100</x><y>720</y><w>140</w><h>60</h></coordinates><panel_attributes>offer
+-
+- author : user_id
+- ...
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>610</y><w>140</w><h>60</h></coordinates><panel_attributes>entity_has_admin
+-
+- employer : user_id
+- entity : entity_id
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>510</y><w>190</w><h>60</h></coordinates><panel_attributes>company_ group_has_admin
+-
+- employer : user_id
+- company_group : company_group_id 
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>730</y><w>140</w><h>80</h></coordinates><panel_attributes>application
+-
+- applicant_id : user_id
+- ...
+
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
