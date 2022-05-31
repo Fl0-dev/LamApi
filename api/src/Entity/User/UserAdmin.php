@@ -4,9 +4,30 @@ namespace App\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class UserAdmin extends User
+#[ORM\Entity]
+class UserAdmin extends UserPhysical
 {
-    public function __construct()
+    #[ORM\Column(type: "string")]
+    private $level;
+
+
+    /**
+     * Get the value of level
+     */ 
+    public function getLevel()
     {
+        return $this->level;
+    }
+
+    /**
+     * Set the value of level
+     *
+     * @return  self
+     */ 
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
     }
 }

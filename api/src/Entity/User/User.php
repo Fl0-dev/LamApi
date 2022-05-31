@@ -6,10 +6,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
-use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 #[ApiResource(
     itemOperations: [
@@ -38,53 +37,27 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
         ]
     ]
 )]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap([
+    "physical" => "UserPhysical",
+    "abstract" => "UserAbstract",
+])]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+abstract class User implements UserInterface
 {
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
 
-    #[ORM\Column(type: "string", length: 180, unique: true)]
-    private $email;
-
     #[ORM\Column(type: "json")]
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column(type: "string")]
-    private $password;
+    #[ORM\Column(type: "string", length: 255)]
+    private $token;
 
-    #[ORM\Column(type: "string", length: 180)]
-    private $firstname;
-
-    #[ORM\Column(type: "string", length: 180)]
-    private $lastname;
-
-    #[ORM\Column(type: "datetime")]
-    private $createdAt;
-
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private $apiToken;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
+    #[ORM\Column(type: "string", length: 255)]
+    private $status;
 
     /**
      * A visual identifier that represents this user.
@@ -164,50 +137,62 @@ class User implements UserInterface
         return (string) $this->email;
     }
 
-    public function getFirstname(): ?string
+    /**
+     * Get the value of token
+     */ 
+    public function getToken()
     {
-        return $this->firstname;
+        return $this->token;
     }
 
-    public function setFirstname(string $firstname): self
+    /**
+     * Set the value of token
+     *
+     * @return  self
+     */ 
+    public function setToken($token)
     {
-        $this->firstname = $firstname;
+        $this->token = $token;
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    /**
+     * Get the value of status
+     */ 
+    public function getStatus()
     {
-        return $this->lastname;
+        return $this->status;
     }
 
-    public function setLastname(string $lastname): self
+    /**
+     * Set the value of status
+     *
+     * @return  self
+     */ 
+    public function setStatus($status)
     {
-        $this->lastname = $lastname;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * Get the value of type
+     */ 
+    public function getType()
     {
-        return $this->createdAt;
+        return $this->type;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */ 
+    public function setType($type)
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(?string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
+        $this->type = $type;
 
         return $this;
     }

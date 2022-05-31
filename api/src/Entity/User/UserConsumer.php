@@ -2,9 +2,18 @@
 
 namespace App\Entity\User;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
-class UserConsumer extends User
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap([
+    "employer" => "Employer",
+    "applicant" => "Applicant",
+])]
+#[ORM\Entity]
+#[ApiResource()]
+abstract class UserConsumer extends UserPhysical
 {
     #[ORM\Column(type: "date", nullable: true)]
     private $birthdate;
@@ -42,6 +51,26 @@ class UserConsumer extends User
     public function setOptin(?bool $optin): self
     {
         $this->optin = $optin;
+
+        return $this;
+    }
+
+     /**
+     * Get the value of type
+     */ 
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */ 
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }
