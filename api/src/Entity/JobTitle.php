@@ -18,9 +18,6 @@ class JobTitle
     private ?string $title = null;
 
     #[ORM\ManyToMany(targetEntity:JobType::class)]
-    #[ORM\JoinTable(name: "jobTitle_has_jobType")]
-    #[ORM\JoinColumn(name: "job_title_id", referencedColumnName: "id")]
-    #[ORM\InverseJoinColumn(name: "job_type_id", referencedColumnName: "id")]
     private $jobTypes;
 
     /**
