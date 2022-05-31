@@ -126,7 +126,7 @@
         "version": "1.1.1"
     },
     "egulias/email-validator": {
-        "version": "3.1.1"
+        "version": "3.2"
     },
     "fig/link-util": {
         "version": "1.1.2"
@@ -161,6 +161,12 @@
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
+    "lcobucci/clock": {
+        "version": "2.2.0"
+    },
+    "lcobucci/jwt": {
+        "version": "4.1.5"
+    },
     "league/html-to-markdown": {
         "version": "4.10.0"
     },
@@ -178,6 +184,12 @@
         "files": [
             "config/packages/nelmio_cors.yaml"
         ]
+    },
+    "nette/php-generator": {
+        "version": "v4.0.1"
+    },
+    "nette/utils": {
+        "version": "v3.2.7"
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
@@ -220,6 +232,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "stella-maris/clock": {
+        "version": "0.1.4"
     },
     "symfony/asset": {
         "version": "v5.2.4"
@@ -341,15 +356,15 @@
         "version": "v5.2.4"
     },
     "symfony/mailer": {
-        "version": "4.3",
+        "version": "6.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "4.3",
-            "ref": "15658c2a0176cda2e7dba66276a2030b52bd81b2"
+            "ref": "97a61eabb351d7f6cb7702039bcfe07fe9d7e03c"
         },
         "files": [
-            "./config/packages/mailer.yaml"
+            "config/packages/mailer.yaml"
         ]
     },
     "symfony/maker-bundle": {
@@ -400,6 +415,9 @@
     "symfony/options-resolver": {
         "version": "v5.2.4"
     },
+    "symfony/password-hasher": {
+        "version": "v6.0.8"
+    },
     "symfony/phpunit-bridge": {
         "version": "5.1",
         "recipe": {
@@ -426,9 +444,6 @@
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.22.1"
-    },
-    "symfony/polyfill-php70": {
-        "version": "v1.20.0"
     },
     "symfony/polyfill-php81": {
         "version": "v1.25.0"
@@ -459,6 +474,9 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/runtime": {
+        "version": "v6.0.8"
+    },
     "symfony/security-bundle": {
         "version": "5.1",
         "recipe": {
@@ -475,9 +493,6 @@
         "version": "v5.2.4"
     },
     "symfony/security-csrf": {
-        "version": "v5.2.4"
-    },
-    "symfony/security-guard": {
         "version": "v5.2.4"
     },
     "symfony/security-http": {

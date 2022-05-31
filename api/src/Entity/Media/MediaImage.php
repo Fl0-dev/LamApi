@@ -2,12 +2,14 @@
 
 namespace App\Entity\Media;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MediaRepository::class)]
-#[ORM\Table(name: "media_image")]
+#[ORM\Entity]
+#[ApiResource()]
 class MediaImage extends Media
 {
+
     const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
     const DEFAULT_MAX_IMAGE_WIDTH = 1200;
     const DEFAULT_MIN_IMAGE_QUALITY = 40;
