@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Company\Group\CompanyGroupJobType;
-use App\Transversal\TechnicalProperties;
+use App\Transversal\Slug;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -32,7 +32,8 @@ class JobType
     //     'comm-market'           => 'Communication / Marketing'
     // ];
 
-    use TechnicalProperties;
+    use Uuid;
+    use Slug;
 
     #[ORM\Column(type: "string", length: 255)]
     private ?string $label = null;

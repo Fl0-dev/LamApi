@@ -2,6 +2,7 @@
 
 namespace App\Entity\Offer;
 
+use App\Entity\JobTitle;
 use App\Entity\Localisation\Address;
 use App\Entity\Tool;
 use App\Utils\Utils;
@@ -19,7 +20,7 @@ trait OfferDetails
      * Offer Job Title ID
      *
      */
-    #[ORM\Column(type: "integer")]
+    #[ORM\ManyToOne(targetEntity: JobTitle::class)]
     private ?int $jobTitle = null;
 
     /**
