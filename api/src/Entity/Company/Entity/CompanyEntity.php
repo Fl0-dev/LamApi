@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\Entity\CompanyEntityOffices;
 use App\Entity\Company\Group\CompanyGroup;
 use App\Entity\Offer\Offer;
+use App\Entity\User\Employer;
 use App\Transversal\TechnicalProperties;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,6 +41,18 @@ class CompanyEntity
     private iterable $offers;
 
     /**
+     * CompanyEntity Administrators
+     *
+     * @var ArrayCollection<Employer>
+     *
+     */
+    #[ORM\ManyToMany(targetEntity: Employer::class)]
+    #[ORM\JoinTable(name: "entity_has_admin")]
+    #[ORM\JoinColumn(name: "entity_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "admin_id", referencedColumnName: "id")]
+    private iterable $employers;
+
+    /**
      * CompanyEntity Contructor
      */
     public function __construct(CompanyGroup $companyGroup)
@@ -49,6 +62,7 @@ class CompanyEntity
         $this->adresses = new ArrayCollection();
         $this->teamMedias = new ArrayCollection();
         $this->officesMedias = new ArrayCollection();
+        $this->employers = new ArrayCollection();
     }
 
     /**
@@ -117,5 +131,27 @@ class CompanyEntity
         $offers = $this->getOffers();
 
         return $offers instanceof ArrayCollection && !$offers->isEmpty();
+    }
+
+    /**
+     * Get CompanyEntity employers
+     */ 
+    public function getEmployers(): ArrayCollection
+    {
+        return $this->employers;
+    }
+
+    /**
+     * Set CompanyEntity employers
+     *
+     * @return  self
+     */ 
+    public function setEmployers(ArrayCollection|array|null $employers): self
+    {
+        $employers = Utils::createArrayCollection($employers);
+
+        $this->employers = $employers;
+
+        return $this;
     }
 }
