@@ -26,7 +26,7 @@ class Offer
      * ID for the CompanyEntity that owns the offer
      *
      */
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Company\Entity\CompanyEntity", inversedBy: "offers")]
+    #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: "offers")]
     private CompanyEntity $companyEntity;
 
     /**

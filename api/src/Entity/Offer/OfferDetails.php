@@ -5,6 +5,7 @@ namespace App\Entity\Offer;
 use App\Entity\JobTitle;
 use App\Entity\Localisation\Address;
 use App\Entity\Tool;
+use App\Entity\User\Employer;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -98,6 +99,9 @@ trait OfferDetails
     #[ORM\JoinColumn(name: "offer_id", referencedColumnName: "id")]
     #[ORM\InverseJoinColumn(name: "tool_id", referencedColumnName: "id")]
     private iterable $tools;
+
+    #[ORM\ManyToOne(targetEntity:Employer::class)]
+    private Employer $author;
 
 
     /**
@@ -576,5 +580,25 @@ trait OfferDetails
         return $tools instanceof ArrayCollection
             && !$tools->isEmpty()
             && Utils::checkArrayValuesObject($tools, Tool::class);
+    }
+
+    /**
+     * Get the value of author
+     */ 
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set the value of author
+     *
+     * @return  self
+     */ 
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
     }
 }
