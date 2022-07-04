@@ -37,11 +37,11 @@ class CompanyEntity
      * @var ArrayCollection<Offer>
      *
      */
-    #[ORM\OneToMany(targetEntity: Offer::class, mappedBy: "companyEntity", cascade: ["persist"])]
+    #[ORM\OneToMany(targetEntity: Offer::class, mappedBy: "companyEntity", cascade: ["persist"], fetch: "EXTRA_LAZY")]
     private iterable $offers;
 
     /**
-     * CompanyEntity Administrators
+     * CompanyEntity Employers
      *
      * @var ArrayCollection<Employer>
      *
@@ -148,9 +148,7 @@ class CompanyEntity
      */ 
     public function setEmployers(ArrayCollection|array|null $employers): self
     {
-        $employers = Utils::createArrayCollection($employers);
-
-        $this->employers = $employers;
+        $this->employers = Utils::createArrayCollection($employers);
 
         return $this;
     }
