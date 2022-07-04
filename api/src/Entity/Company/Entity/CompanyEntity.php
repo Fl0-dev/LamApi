@@ -47,9 +47,9 @@ class CompanyEntity
      *
      */
     #[ORM\ManyToMany(targetEntity: Employer::class)]
-    #[ORM\JoinTable(name: "entity_has_admin")]
+    #[ORM\JoinTable(name: "entity_has_employers")]
     #[ORM\JoinColumn(name: "entity_id", referencedColumnName: "id")]
-    #[ORM\InverseJoinColumn(name: "admin_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "employer_id", referencedColumnName: "id")]
     private iterable $employers;
 
     /**
