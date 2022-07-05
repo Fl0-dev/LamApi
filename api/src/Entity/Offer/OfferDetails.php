@@ -5,6 +5,7 @@ namespace App\Entity\Offer;
 use App\Entity\JobTitle;
 use App\Entity\Localisation\Address;
 use App\Entity\Tool;
+use App\Entity\User\Employer;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -98,7 +99,6 @@ trait OfferDetails
     #[ORM\JoinColumn(name: "offer_id", referencedColumnName: "id")]
     #[ORM\InverseJoinColumn(name: "tool_id", referencedColumnName: "id")]
     private iterable $tools;
-
 
     /**
      * Get Offer Job Title

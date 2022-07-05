@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\Entity\CompanyEntity;
 use App\Entity\Offer\OfferDetails;
 use App\Entity\Offer\OfferContent;
+use App\Entity\User\Employer;
 use App\Repository\OfferRepository;
 use App\Functional\EntityWorkflow;
 use App\Transversal\TechnicalProperties;
@@ -26,7 +27,7 @@ class Offer
      * ID for the CompanyEntity that owns the offer
      *
      */
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Company\Entity\CompanyEntity", inversedBy: "offers")]
+    #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: "offers")]
     private CompanyEntity $companyEntity;
 
     /**
@@ -42,6 +43,9 @@ class Offer
      */
     #[ORM\Column(type: "string")]
     private ?string $title = null;
+
+    #[ORM\ManyToOne(targetEntity:Employer::class)]
+    private Employer $author;
 
     /**
      * Offer Contructor
@@ -128,5 +132,25 @@ class Offer
         $title = $this->getTitle();
 
         return is_string($title) && strlen($title) > 0;
+    }
+
+    /**
+     * Get the value of author
+     */ 
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set the value of author
+     *
+     * @return  self
+     */ 
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
     }
 }
