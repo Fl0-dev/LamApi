@@ -23,11 +23,6 @@ class ApplicantCv
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applicantCvs')]
     private $applicant;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getUrl(): ?string
     {
         return $this->url;

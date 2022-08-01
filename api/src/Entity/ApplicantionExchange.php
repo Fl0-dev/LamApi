@@ -26,11 +26,6 @@ class ApplicantionExchange
     #[ORM\ManyToOne(targetEntity: UserConsumer::class)]
     private $transmitter;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getMessage(): ?string
     {
         return $this->message;

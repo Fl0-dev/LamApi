@@ -102,6 +102,9 @@ class CompanyGroup
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupTeam::class)]
     private $companyGroupTeams;
 
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    private $workforce;
+
     public function __construct()
     {
         $this->badges = new ArrayCollection();
@@ -579,6 +582,18 @@ class CompanyGroup
                 $companyGroupTeam->setCompanyGroup(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWorkforce(): ?string
+    {
+        return $this->workforce;
+    }
+
+    public function setWorkforce(?string $workforce): self
+    {
+        $this->workforce = $workforce;
 
         return $this;
     }

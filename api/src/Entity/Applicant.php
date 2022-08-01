@@ -26,6 +26,24 @@ class Applicant extends UserConsumer
     #[ORM\OneToMany(mappedBy: 'applicant', targetEntity: Application::class)]
     private $applications;
 
+    #[ORM\Column(type: 'string', length: 11, nullable: true)]
+    private $levelOfStudy;
+
+    #[ORM\ManyToOne(targetEntity: JobTitle::class)]
+    private $jobTitle;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $experience;
+
+    #[ORM\ManyToOne(targetEntity: City::class)]
+    private $city;
+
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private $contractType;
+
+    #[ORM\Column(type: 'string', length: 11)]
+    private $status;
+
     public function __construct()
     {
         parent::__construct();
@@ -125,6 +143,78 @@ class Applicant extends UserConsumer
                 $application->setApplicant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLevelOfStudy(): ?string
+    {
+        return $this->levelOfStudy;
+    }
+
+    public function setLevelOfStudy(?string $levelOfStudy): self
+    {
+        $this->levelOfStudy = $levelOfStudy;
+
+        return $this;
+    }
+
+    public function getJobTitle(): ?JobTitle
+    {
+        return $this->jobTitle;
+    }
+
+    public function setJobTitle(?JobTitle $jobTitle): self
+    {
+        $this->jobTitle = $jobTitle;
+
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?int $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getContractType(): ?string
+    {
+        return $this->contractType;
+    }
+
+    public function setContractType(?string $contractType): self
+    {
+        $this->contractType = $contractType;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

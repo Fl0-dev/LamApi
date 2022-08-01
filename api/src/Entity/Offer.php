@@ -80,6 +80,22 @@ class Offer
     #[ORM\ManyToOne(targetEntity: Media::class)]
     private $headerMedia;
 
+    #[ORM\Column(type: 'string', length: 11, nullable: true)]
+    private $levelOfStudy;
+
+    #[ORM\ManyToOne(targetEntity: JobTitle::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $jobTitle;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $experience;
+
+    #[ORM\Column(type: 'string', length: 10)]
+    private $contractType;
+
+    #[ORM\Column(type: 'string', length: 9)]
+    private $status;
+
     public function __construct()
     {
         $this->jobBoards = new ArrayCollection();
@@ -352,6 +368,66 @@ class Offer
     public function setHeaderMedia(?Media $headerMedia): self
     {
         $this->headerMedia = $headerMedia;
+
+        return $this;
+    }
+
+    public function getLevelOfStudy(): ?string
+    {
+        return $this->levelOfStudy;
+    }
+
+    public function setLevelOfStudy(?string $levelOfStudy): self
+    {
+        $this->levelOfStudy = $levelOfStudy;
+
+        return $this;
+    }
+
+    public function getJobTitle(): ?JobTitle
+    {
+        return $this->jobTitle;
+    }
+
+    public function setJobTitle(?JobTitle $jobTitle): self
+    {
+        $this->jobTitle = $jobTitle;
+
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?int $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getContractType(): ?string
+    {
+        return $this->contractType;
+    }
+
+    public function setContractType(string $contractType): self
+    {
+        $this->contractType = $contractType;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
