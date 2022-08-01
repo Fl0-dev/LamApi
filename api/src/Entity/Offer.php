@@ -7,6 +7,8 @@ use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
@@ -58,6 +60,31 @@ class Offer
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $publishedAt;
+
+    #[ORM\ManyToOne(targetEntity: Ats::class)]
+    private $ats;
+
+    #[ORM\ManyToMany(targetEntity: JobBoard::class, inversedBy: 'offers')]
+    private $jobBoards;
+
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
+    private $applications;
+
+    #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'offers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $companyEntity;
+
+    #[ORM\ManyToOne(targetEntity: Employer::class)]
+    private $author;
+
+    #[ORM\ManyToOne(targetEntity: Media::class)]
+    private $headerMedia;
+
+    public function __construct()
+    {
+        $this->jobBoards = new ArrayCollection();
+        $this->applications = new ArrayCollection();
+    }
 
     public function isProvided(): ?bool
     {
@@ -223,6 +250,108 @@ class Offer
     public function setPublishedAt(?\DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function getAts(): ?Ats
+    {
+        return $this->ats;
+    }
+
+    public function setAts(?Ats $ats): self
+    {
+        $this->ats = $ats;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobBoard>
+     */
+    public function getJobBoards(): Collection
+    {
+        return $this->jobBoards;
+    }
+
+    public function addJobBoard(JobBoard $jobBoard): self
+    {
+        if (!$this->jobBoards->contains($jobBoard)) {
+            $this->jobBoards[] = $jobBoard;
+        }
+
+        return $this;
+    }
+
+    public function removeJobBoard(JobBoard $jobBoard): self
+    {
+        $this->jobBoards->removeElement($jobBoard);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Application>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): self
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications[] = $application;
+            $application->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): self
+    {
+        if ($this->applications->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getOffer() === $this) {
+                $application->setOffer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCompanyEntity(): ?CompanyEntity
+    {
+        return $this->companyEntity;
+    }
+
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
+    {
+        $this->companyEntity = $companyEntity;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Employer
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Employer $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getHeaderMedia(): ?Media
+    {
+        return $this->headerMedia;
+    }
+
+    public function setHeaderMedia(?Media $headerMedia): self
+    {
+        $this->headerMedia = $headerMedia;
 
         return $this;
     }

@@ -5,16 +5,25 @@ namespace App\Entity;
 use App\Repository\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap([
+    "image" => "MediaImage",
+    "video" => "MediaVideo"
+])]
+
 class Media
 {
     use TechnicalProperties;
+
+    const TYPE_IMAGE = 'image';
+    const TYPE_VIDEO = 'video';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $contentUrl;
@@ -22,15 +31,11 @@ class Media
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $filePath;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $alt;
-
     /**
      * @var File|null
      *
      */
     #[Assert\NotNull()]
-    #[Groups(["media_object_create"])]
     #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
     private ?File $file;
 
@@ -58,15 +63,42 @@ class Media
         return $this;
     }
 
-    public function getAlt(): ?string
+    public function isImage(): bool
     {
-        return $this->alt;
+        return self::TYPE_IMAGE === $this->getType();
     }
 
-    public function setAlt(?string $alt): self
+    public function isVideo(): bool
     {
-        $this->alt = $alt;
+        return self::TYPE_VIDEO === $this->getType();
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        if (in_array($type, [self::TYPE_IMAGE, self::TYPE_VIDEO])) {
+            $this->type = $type;
+        }
 
         return $this;
     }
+
+    public function setTypeImage()
+    {
+        $this->type = self::TYPE_IMAGE;
+
+        return $this;
+    }
+
+    public function setTypeVideo()
+    {
+        $this->type = self::TYPE_VIDEO;
+
+        return $this;
+    }
+
 }

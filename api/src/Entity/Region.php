@@ -16,6 +16,10 @@ class Region
     #[ORM\Column(type: 'string', length: 75)]
     private $name;
 
+    #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'regions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $country;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -24,6 +28,18 @@ class Region
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

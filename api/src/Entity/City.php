@@ -19,6 +19,10 @@ class City
     #[ORM\Column(type: 'integer')]
     private $departmentNumber;
 
+    #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $department;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -39,6 +43,18 @@ class City
     public function setDepartmentNumber(int $departmentNumber): self
     {
         $this->departmentNumber = $departmentNumber;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
 
         return $this;
     }

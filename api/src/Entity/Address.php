@@ -29,6 +29,10 @@ class Address
     #[ORM\Column(type: 'string', length: 255)]
     private $hrMailAddress;
 
+    #[ORM\ManyToOne(targetEntity: City::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $city;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -97,6 +101,18 @@ class Address
     public function setHrMailAddress(string $hrMailAddress): self
     {
         $this->hrMailAddress = $hrMailAddress;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

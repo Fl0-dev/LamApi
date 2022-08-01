@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\JobBoardRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JobBoardRepository::class)]
@@ -21,6 +23,14 @@ class JobBoard
 
     #[ORM\Column(type: 'boolean')]
     private $free;
+
+    #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'jobBoards')]
+    private $offers;
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
 
     public function getDescription(): ?string
     {
@@ -54,6 +64,33 @@ class JobBoard
     public function setFree(bool $free): self
     {
         $this->free = $free;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->addJobBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->removeElement($offer)) {
+            $offer->removeJobBoard($this);
+        }
 
         return $this;
     }

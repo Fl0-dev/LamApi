@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
@@ -58,6 +60,60 @@ class CompanyGroup
 
     #[ORM\Column(type: 'string', length: 255)]
     private $color;
+
+    #[ORM\ManyToMany(targetEntity: Badge::class)]
+    private $badges;
+
+    #[ORM\ManyToMany(targetEntity: Tool::class)]
+    private $tools;
+
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    private $medias;
+
+    #[ORM\ManyToMany(targetEntity: Organisation::class)]
+    #[ORM\JoinTable(name: "company_group_pools")]
+    private $pools;
+
+    #[ORM\ManyToMany(targetEntity: Organisation::class)]
+    #[ORM\JoinTable(name: "company_group_partners")]
+    private $partners;
+
+    #[ORM\OneToOne(targetEntity: Social::class, cascade: ['persist', 'remove'])]
+    private $social;
+
+    #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    private $logo;
+
+    #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    private $headerMedia;
+
+    #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    private $MainMedia;
+
+    #[ORM\ManyToMany(targetEntity: JobType::class)]
+    private $jobTypes;
+
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class)]
+    private $companyEntities;
+
+    #[ORM\ManyToMany(targetEntity: Employer::class)]
+    private $admins;
+
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupTeam::class)]
+    private $companyGroupTeams;
+
+    public function __construct()
+    {
+        $this->badges = new ArrayCollection();
+        $this->tools = new ArrayCollection();
+        $this->medias = new ArrayCollection();
+        $this->pools = new ArrayCollection();
+        $this->partners = new ArrayCollection();
+        $this->jobTypes = new ArrayCollection();
+        $this->companyEntities = new ArrayCollection();
+        $this->admins = new ArrayCollection();
+        $this->companyGroupTeams = new ArrayCollection();
+    }
 
     public function getName(): ?string
     {
@@ -247,6 +303,282 @@ class CompanyGroup
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        $this->badges->removeElement($badge);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tool>
+     */
+    public function getTools(): Collection
+    {
+        return $this->tools;
+    }
+
+    public function addTool(Tool $tool): self
+    {
+        if (!$this->tools->contains($tool)) {
+            $this->tools[] = $tool;
+        }
+
+        return $this;
+    }
+
+    public function removeTool(Tool $tool): self
+    {
+        $this->tools->removeElement($tool);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        $this->medias->removeElement($media);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Organisation>
+     */
+    public function getPools(): Collection
+    {
+        return $this->pools;
+    }
+
+    public function addPool(Organisation $pool): self
+    {
+        if (!$this->pools->contains($pool)) {
+            $this->pools[] = $pool;
+        }
+
+        return $this;
+    }
+
+    public function removePool(Organisation $pool): self
+    {
+        $this->pools->removeElement($pool);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Organisation>
+     */
+    public function getPartners(): Collection
+    {
+        return $this->partners;
+    }
+
+    public function addPartner(Organisation $partner): self
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners[] = $partner;
+        }
+
+        return $this;
+    }
+
+    public function removePartner(Organisation $partner): self
+    {
+        $this->partners->removeElement($partner);
+
+        return $this;
+    }
+
+    public function getSocial(): ?Social
+    {
+        return $this->social;
+    }
+
+    public function setSocial(?Social $social): self
+    {
+        $this->social = $social;
+
+        return $this;
+    }
+
+    public function getLogo(): ?Media
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?Media $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getHeaderMedia(): ?Media
+    {
+        return $this->headerMedia;
+    }
+
+    public function setHeaderMedia(?Media $headerMedia): self
+    {
+        $this->headerMedia = $headerMedia;
+
+        return $this;
+    }
+
+    public function getMainMedia(): ?Media
+    {
+        return $this->MainMedia;
+    }
+
+    public function setMainMedia(?Media $MainMedia): self
+    {
+        $this->MainMedia = $MainMedia;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobType>
+     */
+    public function getJobTypes(): Collection
+    {
+        return $this->jobTypes;
+    }
+
+    public function addJobType(JobType $jobType): self
+    {
+        if (!$this->jobTypes->contains($jobType)) {
+            $this->jobTypes[] = $jobType;
+        }
+
+        return $this;
+    }
+
+    public function removeJobType(JobType $jobType): self
+    {
+        $this->jobTypes->removeElement($jobType);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyEntity>
+     */
+    public function getCompanyEntities(): Collection
+    {
+        return $this->companyEntities;
+    }
+
+    public function addCompanyEntity(CompanyEntity $companyEntity): self
+    {
+        if (!$this->companyEntities->contains($companyEntity)) {
+            $this->companyEntities[] = $companyEntity;
+            $companyEntity->setCompanyGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyEntity(CompanyEntity $companyEntity): self
+    {
+        if ($this->companyEntities->removeElement($companyEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($companyEntity->getCompanyGroup() === $this) {
+                $companyEntity->setCompanyGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Employer>
+     */
+    public function getAdmins(): Collection
+    {
+        return $this->admins;
+    }
+
+    public function addAdmin(Employer $admin): self
+    {
+        if (!$this->admins->contains($admin)) {
+            $this->admins[] = $admin;
+        }
+
+        return $this;
+    }
+
+    public function removeAdmin(Employer $admin): self
+    {
+        $this->admins->removeElement($admin);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyGroupTeam>
+     */
+    public function getCompanyGroupTeams(): Collection
+    {
+        return $this->companyGroupTeams;
+    }
+
+    public function addCompanyGroupTeam(CompanyGroupTeam $companyGroupTeam): self
+    {
+        if (!$this->companyGroupTeams->contains($companyGroupTeam)) {
+            $this->companyGroupTeams[] = $companyGroupTeam;
+            $companyGroupTeam->setCompanyGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyGroupTeam(CompanyGroupTeam $companyGroupTeam): self
+    {
+        if ($this->companyGroupTeams->removeElement($companyGroupTeam)) {
+            // set the owning side to null (unless already changed)
+            if ($companyGroupTeam->getCompanyGroup() === $this) {
+                $companyGroupTeam->setCompanyGroup(null);
+            }
+        }
 
         return $this;
     }
