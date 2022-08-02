@@ -39,6 +39,9 @@ class Application
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
     private $applicantionExchanges;
 
+    #[ORM\Column(length: 11)]
+    private ?string $status = null;
+
     public function __construct()
     {
         $this->applicantionExchanges = new ArrayCollection();
@@ -142,6 +145,18 @@ class Application
                 $applicantionExchange->setApplication(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
