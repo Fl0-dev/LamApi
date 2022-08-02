@@ -4,6 +4,7 @@ namespace App\Transversal;
 
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Trait for using Slug
@@ -15,6 +16,7 @@ trait Slug
      *
      */
     #[ORM\Column(type: "string", length: 255)]
+    #[Groups(["read:getAll"])]
     private ?string $slug = null;
 
     /**

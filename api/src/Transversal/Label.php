@@ -3,6 +3,7 @@
 namespace App\Transversal;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Trait for using Label
@@ -13,6 +14,7 @@ trait Label
      * Label
      *
      */
+    #[Groups(["read:getAll"])]
     #[ORM\Column(type: "string", length: 255)]
     private ?string $label = null;
 
