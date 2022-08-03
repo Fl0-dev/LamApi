@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\InheritanceType("JOINED")]
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 ])]
 #[ORM\Entity]
 #[ORM\Table(name: "Physical_Users")]
+#[ApiResource()]
 class UserPhysical extends User
 {
     #[ORM\Column(type: "string", length: 180)]

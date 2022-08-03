@@ -6,7 +6,7 @@ use App\Entity\JobTitle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class JobTtileFixtures extends Fixture
+class JobTitleFixtures extends Fixture
 {
     const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',

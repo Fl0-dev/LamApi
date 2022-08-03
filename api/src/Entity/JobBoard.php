@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\JobBoardRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -10,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JobBoardRepository::class)]
+#[ApiResource()]
 class JobBoard
 {
     use Uuid;

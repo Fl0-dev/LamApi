@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OfferRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -10,8 +11,21 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'getOffersByCompanyEntity' => [
+            'method' => 'GET',
+            'path' => '/cabinet/{id}/offers',
+            'controller' => OffersByCompanyEntityController::class,
+            // 'normalization_context' => [
+            //     'groups' => ['offers_by_company_entity']
+            // ]
+        ],
+    ]
+)]
 class Offer
 {
     use Uuid;
@@ -23,6 +37,7 @@ class Offer
     private $provided;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $title;
 
     #[ORM\Column(type: 'boolean')]

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     "physical" => "UserPhysical",
     "abstract" => "UserAbstract",
 ])]
+#[ApiResource()]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use Uuid;

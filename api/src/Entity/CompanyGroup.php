@@ -2,27 +2,51 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\GetLightCompanyGroups;
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'getAllCompanyGroupsLight' => [
+            'method' => 'GET',
+            'path' => '/company-groups/light',
+            'controller' => GetLightCompanyGroups::class,
+            'normalization_context' => [
+                'groups' => ['read:c']
+            ]
+        ],
+        'getAllCompanyGroups' => [
+            'method' => 'GET',
+            'path' => '/company-groups',
+            'normalization_context' => [
+                'groups' => ['read:getAllCompanyGroups']
+            ]
+        ],
+    ]
+)]
 class CompanyGroup
 {
     use TechnicalProperties;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
     private $name;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $pubilshDate;
+    private $publishDate;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $status;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $creationYear;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -32,24 +56,31 @@ class CompanyGroup
     private $referralCode;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $turnover;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $usText;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $values;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $customersDesc;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $customersNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $website;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $middleAge;
 
     #[ORM\Column(type: 'boolean')]
@@ -59,15 +90,19 @@ class CompanyGroup
     private $openToRecruitment;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $color;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $badges;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $tools;
 
     #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $medias;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
@@ -79,30 +114,38 @@ class CompanyGroup
     private $partners;
 
     #[ORM\OneToOne(targetEntity: Social::class, cascade: ['persist', 'remove'])]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $social;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
     private $logo;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
     private $headerMedia;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $MainMedia;
 
     #[ORM\ManyToMany(targetEntity: JobType::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupTeam::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $companyGroupTeams;
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
     private $workforce;
 
     public function __construct()
@@ -130,14 +173,14 @@ class CompanyGroup
         return $this;
     }
 
-    public function getPubilshDate(): ?\DateTimeInterface
+    public function getPublishDate(): ?\DateTimeInterface
     {
-        return $this->pubilshDate;
+        return $this->publishDate;
     }
 
-    public function setPubilshDate(?\DateTimeInterface $pubilshDate): self
+    public function setPublishDate(?\DateTimeInterface $publishDate): self
     {
-        $this->pubilshDate = $pubilshDate;
+        $this->publishDate = $publishDate;
 
         return $this;
     }
@@ -597,6 +640,4 @@ class CompanyGroup
 
         return $this;
     }
-
-    
 }

@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompanyGroupTeamRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyGroupTeamRepository::class)]
+#[ApiResource()]
 class CompanyGroupTeam
 {
     use Uuid;

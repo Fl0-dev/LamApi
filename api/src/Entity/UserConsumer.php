@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\InheritanceType("JOINED")]
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 ])]
 #[ORM\Entity]
 #[ORM\Table(name: "Consumer_Users")]
+#[ApiResource()]
 abstract class UserConsumer extends UserPhysical
 {
     #[ORM\Column(type: "date", nullable: true)]

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ApplicantCvRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\Label;
@@ -10,6 +11,7 @@ use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantCvRepository::class)]
+#[ApiResource()]
 class ApplicantCv
 {
     use Uuid;

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     "image" => "MediaImage",
     "video" => "MediaVideo"
 ])]
-
+#[ApiResource()]
 class Media
 {
     use TechnicalProperties;

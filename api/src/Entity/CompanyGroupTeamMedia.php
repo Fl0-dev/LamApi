@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompanyGroupTeamMediaRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyGroupTeamMediaRepository::class)]
+#[ApiResource()]
 class CompanyGroupTeamMedia
 {
     use Uuid;

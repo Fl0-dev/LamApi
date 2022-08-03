@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompanyEntityRepository;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyEntityRepository::class)]
+#[ApiResource()]
 class CompanyEntity
 {
     use Uuid;
@@ -20,12 +23,14 @@ class CompanyEntity
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]
     private $companyGroup;
 
     #[ORM\ManyToMany(targetEntity: Address::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $addresses;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -35,6 +40,7 @@ class CompanyEntity
     private $applications;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Offer::class)]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $offers;
 
     public function __construct()

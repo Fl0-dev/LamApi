@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\JobTitleRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -11,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JobTitleRepository::class)]
+#[ApiResource()]
 class JobTitle
 {
     use Uuid;

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ToolRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -9,6 +10,7 @@ use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ToolRepository::class)]
+#[ApiResource()]
 class Tool
 {
     use Uuid;
