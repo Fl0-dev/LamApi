@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\CountCompanyGroupBadges;
+use App\Controller\CountCompanyGroupOffers;
 use App\Controller\GetLightCompanyGroups;
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
@@ -105,6 +107,32 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ]
         ],
         ############################## GET TEASER OF A COMPANYGROUP ##############################
+        ############################## GET NUMBER OF COMPANYGROUPS ##############################
+        'countCompanyGroups' => [
+            'method' => 'GET',
+            'path' => '/company-groups/count',
+            'controller' => CountCompanyGroups::class,
+            'pagination_enabled' => false,
+            'read' => false,
+            'filters' => [],
+            'openapi_context' => [
+                'summary' => 'Count all company groups',
+                'description' => 'Count all company groups. #withoutIdentifier',
+                'responses' => [
+                    '200' => [
+                        'description' => 'Count all company groups',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'integer',
+                                    'example' => 91,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        ],
     ]
 )]
 class CompanyGroup

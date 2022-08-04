@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\CountOffers;
 use App\Repository\OfferRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
