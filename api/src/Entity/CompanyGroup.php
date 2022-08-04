@@ -29,6 +29,43 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getAllCompanyGroups']
             ]
         ],
+    ], itemOperations: [
+        'CountCompanyGroupBadges' => [
+            'method' => 'GET',
+            'path' => '/company-groups/{id}/badges/count',
+            'controller' => CountCompanyGroupBadges::class,
+            'pagination_enabled' => false,
+            'read' => false,
+            'filters' => [],
+            'openapi_context' => [
+                'summary' => 'Count badges of a company group',
+                'description' => 'Count badges of a company group',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                            'format' => 'uuid',
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => 'Count badges of a company group',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'integer',
+                                    'example' => 3,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        ],
     ]
 )]
 class CompanyGroup

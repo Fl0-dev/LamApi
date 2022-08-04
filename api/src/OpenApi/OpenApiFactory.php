@@ -22,14 +22,6 @@ class OpenApiFactory implements OpenApiFactoryInterface
             }
         }
 
-        //nouveau tag pour les workforces
-        $pathItem = $openApi->getPaths()->getPath('/workforces');//on récupère le path '/workforces'
-        $pathItem->getGet()->withTags(['']);
-        
-        $openApi->getPaths()->addPath('/workforces', $pathItem);
-
-           
-
         return $openApi;
     }
 }
