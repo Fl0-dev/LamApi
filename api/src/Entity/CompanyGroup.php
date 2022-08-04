@@ -30,6 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ]
         ],
     ], itemOperations: [
+        ############################## GET NUMBER OF BADGES FOR A COMPANYGROUP ##############################
         'CountCompanyGroupBadges' => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/badges/count',
@@ -66,6 +67,44 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ]
         ],
+        ############################## GET NUMBER OF OFFERS FOR A COMPANYGROUP ##############################
+        'CountCompanyGroupOffers' => [
+            'method' => 'GET',
+            'path' => '/company-groups/{id}/offers/count',
+            'controller' => CountCompanyGroupOffers::class,
+            'pagination_enabled' => false,
+            'read' => false,
+            'filters' => [],
+            'openapi_context' => [
+                'summary' => 'Count offers of a company group',
+                'description' => 'Count offers of a company group',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                            'format' => 'uuid',
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => 'Count offers of a company group',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'integer',
+                                    'example' => 3,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        ],
+        ############################## GET TEASER OF A COMPANYGROUP ##############################
     ]
 )]
 class CompanyGroup

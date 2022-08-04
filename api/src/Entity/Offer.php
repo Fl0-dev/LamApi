@@ -24,6 +24,36 @@ use Symfony\Component\Serializer\Annotation\Groups;
             //     'groups' => ['offers_by_company_entity']
             // ]
         ],
+    ],
+    itemOperations: [
+        ############################## GET TOTAL NUMBER OF OFFERS ##############################
+        'CountOffers' => [
+            'method' => 'GET',
+            'path' => '/offers/count',
+            'controller' => CountOffers::class,
+            'pagination_enabled' => false,
+            'read' => false,
+            'filters' => [],
+            'output' => false,
+            'openapi_context' => [
+                'summary' => 'Count all offers',
+                'description' => 'Count all offers. #withoutIdentifier',
+                'parameters'=> [],
+                'responses' => [
+                    '200' => [
+                        'description' => 'Count all offers',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'integer',
+                                    'example' => 271,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        ],
     ]
 )]
 class Offer
