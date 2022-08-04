@@ -14,8 +14,8 @@ trait CreatedDate
      * Date when CompanyGroup was created
      *
      */
-    #[ORM\Column(type: "datetime")]
-    private ?\DateTime $createdDate = null;
+    #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTime $createdDate;
 
     /**
      * Get CompanyGroup Created Date

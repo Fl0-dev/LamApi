@@ -237,7 +237,7 @@ class CompanyGroup
     #[Groups(["read:getAllCompanyGroups"])]
     private $jobTypes;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class)]
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllCompanyGroups"])]
     private $companyEntities;
 

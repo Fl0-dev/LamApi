@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompanyEntityRepository;
+use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class CompanyEntity
 {
     use Uuid;
+    use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $hrMail;
@@ -29,7 +31,8 @@ class CompanyEntity
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]
     private $companyGroup;
 
-    #[ORM\ManyToMany(targetEntity: Address::class)]
+    #[ORM\ManyToMany(targetEntity: Address::class, cascade: ['persist'])]
+    //#[ORM\JoinTable(name: "company_entity_offices")]
     #[Groups(["read:getAllCompanyGroups"])]
     private $addresses;
 

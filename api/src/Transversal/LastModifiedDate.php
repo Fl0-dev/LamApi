@@ -14,8 +14,8 @@ trait LastModifiedDate
      * Date when was last modified
      *
      */
-    #[ORM\Column(type: "datetime")]
-    private ?\DateTime $lastModifiedDate = null;
+    #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTime $lastModifiedDate;
 
     /**
      * Get Last Modified Date
