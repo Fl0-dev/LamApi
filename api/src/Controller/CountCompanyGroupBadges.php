@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CompanyGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\HttpFoundation\Request;
 
 class CountCompanyGroupBadges extends AbstractController
 {
@@ -13,9 +13,9 @@ class CountCompanyGroupBadges extends AbstractController
     }
     
 
-    public function __invoke(Uuid $uuid)
+    public function __invoke(Request $request)
     {
-        $badges = $this->companyGroupRepository->find($uuid)->getBadges();
+        $badges = $this->companyGroupRepository->find($request->get('id'))->getBadges();
         if(!$badges || !is_array($badges)){
             return 0;
         }

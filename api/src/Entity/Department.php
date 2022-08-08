@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\CountAllDepartments;
 use App\Repository\DepartmentRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -10,8 +11,36 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DepartmentRepository::class)]
-#[ApiResource()]
+#[ORM\Entity()]
+#[ApiResource(
+    itemOperations: [
+        'countAllDepartments' => [
+            'method' => 'GET',
+            'path' => '/departments/count',
+            'controller' => CountAllDepartments::class,
+            'pagination_enabled' => false,
+            'read' => false,
+            'filters' => [],
+            'openapi_context' => [
+                'summary' => 'Count all departments',
+                'description' => 'Count all departments. #withoutIdentifier',
+                'responses' => [
+                    '200' => [
+                        'description' => 'Count all company groups',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'integer',
+                                    'example' => 91,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]
+)]
 class Department
 {
     use Uuid;

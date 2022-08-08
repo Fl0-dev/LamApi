@@ -13,7 +13,11 @@ class CountOffers extends AbstractController
 
     public function __invoke(): int
     {
-        return count($this->offerRepository->findAll());
+        $count = count($this->offerRepository->findAll());
+        if (!$count) {
+            return 0;
+        }
+        return $count;
         
     }
 }

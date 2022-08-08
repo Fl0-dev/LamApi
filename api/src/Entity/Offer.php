@@ -16,16 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiResource(
-    collectionOperations: [
-        'getOffersByCompanyEntity' => [
-            'method' => 'GET',
-            'path' => '/cabinet/{id}/offers',
-            'controller' => OffersByCompanyEntityController::class,
-            // 'normalization_context' => [
-            //     'groups' => ['offers_by_company_entity']
-            // ]
-        ],
-    ],
+    
     itemOperations: [
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
         'CountOffers' => [
@@ -35,7 +26,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'pagination_enabled' => false,
             'read' => false,
             'filters' => [],
-            'output' => false,
             'openapi_context' => [
                 'summary' => 'Count all offers',
                 'description' => 'Count all offers. #withoutIdentifier',

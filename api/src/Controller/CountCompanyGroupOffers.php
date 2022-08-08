@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Repository\CompanyEntityRepository;
 use App\Repository\CompanyGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\HttpFoundation\Request;
 
 class CountCompanyGroupOffers extends AbstractController
 {
@@ -13,20 +13,13 @@ class CountCompanyGroupOffers extends AbstractController
     {
     }
     
-    public function __invoke(Uuid $uuid)
+    public function __invoke(Request $request)
     {
+        $companyEntities = $this->companyGroupRepository->find($request->get('id'))->getCompanyEntities();
         $count = 0;
-        $companyEntities = $this->companyGroupRepository->find($uuid)->getCompanyEntities();
-        if(!$companyEntities || !is_array($companyEntities)){
-            return $count;
-        }
-        
-        foreach($companyEntities as $companyEntity){
-            $offers = $companyEntity->getOffers();
-            if(!$offers || !is_array($offers)){
-                continue;
-            }
-            $count += count($offers);
+
+        foreach ($companyEntities as $companyEntity) {
+            $count += count($companyEntity->getOffers());
         }
 
         return $count;

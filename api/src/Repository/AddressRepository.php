@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Address;
+use App\Entity\City;
+use App\Entity\Department;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -63,4 +66,14 @@ class AddressRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findAllDepartmentNumberWithAddress()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('c.departmentNumber')
+            ->join('a.city', 'c')
+            ->groupBy('c.departmentNumber')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

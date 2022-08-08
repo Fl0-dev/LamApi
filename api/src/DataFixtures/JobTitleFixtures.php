@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\JobTitle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class JobTitleFixtures extends Fixture
@@ -45,6 +46,9 @@ class JobTitleFixtures extends Fixture
         'transmission-cession' => 'Transmission / Cession'
     ];
 
+    public const JOB_TITLE_REFERENCE_1 = 'job_title_reference_1';
+    
+
     public function load(ObjectManager $manager)
     {
         foreach (self::JOB_TITLES as $slug => $label) {
@@ -53,7 +57,7 @@ class JobTitleFixtures extends Fixture
             $jobTitle->setLabel($label);
             $manager->persist($jobTitle);
         }
-        
+        $this->addReference(self::JOB_TITLE_REFERENCE_1, $jobTitle);
         $manager->flush();
     }
 }

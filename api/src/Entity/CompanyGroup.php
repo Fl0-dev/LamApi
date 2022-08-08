@@ -5,7 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\CountCompanyGroupBadges;
 use App\Controller\CountCompanyGroupOffers;
-use App\Controller\GetLightCompanyGroups;
+use App\Controller\CountCompanyGroups;
+use App\Controller\GetCompanyGroupTeasers;
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,13 +16,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiResource(
+    paginationClientItemsPerPage: true,
+    
+
     collectionOperations: [
         'getAllCompanyGroupsLight' => [
             'method' => 'GET',
-            'path' => '/company-groups/light',
-            'controller' => GetLightCompanyGroups::class,
+            'path' => '/company-groups/teasers',
+            'controller' => GetCompanyGroupTeasers::class,
+            
+            'openapi_context' => [
+
+            ],
+            
             'normalization_context' => [
-                'groups' => ['read:c']
+                'groups' => ['read:getAllTeaserCompanyGroups'],
             ]
         ],
         'getAllCompanyGroups' => [
@@ -31,7 +40,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getAllCompanyGroups']
             ]
         ],
-    ], itemOperations: [
+    ],
+    itemOperations: [
+        'get',
         ############################## GET NUMBER OF BADGES FOR A COMPANYGROUP ##############################
         'CountCompanyGroupBadges' => [
             'method' => 'GET',
@@ -77,6 +88,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'pagination_enabled' => false,
             'read' => false,
             'filters' => [],
+            'group' => ['read:getAllTeaserCompanyGroups'],
             'openapi_context' => [
                 'summary' => 'Count offers of a company group',
                 'description' => 'Count offers of a company group',
@@ -106,7 +118,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ]
         ],
-        ############################## GET TEASER OF A COMPANYGROUP ##############################
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
         'countCompanyGroups' => [
             'method' => 'GET',
@@ -140,7 +151,7 @@ class CompanyGroup
     use TechnicalProperties;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
     private $name;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -198,7 +209,7 @@ class CompanyGroup
     private $color;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
     private $badges;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
@@ -222,11 +233,11 @@ class CompanyGroup
     private $social;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
     private $logo;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
     private $headerMedia;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
@@ -238,7 +249,7 @@ class CompanyGroup
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -249,7 +260,7 @@ class CompanyGroup
     private $companyGroupTeams;
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
-    #[Groups(["read:getAllCompanyGroupsLight", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
     private $workforce;
 
     public function __construct()

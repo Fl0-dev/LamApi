@@ -79,6 +79,5 @@ class BadgeFixtures extends Fixture
             $manager->persist($badge);
             $manager->flush();
         }
-        
     }
 }

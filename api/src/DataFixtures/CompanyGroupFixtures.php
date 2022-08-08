@@ -17,6 +17,11 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public const COMPANY_GROUP_REFERENCE_3 = 'company_group3';
     public const COMPANY_GROUP_REFERENCE_4 = 'company_group4';
 
+    public const COMPANY_ENTITY_REFERENCE_1 = 'company_entity1';
+    public const COMPANY_ENTITY_REFERENCE_2 = 'company_entity2';
+    public const COMPANY_ENTITY_REFERENCE_3 = 'company_entity3';
+    public const COMPANY_ENTITY_REFERENCE_4 = 'company_entity4';
+
     public function load(ObjectManager $manager)
     {
         ###### TGS FRANCE ######
@@ -52,6 +57,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setName('TGS France Nantes');
         $companyEntity->setSlug('tgs-france-nantes');
         $companyEntity->addAddress($address);
+        $this->addReference(self::COMPANY_ENTITY_REFERENCE_1, $companyEntity);
         $manager->persist($companyEntity);
 
         $companyGroup->addCompanyEntity($companyEntity);
@@ -91,6 +97,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setName('Eolis Nantes');
         $companyEntity->setSlug('eolis-nantes');
         $companyEntity->addAddress($address);
+        $this->addReference(self::COMPANY_ENTITY_REFERENCE_2, $companyEntity);
         $manager->persist($companyEntity);
 
         $companyGroup->addCompanyEntity($companyEntity);
@@ -125,6 +132,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setName('Livli');
         $companyEntity->setSlug('livli');
         $companyEntity->addAddress($address);
+        $this->addReference(self::COMPANY_ENTITY_REFERENCE_3, $companyEntity);
         $manager->persist($companyEntity);
 
         $companyGroup->addCompanyEntity($companyEntity);
@@ -159,6 +167,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setName('In Extenso');
         $companyEntity->setSlug('In Extenso');
         $companyEntity->addAddress($address);
+        $this->addReference(self::COMPANY_ENTITY_REFERENCE_4, $companyEntity);
         $manager->persist($companyEntity);
 
         $companyGroup->addCompanyEntity($companyEntity);
