@@ -18,11 +18,11 @@ class Address
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups'])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups'])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
@@ -38,7 +38,7 @@ class Address
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups'])]
     private $city;
 
     public function getName(): ?string

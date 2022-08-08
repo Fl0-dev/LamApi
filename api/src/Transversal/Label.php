@@ -14,7 +14,7 @@ trait Label
      * Label
      *
      */
-    #[Groups(["read:getAll"])]
+    #[Groups(["read:getAll", "read:getAllCompanyGroups"])]
     #[ORM\Column(type: "string", length: 255)]
     private ?string $label = null;
 

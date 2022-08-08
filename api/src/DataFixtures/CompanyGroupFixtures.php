@@ -41,6 +41,8 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setOpenToRecruitment(true);
         $companyGroup->setMiddleAge(35);
         $companyGroup->setUsText('TGS France est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés partout en France.');
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_0));
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_1, $companyGroup);
 
         $address = new Address();
@@ -81,6 +83,8 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setOpenToRecruitment(true);
         $companyGroup->setMiddleAge(41);
         $companyGroup->setUsText('Eolis est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Nantes');
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_2));
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_15));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_2, $companyGroup);
 
         $address = new Address();
@@ -116,6 +120,10 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setOpenToRecruitment(true);
         $companyGroup->setMiddleAge(25);
         $companyGroup->setUsText('Livli est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Saint-Nazaire');
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_2));
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_14));
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_13));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_3, $companyGroup);
 
         $address = new Address();
@@ -151,6 +159,8 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setOpenToRecruitment(true);
         $companyGroup->setMiddleAge(38);
         $companyGroup->setUsText('In Extenso Ouest est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Challans');
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
+        $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_4, $companyGroup);
 
         $address = new Address();
@@ -181,6 +191,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CityFixtures::class,
+            JobTypeFixtures::class,
         ];
     }
 }

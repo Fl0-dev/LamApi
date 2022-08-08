@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: JobTypeRepository::class)]
 #[ApiResource(
     normalizationContext: [
-        'groups' => ['read:getAll'], //indique l'annotation à utiliser pour récupérer certains champs lors d'un GET All
+        'groups' => ['read:getAll', 'read:getAllCompanyGroups'], //indique l'annotation à utiliser pour récupérer certains champs lors d'un GET All
         'openapi_definition_name' => 'Collection'//pour renommer le schéma dans la documentation
     ],
     collectionOperations: [
@@ -28,6 +28,25 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class JobType
 {
+    const JOB_TYPES = [
+        'expertise-comptable'       => 'Expertise comptable',
+        'audit-commissariat'        => 'Audit / Commissariat aux comptes',
+        'juridique'                 => 'Juridique',
+        'social-paie'               => 'Social / Paie',
+        'conseil'                   => 'Conseil',
+        'gestion-patrimoine'        => 'Gestion de patrimoine',
+        'transmission-cession'      => 'Transmission / Cession',
+        'fiscalite'                 => 'Fiscalité',
+        'gestion-pilotage'          => 'Gestion / Pilotage',
+        'evaluation'                => 'Evaluation',
+        'consolidation'             => 'Consolidation',
+        'daf-externalise'           => 'DAF externisé',
+        'recherche-de-financement'  => 'Recherche de financement',
+        'numerique'                 => 'Numérique',
+        'comm-market'               => 'Communication / Marketing',
+        'administratif'             => 'Administratif'
+    ];
+
     use Uuid;
     use Slug;
     use Label;

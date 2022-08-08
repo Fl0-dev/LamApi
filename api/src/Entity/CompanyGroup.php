@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Common\Filter\SearchFilterInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CountCompanyGroupBadges;
 use App\Controller\CountCompanyGroupOffers;
 use App\Controller\CountCompanyGroups;
@@ -28,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'normalization_context' => [
                 'groups' => ['read:getAllTeaserCompanyGroups'],
             ],
-            'pagination_maximum_items_per_page' => 3,
+            //'pagination_maximum_items_per_page' => 3,
         ],
         'getAllCompanyGroups' => [
             'method' => 'GET',
@@ -146,6 +149,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['jobTypes.slug' => 'partial'])]
 class CompanyGroup
 {
     use TechnicalProperties;
