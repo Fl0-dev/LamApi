@@ -19,6 +19,7 @@ class CompanyEntity
     use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getOfferDetails'])]
     private $hrMail;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -33,7 +34,7 @@ class CompanyEntity
 
     #[ORM\ManyToMany(targetEntity: Address::class, cascade: ['persist'])]
     //#[ORM\JoinTable(name: "company_entity_offices")]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups",'read:getOfferDetails'])]
     private $addresses;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]

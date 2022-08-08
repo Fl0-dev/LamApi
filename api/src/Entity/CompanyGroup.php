@@ -16,28 +16,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiResource(
-    paginationClientItemsPerPage: true,
-    
-
+    //paginationEnabled: true,
+    //paginationMaximumItemsPerPage: 3,
+    //paginationClientItemsPerPage: true,
     collectionOperations: [
-        'getAllCompanyGroupsLight' => [
+        'GetCompanyGroupTeaser' => [
             'method' => 'GET',
             'path' => '/company-groups/teasers',
             'controller' => GetCompanyGroupTeasers::class,
-            
-            'openapi_context' => [
-
-            ],
-            
+            'openapi_context' => [],
             'normalization_context' => [
                 'groups' => ['read:getAllTeaserCompanyGroups'],
-            ]
+            ],
+            'pagination_maximum_items_per_page' => 3,
         ],
         'getAllCompanyGroups' => [
             'method' => 'GET',
             'path' => '/company-groups',
             'normalization_context' => [
                 'groups' => ['read:getAllCompanyGroups']
+            ],
+            'attributes' => [
+                'pagination_maximum_items_per_page' => 3,
             ]
         ],
     ],

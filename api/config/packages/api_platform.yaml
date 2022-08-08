@@ -12,6 +12,12 @@ api_platform:
     # Good defaults value for REST APIs
     defaults:
         stateless: true
-        # Good cache defaults
+        pagination_client_items_per_page: true
+        pagination_maximum_items_per_page: 51
+         # Good cache defaults
         cache_headers:
             vary: ['Content-Type', 'Authorization', 'Origin']
+    collection:
+        pagination:
+            items_per_page_parameter_name: itemsPerPage # Default value
+       

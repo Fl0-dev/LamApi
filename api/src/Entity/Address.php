@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AddressRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
 #[ApiResource()]
@@ -17,15 +18,19 @@ class Address
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['read:getOfferDetails'])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
+    #[Groups(['read:getOfferDetails'])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(['read:getOfferDetails'])]
     private $latitude;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(['read:getOfferDetails'])]
     private $longitude;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -33,6 +38,7 @@ class Address
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read:getOfferDetails'])]
     private $city;
 
     public function getName(): ?string
