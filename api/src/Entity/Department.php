@@ -10,6 +10,7 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity()]
 #[ApiResource(
@@ -47,6 +48,7 @@ class Department
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllCities"])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Region::class)]

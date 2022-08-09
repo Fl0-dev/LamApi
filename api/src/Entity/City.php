@@ -2,20 +2,40 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CityRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    collectionOperations:
+    [
+        'get' => [
+            'method' => 'GET',
+            'path' => '/cities',
+            'normalization_context' => [
+                'groups' => ['read:getAllCities'],
+            ],
+        ],
+    ],
+)]
+#[ApiFilter(SearchFilter::class, properties: [
+    'name' => 'ipartial', 
+    'department.name' => 'ipartial'
+    ]
+)]
 class City
 {
     use Uuid;
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllCities"])]
     private $name;
 
     #[ORM\Column(type: 'integer')]
@@ -23,6 +43,7 @@ class City
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllCities"])]
     private $department;
 
     public function getName(): ?string

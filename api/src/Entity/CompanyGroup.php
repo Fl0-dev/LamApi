@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Common\Filter\SearchFilterInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CountCompanyGroupBadges;
 use App\Controller\CountCompanyGroupOffers;
@@ -149,7 +148,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['jobTypes.slug' => 'partial'])]
+#[ApiFilter(
+    SearchFilter::class, properties: [
+        'jobTypes.slug' => 'partial', 
+        'companyEntities.addresses.city.name' => 'partial', 
+        'companyEntities.addresses.city.department.name' => 'partial'
+    ]
+)]
 class CompanyGroup
 {
     use TechnicalProperties;
