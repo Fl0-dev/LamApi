@@ -38,7 +38,7 @@ class Address
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups', 'read:getAllTeaserOffers'])]
     private $city;
 
     public function getName(): ?string

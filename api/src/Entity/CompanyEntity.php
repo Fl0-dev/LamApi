@@ -34,7 +34,7 @@ class CompanyEntity
 
     #[ORM\ManyToMany(targetEntity: Address::class, cascade: ['persist'])]
     //#[ORM\JoinTable(name: "company_entity_offices")]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups",'read:getOfferDetails'])]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $addresses;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]

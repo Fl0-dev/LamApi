@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Filter\LocalisationFilter;
 use App\Repository\CityRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -24,21 +24,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ],
 )]
-#[ApiFilter(SearchFilter::class, properties: [
-    'name' => 'ipartial', 
-    'department.name' => 'ipartial'
-    ]
-)]
+#[ApiFilter(LocalisationFilter::class)]
 class City
 {
     use Uuid;
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllCities"])]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllCities", "read:getAllTeaserOffers"])]
     private $name;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["read:getAllTeaserOffers"])]
     private $departmentNumber;
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]

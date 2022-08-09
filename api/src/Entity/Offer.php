@@ -16,7 +16,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiResource(
-    
+    collectionOperations: [
+        'getOfferTeasers' => [
+            'method' => 'GET',
+            'path' => '/offers/teasers',
+            'normalization_context' => [
+                'groups' => ['read:getAllTeaserOffers'],
+            ],
+        ]
+    ],
     itemOperations: [
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
         'CountOffers' => [
@@ -67,7 +75,7 @@ class Offer
     private $provided;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["read:getAllCompanyGroups", 'read:getOfferDetails'])]
+    #[Groups(["read:getAllCompanyGroups", 'read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $title;
 
     #[ORM\Column(type: 'boolean')]
@@ -99,19 +107,19 @@ class Offer
     private $weeklyHours;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $startASAP;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $salaryMin;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $salaryMax;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $startDate;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -129,14 +137,14 @@ class Offer
 
     #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $companyEntity;
 
     #[ORM\ManyToOne(targetEntity: Employer::class)]
     private $author;
 
     #[ORM\ManyToOne(targetEntity: Media::class)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $headerMedia;
 
     #[ORM\Column(type: 'string', length: 11, nullable: true)]
@@ -153,7 +161,7 @@ class Offer
     private $experience;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $contractType;
 
     #[ORM\Column(type: 'string', length: 9)]

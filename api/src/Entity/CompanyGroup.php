@@ -5,10 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\OpenApi\Model\Parameter;
 use App\Controller\CountCompanyGroupBadges;
 use App\Controller\CountCompanyGroupOffers;
 use App\Controller\CountCompanyGroups;
 use App\Controller\GetCompanyGroupTeasers;
+use App\Filter\LocalisationFilter;
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'GetCompanyGroupTeaser' => [
             'method' => 'GET',
             'path' => '/company-groups/teasers',
-            'controller' => GetCompanyGroupTeasers::class,
+            //'controller' => GetCompanyGroupTeasers::class,
             'openapi_context' => [],
             'normalization_context' => [
                 'groups' => ['read:getAllTeaserCompanyGroups'],
@@ -149,10 +151,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ]
 )]
 #[ApiFilter(
-    SearchFilter::class, properties: [
-        'jobTypes.slug' => 'partial', 
-        'companyEntities.addresses.city.name' => 'partial', 
-        'companyEntities.addresses.city.department.name' => 'partial'
+    LocalisationFilter::class
+)]
+#[ApiFilter(
+    SearchFilter::class, 
+    properties: [
+        'jobTypes.slug' => 'partial'
     ]
 )]
 class CompanyGroup
