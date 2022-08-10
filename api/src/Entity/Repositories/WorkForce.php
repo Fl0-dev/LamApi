@@ -2,8 +2,10 @@
 
 namespace App\Entity\Repositories;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Filter\WorkforceFilter;
 use App\Transversal\Label;
 use App\Transversal\Slug;
 use Symfony\Component\Uid\Uuid;
@@ -28,6 +30,7 @@ use Symfony\Component\Uid\Uuid;
         ],
     ]
 )]
+#[ApiFilter(WorkforceFilter::class)]
 class Workforce
 { 
     const LEVEL_1 = '1-a-9-salaries';

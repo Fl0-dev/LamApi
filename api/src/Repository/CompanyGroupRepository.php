@@ -39,6 +39,15 @@ class CompanyGroupRepository extends ServiceEntityRepository
         }
     }
 
+    public function findNameByPartial(string $keywords): array
+    {
+        $qb = $this->createQueryBuilder('cg');
+        $qb
+            ->select('cg.name')
+            ->where($qb->expr()->like('cg.slug', ':keywords'))
+            ->setParameter('keywords', '%' . $keywords . '%');
+        return $qb->getQuery()->getResult();
+    }
 //    /**
 //     * @return CompanyGroup[] Returns an array of CompanyGroup objects
 //     */

@@ -5,11 +5,10 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\OpenApi\Model\Parameter;
 use App\Controller\CountCompanyGroupBadges;
 use App\Controller\CountCompanyGroupOffers;
 use App\Controller\CountCompanyGroups;
-use App\Controller\GetCompanyGroupTeasers;
+use App\Controller\GetCompanyGroupName;
 use App\Filter\LocalisationFilter;
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
@@ -20,19 +19,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiResource(
-    //paginationEnabled: true,
-    //paginationMaximumItemsPerPage: 3,
-    //paginationClientItemsPerPage: true,
     collectionOperations: [
         'GetCompanyGroupTeaser' => [
             'method' => 'GET',
             'path' => '/company-groups/teasers',
-            //'controller' => GetCompanyGroupTeasers::class,
             'openapi_context' => [],
             'normalization_context' => [
                 'groups' => ['read:getAllTeaserCompanyGroups'],
             ],
-            //'pagination_maximum_items_per_page' => 3,
         ],
         'getAllCompanyGroups' => [
             'method' => 'GET',
@@ -43,6 +37,29 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'attributes' => [
                 'pagination_maximum_items_per_page' => 3,
             ]
+        ],
+        'getCompanyNameByKeyWords' => [
+            'method' => 'GET',
+            'path' => '/company-groups/name/keywords={keywords}',
+            'normalization_context' => [
+                'groups' => ['read:getCompanyNameByKeyWords'],
+            ],
+            'controller' => GetCompanyGroupName::class,
+            'filters'=> [],
+            'openapi_context' => [
+                'summary' => 'Retrives list of CompanyGroups names by keywords',
+                'description' => 'Retrives list of CompanyGroups names by keywords',
+                'parameters' => [
+                    [
+                        'name' => 'keywords',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     itemOperations: [
@@ -164,7 +181,7 @@ class CompanyGroup
     use TechnicalProperties;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups", "read:getCompanyNameByKeyWords"])]
     private $name;
 
     #[ORM\Column(type: 'datetime', nullable: true)]

@@ -5,7 +5,9 @@ namespace App\DataProvider;
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\Repositories\Workforce;
+use App\Filter\WorkforceFilter;
 use App\Repository\WorkforceRepository;
+use App\Utils\Utils;
 
 class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
 {
@@ -18,6 +20,10 @@ class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterfa
 
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
+        $list = Utils::getArrayValue(WorkforceFilter::WORKFORCE_CONTEXT, $context);
+        if ($list) {
+            return $list;
+        }
         return $this->workforceRepository->findAll();
     }
 }
