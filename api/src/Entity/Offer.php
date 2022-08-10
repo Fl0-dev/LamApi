@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use App\Controller\CountOffers;
 use App\Repository\OfferRepository;
 use App\Transversal\CreatedDate;
@@ -63,6 +67,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ]
     ]
 )]
+#[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'asc'])]
+#[ApiFilter(BooleanFilter::class, properties: ['provided'])]
 class Offer
 {
     use Uuid;
