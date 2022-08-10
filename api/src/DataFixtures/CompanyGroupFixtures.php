@@ -5,6 +5,9 @@ namespace App\DataFixtures;
 use App\Entity\Address;
 use App\Entity\CompanyEntity;
 use App\Entity\CompanyGroup;
+use App\Entity\Media;
+use App\Entity\MediaImage;
+use App\Entity\MediaVideo;
 use App\Entity\Social;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -44,6 +47,37 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_0));
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_1, $companyGroup);
+
+        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
+        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france.com/assets/images/logo.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-logo.png');
+        $media->setSlug('tgs-france-logo');
+        $media->setType('image');
+        $companyGroup->setLogo($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france.com/assets/images/header.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-header.png');
+        $media->setSlug('tgs-france-header');
+        $media->setType('image');
+        $companyGroup->setHeaderMedia($media);
+
+        $media = new MediaVideo();
+        $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/videos/tgs-france.mp4');
+        $media->setSlug('tgs-france-video');
+        $media->setType('video');
+        $media->setAutoplay(true);
+        $companyGroup->setMainMedia($media);
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
@@ -87,6 +121,36 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_15));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_2, $companyGroup);
 
+        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.eolis.com/assets/images/logo.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/eolis-logo.png');
+        $media->setSlug('eolis-logo');
+        $media->setType('image');
+        $companyGroup->setLogo($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.eolis.com/assets/images/header.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/eolis-header.png');
+        $media->setSlug('eolis-header');
+        $media->setType('image');
+        $companyGroup->setHeaderMedia($media);
+
+        $media = new MediaVideo();
+        $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/videos/eolis.mp4');
+        $media->setSlug('eolis-video');
+        $media->setType('video');
+        $media->setAutoplay(true);
+        $companyGroup->setMainMedia($media);
+
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
         $address->setStreet('Rue de la Liberté');
@@ -126,6 +190,37 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_13));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_3, $companyGroup);
 
+        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
+        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli.com/assets/images/logo.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-logo.png');
+        $media->setSlug('livli-logo');
+        $media->setType('image');
+        $companyGroup->setLogo($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli.com/assets/images/header.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-header.png');
+        $media->setSlug('livli-header');
+        $media->setType('image');
+        $companyGroup->setHeaderMedia($media);
+
+        $media = new MediaVideo();
+        $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/videos/livli.mp4');
+        $media->setSlug('livli-video');
+        $media->setType('video');
+        $media->setAutoplay(true);
+        $companyGroup->setMainMedia($media);
+
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
         $address->setStreet('Rue de la Liberté');
@@ -163,6 +258,36 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_4, $companyGroup);
 
+        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/logo.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/in-extenso-ouest-logo.png');
+        $media->setSlug('in-extenso-ouest-logo');
+        $media->setType('image');
+        $companyGroup->setLogo($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/header.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/in-extenso-ouest-header.png');
+        $media->setSlug('in-extenso-ouest-header');
+        $media->setType('image');
+        $companyGroup->setHeaderMedia($media);
+
+        $media = new MediaVideo();
+        $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/videos/in-extenso-ouest.mp4');
+        $media->setSlug('in-extenso-ouest-video');
+        $media->setType('video');
+        $media->setAutoplay(true);
+        $companyGroup->setMainMedia($media);
+
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
         $address->setStreet('Rue de la Liberté');
@@ -192,6 +317,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         return [
             CityFixtures::class,
             JobTypeFixtures::class,
+            ToolFixtures::class,
         ];
     }
 }

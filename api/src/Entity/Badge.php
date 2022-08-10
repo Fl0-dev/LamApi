@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\BadgeRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -27,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "delete",
     ],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['slug' => 'ipartial'])]
 class Badge
 {
     const ID_LABEL = 'label';
@@ -87,7 +90,7 @@ class Badge
             self::ID_DESCRIPTION => "Le cabinet propose de prendre des stagiaires pour l'obtention du DEC (Diplôme d'Expert-Comptable)."
         ],
     ];
-    
+
     use Uuid;
     use Label;
     use Slug;
