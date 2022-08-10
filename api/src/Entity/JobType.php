@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Filter\JobFilter;
 use App\Repository\JobTypeRepository;
 use App\Transversal\Label;
@@ -28,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
         "delete",
     ],
 )]
-#[ApiFilter(JobFilter::class)]
+#[ApiFilter(SearchFilter::class, properties: ["slug" => "ipartial"])]
 class JobType
 {
     const JOB_TYPES = [

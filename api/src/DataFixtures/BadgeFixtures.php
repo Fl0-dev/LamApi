@@ -66,6 +66,7 @@ class BadgeFixtures extends Fixture
             self::ID_DESCRIPTION => "Le cabinet propose de prendre des stagiaires pour l'obtention du DEC (Diplôme d'Expert-Comptable)."
         ],
     ];
+    
     public function load(ObjectManager $manager)
     {
 
