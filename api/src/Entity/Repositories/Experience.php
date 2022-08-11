@@ -2,8 +2,10 @@
 
 namespace App\Entity\Repositories;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Filter\ExperienceFilter;
 use App\Transversal\Label;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +31,8 @@ use Doctrine\ORM\Mapping as ORM;
         ],
     ]
 )]
-#[ORM\MappedSuperclass()]
+
+#[ApiFilter(ExperienceFilter::class)]
 class Experience
 {
     const UNSPECIFIED = 0;

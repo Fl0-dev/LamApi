@@ -30,13 +30,13 @@ class WorkforceRepository
         return null;
     }
 
-    public function findByKeywords(string $keywords): array
+    public function findByKeywords(string $keywords): ?array
     {
         $workforces = $this->findAll();
         $results = [];
         if (is_array($workforces) && !empty($workforces)) {
             foreach ($workforces as $workforce) {
-                if (strpos($workforce->getLabel(), $keywords) !== false || strpos($workforce->getSlug(), $keywords) !== false) {
+                if (strpos($workforce->getSlug(), $keywords) !== false) {
                     $results[] = $workforce;
                 }
             }

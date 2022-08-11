@@ -2,8 +2,10 @@
 
 namespace App\Entity\Repositories;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Filter\ContractTypeFilter;
 use Symfony\Component\Uid\Uuid;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -28,6 +30,7 @@ use App\Transversal\Slug;
         ],
     ]
 )]
+#[ApiFilter(ContractTypeFilter::class)]
 class ContractType
 {
 

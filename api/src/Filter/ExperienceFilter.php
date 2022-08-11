@@ -3,38 +3,38 @@
 namespace App\Filter;
 
 use ApiPlatform\Core\Serializer\Filter\FilterInterface;
+use App\Repository\ExperienceRepository;
 
-use App\Repository\WorkforceRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class WorkforceFilter implements FilterInterface
+class ExperienceFilter implements FilterInterface
 {
-    public const WORKFORCE_CONTEXT = 'workforce_context';
+    public const EXPERIENCE_CONTEXT = 'experience_context';
 
-    public function __construct(private WorkforceRepository $workforceRepository)
+    public function __construct(private ExperienceRepository $experienceRepository)
     {   
     }
     
     public function apply(Request $request, bool $normalization, array $attributes, array &$context)
     {
-        $workforce = $request->query->get('workforce');
-        if (!$workforce) {
+        $experience = $request->query->get('experience');
+        if (!$experience) {
             return;
         }
-        $keywords = strtolower($request->get('workforce'));
+        $keywords = strtolower($request->get('experience'));
         $keywords = trim($keywords);
-        $workforces = $this->workforceRepository->findByKeywords($keywords);
-        $context[self::WORKFORCE_CONTEXT] = $workforces;
+        $experiences = $this->experienceRepository->findByKeywords($keywords);
+        $context[self::EXPERIENCE_CONTEXT] = $experiences;
     }
     
     public function getDescription(string $resourceClass): array
     {
         return [
-            'workforce' => [
+            'experience' => [
                 'property' => null,
                 'type' => 'string',
                 'required' => false,
-                'description' => 'Search worforces with keywords',
+                'description' => 'Search experiences with keywords',
                 'openapi' => [
                     'example' => '19',
                 ],

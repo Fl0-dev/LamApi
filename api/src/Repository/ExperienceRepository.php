@@ -29,4 +29,19 @@ class ExperienceRepository
         }
         return null;
     }
+
+    public function findByKeywords(string $keywords): ?array
+    {
+        $experiences = $this->findAll();
+        $results = [];
+        if (is_array($experiences) && !empty($experiences)) {
+            foreach ($experiences as $experience) {
+                if (strpos(strtolower($experience->getFull()), $keywords) !== false) {
+                    $results[] = $experience;
+                }
+            }
+            return $results;
+        }
+        return null;
+    }
 }
