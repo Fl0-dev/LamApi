@@ -33,6 +33,17 @@ class LocalisationFilter extends AbstractFilter
                 ->andWhere(sprintf('o.slug LIKE :%s OR d.slug LIKE :%s', $valueParameter, $valueParameter))
                 ->setParameter($valueParameter, '%' . strtolower($value) . '%');
         }
+
+        if ($resourceClass === 'App\Entity\Offer') {
+            $valueParameter = $queryNameGenerator->generateParameterName($property);
+            $queryBuilder
+                ->join('o.companyEntity', 'ce', 'WITH', 'ce.id = o.companyEntity')
+                ->join('ce.addresses', 'a', 'WITH', 'a MEMBER OF ce.addresses')
+                ->join('a.city', 'c', 'WITH', 'c.id = a.city')
+                ->join('c.department', 'd', 'WITH', 'd.id = c.department')
+                ->andWhere(sprintf('c.slug LIKE :%s OR d.slug LIKE :%s', $valueParameter, $valueParameter))
+                ->setParameter($valueParameter, '%' . strtolower($value) . '%');
+        }
     }
 
     public function getDescription(string $resourceClass): array

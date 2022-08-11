@@ -6,7 +6,10 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CountOffers;
+use App\Entity\Repositories\ContractType;
+use App\Filter\LocalisationFilter;
 use App\Repository\OfferRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -66,8 +69,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ]
     ]
 )]
+#[ApiFilter(LocalisationFilter::class)]
 #[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'asc'])]
 #[ApiFilter(BooleanFilter::class, properties: ['provided'])]
+#[ApiFilter(SearchFilter::class, properties: ['city', 'contractType', 'jobTitle','experience'])]
 class Offer
 {
     use Uuid;

@@ -93,12 +93,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'jobTypes.slug' => 'ipartial',
+        'jobType.slug',
         'name' => 'ipartial',
-        'badges.slug' => 'ipartial',
-        'tools.slug' => 'ipartial',
-        'workforce.slug' => 'ipartial',
-        //TODO: Fix for multiples fields
+        'badges.slug',
+        'tools.slug', 
+        'workforce.slug',
     ]
 )]
 class CompanyGroup
