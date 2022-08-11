@@ -98,6 +98,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'badges.slug' => 'ipartial',
         'tools.slug' => 'ipartial',
         'workforce.slug' => 'ipartial',
+        //TODO: Fix for multiples fields
     ]
 )]
 class CompanyGroup
@@ -157,6 +158,7 @@ class CompanyGroup
     private $careerWebsite;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $openToRecruitment;
 
     #[ORM\Column(type: 'string', length: 255)]
