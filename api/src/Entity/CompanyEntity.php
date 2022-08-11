@@ -26,7 +26,7 @@ class CompanyEntity
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(["read:getCompanyGroupDetails"])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]
@@ -34,7 +34,7 @@ class CompanyEntity
 
     #[ORM\ManyToMany(targetEntity: Address::class, cascade: ['persist'])]
     //#[ORM\JoinTable(name: "company_entity_offices")]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers'])]
+    #[Groups([ "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $addresses;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -44,7 +44,7 @@ class CompanyEntity
     private $applications;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Offer::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(["read:getCompanyGroupDetails"])]
     private $offers;
 
     public function __construct()

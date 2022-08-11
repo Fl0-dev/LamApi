@@ -7,6 +7,7 @@ use App\Repository\SocialRepository;
 use App\Transversal\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SocialRepository::class)]
 #[ApiResource()]
@@ -15,18 +16,23 @@ class Social
     use Uuid;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $linkedin;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $twitter;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $facebook;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $instagram;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $youtube;
 
     /**

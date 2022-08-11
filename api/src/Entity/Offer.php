@@ -80,7 +80,7 @@ class Offer
     private $provided;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["read:getAllCompanyGroups", 'read:getOfferDetails', 'read:getAllTeaserOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
     private $title;
 
     #[ORM\Column(type: 'boolean')]

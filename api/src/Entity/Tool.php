@@ -10,6 +10,7 @@ use App\Transversal\Label;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ToolRepository::class)]
 #[ApiResource()]
@@ -21,6 +22,7 @@ class Tool
     use Label;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private ?Media $logo = null;
 
     public function getLogo(): ?Media

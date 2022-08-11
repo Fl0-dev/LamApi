@@ -31,7 +31,7 @@ class City
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllCities", "read:getAllTeaserOffers"])]
+    #[Groups(["read:getAllCities", "read:getAllTeaserOffers"])]
     private $name;
 
     #[ORM\Column(type: 'integer')]
@@ -40,7 +40,7 @@ class City
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllCities", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllCities", "read:getAllTeaserCompanyGroups"])]
     private $department;
 
     public function getName(): ?string

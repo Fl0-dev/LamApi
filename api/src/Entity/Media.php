@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -30,6 +31,7 @@ class Media
     private $contentUrl;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('read:getCompanyGroupDetails')]
     private $filePath;
 
     /**

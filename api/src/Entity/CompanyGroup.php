@@ -5,8 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\CountCompanyGroupBadges;
-use App\Controller\CountCompanyGroupOffers;
 use App\Controller\CountCompanyGroups;
 use App\Controller\GetCompanyGroupName;
 use App\Filter\LocalisationFilter;
@@ -27,16 +25,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'normalization_context' => [
                 'groups' => ['read:getAllTeaserCompanyGroups'],
             ],
-        ],
-        'getAllCompanyGroups' => [
-            'method' => 'GET',
-            'path' => '/company-groups',
-            'normalization_context' => [
-                'groups' => ['read:getAllCompanyGroups']
-            ],
-            'attributes' => [
-                'pagination_maximum_items_per_page' => 3,
-            ]
         ],
         'getCompanyNameByKeyWords' => [
             'method' => 'GET',
@@ -63,7 +51,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ],
     itemOperations: [
-        'get',
+        ############################## GET DETAILS OF ONE COMPANYGROUP ##############################
+        'GetCompanyGroupDetails' => [
+            'method' => 'GET',
+            'path' => '/company-groups/{id}',
+            'normalization_context' => [
+                'groups' => ['read:getCompanyGroupDetails'],
+            ],  
+        ],
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
         'countCompanyGroups' => [
             'method' => 'GET',
@@ -110,7 +105,7 @@ class CompanyGroup
     use TechnicalProperties;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups", "read:getCompanyNameByKeyWords"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getCompanyNameByKeyWords", 'read:getCompanyGroupDetails'])]
     private $name;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -120,41 +115,42 @@ class CompanyGroup
     private $status;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $creationYear;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $globalHrMail;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $referralCode;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $turnover;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $usText;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $values;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $customersDesc;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $customersNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $website;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $middleAge;
 
     #[ORM\Column(type: 'boolean')]
@@ -164,62 +160,64 @@ class CompanyGroup
     private $openToRecruitment;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $color;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $badges;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $tools;
 
     #[ORM\ManyToMany(targetEntity: Media::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $medias;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pools")]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $pools;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_partners")]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $partners;
 
     #[ORM\OneToOne(targetEntity: Social::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $social;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private $logo;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private $headerMedia;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $MainMedia;
 
     #[ORM\ManyToMany(targetEntity: JobType::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups"])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupTeam::class)]
-    #[Groups(["read:getAllCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     private $companyGroupTeams;
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private $workforce;
 
     public function __construct()
@@ -715,14 +713,14 @@ class CompanyGroup
         return $this;
     }
 
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups"])]
     public function getNbBadges(): ?int
     {
         $nbBadges = count($this->getBadges());
         return $nbBadges;
     }
 
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups"])]
     public function getNbOffers(): ?int
     {
         $companyEntities = $this->getCompanyEntities();

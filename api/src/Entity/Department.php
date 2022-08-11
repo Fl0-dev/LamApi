@@ -48,7 +48,7 @@ class Department
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllCities"])]
+    #[Groups(["read:getAllCities"])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Region::class)]

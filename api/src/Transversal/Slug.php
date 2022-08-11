@@ -16,7 +16,7 @@ trait Slug
      *
      */
     #[ORM\Column(type: "string", length: 255)]
-    #[Groups(["read:getAll", "read:getAllCompanyGroups"])]
+    #[Groups(["read:getAll", 'read:getCompanyGroupDetails'])]
     private ?string $slug = null;
 
     /**

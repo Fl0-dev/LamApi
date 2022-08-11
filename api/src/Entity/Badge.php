@@ -103,7 +103,7 @@ class Badge
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    #[Groups(["read:getAll"])]
+    #[Groups(["read:getAll", 'read:getCompanyGroupDetails'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $badgePath;
 
