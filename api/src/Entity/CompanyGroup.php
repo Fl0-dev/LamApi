@@ -173,7 +173,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(
     SearchFilter::class, 
     properties: [
-        'jobTypes.slug' => 'partial'
+        'jobTypes.slug' => 'ipartial',
+        'name' => 'ipartial',
+        'badges.slug' => 'ipartial',
+        'tools.slug' => 'ipartial',
+        'workforce.slug' => 'ipartial',
     ]
 )]
 class CompanyGroup

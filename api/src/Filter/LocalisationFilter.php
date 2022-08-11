@@ -22,7 +22,7 @@ class LocalisationFilter extends AbstractFilter
                 ->join('ce.addresses', 'a', 'WITH', 'a MEMBER OF ce.addresses')
                 ->join('a.city', 'c', 'WITH', 'c.id = a.city')
                 ->join('c.department', 'd', 'WITH', 'd.id = c.department')
-                ->andWhere(sprintf('c.name LIKE :%s OR d.name LIKE :%s', $valueParameter, $valueParameter))
+                ->andWhere(sprintf('c.slug LIKE :%s OR d.slug LIKE :%s', $valueParameter, $valueParameter))
                 ->setParameter($valueParameter, '%' . strtolower($value) . '%');
         }
 
