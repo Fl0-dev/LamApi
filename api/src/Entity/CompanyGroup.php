@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'GetCompanyGroupTeaser' => [
+        'getCompanyGroupTeaser' => [
             'method' => 'GET',
             'path' => '/company-groups/teasers',
             'openapi_context' => [],
@@ -52,7 +52,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     itemOperations: [
         ############################## GET DETAILS OF ONE COMPANYGROUP ##############################
-        'GetCompanyGroupDetails' => [
+        'getCompanyGroupDetails' => [
             'method' => 'GET',
             'path' => '/company-groups/{id}',
             'normalization_context' => [

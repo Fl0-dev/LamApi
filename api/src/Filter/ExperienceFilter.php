@@ -36,7 +36,7 @@ class ExperienceFilter implements FilterInterface
                 'required' => false,
                 'description' => 'Search experiences with keywords',
                 'openapi' => [
-                    'example' => '19',
+                    'example' => 'lama',
                 ],
     
             ]
