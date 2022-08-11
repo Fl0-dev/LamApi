@@ -45,7 +45,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getCompanyNameByKeyWords'],
             ],
             'controller' => GetCompanyGroupName::class,
-            'filters'=> [],
+            'filters' => [],
             'openapi_context' => [
                 'summary' => 'Retrives list of CompanyGroups names by keywords',
                 'description' => 'Retrives list of CompanyGroups names by keywords',
@@ -64,81 +64,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     itemOperations: [
         'get',
-        ############################## GET NUMBER OF BADGES FOR A COMPANYGROUP ##############################
-        'CountCompanyGroupBadges' => [
-            'method' => 'GET',
-            'path' => '/company-groups/{id}/badges/count',
-            'controller' => CountCompanyGroupBadges::class,
-            'pagination_enabled' => false,
-            'read' => false,
-            'filters' => [],
-            'openapi_context' => [
-                'summary' => 'Count badges of a company group',
-                'description' => 'Count badges of a company group',
-                'parameters' => [
-                    [
-                        'name' => 'id',
-                        'in' => 'path',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                            'format' => 'uuid',
-                        ],
-                    ],
-                ],
-                'responses' => [
-                    '200' => [
-                        'description' => 'Count badges of a company group',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'integer',
-                                    'example' => 3,
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]
-        ],
-        ############################## GET NUMBER OF OFFERS FOR A COMPANYGROUP ##############################
-        'CountCompanyGroupOffers' => [
-            'method' => 'GET',
-            'path' => '/company-groups/{id}/offers/count',
-            'controller' => CountCompanyGroupOffers::class,
-            'pagination_enabled' => false,
-            'read' => false,
-            'filters' => [],
-            'group' => ['read:getAllTeaserCompanyGroups'],
-            'openapi_context' => [
-                'summary' => 'Count offers of a company group',
-                'description' => 'Count offers of a company group',
-                'parameters' => [
-                    [
-                        'name' => 'id',
-                        'in' => 'path',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                            'format' => 'uuid',
-                        ],
-                    ],
-                ],
-                'responses' => [
-                    '200' => [
-                        'description' => 'Count offers of a company group',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'integer',
-                                    'example' => 3,
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]
-        ],
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
         'countCompanyGroups' => [
             'method' => 'GET',
@@ -171,7 +96,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     LocalisationFilter::class
 )]
 #[ApiFilter(
-    SearchFilter::class, 
+    SearchFilter::class,
     properties: [
         'jobTypes.slug' => 'ipartial',
         'name' => 'ipartial',
@@ -243,7 +168,7 @@ class CompanyGroup
     private $color;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $badges;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
@@ -788,5 +713,23 @@ class CompanyGroup
         $this->workforce = $workforce;
 
         return $this;
+    }
+
+    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    public function getNbBadges(): ?int
+    {
+        $nbBadges = count($this->getBadges());
+        return $nbBadges;
+    }
+
+    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    public function getNbOffers(): ?int
+    {
+        $companyEntities = $this->getCompanyEntities();
+        $nbOffers = 0;
+        foreach ($companyEntities as $companyEntity) {
+            $nbOffers += count($companyEntity->getOffers());
+        }
+        return $nbOffers;
     }
 }

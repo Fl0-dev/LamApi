@@ -40,7 +40,7 @@ class City
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllCities"])]
+    #[Groups(["read:getAllCompanyGroups", "read:getAllCities", "read:getAllTeaserCompanyGroups"])]
     private $department;
 
     public function getName(): ?string
@@ -77,5 +77,11 @@ class City
         $this->department = $department;
 
         return $this;
+    }
+
+    #[Groups(["read:getAllTeaserCompanyGroups"])]
+    public function getCityNameAndNbDepartment(): string
+    {
+        return $this->name . ' (' . $this->departmentNumber . ')';
     }
 }

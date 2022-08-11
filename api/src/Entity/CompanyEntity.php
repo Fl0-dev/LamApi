@@ -44,7 +44,7 @@ class CompanyEntity
     private $applications;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Offer::class)]
-    #[Groups(["read:getAllCompanyGroups", "read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllCompanyGroups"])]
     private $offers;
 
     public function __construct()
