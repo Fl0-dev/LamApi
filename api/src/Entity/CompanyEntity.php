@@ -19,14 +19,14 @@ class CompanyEntity
     use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffices'])]
     private $hrMail;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getCompanyGroupDetails"])]
+    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]
@@ -34,7 +34,7 @@ class CompanyEntity
 
     #[ORM\ManyToMany(targetEntity: Address::class, cascade: ['persist'])]
     //#[ORM\JoinTable(name: "company_entity_offices")]
-    #[Groups([ "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers'])]
+    #[Groups([ "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
     private $addresses;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -44,7 +44,7 @@ class CompanyEntity
     private $applications;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Offer::class)]
-    #[Groups(["read:getCompanyGroupDetails"])]
+    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffers'])]
     private $offers;
 
     public function __construct()

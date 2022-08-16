@@ -15,30 +15,32 @@ class Address
     use Uuid;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups(['read:getCompanyGroupOffices'])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups', 'read:getAllTeaserCompanyGroups'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups', 'read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups','read:getAllTeaserCompanyGroups'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups'])]
+    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     private $latitude;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups'])]
+    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     private $longitude;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['read:getCompanyGroupOffices'])]
     private $hrMailAddress;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups', 'read:getAllTeaserOffers','read:getAllTeaserCompanyGroups'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllCompanyGroups', 'read:getAllTeaserOffers','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     private $city;
 
     public function getName(): ?string

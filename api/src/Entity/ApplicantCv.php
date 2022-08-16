@@ -9,6 +9,10 @@ use App\Transversal\Label;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Entity\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ApplicantCvRepository::class)]
 #[ApiResource()]
@@ -20,19 +24,28 @@ class ApplicantCv
     use Label;
     
     #[ORM\Column(type: 'string', length: 255)]
-    private $url;
+    #[Groups(['read:getOfferApplications'])]
+    private $filePath;
+
+    /**
+     * @var File|null
+     *
+     */
+    #[Assert\NotNull()]
+    #[Vich\UploadableField(mapping: "cv_object", fileNameProperty: "filePath")]
+    private ?File $file;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applicantCvs')]
     private $applicant;
 
-    public function getUrl(): ?string
+    public function getFilePath(): ?string
     {
-        return $this->url;
+        return $this->filePath;
     }
 
-    public function setUrl(string $url): self
+    public function setFilePath(string $filePath): self
     {
-        $this->url = $url;
+        $this->filePath = $filePath;
 
         return $this;
     }

@@ -10,6 +10,7 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 #[ApiResource()]
@@ -20,19 +21,23 @@ class Application
     use LastModifiedDate;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['read:getOfferApplications'])]
     private $motivation;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['read:getOfferApplications'])]
     private $score;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['read:getOfferApplications'])]
     private $applicant;
 
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications')]
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class)]
+    #[Groups(['read:getOfferApplications'])]
     private $cv;
 
     #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'applications')]

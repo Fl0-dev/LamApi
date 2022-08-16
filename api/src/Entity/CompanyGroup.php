@@ -85,6 +85,50 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ]
         ],
+        ############################## GET ALL OFFERS BY COMPANYGROUP ID ##############################
+        'getCompanyGroupOffers' => [
+            'method' => 'GET',
+            'path' => '/company-groups/{id}/offers',
+            'normalization_context' => [
+                'groups' => ['read:getCompanyGroupOffers'],
+            ],
+            'openapi_context' => [
+                'summary' => 'Retrives list of offers by company group id',
+                'description' => 'Retrives list of offers by company group id',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        ############################## GET ALL OFFICEs BY COMPANYGROUP ID ##############################
+        'getCompanyGroupOffices' => [
+            'method' => 'GET',
+            'path' => '/company-groups/{id}/offices',
+            'normalization_context' => [
+                'groups' => ['read:getCompanyGroupOffices'],
+            ],
+            'openapi_context' => [
+                'summary' => 'Retrives list of offices by company group id',
+                'description' => 'Retrives list of offices by company group id',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ]
 )]
 #[ApiFilter(
@@ -207,7 +251,7 @@ class CompanyGroup
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups"])]
+    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups",'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices'])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -721,7 +765,7 @@ class CompanyGroup
         return $nbBadges;
     }
 
-    #[Groups(["read:getAllTeaserCompanyGroups"])]
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     public function getNbOffers(): ?int
     {
         $companyEntities = $this->getCompanyEntities();
