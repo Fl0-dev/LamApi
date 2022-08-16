@@ -2,7 +2,10 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ApplicantCv;
+use App\Entity\Application;
 use App\Entity\Offer;
+use App\Entity\Repositories\ApplicationStatus;
 use App\Entity\Repositories\ContractType;
 use App\Entity\Repositories\Experience;
 use App\Entity\Repositories\LevelOfStudy;
@@ -15,7 +18,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
             $offer->setContractType(ContractType::CDI);
@@ -44,10 +47,20 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
+
             $manager->persist($offer);
         }
 
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
             $offer->setContractType(ContractType::CDD);
@@ -76,10 +89,30 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
+
+
             $manager->persist($offer);
         }
-        
-        for ($i = 0; $i < 4; $i++){
+
+        for ($i = 0; $i < 4; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
             $offer->setContractType(ContractType::CDI);
@@ -104,10 +137,29 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setPublishedAt(new \DateTime('-2 day'));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_4));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+
             $manager->persist($offer);
         }
 
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
             $offer->setContractType(ContractType::INTERNSHIP);
@@ -132,10 +184,38 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setPublishedAt(new \DateTime('-2 day'));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+
             $manager->persist($offer);
         }
 
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
             $offer->setContractType(ContractType::CDI);
@@ -164,10 +244,38 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_5));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+
             $manager->persist($offer);
         }
 
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
             $offer->setContractType(ContractType::CDD);
@@ -196,11 +304,30 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+
             $manager->persist($offer);
         }
 
 
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
             $offer->setContractType(ContractType::CDI);
@@ -227,10 +354,29 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+
             $manager->persist($offer);
         }
 
-        for ($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
             $offer->setContractType(ContractType::ALTERNANCE);
@@ -257,6 +403,33 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
             $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+
+            $application = new Application();
+            $application->setCreatedDate(new \DateTime('now'));
+            $application->setLastModifiedDate(new \DateTime('now'));
+            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setScore(10);
+            $application->setStatus(ApplicationStatus::NEW);
+            $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_9));
+            $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
             $manager->persist($offer);
         }
 
@@ -266,11 +439,11 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            ApplicantCvFixtures::class,
             AtsFixtures::class,
             JobBoardFixtures::class,
             JobTitleFixtures::class,
             CompanyGroupFixtures::class,
         ];
     }
-
 }
