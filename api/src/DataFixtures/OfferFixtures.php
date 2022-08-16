@@ -51,11 +51,14 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de TGS France");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
+            $application->setOffer($offer);
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -93,21 +96,24 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDD de de TGS France");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDD de de TGS France");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
-
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -141,20 +147,24 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_4));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -188,29 +198,35 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -248,29 +264,35 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_5));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -308,20 +330,24 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -358,20 +384,24 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $manager->persist($offer);
         }
@@ -407,29 +437,36 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+            $application->setOffer($offer);
+            $manager->persist($application);
 
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation('Je suis motivé pour cette offre');
+            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_9));
             $application->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+            $application->setOffer($offer);
+            $manager->persist($application);
+
             $manager->persist($offer);
         }
 
