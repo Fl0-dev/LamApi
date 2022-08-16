@@ -24,7 +24,7 @@ class ApplicantCv
     use Label;
     
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $filePath;
 
     /**

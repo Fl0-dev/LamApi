@@ -21,23 +21,24 @@ class Application
     use LastModifiedDate;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $motivation;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $score;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $applicant;
 
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications')]
+    #[Groups(['read:getCompanyGroupApplications'])]
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class)]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $cv;
 
     #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'applications')]

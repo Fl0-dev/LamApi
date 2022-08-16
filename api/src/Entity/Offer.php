@@ -88,55 +88,55 @@ class Offer
     use LastModifiedDate;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $provided;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $title;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $fullyTelework;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $missions;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $needs;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $prospectWithUs;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $recruitmentProcess;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $workWithUs;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails','read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails','read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $weeklyHours;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $startASAP;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $salaryMin;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $salaryMax;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $startDate;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -150,36 +150,36 @@ class Offer
     private $jobBoards;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups(['read:getOfferApplications', "read:getJobBoardOffers"])]
     private $applications;
 
     #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers"])]
     private $companyEntity;
 
     #[ORM\ManyToOne(targetEntity: Employer::class)]
     private $author;
 
     #[ORM\ManyToOne(targetEntity: Media::class)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers"])]
     private $headerMedia;
 
     #[ORM\Column(type: 'string', length: 11, nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $levelOfStudy;
 
     #[ORM\ManyToOne(targetEntity: JobTitle::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $jobTitle;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $experience;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $contractType;
 
     #[ORM\Column(type: 'string', length: 9)]

@@ -107,7 +107,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ],
         ],
-        ############################## GET ALL OFFICEs BY COMPANYGROUP ID ##############################
+        ############################## GET ALL OFFICES BY COMPANYGROUP ID ##############################
         'getCompanyGroupOffices' => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/offices',
@@ -117,6 +117,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'openapi_context' => [
                 'summary' => 'Retrives list of offices by company group id',
                 'description' => 'Retrives list of offices by company group id',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        ############################## GET ALL APPLICATIONS BY COMPANYGROUP ID ##############################
+        'getCompanyGroupApplications' => [
+            'method' => 'GET',
+            'path' => '/company-groups/{id}/applications',
+            'normalization_context' => [
+                'groups' => ['read:getCompanyGroupApplications'],
+            ],
+            'openapi_context' => [
+                'summary' => 'Retrives list of applications by company group id',
+                'description' => 'Retrives list of applications by company group id',
                 'parameters' => [
                     [
                         'name' => 'id',
@@ -251,7 +273,7 @@ class CompanyGroup
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups",'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices'])]
+    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups",'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices', 'read:getCompanyGroupApplications'])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]

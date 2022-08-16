@@ -41,6 +41,7 @@ class CompanyEntity
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Application::class)]
+    #[Groups(['read:getCompanyGroupApplications'])]
     private $applications;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Offer::class)]

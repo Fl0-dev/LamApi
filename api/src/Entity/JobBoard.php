@@ -9,9 +9,20 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: JobBoardRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    itemOperations: [
+        'getJobBoardOffers' => [
+            'method' => 'GET',
+            'path' => '/job-boards/{id}/offers',
+            'normalization_context' => [
+                'groups' => ['read:getJobBoardOffers']
+            ],
+        ],
+    ],
+)]
 class JobBoard
 {
     use Uuid;
@@ -27,6 +38,7 @@ class JobBoard
     private $free;
 
     #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'jobBoards')]
+    #[Groups(["read:getJobBoardOffers"])]
     private $offers;
 
     public function __construct()
