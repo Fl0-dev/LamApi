@@ -27,6 +27,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de TGS France");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_7));
             $offer->setNeeds("Needs $i de TGS France");
             $offer->setProspectWithUs("Prospect $i de TGS France");
             $offer->setProvided(false);
@@ -37,6 +38,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-1 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -52,6 +59,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de TGS France");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_7));
             $offer->setNeeds("Needs $i de TGS France");
             $offer->setProspectWithUs("Prospect $i de TGS France");
             $offer->setProvided(false);
@@ -62,6 +70,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-1 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
         
@@ -77,6 +91,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Eolis Nantes");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de Eolis Nantes");
             $offer->setProspectWithUs("Prospect $i de Eolis Nantes");
             $offer->setProvided(false);
@@ -87,6 +102,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-2 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -102,6 +119,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Eolis Nantes");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de Eolis Nantes");
             $offer->setProspectWithUs("Prospect $i de Eolis Nantes");
             $offer->setProvided(false);
@@ -112,6 +130,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-2 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -127,6 +147,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Livli");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_4));
             $offer->setNeeds("Needs $i de Livli");
             $offer->setProspectWithUs("Prospect $i de Livli");
             $offer->setProvided(false);
@@ -137,6 +158,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-3 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -152,6 +179,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Livli");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_4));
             $offer->setNeeds("Needs $i de Livli");
             $offer->setProspectWithUs("Prospect $i de Livli");
             $offer->setProvided(false);
@@ -162,6 +190,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-3 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -178,6 +212,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de In Extenso");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de In Extenso");
             $offer->setProspectWithUs("Prospect $i de In Extenso");
             $offer->setProvided(false);
@@ -188,6 +223,10 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-5 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -203,6 +242,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de In Extenso");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
+            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de In Extenso");
             $offer->setProspectWithUs("Prospect $i de In Extenso");
             $offer->setProvided(false);
@@ -213,6 +253,10 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-5 day'));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $manager->persist($offer);
         }
 
@@ -222,6 +266,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            AtsFixtures::class,
+            JobBoardFixtures::class,
             JobTitleFixtures::class,
             CompanyGroupFixtures::class,
         ];
