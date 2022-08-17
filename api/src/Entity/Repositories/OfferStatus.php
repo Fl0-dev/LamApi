@@ -94,4 +94,9 @@ class OfferStatus
 
         return $this;
     }
+
+    public static function isStatus($string)
+    {
+        return in_array($string, array_column(self::STATUSES, 'slug'));
+    }
 }

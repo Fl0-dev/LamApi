@@ -111,4 +111,9 @@ class LevelOfStudy
     
             return $this;
         }
+
+        public static function isLevelOfStudy($string)
+        {
+            return in_array($string, array_column(self::LEVEL_OF_STUDIES, 'slug'));
+        }
 }

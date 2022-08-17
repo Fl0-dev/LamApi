@@ -196,4 +196,9 @@ class Experience
 
         return $this;
     }
+
+    public static function isExperience(int $value): bool
+    {
+        return isset(self::EXPERIENCES[$value]);
+    }
 }

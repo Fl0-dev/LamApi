@@ -9,6 +9,7 @@ use App\Filter\ContractTypeFilter;
 use Symfony\Component\Uid\Uuid;
 use App\Transversal\Label;
 use App\Transversal\Slug;
+use App\Utils\Utils;
 
 #[ApiResource(
     collectionOperations: [
@@ -94,5 +95,15 @@ class ContractType
         $this->id = $id;
 
         return $this;
+    }
+
+    public static function isContractType(string $string) :?bool
+    {
+        foreach (self::CONTRACT_TYPES as $value) {
+            if (Utils::getArrayValue('slug', $value) === $string) {
+                return true;
+            }
+        }
+        return false;
     }
 }
