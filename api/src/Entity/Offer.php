@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CountOffers;
+use App\Controller\PostOffer;
 use App\Entity\Repositories\OfferStatus;
 use App\Filter\LocalisationFilter;
 use App\Repository\OfferRepository;
@@ -35,6 +36,7 @@ use Symfony\Component\Validator\Constraints\Length;
         'postOffer' => [
             'method' => 'POST',
             'path' => '/offers',
+            'controller' => PostOffer::class,
             'denormalization_context' => [
                 'groups' => ['write:postOffer'],
             ],
@@ -108,7 +110,7 @@ class Offer
         max: 255,
         minMessage: "Le titre de l'offre doit contenir au moins {{ limit }} caractères",
         maxMessage: "Le titre de l'offre ne doit pas dépasser {{ limit }} caractères"
-    )
+        )
     ]
     private $title;
 
@@ -203,15 +205,22 @@ class Offer
     private $experience;
 
     #[Validator\IsInRepository()]
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 10, nullable: false)]
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $contractType;
 
-    #[ORM\Column(type: 'string', length: 9)]
+    #[ORM\Column(type: 'string', length: 9, nullable: false)]
     private $status;
 
-    #[ORM\Column(type: "string", length: 255)]
-    #[Groups(['write:postOffer'])]
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
+    #[Groups(['write:postOffer']),
+        Length(
+            min: 3,
+            max: 255,
+            minMessage: "Le slug de l'offre doit contenir au moins {{ limit }} caractères",
+            maxMessage: "Le slug de l'offre ne doit pas dépasser {{ limit }} caractères"
+        )
+    ]
     private ?string $slug = null;
 
     public function __construct()
@@ -497,12 +506,20 @@ class Offer
 
     public function getHeaderMedia(): ?Media
     {
-        return $this->headerMedia;
+        if ($this->headerMedia) {
+            return $this->headerMedia;
+        } else {
+            return $this->companyEntity->getCompanyGroup()->getHeaderMedia();
+        }
     }
 
     public function setHeaderMedia(?Media $headerMedia): self
     {
+        if ($this->headerMedia) {
         $this->headerMedia = $headerMedia;
+        } else {
+            $this->headerMedia = $this->companyEntity->getCompanyGroup()->getHeaderMedia();
+        }
 
         return $this;
     }
@@ -566,4 +583,12 @@ class Offer
 
         return $this;
     }
+
+    // public function getCompanyGroupHeaderMedia(): Media
+    // {
+    //     $companyEntity = $this->getCompanyEntity();
+    //     dd($companyEntity);
+    //         return $companyEntity->getCompanyGroup()->getHeaderMedia();
+        
+    // }
 }
