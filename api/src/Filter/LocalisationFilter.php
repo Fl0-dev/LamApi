@@ -54,10 +54,6 @@ class LocalisationFilter extends AbstractFilter
                 'type' => 'string',
                 'required' => false,
                 'description' => 'Search for a city or department name',
-                'openapi' => [
-                    'example' => 'Nantes',
-                ],
-
             ]
         ];
     }

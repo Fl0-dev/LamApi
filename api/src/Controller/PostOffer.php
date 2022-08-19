@@ -11,6 +11,8 @@ class PostOffer extends AbstractController
     public function __invoke(Request $request)
     {
         $offer = $request->get('data');
+        //TODO: récupération du user pour employer
+        //TODO; récupération de l'ats
         if ($offer instanceof Offer) {
         $offer->setHeaderMedia($offer->getCompanyEntity()->getCompanyGroup()->getHeaderMedia());
         }

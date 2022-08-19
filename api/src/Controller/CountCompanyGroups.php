@@ -13,6 +13,10 @@ class CountCompanyGroups extends AbstractController
 
     public function __invoke(): int
     {
-        return count($this->companyGroupRepository->findAll());
+        $count = count($this->companyGroupRepository->findAll());
+        if (!$count) {
+            return 0;
+        }
+        return $count;
     }
 }

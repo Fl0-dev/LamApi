@@ -62,7 +62,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
         'countCompanyGroups' => [
             'method' => 'GET',
-            'path' => '/company-groups/count',
+            'path' => '/count-company-groups',
             'controller' => CountCompanyGroups::class,
             'pagination_enabled' => false,
             'read' => false,
@@ -70,6 +70,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'openapi_context' => [
                 'summary' => 'Count all company groups',
                 'description' => 'Count all company groups. #withoutIdentifier',
+                'parameters'=> [],
                 'responses' => [
                     '200' => [
                         'description' => 'Count all company groups',
@@ -272,7 +273,7 @@ class CompanyGroup
     #[Groups(['read:getCompanyGroupDetails'])]
     private $jobTypes;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups",'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices', 'read:getCompanyGroupApplications'])]
     private $companyEntities;
 

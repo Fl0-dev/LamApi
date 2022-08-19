@@ -14,9 +14,17 @@ api_platform:
         stateless: true
         pagination_client_items_per_page: true
         pagination_maximum_items_per_page: 51
+        pagination_items_per_page: 51
          # Good cache defaults
         cache_headers:
+            max_age: 0
+            shared_max_age: 3600
             vary: ['Content-Type', 'Authorization', 'Origin']
+    http_cache:
+        invalidation:
+            enabled: true
+            varnish_urls: ['%env(VARNISH_URL)%']
+        public: true
     collection:
         pagination:
             items_per_page_parameter_name: itemsPerPage # Default value

@@ -26,7 +26,7 @@ class CompanyEntity
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
+    #[Groups(["read:getAllTeaserCompanyGroups", "read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]

@@ -46,7 +46,7 @@ use Symfony\Component\Validator\Constraints\Length;
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
         'countOffers' => [
             'method' => 'GET',
-            'path' => '/offers/count',
+            'path' => '/count-offers',
             'controller' => CountOffers::class,
             'pagination_enabled' => false,
             'read' => false,
