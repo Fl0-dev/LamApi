@@ -21,10 +21,9 @@ class ApplicantCv
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
-    use Label;
     
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]
     private $filePath;
 
     /**

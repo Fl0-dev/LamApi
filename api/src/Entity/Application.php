@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\PostApplicationByOfferId;
 use App\Repository\ApplicationRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -13,7 +14,33 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    collectionOperations: [
+        'postApplicationByOfferId' => [
+            'method' => 'POST',
+            'path' => '/applications/{offerId}',
+            'controller' => PostApplicationByOfferId::class,
+            'deserialize' => false,
+            // 'denormalization_context' => [
+            //     'groups' => ['write:postApplicationByOfferId'],
+            // ],
+            'openapi_context' => [
+                'summary' => 'Post application for an offer by offer id',
+                'description' => 'Post application for an offer by offer id',
+                'parameters' => [
+                    [
+                        'name' => 'offerId',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+)]
 class Application
 {
     use Uuid;
@@ -21,7 +48,7 @@ class Application
     use LastModifiedDate;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications', 'write:postApplicationByOfferId'])]
     private $motivation;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -38,7 +65,7 @@ class Application
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]
     private $cv;
 
     #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'applications')]

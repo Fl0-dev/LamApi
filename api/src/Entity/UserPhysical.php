@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
@@ -17,12 +18,15 @@ use Doctrine\ORM\Mapping as ORM;
 class UserPhysical extends User
 {
     #[ORM\Column(type: "string", length: 180)]
+    #[Groups(['write:postApplicationByOfferId'])]
     private $firstname;
 
     #[ORM\Column(type: "string", length: 180)]
+    #[Groups(['write:postApplicationByOfferId'])]
     private $lastname;
 
     #[ORM\Column(type: "string", length: 180)]
+    #[Groups(['write:postApplicationByOfferId'])]
     private $email;
 
     /**
