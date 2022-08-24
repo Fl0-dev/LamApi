@@ -280,10 +280,6 @@ class CompanyGroup
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupTeam::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $companyGroupTeams;
-
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private $workforce;
@@ -298,7 +294,6 @@ class CompanyGroup
         $this->jobTypes = new ArrayCollection();
         $this->companyEntities = new ArrayCollection();
         $this->admins = new ArrayCollection();
-        $this->companyGroupTeams = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -739,36 +734,6 @@ class CompanyGroup
         return $this;
     }
 
-    /**
-     * @return Collection<int, CompanyGroupTeam>
-     */
-    public function getCompanyGroupTeams(): Collection
-    {
-        return $this->companyGroupTeams;
-    }
-
-    public function addCompanyGroupTeam(CompanyGroupTeam $companyGroupTeam): self
-    {
-        if (!$this->companyGroupTeams->contains($companyGroupTeam)) {
-            $this->companyGroupTeams[] = $companyGroupTeam;
-            $companyGroupTeam->setCompanyGroup($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompanyGroupTeam(CompanyGroupTeam $companyGroupTeam): self
-    {
-        if ($this->companyGroupTeams->removeElement($companyGroupTeam)) {
-            // set the owning side to null (unless already changed)
-            if ($companyGroupTeam->getCompanyGroup() === $this) {
-                $companyGroupTeam->setCompanyGroup(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getWorkforce(): ?string
     {
         return $this->workforce;
@@ -797,5 +762,16 @@ class CompanyGroup
             $nbOffers += count($companyEntity->getOffers());
         }
         return $nbOffers;
+    }
+
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    public function getNbCompanyEntityOffices(): ?int
+    {
+        $companyEntities = $this->getCompanyEntities();
+        $nbOffices = 0;
+        foreach ($companyEntities as $companyEntity) {
+            $nbOffices += count($companyEntity->getCompanyEntityOffices());
+        }
+        return $nbOffices;
     }
 }
