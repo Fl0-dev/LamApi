@@ -32,11 +32,6 @@ class CompanyEntity
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]
     private $companyGroup;
 
-    #[ORM\ManyToMany(targetEntity: Address::class, cascade: ['persist'])]
-    //#[ORM\JoinTable(name: "company_entity_offices")]
-    #[Groups([ "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
-    private $addresses;
-
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
@@ -53,7 +48,6 @@ class CompanyEntity
 
     public function __construct()
     {
-        $this->addresses = new ArrayCollection();
         $this->admins = new ArrayCollection();
         $this->applications = new ArrayCollection();
         $this->offers = new ArrayCollection();
@@ -104,30 +98,6 @@ class CompanyEntity
     public function setCompanyGroup(?CompanyGroup $companyGroup): self
     {
         $this->companyGroup = $companyGroup;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Address>
-     */
-    public function getAddresses(): Collection
-    {
-        return $this->addresses;
-    }
-
-    public function addAddress(Address $address): self
-    {
-        if (!$this->addresses->contains($address)) {
-            $this->addresses[] = $address;
-        }
-
-        return $this;
-    }
-
-    public function removeAddress(Address $address): self
-    {
-        $this->addresses->removeElement($address);
 
         return $this;
     }
