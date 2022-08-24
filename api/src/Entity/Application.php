@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\PostApplicationByOfferId;
+use App\Controller\PostSpontaneousApplicationByCompanyEntityId;
 use App\Repository\ApplicationRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -21,9 +22,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'path' => '/applications/{offerId}',
             'controller' => PostApplicationByOfferId::class,
             'deserialize' => false,
-            // 'denormalization_context' => [
-            //     'groups' => ['write:postApplicationByOfferId'],
-            // ],
+            'denormalization_context' => [
+                'groups' => ['write:postApplicationByOfferId'],
+            ],
             'openapi_context' => [
                 'summary' => 'Post application for an offer by offer id',
                 'description' => 'Post application for an offer by offer id',
@@ -37,8 +38,67 @@ use Symfony\Component\Serializer\Annotation\Groups;
                         ],
                     ],
                 ],
+                'requestBody' => [
+                    'content' => [
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'file' => [
+                                        'type' => 'string',
+                                        'format' => 'binary',
+                                    ],
+                                    'motivation' => [
+                                        'type' => 'string',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
+        'postSpontaneaousApplicationByCompanyEntityId' => [
+            'method' => 'POST',
+            'path' => '/applications/spontaneaous/{companyEntityId}',
+            'controller' => PostSpontaneousApplicationByCompanyEntityId::class,
+            'deserialize' => false,
+            'denormalization_context' => [
+                'groups' => ['write:postSpontaneousApplicationByCompanyEntityId'],
+            ],
+            'openapi_context' => [
+                'summary' => 'Post spontaneous application for a company entity by company entity id',
+                'description' => 'Post spontaneous application for a company entity by company entity id',
+                'parameters' => [
+                    [
+                        'name' => 'companyEntityId',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+                'requestBody' => [
+                    'content' => [
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'file' => [
+                                        'type' => 'string',
+                                        'format' => 'binary',
+                                    ],
+                                    'motivation' => [
+                                        'type' => 'string',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]
     ],
 )]
 class Application
@@ -55,16 +115,16 @@ class Application
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $score;
 
-    #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications')]
+    #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true)]
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
     private $applicant;
 
-    #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications')]
+    #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications', cascade: ['persist'])]
     #[Groups(['read:getCompanyGroupApplications'])]
     private $offer;
 
-    #[ORM\ManyToOne(targetEntity: ApplicantCv::class)]
+    #[ORM\ManyToOne(targetEntity: ApplicantCv::class, cascade: ['persist'])]
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]
     private $cv;
 
