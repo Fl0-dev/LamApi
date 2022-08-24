@@ -99,7 +99,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Nantes');
         $companyEntity->setSlug('tgs-france-nantes');
-        $companyEntity->addAddress($address);
+        // $companyEntity->addAddress($address);
         $this->addReference(self::COMPANY_ENTITY_REFERENCE_1, $companyEntity);
         $manager->persist($companyEntity);
 
@@ -176,7 +176,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Eolis Nantes');
         $companyEntity->setSlug('eolis-nantes');
-        $companyEntity->addAddress($address);
+        // $companyEntity->addAddress($address);
         $this->addReference(self::COMPANY_ENTITY_REFERENCE_2, $companyEntity);
         $manager->persist($companyEntity);
 
@@ -253,7 +253,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Livli');
         $companyEntity->setSlug('livli');
-        $companyEntity->addAddress($address);
+        // $companyEntity->addAddress($address);
         $this->addReference(self::COMPANY_ENTITY_REFERENCE_3, $companyEntity);
         $manager->persist($companyEntity);
 
@@ -327,7 +327,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso');
         $companyEntity->setSlug('In Extenso');
-        $companyEntity->addAddress($address);
+        // $companyEntity->addAddress($address);
         $this->addReference(self::COMPANY_ENTITY_REFERENCE_4, $companyEntity);
         $manager->persist($companyEntity);
 

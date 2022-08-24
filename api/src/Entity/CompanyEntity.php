@@ -48,12 +48,16 @@ class CompanyEntity
     #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffers'])]
     private $offers;
 
+    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class)]
+    private Collection $companyEntityOffices;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
         $this->admins = new ArrayCollection();
         $this->applications = new ArrayCollection();
         $this->offers = new ArrayCollection();
+        $this->companyEntityOffices = new ArrayCollection();
     }
 
     public function getHrMail(): ?string
@@ -206,6 +210,36 @@ class CompanyEntity
             // set the owning side to null (unless already changed)
             if ($offer->getCompanyEntity() === $this) {
                 $offer->setCompanyEntity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyEntityOffice>
+     */
+    public function getCompanyEntityOffices(): Collection
+    {
+        return $this->companyEntityOffices;
+    }
+
+    public function addCompanyEntityOffice(CompanyEntityOffice $companyEntityOffice): self
+    {
+        if (!$this->companyEntityOffices->contains($companyEntityOffice)) {
+            $this->companyEntityOffices->add($companyEntityOffice);
+            $companyEntityOffice->setCompanyEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyEntityOffice(CompanyEntityOffice $companyEntityOffice): self
+    {
+        if ($this->companyEntityOffices->removeElement($companyEntityOffice)) {
+            // set the owning side to null (unless already changed)
+            if ($companyEntityOffice->getCompanyEntity() === $this) {
+                $companyEntityOffice->setCompanyEntity(null);
             }
         }
 
