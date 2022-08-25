@@ -20,7 +20,7 @@ abstract class UserAbstract extends User
     private $slug;
 
     #[ORM\Column(type: "string", length: 180)]
-    private $category;
+    private $type;
 
     #[ORM\Column(type: "string", length: 180)]
     private $contact_email;
@@ -69,21 +69,21 @@ abstract class UserAbstract extends User
     }
 
     /**
-     * Get the value of category
+     * Get the value of type
      */
-    public function getCategory()
+    public function getType()
     {
-        return $this->category;
+        return $this->type;
     }
 
     /**
-     * Set the value of category
+     * Set the value of type
      *
      * @return  self
      */
-    public function setCategory($category)
+    public function setType($type)
     {
-        $this->category = $category;
+        $this->type = $type;
 
         return $this;
     }
