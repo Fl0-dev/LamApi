@@ -81,4 +81,15 @@ class AbstractUserType
 
         return $this;
     }
+
+    public static function isAbtractUserType(array $array) :bool
+    {
+        foreach ($array as $string) {
+            if (in_array($string, array_column(self::USER_TYPES, 'slug'))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
