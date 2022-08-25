@@ -601,7 +601,10 @@ class CompanyGroup
         $companyEntities = $this->getCompanyEntities();
         $nbOffers = 0;
         foreach ($companyEntities as $companyEntity) {
-            $nbOffers += count($companyEntity->getOffers());
+            foreach ($companyEntity->getCompanyEntityOffices() as $office) {
+                # code...
+            }
+            $nbOffers += count($office->getOffers());
         }
         return $nbOffers;
     }

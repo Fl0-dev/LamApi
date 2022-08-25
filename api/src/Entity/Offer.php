@@ -171,11 +171,9 @@ class Offer
     #[ORM\JoinColumn(nullable: true)]
     private $applications;
 
-    //TODO: Change for CompanyEntityOffice
-    #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'offers')]
-    #[ORM\JoinColumn(nullable: false)]
+    
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
-    private $companyEntity;
+   
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: true)]
@@ -222,6 +220,10 @@ class Offer
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     private Collection $tools;
+
+    #[ORM\ManyToOne(inversedBy: 'offers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CompanyEntityOffice $companyEntityOffice = null;
 
     public function __construct()
     {
@@ -601,6 +603,18 @@ class Offer
     public function removeTool(Tool $tool): self
     {
         $this->tools->removeElement($tool);
+
+        return $this;
+    }
+
+    public function getCompanyEntityOffice(): ?CompanyEntityOffice
+    {
+        return $this->companyEntityOffice;
+    }
+
+    public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice): self
+    {
+        $this->companyEntityOffice = $companyEntityOffice;
 
         return $this;
     }

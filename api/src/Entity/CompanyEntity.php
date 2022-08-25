@@ -39,10 +39,6 @@ class CompanyEntity
     #[Groups(['read:getCompanyGroupApplications'])]
     private $applications;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Offer::class)]
-    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffers'])]
-    private $offers;
-
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
     private Collection $companyEntityOffices;
 
@@ -161,36 +157,6 @@ class CompanyEntity
             // set the owning side to null (unless already changed)
             if ($application->getCompanyEntity() === $this) {
                 $application->setCompanyEntity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Offer>
-     */
-    public function getOffers(): Collection
-    {
-        return $this->offers;
-    }
-
-    public function addOffer(Offer $offer): self
-    {
-        if (!$this->offers->contains($offer)) {
-            $this->offers[] = $offer;
-            $offer->setCompanyEntity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOffer(Offer $offer): self
-    {
-        if ($this->offers->removeElement($offer)) {
-            // set the owning side to null (unless already changed)
-            if ($offer->getCompanyEntity() === $this) {
-                $offer->setCompanyEntity(null);
             }
         }
 
