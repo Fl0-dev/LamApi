@@ -181,10 +181,6 @@ class CompanyGroup
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $status;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $creationYear;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups(['read:getCompanyGroupDetails'])]
     private $globalHrMail;
@@ -192,33 +188,9 @@ class CompanyGroup
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $referralCode;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $turnover;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $usText;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $values;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $customersDesc;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $customersNumber;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups(['read:getCompanyGroupDetails'])]
     private $website;
-
-    #[ORM\Column(type: 'integer')]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $middleAge;
 
     #[ORM\Column(type: 'boolean')]
     private $careerWebsite;
@@ -248,10 +220,6 @@ class CompanyGroup
     #[ORM\JoinTable(name: "company_group_partners")]
     #[Groups(['read:getCompanyGroupDetails'])]
     private $partners;
-
-    #[ORM\OneToOne(targetEntity: Social::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $social;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
@@ -285,6 +253,9 @@ class CompanyGroup
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: Media::class)]
     private Collection $medias;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Profil $profil = null;
 
     public function __construct()
     {
@@ -335,18 +306,6 @@ class CompanyGroup
         return $this;
     }
 
-    public function getCreationYear(): ?int
-    {
-        return $this->creationYear;
-    }
-
-    public function setCreationYear(?int $creationYear): self
-    {
-        $this->creationYear = $creationYear;
-
-        return $this;
-    }
-
     public function getGlobalHrMail(): ?string
     {
         return $this->globalHrMail;
@@ -371,66 +330,6 @@ class CompanyGroup
         return $this;
     }
 
-    public function getTurnover(): ?int
-    {
-        return $this->turnover;
-    }
-
-    public function setTurnover(?int $turnover): self
-    {
-        $this->turnover = $turnover;
-
-        return $this;
-    }
-
-    public function getUsText(): ?string
-    {
-        return $this->usText;
-    }
-
-    public function setUsText(?string $usText): self
-    {
-        $this->usText = $usText;
-
-        return $this;
-    }
-
-    public function getValues(): ?string
-    {
-        return $this->values;
-    }
-
-    public function setValues(?string $values): self
-    {
-        $this->values = $values;
-
-        return $this;
-    }
-
-    public function getCustomersDesc(): ?string
-    {
-        return $this->customersDesc;
-    }
-
-    public function setCustomersDesc(?string $customersDesc): self
-    {
-        $this->customersDesc = $customersDesc;
-
-        return $this;
-    }
-
-    public function getCustomersNumber(): ?int
-    {
-        return $this->customersNumber;
-    }
-
-    public function setCustomersNumber(?int $customersNumber): self
-    {
-        $this->customersNumber = $customersNumber;
-
-        return $this;
-    }
-
     public function getWebsite(): ?string
     {
         return $this->website;
@@ -439,18 +338,6 @@ class CompanyGroup
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
-
-        return $this;
-    }
-
-    public function getMiddleAge(): ?int
-    {
-        return $this->middleAge;
-    }
-
-    public function setMiddleAge(int $middleAge): self
-    {
-        $this->middleAge = $middleAge;
 
         return $this;
     }
@@ -587,18 +474,6 @@ class CompanyGroup
         return $this;
     }
 
-    public function getSocial(): ?Social
-    {
-        return $this->social;
-    }
-
-    public function setSocial(?Social $social): self
-    {
-        $this->social = $social;
-
-        return $this;
-    }
-
     public function getLogo(): ?Media
     {
         return $this->logo;
@@ -713,18 +588,6 @@ class CompanyGroup
         return $this;
     }
 
-    public function getWorkforce(): ?string
-    {
-        return $this->workforce;
-    }
-
-    public function setWorkforce(?string $workforce): self
-    {
-        $this->workforce = $workforce;
-
-        return $this;
-    }
-
     #[Groups(["read:getAllTeaserCompanyGroups"])]
     public function getNbBadges(): ?int
     {
@@ -804,6 +667,18 @@ class CompanyGroup
                 $media->setCompanyGroup(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): self
+    {
+        $this->profil = $profil;
 
         return $this;
     }
