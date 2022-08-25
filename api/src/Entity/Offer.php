@@ -162,10 +162,6 @@ class Offer
     #[Groups(['read:getOfferDetails'])]
     private $publishedAt;
 
-    #[ORM\ManyToOne(targetEntity: Ats::class)]
-    #[ORM\JoinColumn(nullable: true)]
-    private $ats;
-
     #[ORM\ManyToMany(targetEntity: JobBoard::class, inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: true)]
     private $jobBoards;
@@ -180,7 +176,7 @@ class Offer
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $companyEntity;
 
-    #[ORM\ManyToOne(targetEntity: Employer::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: true)]
     private $author;
 
@@ -223,6 +219,9 @@ class Offer
     ]
     private ?string $slug = null;
 
+    #[ORM\ManyToMany(targetEntity: Tool::class)]
+    private Collection $tools;
+
     public function __construct()
     {
         $this->jobBoards = new ArrayCollection();
@@ -232,6 +231,7 @@ class Offer
         $this->provided = false;
         $this->publishedAt = null;
         $this->status = OfferStatus::DRAFT;
+        $this->tools = new ArrayCollection();
     }
 
     public function getSlug(): ?string
@@ -414,18 +414,6 @@ class Offer
         return $this;
     }
 
-    public function getAts(): ?Ats
-    {
-        return $this->ats;
-    }
-
-    public function setAts(?Ats $ats): self
-    {
-        $this->ats = $ats;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, JobBoard>
      */
@@ -591,4 +579,28 @@ class Offer
     //         return $companyEntity->getCompanyGroup()->getHeaderMedia();
         
     // }
+
+    /**
+     * @return Collection<int, Tool>
+     */
+    public function getTools(): Collection
+    {
+        return $this->tools;
+    }
+
+    public function addTool(Tool $tool): self
+    {
+        if (!$this->tools->contains($tool)) {
+            $this->tools->add($tool);
+        }
+
+        return $this;
+    }
+
+    public function removeTool(Tool $tool): self
+    {
+        $this->tools->removeElement($tool);
+
+        return $this;
+    }
 }

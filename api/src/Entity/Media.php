@@ -42,6 +42,12 @@ class Media
     #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
     private ?File $file;
 
+    #[ORM\ManyToOne(inversedBy: 'medias')]
+    private ?CompanyEntity $companyEntity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'medias')]
+    private ?CompanyGroup $companyGroup = null;
+
     public function getContentUrl(): ?string
     {
         return $this->contentUrl;
@@ -100,6 +106,30 @@ class Media
     public function setTypeVideo()
     {
         $this->type = self::TYPE_VIDEO;
+
+        return $this;
+    }
+
+    public function getCompanyEntity(): ?CompanyEntity
+    {
+        return $this->companyEntity;
+    }
+
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
+    {
+        $this->companyEntity = $companyEntity;
+
+        return $this;
+    }
+
+    public function getCompanyGroup(): ?CompanyGroup
+    {
+        return $this->companyGroup;
+    }
+
+    public function setCompanyGroup(?CompanyGroup $companyGroup): self
+    {
+        $this->companyGroup = $companyGroup;
 
         return $this;
     }

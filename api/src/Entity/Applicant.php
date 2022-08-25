@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
 #[ORM\Table(name: "Applicants")]
 #[ApiResource()]
-class Applicant extends UserConsumer
+class Applicant extends UserPhysical
 {
     #[ORM\Column(type: 'text', nullable: true)]
     private $messagePerso;
@@ -45,6 +45,14 @@ class Applicant extends UserConsumer
 
     #[ORM\Column(type: 'string', length: 11)]
     private $status;
+
+    /**
+     * Indicates if the user wanted explicitly create its account (true)
+     * or if it's Lamacompta without consentment (false)
+     *
+     */
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private $optin;
 
     public function __construct()
     {
@@ -217,6 +225,18 @@ class Applicant extends UserConsumer
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getOptin(): ?bool
+    {
+        return $this->optin;
+    }
+
+    public function setOptin(?bool $optin): self
+    {
+        $this->optin = $optin;
 
         return $this;
     }

@@ -20,10 +20,10 @@ class ApplicantionExchange
     #[ORM\JoinColumn(nullable: false)]
     private $application;
 
-    #[ORM\ManyToOne(targetEntity: UserConsumer::class)]
+    #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
     private $receiver;
 
-    #[ORM\ManyToOne(targetEntity: UserConsumer::class)]
+    #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
     private $transmitter;
 
     public function getMessage(): ?string
@@ -50,24 +50,24 @@ class ApplicantionExchange
         return $this;
     }
 
-    public function getReceiver(): ?UserConsumer
+    public function getReceiver(): ?UserPhysical
     {
         return $this->receiver;
     }
 
-    public function setReceiver(?UserConsumer $receiver): self
+    public function setReceiver(?UserPhysical $receiver): self
     {
         $this->receiver = $receiver;
 
         return $this;
     }
 
-    public function getTransmitter(): ?UserConsumer
+    public function getTransmitter(): ?UserPhysical
     {
         return $this->transmitter;
     }
 
-    public function setTransmitter(?UserConsumer $transmitter): self
+    public function setTransmitter(?UserPhysical $transmitter): self
     {
         $this->transmitter = $transmitter;
 

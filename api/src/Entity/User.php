@@ -35,6 +35,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $token;
 
+    public function __construct()
+    {
+    }
+
     /**
      * A visual identifier that represents this user.
      *

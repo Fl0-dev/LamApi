@@ -46,12 +46,20 @@ class CompanyEntity
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class)]
     private Collection $companyEntityOffices;
 
+    #[ORM\ManyToMany(targetEntity: Tool::class)]
+    private Collection $tools;
+
+    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Media::class)]
+    private Collection $medias;
+
     public function __construct()
     {
         $this->admins = new ArrayCollection();
         $this->applications = new ArrayCollection();
         $this->offers = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
+        $this->tools = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getHrMail(): ?string
@@ -210,6 +218,60 @@ class CompanyEntity
             // set the owning side to null (unless already changed)
             if ($companyEntityOffice->getCompanyEntity() === $this) {
                 $companyEntityOffice->setCompanyEntity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tool>
+     */
+    public function getTools(): Collection
+    {
+        return $this->tools;
+    }
+
+    public function addTool(Tool $tool): self
+    {
+        if (!$this->tools->contains($tool)) {
+            $this->tools->add($tool);
+        }
+
+        return $this;
+    }
+
+    public function removeTool(Tool $tool): self
+    {
+        $this->tools->removeElement($tool);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias->add($media);
+            $media->setCompanyEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->removeElement($media)) {
+            // set the owning side to null (unless already changed)
+            if ($media->getCompanyEntity() === $this) {
+                $media->setCompanyEntity(null);
             }
         }
 

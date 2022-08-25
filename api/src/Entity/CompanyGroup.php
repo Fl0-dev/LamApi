@@ -239,10 +239,6 @@ class CompanyGroup
     #[Groups(['read:getCompanyGroupDetails'])]
     private $tools;
 
-    #[ORM\ManyToMany(targetEntity: Media::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $medias;
-
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pools")]
     #[Groups(['read:getCompanyGroupDetails'])]
@@ -284,6 +280,12 @@ class CompanyGroup
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private $workforce;
 
+    #[ORM\ManyToMany(targetEntity: Ats::class)]
+    private Collection $ats;
+
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: Media::class)]
+    private Collection $medias;
+
     public function __construct()
     {
         $this->badges = new ArrayCollection();
@@ -294,6 +296,7 @@ class CompanyGroup
         $this->jobTypes = new ArrayCollection();
         $this->companyEntities = new ArrayCollection();
         $this->admins = new ArrayCollection();
+        $this->ats = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -537,30 +540,6 @@ class CompanyGroup
     }
 
     /**
-     * @return Collection<int, Media>
-     */
-    public function getMedias(): Collection
-    {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): self
-    {
-        if (!$this->medias->contains($media)) {
-            $this->medias[] = $media;
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): self
-    {
-        $this->medias->removeElement($media);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Organisation>
      */
     public function getPools(): Collection
@@ -773,5 +752,59 @@ class CompanyGroup
             $nbOffices += count($companyEntity->getCompanyEntityOffices());
         }
         return $nbOffices;
+    }
+
+    /**
+     * @return Collection<int, Ats>
+     */
+    public function getAts(): Collection
+    {
+        return $this->ats;
+    }
+
+    public function addAt(Ats $at): self
+    {
+        if (!$this->ats->contains($at)) {
+            $this->ats->add($at);
+        }
+
+        return $this;
+    }
+
+    public function removeAt(Ats $at): self
+    {
+        $this->ats->removeElement($at);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias->add($media);
+            $media->setCompanyGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->removeElement($media)) {
+            // set the owning side to null (unless already changed)
+            if ($media->getCompanyGroup() === $this) {
+                $media->setCompanyGroup(null);
+            }
+        }
+
+        return $this;
     }
 }

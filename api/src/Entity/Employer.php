@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ORM\Table(name: "Employers")]
 #[ApiResource()]
-class Employer extends UserConsumer
+class Employer extends UserPhysical
 {
     
 }
