@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\InheritanceType("JOINED")]
@@ -20,13 +21,13 @@ abstract class UserAbstract extends User
     private $slug;
 
     #[ORM\Column(type: "string", length: 180)]
-    private $type;
-
-    #[ORM\Column(type: "string", length: 180)]
     private $contact_email;
 
     #[ORM\Column(type: "string", length: 180)]
     private $contact_phone;
+
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private array $type = [];
 
     /**
      * Get the value of name
@@ -64,26 +65,6 @@ abstract class UserAbstract extends User
     public function setSlug($slug)
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @return  self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }

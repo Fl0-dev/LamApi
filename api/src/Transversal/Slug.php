@@ -16,7 +16,6 @@ trait Slug
      *
      */
     #[ORM\Column(type: "string", length: 255)]
-    #[Groups(["read:getAll"])]
     private ?string $slug = null;
 
     /**
@@ -53,7 +52,7 @@ trait Slug
     public function setSlugBeforePersist(): void
     {
         if (!$this->hasSlug()) {
-            $this->setSlug($this->getSlugFromEntityName());
+            $this->setSlug($this->slugFromEntityName());
         }
     }
 
@@ -62,7 +61,7 @@ trait Slug
      *
      * @return string
      */
-    public function getSlugFromEntityName(): string
+    public function slugFromEntityName(): string
     {
         $name = Utils::generateRandomString(rand(15, 25), 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
@@ -70,6 +69,8 @@ trait Slug
             $name = $this->getName();
         } elseif (method_exists($this, 'getTitle') && method_exists($this, 'hasTitle') && $this->hasTitle()) {
             $name = $this->getTitle();
+        } elseif (method_exists($this, 'getLabel') && method_exists($this, 'hasLabel') && $this->hasLabel()) {
+            $name = $this->getLabel();
         }
 
         return self::getSlugifyString($name);
