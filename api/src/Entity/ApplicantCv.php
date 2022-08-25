@@ -36,7 +36,7 @@ class ApplicantCv
     /**
      * @Vich\UploadableField(mapping="cv_object", fileNameProperty="filePath")
      */
-    private ?File $file;
+    private ?File $file = null;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applicantCvs')]
     private $applicant;

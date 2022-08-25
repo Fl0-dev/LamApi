@@ -171,6 +171,7 @@ class Offer
     #[ORM\JoinColumn(nullable: true)]
     private $applications;
 
+    //TODO: Change for CompanyEntityOffice
     #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]

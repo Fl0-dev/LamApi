@@ -625,18 +625,18 @@ class CompanyGroup
         return $this->ats;
     }
 
-    public function addAt(Ats $at): self
+    public function addAts(Ats $ats): self
     {
-        if (!$this->ats->contains($at)) {
-            $this->ats->add($at);
+        if (!$this->ats->contains($ats)) {
+            $this->ats->add($ats);
         }
 
         return $this;
     }
 
-    public function removeAt(Ats $at): self
+    public function removeAts(Ats $ats): self
     {
-        $this->ats->removeElement($at);
+        $this->ats->removeElement($ats);
 
         return $this;
     }

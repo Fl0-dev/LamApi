@@ -43,7 +43,7 @@ class CompanyEntity
     #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffers'])]
     private $offers;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class)]
+    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
     private Collection $companyEntityOffices;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]

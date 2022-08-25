@@ -30,7 +30,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de TGS France");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_7));
             $offer->setNeeds("Needs $i de TGS France");
             $offer->setProspectWithUs("Prospect $i de TGS France");
             $offer->setProvided(false);
@@ -75,7 +74,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de TGS France");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_7));
             $offer->setNeeds("Needs $i de TGS France");
             $offer->setProspectWithUs("Prospect $i de TGS France");
             $offer->setProvided(false);
@@ -130,7 +128,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Eolis Nantes");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de Eolis Nantes");
             $offer->setProspectWithUs("Prospect $i de Eolis Nantes");
             $offer->setProvided(false);
@@ -181,7 +178,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Eolis Nantes");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de Eolis Nantes");
             $offer->setProspectWithUs("Prospect $i de Eolis Nantes");
             $offer->setProvided(false);
@@ -243,7 +239,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Livli");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_4));
             $offer->setNeeds("Needs $i de Livli");
             $offer->setProspectWithUs("Prospect $i de Livli");
             $offer->setProvided(false);
@@ -309,7 +304,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de Livli");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_4));
             $offer->setNeeds("Needs $i de Livli");
             $offer->setProspectWithUs("Prospect $i de Livli");
             $offer->setProvided(false);
@@ -365,7 +359,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de In Extenso");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de In Extenso");
             $offer->setProspectWithUs("Prospect $i de In Extenso");
             $offer->setProvided(false);
@@ -418,7 +411,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setMissions("Offre $i de In Extenso");
             $offer->setFullyTelework(true);
             $offer->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
-            $offer->setAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
             $offer->setNeeds("Needs $i de In Extenso");
             $offer->setProspectWithUs("Prospect $i de In Extenso");
             $offer->setProvided(false);
