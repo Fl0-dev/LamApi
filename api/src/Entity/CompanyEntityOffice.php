@@ -39,9 +39,13 @@ class CompanyEntityOffice
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Offer::class)]
     private Collection $offers;
 
+    #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Application::class)]
+    private Collection $applications;
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -104,6 +108,36 @@ class CompanyEntityOffice
             // set the owning side to null (unless already changed)
             if ($offer->getCompanyEntityOffice() === $this) {
                 $offer->setCompanyEntityOffice(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Application>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): self
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications->add($application);
+            $application->setCompanyEntityOffice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): self
+    {
+        if ($this->applications->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getCompanyEntityOffice() === $this) {
+                $application->setCompanyEntityOffice(null);
             }
         }
 

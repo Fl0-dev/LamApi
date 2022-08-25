@@ -128,14 +128,15 @@ class Application
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]
     private $cv;
 
-    #[ORM\ManyToOne(targetEntity: CompanyEntity::class, inversedBy: 'applications')]
-    private $companyEntity;
-
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
     private $applicantionExchanges;
 
     #[ORM\Column(length: 11)]
     private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'applications')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CompanyEntityOffice $companyEntityOffice = null;
 
     public function __construct()
     {
@@ -202,18 +203,6 @@ class Application
         return $this;
     }
 
-    public function getCompanyEntity(): ?CompanyEntity
-    {
-        return $this->companyEntity;
-    }
-
-    public function setCompanyEntity(?CompanyEntity $companyEntity): self
-    {
-        $this->companyEntity = $companyEntity;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, ApplicantionExchange>
      */
@@ -252,6 +241,18 @@ class Application
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCompanyEntityOffice(): ?CompanyEntityOffice
+    {
+        return $this->companyEntityOffice;
+    }
+
+    public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice): self
+    {
+        $this->companyEntityOffice = $companyEntityOffice;
 
         return $this;
     }

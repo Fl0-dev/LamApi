@@ -134,36 +134,6 @@ class CompanyEntity
     }
 
     /**
-     * @return Collection<int, Application>
-     */
-    public function getApplications(): Collection
-    {
-        return $this->applications;
-    }
-
-    public function addApplication(Application $application): self
-    {
-        if (!$this->applications->contains($application)) {
-            $this->applications[] = $application;
-            $application->setCompanyEntity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeApplication(Application $application): self
-    {
-        if ($this->applications->removeElement($application)) {
-            // set the owning side to null (unless already changed)
-            if ($application->getCompanyEntity() === $this) {
-                $application->setCompanyEntity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, CompanyEntityOffice>
      */
     public function getCompanyEntityOffices(): Collection
