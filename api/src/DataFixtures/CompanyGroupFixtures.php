@@ -22,10 +22,12 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public const COMPANY_GROUP_REFERENCE_3 = 'company_group3';
     public const COMPANY_GROUP_REFERENCE_4 = 'company_group4';
 
-    public const COMPANY_ENTITY_REFERENCE_1 = 'company_entity1';
-    public const COMPANY_ENTITY_REFERENCE_2 = 'company_entity2';
-    public const COMPANY_ENTITY_REFERENCE_3 = 'company_entity3';
-    public const COMPANY_ENTITY_REFERENCE_4 = 'company_entity4';
+    public const COMPANY_ENTITY_OFFICE_REFERENCE_1 = 'company_entity_office1';
+    public const COMPANY_ENTITY_OFFICE_REFERENCE_2 = 'company_entity_office2';
+    public const COMPANY_ENTITY_OFFICE_REFERENCE_3 = 'company_entity_office3';
+    public const COMPANY_ENTITY_OFFICE_REFERENCE_4 = 'company_entity_office4';
+    public const COMPANY_ENTITY_OFFICE_REFERENCE_5 = 'company_entity_office5';
+    public const COMPANY_ENTITY_OFFICE_REFERENCE_6 = 'company_entity_office6';
 
     public function load(ObjectManager $manager)
     {
@@ -97,7 +99,6 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Ouest');
         $companyEntity->setSlug('tgs-france-ouest');
-        $this->addReference(self::COMPANY_ENTITY_REFERENCE_1, $companyEntity);
         
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
@@ -115,6 +116,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('TGS Nantes');
         $companyEntityOffice->setSlug('tgs-nantes');
+        $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_1, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
@@ -134,6 +136,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('TGS St-Nazaire');
         $companyEntityOffice->setSlug('tgs-st-nazaire');
+        $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_2, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
@@ -142,6 +145,8 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addCompanyEntity($companyEntity);
 
         $manager->persist($companyGroup);
+
+        $manager->flush();
 
         ###### EOLIS ######
         $social = new Social();
@@ -219,7 +224,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Eolis Ouest');
         $companyEntity->setSlug('eolis-ouest');
-        $this->addReference(self::COMPANY_ENTITY_REFERENCE_2, $companyEntity);
+       
 
         $companyEntityOffice = new CompanyEntityOffice();
         $companyEntityOffice->setCompanyEntity($companyEntity);
@@ -229,6 +234,8 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setName('Eolis Nantes');
         $companyEntityOffice->setSlug('eolis-nantes');
 
+        $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_3, $companyEntityOffice);
+
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
         $manager->persist($companyEntity);
@@ -236,6 +243,8 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addCompanyEntity($companyEntity);
 
         $manager->persist($companyGroup);
+
+        $manager->flush();
 
         ###### LIVLI ######
         $companyGroup = new CompanyGroup();
@@ -305,8 +314,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Livli Ouest');
         $companyEntity->setSlug('livli-ouest');
-        $this->addReference(self::COMPANY_ENTITY_REFERENCE_3, $companyEntity);
-
+        
         $companyEntityOffice = new CompanyEntityOffice();
         $companyEntityOffice->setCompanyEntity($companyEntity);
         $companyEntityOffice->setAddress($address);
@@ -314,11 +322,18 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('Livli St Naz');
         $companyEntityOffice->setSlug('livli-st-naz');
+
+        $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_4, $companyEntityOffice);
+
+        $companyEntity->addCompanyEntityOffice($companyEntityOffice);
+
         $manager->persist($companyEntity);
 
         $companyGroup->addCompanyEntity($companyEntity);
 
         $manager->persist($companyGroup);
+
+        $manager->flush();
 
         ###### IN EXTENSO OUEST ######
         $companyGroup = new CompanyGroup();
@@ -376,8 +391,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Ouest');
         $companyEntity->setSlug('In Extenso-ouest');
-        $this->addReference(self::COMPANY_ENTITY_REFERENCE_4, $companyEntity);
-
+        
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
         $address->setStreet('Rue de la Liberté');
@@ -394,6 +408,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('In Extenso Challans');
         $companyEntityOffice->setSlug('in-extenso-challans');
+        $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_5, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
@@ -413,6 +428,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('In Extenso Luçon');
         $companyEntityOffice->setSlug('in-extenso-lucon');
+        $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_6, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
