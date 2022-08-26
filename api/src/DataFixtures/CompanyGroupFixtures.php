@@ -10,6 +10,7 @@ use App\Entity\Media;
 use App\Entity\MediaImage;
 use App\Entity\MediaVideo;
 use App\Entity\Profil;
+use App\Entity\Repositories\Workforce;
 use App\Entity\Social;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -51,6 +52,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff0000');
         $companyGroup->setOpenToRecruitment(true);
+        $companyGroup->setWorkforce(Workforce::LEVEL_8);
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_0));
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));

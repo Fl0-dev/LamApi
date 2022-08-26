@@ -686,4 +686,24 @@ class CompanyGroup
 
         return $this;
     }
+
+    /**
+     * Get the value of workforce
+     */ 
+    public function getWorkforce()
+    {
+        return $this->workforce;
+    }
+
+    /**
+     * Set the value of workforce
+     *
+     * @return  self
+     */ 
+    public function setWorkforce($workforce)
+    {
+        $this->workforce = $workforce;
+
+        return $this;
+    }
 }

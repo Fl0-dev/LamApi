@@ -23,12 +23,12 @@ class CompanyEntityOffice
     use LastModifiedDate;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups(["read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private ?string $name = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([ "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
+    #[Groups(["read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
     private ?Address $address = null;
 
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]

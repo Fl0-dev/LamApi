@@ -26,7 +26,7 @@ class CompanyEntity
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
+    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
@@ -36,6 +36,7 @@ class CompanyEntity
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
+    #[Groups(['read:getAllTeaserCompanyGroups'])]
     private Collection $companyEntityOffices;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
