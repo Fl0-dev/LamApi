@@ -43,7 +43,7 @@ class PostApplicationByOfferId extends AbstractController
         $application->setCreatedDate(new \DateTime());
         $application->setLastModifiedDate(new \DateTime());
         $application->setStatus(ApplicationStatus::NEW);
-        $application->setCompanyEntity($offer->getCompanyEntity());
+        $application->setCompanyEntityOffice($offer->getCompanyEntityOffice());
         $offer->addApplication($application);
 
         return $application;
