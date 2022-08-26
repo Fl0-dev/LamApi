@@ -11,7 +11,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CountOffers;
 use App\Controller\PostOffer;
 use App\Entity\Repositories\OfferStatus;
-use App\Filter\LocalisationFilter;
+use App\Filter\LocationFilter;
 use App\Repository\OfferRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints\Length;
                 'groups' => ['read:getAllTeaserOffers'],
             ],
         ],
-         ############################## SAVE OR UPDATE OFFER ##############################
+        ############################## SAVE OR UPDATE OFFER ##############################
         'postOffer' => [
             'method' => 'POST',
             'path' => '/offers',
@@ -40,7 +40,7 @@ use Symfony\Component\Validator\Constraints\Length;
             'denormalization_context' => [
                 'groups' => ['write:postOffer'],
             ],
-        ],   
+        ],
     ],
     itemOperations: [
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
@@ -54,7 +54,7 @@ use Symfony\Component\Validator\Constraints\Length;
             'openapi_context' => [
                 'summary' => 'Count all offers',
                 'description' => 'Count all offers. #withoutIdentifier',
-                'parameters'=> [],
+                'parameters' => [],
                 'responses' => [
                     '200' => [
                         'description' => 'Count all offers',
@@ -76,7 +76,7 @@ use Symfony\Component\Validator\Constraints\Length;
             'path' => '/offers/{id}',
             'normalization_context' => [
                 'groups' => ['read:getOfferDetails'],
-            ],  
+            ],
         ],
         ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
         'getOfferApplications' => [
@@ -84,14 +84,14 @@ use Symfony\Component\Validator\Constraints\Length;
             'path' => '/offers/{id}/applications',
             'normalization_context' => [
                 'groups' => ['read:getOfferApplications'],
-            ],  
+            ],
         ],
     ]
 )]
-#[ApiFilter(LocalisationFilter::class)]
+#[ApiFilter(LocationFilter::class)]
 #[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'asc'])]
 #[ApiFilter(BooleanFilter::class, properties: ['provided'])]
-#[ApiFilter(SearchFilter::class, properties: ['city', 'contractType', 'jobTitle','experience', 'companyEntity.companyGroup.id' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['city', 'contractType', 'jobTitle', 'experience', 'companyEntityOffice.companyEntity.companyGroup.id' => 'exact'])]
 class Offer
 {
     use Uuid;
@@ -106,10 +106,10 @@ class Offer
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer']),
         Length(
-        min: 3,
-        max: 255,
-        minMessage: "Le titre de l'offre doit contenir au moins {{ limit }} caractères",
-        maxMessage: "Le titre de l'offre ne doit pas dépasser {{ limit }} caractères"
+            min: 3,
+            max: 255,
+            minMessage: "Le titre de l'offre doit contenir au moins {{ limit }} caractères",
+            maxMessage: "Le titre de l'offre ne doit pas dépasser {{ limit }} caractères"
         )
     ]
     private $title;
@@ -139,7 +139,7 @@ class Offer
     private $workWithUs;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails','read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $weeklyHours;
 
     #[ORM\Column(type: 'boolean')]
@@ -147,7 +147,7 @@ class Offer
     private $startASAP;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $salaryMin;
 
     #[ORM\Column(type: 'float', nullable: true)]
@@ -155,7 +155,7 @@ class Offer
     private $salaryMax;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $startDate;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -204,7 +204,8 @@ class Offer
     private $status;
 
     #[ORM\Column(type: "string", length: 255, nullable: false)]
-    #[Groups(['write:postOffer']),
+    #[
+        Groups(['write:postOffer']),
         Length(
             min: 3,
             max: 255,
@@ -224,6 +225,7 @@ class Offer
 
     public function __construct()
     {
+        $this->tools = new ArrayCollection();
         $this->jobBoards = new ArrayCollection();
         $this->applications = new ArrayCollection();
         $this->createdDate = new \DateTime();
@@ -231,7 +233,6 @@ class Offer
         $this->provided = false;
         $this->publishedAt = null;
         $this->status = OfferStatus::DRAFT;
-        $this->tools = new ArrayCollection();
     }
 
     public function getSlug(): ?string
@@ -485,16 +486,16 @@ class Offer
         if ($this->headerMedia) {
             return $this->headerMedia;
         } else {
-            return $this->companyEntity->getCompanyGroup()->getHeaderMedia();
+            return $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getHeaderMedia();
         }
     }
 
     public function setHeaderMedia(?Media $headerMedia): self
     {
         if ($this->headerMedia) {
-        $this->headerMedia = $headerMedia;
+            $this->headerMedia = $headerMedia;
         } else {
-            $this->headerMedia = $this->companyEntity->getCompanyGroup()->getHeaderMedia();
+            $this->headerMedia = $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getHeaderMedia();
         }
 
         return $this;
@@ -559,14 +560,6 @@ class Offer
 
         return $this;
     }
-
-    // public function getCompanyGroupHeaderMedia(): Media
-    // {
-    //     $companyEntity = $this->getCompanyEntity();
-    //     dd($companyEntity);
-    //         return $companyEntity->getCompanyGroup()->getHeaderMedia();
-        
-    // }
 
     /**
      * @return Collection<int, Tool>

@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Filter\LocalisationFilter;
+use App\Filter\LocationFilter;
 use App\Repository\CityRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -13,8 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
 #[ApiResource(
-    collectionOperations:
-    [
+    collectionOperations: [
         'get' => [
             'method' => 'GET',
             'path' => '/cities',
@@ -24,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ],
 )]
-#[ApiFilter(LocalisationFilter::class)]
+#[ApiFilter(LocationFilter::class)]
 class City
 {
     use Uuid;

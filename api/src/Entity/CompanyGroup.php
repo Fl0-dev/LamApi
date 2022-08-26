@@ -7,7 +7,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CountCompanyGroups;
 use App\Controller\GetCompanyGroupName;
-use App\Filter\LocalisationFilter;
+use App\Filter\LocationFilter;
+use App\Filter\WorkforceFilter;
 use App\Repository\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -57,7 +58,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'path' => '/company-groups/{id}',
             'normalization_context' => [
                 'groups' => ['read:getCompanyGroupDetails'],
-            ],  
+            ],
         ],
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
         'countCompanyGroups' => [
@@ -70,7 +71,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'openapi_context' => [
                 'summary' => 'Count all company groups',
                 'description' => 'Count all company groups. #withoutIdentifier',
-                'parameters'=> [],
+                'parameters' => [],
                 'responses' => [
                     '200' => [
                         'description' => 'Count all company groups',
@@ -155,16 +156,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ]
 )]
 #[ApiFilter(
-    LocalisationFilter::class
+    LocationFilter::class
 )]
+
 #[ApiFilter(
     SearchFilter::class,
     properties: [
         'jobType.slug',
         'name' => 'ipartial',
         'badges.slug',
-        'tools.slug', 
-        'workforce.slug',
+        'tools.slug',
+        'profil.workforce',
     ]
 )]
 class CompanyGroup
@@ -238,15 +240,11 @@ class CompanyGroup
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
-    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups",'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices', 'read:getCompanyGroupApplications'])]
+    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups", 'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices', 'read:getCompanyGroupApplications'])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
-
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
-    private $workforce;
 
     #[ORM\ManyToMany(targetEntity: Ats::class)]
     private Collection $ats;
@@ -256,6 +254,7 @@ class CompanyGroup
     private Collection $medias;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private ?Profil $profil = null;
 
     public function __construct()
@@ -683,26 +682,6 @@ class CompanyGroup
     public function setProfil(?Profil $profil): self
     {
         $this->profil = $profil;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of workforce
-     */ 
-    public function getWorkforce()
-    {
-        return $this->workforce;
-    }
-
-    /**
-     * Set the value of workforce
-     *
-     * @return  self
-     */ 
-    public function setWorkforce($workforce)
-    {
-        $this->workforce = $workforce;
 
         return $this;
     }
