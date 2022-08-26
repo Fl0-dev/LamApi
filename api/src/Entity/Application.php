@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\PostApplicationByOfferId;
-use App\Controller\PostSpontaneousApplicationByCompanyEntityId;
+use App\Controller\PostSpontaneousApplicationByCompanyEntityOfficeId;
 use App\Repository\ApplicationRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -58,10 +58,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ],
         ],
-        'postSpontaneaousApplicationByCompanyEntityId' => [
+        'postSpontaneaousApplicationByCompanyEntityOfficeId' => [
             'method' => 'POST',
-            'path' => '/applications/spontaneaous/{companyEntityId}',
-            'controller' => PostSpontaneousApplicationByCompanyEntityId::class,
+            'path' => '/applications/spontaneaous/{companyEntityOfficeId}',
+            'controller' => PostSpontaneousApplicationByCompanyEntityOfficeId::class,
             'deserialize' => false,
             'denormalization_context' => [
                 'groups' => ['write:postSpontaneousApplicationByCompanyEntityId'],
@@ -71,7 +71,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'description' => 'Post spontaneous application for a company entity by company entity id',
                 'parameters' => [
                     [
-                        'name' => 'companyEntityId',
+                        'name' => 'companyEntityOfficeId',
                         'in' => 'path',
                         'required' => true,
                         'schema' => [

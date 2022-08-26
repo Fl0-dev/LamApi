@@ -5,34 +5,35 @@ namespace App\Controller;
 use App\Entity\ApplicantCv;
 use App\Entity\Application;
 use App\Entity\Repositories\ApplicationStatus;
+use App\Repository\CompanyEntityOfficeRepository;
 use App\Repository\CompanyEntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 
-class PostSpontaneousApplicationByCompanyEntityId extends AbstractController
+class PostSpontaneousApplicationByCompanyEntityOfficeId extends AbstractController
 {
-    public function __construct(private CompanyEntityRepository $companyEntityRepository)
+    public function __construct(private CompanyEntityOfficeRepository $companyEntityOfficeRepository)
     {
     }
 
     
     public function __invoke(Request $request)
     {
-        $companyEntityId = $request->attributes->get('companyEntityId');
+        $companyEntityOfficeId = $request->attributes->get('companyEntityOfficeId');
         $file = $request->files->get('file');
         if (!$file instanceof File) {
             throw new \Exception('No file');
         }
     
         $motivation = $request->request->get('motivation');
-        $companyEntity = $this->companyEntityRepository->find($companyEntityId);
-        if (!$companyEntity) {
+        $companyEntityOffice = $this->companyEntityOfficeRepository->find($companyEntityOfficeId);
+        if (!$companyEntityOffice) {
             throw new \Exception('companyEntity not found');
         }
         $application = new Application();
         $application->setMotivation($motivation);
-        $application->setcompanyEntity($companyEntity);
+        $application->setcompanyEntityOffice($companyEntityOffice);
     
         $applicantCV = new ApplicantCv();
         $applicantCV->setFile($file);
