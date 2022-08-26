@@ -251,7 +251,8 @@ class CompanyGroup
     #[ORM\ManyToMany(targetEntity: Ats::class)]
     private Collection $ats;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: Media::class)]
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private Collection $medias;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

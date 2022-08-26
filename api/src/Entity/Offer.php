@@ -171,10 +171,6 @@ class Offer
     #[ORM\JoinColumn(nullable: true)]
     private $applications;
 
-    
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
-   
-
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: true)]
     private $author;
@@ -223,6 +219,7 @@ class Offer
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 
     public function __construct()
@@ -467,18 +464,6 @@ class Offer
                 $application->setOffer(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCompanyEntity(): ?CompanyEntity
-    {
-        return $this->companyEntity;
-    }
-
-    public function setCompanyEntity(?CompanyEntity $companyEntity): self
-    {
-        $this->companyEntity = $companyEntity;
 
         return $this;
     }

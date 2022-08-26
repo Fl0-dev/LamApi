@@ -29,15 +29,11 @@ class CompanyEntity
     #[Groups(["read:getAllTeaserCompanyGroups", "read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
     private $name;
 
-    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities')]
+    #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
     private $companyGroup;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
-
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Application::class)]
-    #[Groups(['read:getCompanyGroupApplications'])]
-    private $applications;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
     private Collection $companyEntityOffices;
@@ -54,8 +50,6 @@ class CompanyEntity
     public function __construct()
     {
         $this->admins = new ArrayCollection();
-        $this->applications = new ArrayCollection();
-        $this->offers = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
         $this->tools = new ArrayCollection();
         $this->medias = new ArrayCollection();

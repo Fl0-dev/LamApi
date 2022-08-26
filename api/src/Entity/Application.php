@@ -134,7 +134,7 @@ class Application
     #[ORM\Column(length: 11)]
     private ?string $status = null;
 
-    #[ORM\ManyToOne(inversedBy: 'applications')]
+    #[ORM\ManyToOne(inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 

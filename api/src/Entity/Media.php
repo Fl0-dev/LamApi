@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -46,6 +47,7 @@ class Media
     private ?CompanyEntity $companyEntity = null;
 
     #[ORM\ManyToOne(inversedBy: 'medias')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?CompanyGroup $companyGroup = null;
 
     public function getContentUrl(): ?string

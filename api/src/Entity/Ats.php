@@ -15,13 +15,13 @@ class Ats
     use Uuid;
     use Slug;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $free;
 
     public function getName(): ?string

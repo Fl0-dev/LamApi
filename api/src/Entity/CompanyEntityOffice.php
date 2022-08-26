@@ -31,7 +31,7 @@ class CompanyEntityOffice
     #[Groups([ "read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
     private ?Address $address = null;
 
-    #[ORM\ManyToOne(inversedBy: 'companyEntityOffices')]
+    #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private ?CompanyEntity $companyEntity = null;
@@ -40,6 +40,7 @@ class CompanyEntityOffice
     private Collection $offers;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Application::class)]
+    #[Groups(['read:getCompanyGroupApplications'])]
     private Collection $applications;
 
     public function __construct()

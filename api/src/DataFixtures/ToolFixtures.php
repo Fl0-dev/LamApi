@@ -46,12 +46,13 @@ class ToolFixtures extends Fixture
         $tool->setLogo($media);
         $manager->persist($tool);
         $this->addReference(self::TOOL_REFERENCE_2, $tool);
-        $manager->persist($tool);
+
         
         $tool = new Tool();
         $tool->setLabel('Fygr');
         $tool->setSlug('fygr');
 
+        $media = new MediaImage();
         $media->setContentUrl('https://www.fygr.com/assets/images/logo.png');
         $media->setCreatedDate(new \DateTime());
         $media->setLastModifiedDate(new \DateTime());
@@ -60,7 +61,6 @@ class ToolFixtures extends Fixture
         $media->setType('image');
 
         $tool->setLogo($media);
-        $manager->persist($tool);
         $this->addReference(self::TOOL_REFERENCE_3, $tool);
         $manager->persist($tool);
         
