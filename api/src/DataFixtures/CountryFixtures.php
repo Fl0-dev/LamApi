@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Country;
+use App\Entity\Location\Country;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -18,5 +18,4 @@ class CountryFixtures extends Fixture
         $manager->persist($country);
         $manager->flush();
     }
-    
 }

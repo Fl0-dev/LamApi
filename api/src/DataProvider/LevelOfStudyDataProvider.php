@@ -4,8 +4,8 @@ namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Entity\Repositories\LevelOfStudy;
-use App\Repository\LevelOfStudyRepository;
+use App\Entity\References\LevelOfStudy;
+use App\Repository\ReferencesRepositories\LevelOfStudyRepository;
 
 class LevelOfStudyDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
 {

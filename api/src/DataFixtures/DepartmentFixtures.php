@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Department;
+use App\Entity\Location\Department;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -30,7 +30,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return [

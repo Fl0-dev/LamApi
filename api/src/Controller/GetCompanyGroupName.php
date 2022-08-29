@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\CompanyGroupRepository;
+use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 

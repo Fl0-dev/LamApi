@@ -30,7 +30,7 @@ class ToolFixtures extends Fixture
         $tool->setLogo($media);
         $manager->persist($tool);
         $this->addReference(self::TOOL_REFERENCE_1, $tool);
-        
+
         $tool = new Tool();
         $tool->setLabel('Dext');
         $tool->setSlug('dext');
@@ -47,7 +47,7 @@ class ToolFixtures extends Fixture
         $manager->persist($tool);
         $this->addReference(self::TOOL_REFERENCE_2, $tool);
 
-        
+
         $tool = new Tool();
         $tool->setLabel('Fygr');
         $tool->setSlug('fygr');
@@ -63,7 +63,7 @@ class ToolFixtures extends Fixture
         $tool->setLogo($media);
         $this->addReference(self::TOOL_REFERENCE_3, $tool);
         $manager->persist($tool);
-        
+
         $manager->flush();
     }
 }

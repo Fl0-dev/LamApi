@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\City;
+use App\Entity\Location\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -50,7 +50,7 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return [

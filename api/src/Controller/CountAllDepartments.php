@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\AddressRepository;
+use App\Repository\LocationRepositories\AddressRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CountAllDepartments extends AbstractController

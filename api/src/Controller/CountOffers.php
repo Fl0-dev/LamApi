@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\OfferRepository;
+use App\Repository\OfferRepositories\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CountOffers extends AbstractController

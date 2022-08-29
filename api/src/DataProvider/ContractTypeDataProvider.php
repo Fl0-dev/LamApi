@@ -4,9 +4,9 @@ namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Entity\Repositories\ContractType;
+use App\Entity\References\ContractType;
 use App\Filter\ContractTypeFilter;
-use App\Repository\ContractTypeRepository;
+use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Utils\Utils;
 
 class ContractTypeDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
@@ -14,7 +14,7 @@ class ContractTypeDataProvider implements ContextAwareCollectionDataProviderInte
     public function __construct(private ContractTypeRepository $contractTypeRepository)
     {
     }
-    
+
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
         return ContractType::class === $resourceClass;
@@ -29,4 +29,3 @@ class ContractTypeDataProvider implements ContextAwareCollectionDataProviderInte
         return $this->contractTypeRepository->findAll();
     }
 }
-

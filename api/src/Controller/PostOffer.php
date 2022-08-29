@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Offer;
+use App\Entity\Offer\Offer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +14,7 @@ class PostOffer extends AbstractController
         //TODO: récupération du user pour employer
         //TODO; récupération de l'ats
         if ($offer instanceof Offer) {
-        $offer->setHeaderMedia($offer->getCompanyEntity()->getCompanyGroup()->getHeaderMedia());
+        $offer->setHeaderMedia($offer->getCompanyEntityOffice()->getCompanyEntity()->getCompanyGroup()->getHeaderMedia());
         }
         return $offer;
     }

@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\ApplicantCv;
-use App\Entity\Application;
-use App\Entity\Repositories\ApplicationStatus;
-use App\Repository\OfferRepository;
+use App\Entity\Applicant\ApplicantCv;
+use App\Entity\Application\Application;
+use App\Entity\References\ApplicationStatus;
+use App\Repository\OfferRepositories\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,7 @@ class PostApplicationByOfferId extends AbstractController
         if (!$file instanceof File) {
             throw new \Exception('No file');
         }
-    
+
         $motivation = $request->request->get('motivation');
         $offer = $this->offerRepository->find($offerId);
         if (!$offer) {

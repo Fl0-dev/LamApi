@@ -4,9 +4,9 @@ namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Entity\Repositories\Experience;
+use App\Entity\References\Experience;
 use App\Filter\ExperienceFilter;
-use App\Repository\ExperienceRepository;
+use App\Repository\ReferencesRepositories\ExperienceRepository;
 use App\Utils\Utils;
 
 class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface

@@ -14,7 +14,7 @@ class JobTitleFixtures extends Fixture
         'assistant-comptable'      => 'Assistant comptable',
         'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',
         'assistant-juridique-droit-social'      => 'Assistant juridique - Droit Social',
-        'auditeur-assistant' =>'Auditeur Assistant',
+        'auditeur-assistant' => 'Auditeur Assistant',
         'autres-metiers' => 'Autres métiers',
         'avocat-droit-des-societes' => 'Avocat - Droit des Sociétés',
         'avocat-droit-social' => 'Avocat - Droit Social',
@@ -80,10 +80,10 @@ class JobTitleFixtures extends Fixture
     public const JOB_TITLE_REFERENCE_32 = 'job_title_reference_32';
     public const JOB_TITLE_REFERENCE_33 = 'job_title_reference_33';
     public const JOB_TITLE_REFERENCE_34 = 'job_title_reference_34';
-    
+
     public function load(ObjectManager $manager)
     {
-        
+
         $jobTitle = new JobTitle();
         $jobTitle->setSlug('assistant-administratif');
         $jobTitle->setLabel('Assistant administratif');

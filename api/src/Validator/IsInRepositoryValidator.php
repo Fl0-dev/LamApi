@@ -2,10 +2,9 @@
 
 namespace App\Validator;
 
-use App\Entity\Repositories\ContractType;
-use App\Entity\Repositories\Experience;
-use App\Entity\Repositories\LevelOfStudy;
-use App\Entity\Repositories\OfferStatus;
+use App\Entity\References\ContractType;
+use App\Entity\References\Experience;
+use App\Entity\References\LevelOfStudy;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -19,26 +18,26 @@ class IsInRepositoryValidator extends ConstraintValidator
         switch ($property) {
             case 'contractType':
                 if (ContractType::isContractType($value)) {
-                    return;            
+                    return;
                 }
                 break;
 
             case 'experience':
                 if (Experience::isExperience($value)) {
-                    return;            
+                    return;
                 }
                 break;
 
             case 'levelOfStudy':
                 if (LevelOfStudy::isLevelOfStudy($value)) {
-                    return;            
+                    return;
                 }
-                break;                
+                break;
         }
         if (null === $value || '' === $value) {
             return;
         }
-       
+
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $value)
             ->setParameter('{{ property }}', $property)

@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\ApplicantCv;
-use App\Entity\Application;
-use App\Entity\Repositories\ApplicationStatus;
-use App\Repository\CompanyEntityOfficeRepository;
-use App\Repository\CompanyEntityRepository;
+use App\Entity\Applicant\ApplicantCv;
+use App\Entity\Application\Application;
+use App\Entity\References\ApplicationStatus;
+use App\Repository\CompanyRepositories\CompanyEntityOfficeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ class PostSpontaneousApplicationByCompanyEntityOfficeId extends AbstractControll
     {
     }
 
-    
+
     public function __invoke(Request $request)
     {
         $companyEntityOfficeId = $request->attributes->get('companyEntityOfficeId');
@@ -25,7 +24,7 @@ class PostSpontaneousApplicationByCompanyEntityOfficeId extends AbstractControll
         if (!$file instanceof File) {
             throw new \Exception('No file');
         }
-    
+
         $motivation = $request->request->get('motivation');
         $companyEntityOffice = $this->companyEntityOfficeRepository->find($companyEntityOfficeId);
         if (!$companyEntityOffice) {
@@ -34,18 +33,18 @@ class PostSpontaneousApplicationByCompanyEntityOfficeId extends AbstractControll
         $application = new Application();
         $application->setMotivation($motivation);
         $application->setcompanyEntityOffice($companyEntityOffice);
-    
+
         $applicantCV = new ApplicantCv();
         $applicantCV->setFile($file);
         $applicantCV->setCreatedDate(new \DateTime());
         $applicantCV->setLastModifiedDate(new \DateTime());
-    
+
         $application->setCv($applicantCV);
         $application->setCreatedDate(new \DateTime());
         $application->setLastModifiedDate(new \DateTime());
         $application->setStatus(ApplicationStatus::NEW);
-        
-    
+
+
         return $application;
     }
 }

@@ -4,14 +4,14 @@ namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Entity\Repositories\Workforce;
-use App\Filter\WorkforceFilter;
-use App\Repository\WorkforceRepository;
-use App\Utils\Utils;
+use App\Entity\References\Workforce;
+use App\Repository\ReferencesRepositories\WorkforceRepository;
 
 class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
 {
-    public function __construct(private WorkforceRepository $workforceRepository){}
+    public function __construct(private WorkforceRepository $workforceRepository)
+    {
+    }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
@@ -20,10 +20,7 @@ class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterfa
 
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
-        $list = Utils::getArrayValue(WorkforceFilter::WORKFORCE_CONTEXT, $context);
-        if ($list) {
-            return $list;
-        }
+
         return $this->workforceRepository->findAll();
     }
 }

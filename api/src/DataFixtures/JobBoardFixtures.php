@@ -24,7 +24,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setFree(true);
         $this->addReference(self::JOB_BOARD_REFERENCE_1, $jobBoard);
         $manager->persist($jobBoard);
-        
+
         $jobBoard = new JobBoard();
         $jobBoard->setName('HelloWork');
         $jobBoard->setSlug('hellowork');
@@ -32,7 +32,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setFree(true);
         $this->addReference(self::JOB_BOARD_REFERENCE_2, $jobBoard);
         $manager->persist($jobBoard);
-        
+
         $jobBoard = new JobBoard();
         $jobBoard->setName('MeteoJob');
         $jobBoard->setSlug('meteojob');
@@ -40,7 +40,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setFree(true);
         $this->addReference(self::JOB_BOARD_REFERENCE_3, $jobBoard);
         $manager->persist($jobBoard);
-        
+
         $jobBoard = new JobBoard();
         $jobBoard->setName('Apec');
         $jobBoard->setSlug('apec');
@@ -48,7 +48,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setFree(true);
         $this->addReference(self::JOB_BOARD_REFERENCE_4, $jobBoard);
         $manager->persist($jobBoard);
-        
+
         $jobBoard = new JobBoard();
         $jobBoard->setName('Pôle Emploi');
         $jobBoard->setSlug('pole-emploi');

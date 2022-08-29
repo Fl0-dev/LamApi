@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Offer\Offer;
 use App\Repository\JobBoardRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;

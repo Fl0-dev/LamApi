@@ -4,7 +4,7 @@ namespace App\Filter;
 
 use ApiPlatform\Core\Serializer\Filter\FilterInterface;
 
-use App\Repository\ContractTypeRepository;
+use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContractTypeFilter implements FilterInterface

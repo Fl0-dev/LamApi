@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Region;
+use App\Entity\Location\Region;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -21,7 +21,7 @@ class RegionFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($region);
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return [

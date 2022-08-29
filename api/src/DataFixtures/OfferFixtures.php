@@ -2,14 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\ApplicantCv;
-use App\Entity\Application;
-use App\Entity\Offer;
-use App\Entity\Repositories\ApplicationStatus;
-use App\Entity\Repositories\ContractType;
-use App\Entity\Repositories\Experience;
-use App\Entity\Repositories\LevelOfStudy;
-use App\Entity\Repositories\OfferStatus;
+use App\Entity\Application\Application;
+use App\Entity\Offer\Offer;
+use App\Entity\References\ApplicationStatus;
+use App\Entity\References\ContractType;
+use App\Entity\References\Experience;
+use App\Entity\References\LevelOfStudy;
+use App\Entity\References\OfferStatus;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

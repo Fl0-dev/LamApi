@@ -2,15 +2,14 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Address;
-use App\Entity\CompanyEntity;
-use App\Entity\CompanyEntityOffice;
-use App\Entity\CompanyGroup;
-use App\Entity\Media;
-use App\Entity\MediaImage;
-use App\Entity\MediaVideo;
+use App\Entity\Location\Address;
+use App\Entity\Company\CompanyEntity;
+use App\Entity\Company\CompanyEntityOffice;
+use App\Entity\Company\CompanyGroup;
+use App\Entity\Media\MediaImage;
+use App\Entity\Media\MediaVideo;
 use App\Entity\Profil;
-use App\Entity\Repositories\Workforce;
+use App\Entity\References\Workforce;
 use App\Entity\Social;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -101,7 +100,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Ouest');
         $companyEntity->setSlug('tgs-france-ouest');
-        
+
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
         $address->setStreet('Rue de la Paix');
@@ -227,7 +226,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Eolis Ouest');
         $companyEntity->setSlug('eolis-ouest');
-       
+
 
         $companyEntityOffice = new CompanyEntityOffice();
         $companyEntityOffice->setCompanyEntity($companyEntity);
@@ -325,7 +324,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Livli Ouest');
         $companyEntity->setSlug('livli-ouest');
-        
+
         $companyEntityOffice = new CompanyEntityOffice();
         $companyEntityOffice->setCompanyEntity($companyEntity);
         $companyEntityOffice->setAddress($address);
@@ -410,7 +409,7 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Ouest');
         $companyEntity->setSlug('In Extenso-ouest');
-        
+
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
         $address->setStreet('Rue de la Liberté');
