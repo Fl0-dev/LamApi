@@ -158,15 +158,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(
     LocationFilter::class
 )]
-
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'jobType.slug',
+        'jobTypes.slug',//slug exact match
         'name' => 'ipartial',
-        'badges.slug',
-        'tools.slug',
-        'profil.workforce',
+        'badges.slug',//slug exact match
+        'tools.slug',//slug exact match
+        'profil.workforce',//slug exact match
     ]
 )]
 class CompanyGroup
@@ -253,7 +252,7 @@ class CompanyGroup
     #[ORM\JoinColumn(nullable: true)]
     private Collection $medias;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Profil::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private ?Profil $profil = null;
 
