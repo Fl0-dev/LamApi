@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\MediaImage;
+use App\Entity\Media\MediaImage;
 use App\Entity\Tool;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
