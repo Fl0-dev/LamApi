@@ -40,7 +40,6 @@ class WorkforceFilter implements FilterInterface
                 'openapi' => [
                     'example' => '19',
                 ],
-    
             ]
         ];
     }

@@ -15,7 +15,6 @@ use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Profil;
 use App\Entity\Tool;
-use App\Filter\LocationFilter;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -162,9 +161,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ]
 )]
-// #[ApiFilter(
-//     LocationFilter::class
-// )]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
