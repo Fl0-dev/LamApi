@@ -162,17 +162,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ],
     ]
 )]
-#[ApiFilter(
-    LocationFilter::class
-)]
+// #[ApiFilter(
+//     LocationFilter::class
+// )]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'jobTypes.slug',//slug exact match
+        'jobTypes',
         'name' => 'ipartial',
-        'badges.slug',//slug exact match
-        'tools.slug',//slug exact match
+        'badges',
+        'tools',
         'profil.workforce',//slug exact match
+        'companyEntities.companyEntityOffices.address.city',//uuid exact match
+        'companyEntities.companyEntityOffices.address.city.department',//uuid exact match
     ]
 )]
 class CompanyGroup

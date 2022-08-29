@@ -96,10 +96,17 @@ use Symfony\Component\Validator\Constraints\Length;
         ],
     ]
 )]
-#[ApiFilter(LocationFilter::class)]
 #[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'desc'])]
 #[ApiFilter(BooleanFilter::class, properties: ['provided' => false])]
-#[ApiFilter(SearchFilter::class, properties: ['contractType', 'jobTitle', 'experience', 'companyEntityOffice.companyEntity.companyGroup.id' => 'exact'])]
+#[ApiFilter(SearchFilter::class, 
+    properties: [
+        'contractType', 
+        'jobTitle', 
+        'experience', 
+        'companyEntityOffice.companyEntity.companyGroup.id' => 'exact',
+        'companyEntityOffice.address.city',
+        'companyEntityOffice.address.city.department',
+        ])]
 class Offer
 {
     use Uuid;
