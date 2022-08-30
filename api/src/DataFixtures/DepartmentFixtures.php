@@ -17,7 +17,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
     {
         $department = new Department();
         $department->setName('Loire-Atlantique');
-        $department->setDepartmentNumber('44');
+        $department->setCode('44');
         $department->setSlug('loire-atlantique');
         $department->setRegion($this->getReference(RegionFixtures::REGION_REFERENCE));
         $this->addReference(self::DEPARTMENT_REFERENCE_1, $department);
@@ -25,7 +25,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 
         $department = new Department();
         $department->setName('Vendée');
-        $department->setDepartmentNumber('85');
+        $department->setCode('85');
         $department->setSlug('vendee');
         $department->setRegion($this->getReference(RegionFixtures::REGION_REFERENCE));
         $this->addReference(self::DEPARTMENT_REFERENCE_2, $department);
@@ -33,7 +33,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
 
         $department = new Department();
         $department->setName('Mayenne');
-        $department->setDepartmentNumber('53');
+        $department->setCode('53');
         $department->setSlug('mayenne');
         $department->setRegion($this->getReference(RegionFixtures::REGION_REFERENCE));
         $this->addReference(self::DEPARTMENT_REFERENCE_3, $department);

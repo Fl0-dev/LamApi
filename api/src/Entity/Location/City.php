@@ -62,9 +62,9 @@ class City
         return $this;
     }
 
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     public function getCityNameAndNbDepartment(): string
     {
-        return $this->name . ' (' . $this->department->getDepartmentNumber() . ')';
+        return $this->name . ' (' . $this->department->getCode() . ')';
     }
 }

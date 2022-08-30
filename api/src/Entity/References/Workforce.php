@@ -5,10 +5,11 @@ namespace App\Entity\References;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\References\Reference;
 use App\Filter\WorkforceFilter;
 use App\Transversal\Label;
 use App\Transversal\Slug;
-use Symfony\Component\Uid\Uuid;
+
 
 #[ApiResource(
     collectionOperations: [
@@ -31,7 +32,7 @@ use Symfony\Component\Uid\Uuid;
     ]
 )]
 #[ApiFilter(WorkforceFilter::class)]
-class Workforce
+class Workforce extends Reference
 {
     const LEVEL_1 = '1-a-9-salaries';
     const LEVEL_2 = '10-a-19-salaries';
@@ -91,37 +92,4 @@ class Workforce
             'label' => '+ de 10000 salariés',
         ]
     ];
-
-    #[ApiProperty(identifier: true)]
-    private $id;
-
-    use Slug;
-    use Label;
-
-    public function __construct(int $value, string $slug, string $label)
-    {
-        $this->id = Uuid::v3(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
-        $this->slug = $slug;
-        $this->label = $label;
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 }

@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Applicant extends UserPhysical
 {
     #[ORM\Column(type: 'text', nullable: true)]
-    private $introductionText;
+    private $defaultMotivationText;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $linkedin;
@@ -47,7 +47,7 @@ class Applicant extends UserPhysical
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $contractType;
 
-    #[ORM\Column(type: 'string', length: 11)]
+    #[ORM\Column(type: 'string', length: 30)]
     private $status;
 
     /**
@@ -65,14 +65,14 @@ class Applicant extends UserPhysical
         $this->applications = new ArrayCollection();
     }
 
-    public function getIntroductionText(): ?string
+    public function getDefaultMotivationText(): ?string
     {
-        return $this->introductionText;
+        return $this->defaultMotivationText;
     }
 
-    public function setIntroductionText(?string $introductionText): self
+    public function setDefaultMotivationText(?string $defaultMotivationText): self
     {
-        $this->introductionText = $introductionText;
+        $this->defaultMotivationText = $defaultMotivationText;
 
         return $this;
     }

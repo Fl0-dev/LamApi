@@ -75,6 +75,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/tgs-france-logo.png');
         $media->setSlug('tgs-france-logo');
         $companyGroup->setLogo($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/header.png');
@@ -83,6 +84,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/tgs-france-header.png');
         $media->setSlug('tgs-france-header');
         $companyGroup->setHeaderMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -92,6 +94,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('tgs-france-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);
@@ -189,6 +192,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/eolis-logo.png');
         $media->setSlug('eolis-logo');
         $companyGroup->setLogo($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/header.png');
@@ -197,6 +201,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/eolis-header.png');
         $media->setSlug('eolis-header');
         $companyGroup->setHeaderMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -206,6 +211,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('eolis-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
@@ -284,6 +290,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/livli-logo.png');
         $media->setSlug('livli-logo');
         $companyGroup->setLogo($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/header.png');
@@ -292,6 +299,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/livli-header.png');
         $media->setSlug('livli-header');
         $companyGroup->setHeaderMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -301,6 +309,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('livli-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
@@ -375,6 +384,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/in-extenso-ouest-logo.png');
         $media->setSlug('in-extenso-ouest-logo');
         $companyGroup->setLogo($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/header.png');
@@ -383,6 +393,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/in-extenso-ouest-header.png');
         $media->setSlug('in-extenso-ouest-header');
         $companyGroup->setHeaderMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -392,6 +403,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('in-extenso-ouest-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
+        $media->setCompanyGroup($companyGroup);
 
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);

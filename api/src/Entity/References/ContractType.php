@@ -32,9 +32,8 @@ use App\Utils\Utils;
     ]
 )]
 #[ApiFilter(ContractTypeFilter::class)]
-class ContractType
+class ContractType extends Reference
 {
-
     const CDD = 'cdd';
     const CDI = 'cdi';
     const ALTERNANCE = 'alternance';
@@ -63,39 +62,6 @@ class ContractType
             'label' => 'Indépendant'
         ],
     ];
-
-    #[ApiProperty(identifier: true)]
-    private $id;
-
-    use Slug;
-    use Label;
-
-    public function __construct(string $slug, string $label)
-    {
-        $this->id = Uuid::v3(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
-        $this->slug = $slug;
-        $this->label = $label;
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     public static function isContractType(string $contractTypeSlug): ?bool
     {

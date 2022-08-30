@@ -481,24 +481,24 @@ class CompanyGroup
         return $this;
     }
 
-    public function getLogo(): ?MediaImage
+    public function getLogo(): ?Media
     {
         return $this->logo;
     }
 
-    public function setLogo(?MediaImage $logo): self
+    public function setLogo(?Media $logo): self
     {
         $this->logo = $logo;
 
         return $this;
     }
 
-    public function getHeaderMedia(): ?MediaImage
+    public function getHeaderMedia(): ?Media
     {
         return $this->headerMedia;
     }
 
-    public function setHeaderMedia(?MediaImage $headerMedia): self
+    public function setHeaderMedia(?Media $headerMedia): self
     {
         $this->headerMedia = $headerMedia;
 

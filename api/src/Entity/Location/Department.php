@@ -54,7 +54,7 @@ class Department
     private $name;
 
     #[ORM\Column(type: 'string', length: 7)]
-    private $departmentNumber;
+    private $code;
 
     #[ORM\ManyToOne(targetEntity: Region::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -80,14 +80,14 @@ class Department
         return $this;
     }
 
-    public function getDepartmentNumber(): ?string
+    public function getCode(): ?string
     {
-        return $this->departmentNumber;
+        return $this->code;
     }
 
-    public function setDepartmentNumber(string $departmentNumber): self
+    public function setCode(string $code): self
     {
-        $this->departmentNumber = $departmentNumber;
+        $this->code = $code;
 
         return $this;
     }

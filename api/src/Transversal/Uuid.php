@@ -4,7 +4,7 @@ namespace App\Transversal;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\UuidV6 as BaseUuid;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 
 /**
  * Trait for using Uuid

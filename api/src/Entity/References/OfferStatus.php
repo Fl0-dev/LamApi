@@ -28,7 +28,7 @@ use Symfony\Component\Uid\Uuid;
         ],
     ]
 )]
-class OfferStatus
+class OfferStatus extends Reference
 {
     const DRAFT = 'draft';
     const PUBLISHED = 'published';
@@ -58,40 +58,6 @@ class OfferStatus
             'label' => 'Archived'
         ],
     ];
-
-
-    #[ApiProperty(identifier: true)]
-    private $id;
-
-    use Slug;
-    use Label;
-
-    public function __construct(string $slug, string $label)
-    {
-        $this->id = Uuid::v3(Uuid::fromString(Uuid::NAMESPACE_URL), $slug);
-        $this->slug = $slug;
-        $this->label = $label;
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     public static function isStatus($statusSlug)
     {

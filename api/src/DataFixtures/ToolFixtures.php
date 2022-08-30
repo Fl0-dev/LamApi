@@ -25,7 +25,7 @@ class ToolFixtures extends Fixture
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/teams-logo.png');
         $media->setSlug('teams-logo');
-        $media->setType('image');
+        $manager->persist($media);
 
         $tool->setLogo($media);
         $manager->persist($tool);
@@ -41,7 +41,7 @@ class ToolFixtures extends Fixture
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/dext-logo.png');
         $media->setSlug('dext-logo');
-        $media->setType('image');
+        $manager->persist($media);
 
         $tool->setLogo($media);
         $manager->persist($tool);
@@ -58,7 +58,7 @@ class ToolFixtures extends Fixture
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/fygr-logo.png');
         $media->setSlug('fygr-logo');
-        $media->setType('image');
+        $manager->persist($media);
 
         $tool->setLogo($media);
         $this->addReference(self::TOOL_REFERENCE_3, $tool);
