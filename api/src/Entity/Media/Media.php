@@ -8,8 +8,8 @@ use App\Entity\Company\CompanyGroup;
 use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
