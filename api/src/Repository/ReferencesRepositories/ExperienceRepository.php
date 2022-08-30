@@ -38,7 +38,7 @@ class ExperienceRepository
         if (is_array($experiences) && !empty($experiences)) {
 
             foreach ($experiences as $experience) {
-                if (strpos(strtolower($experience->getFull()), $keywords) !== false) {
+                if (strpos(strtolower($experience->getDuration()), $keywords) !== false) {
                     $results[] = $experience;
                 }
             }

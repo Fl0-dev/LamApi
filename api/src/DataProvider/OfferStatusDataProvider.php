@@ -4,6 +4,7 @@ namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
+use App\Entity\References\OfferStatus;
 use App\Repository\ReferencesRepositories\OfferStatusRepository;
 
 class OfferStatusDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
