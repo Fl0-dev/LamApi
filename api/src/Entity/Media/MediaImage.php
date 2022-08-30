@@ -2,11 +2,14 @@
 
 namespace App\Entity\Media;
 
-use App\Repository\MediaRepositories\MediaVideoRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: MediaVideoRepository::class)]
+#[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "Media_Images")]
+#[ApiResource()]
 class MediaImage extends Media
 {
 

@@ -2,10 +2,12 @@
 
 namespace App\Entity\Media;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepositories\MediaVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MediaVideoRepository::class)]
+#[ApiResource()]
 class MediaVideo extends Media
 {
     #[ORM\Column(type: 'boolean')]
@@ -24,5 +26,4 @@ class MediaVideo extends Media
 
         return $this;
     }
-
 }

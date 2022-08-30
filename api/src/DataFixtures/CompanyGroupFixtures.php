@@ -74,7 +74,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-logo.png');
         $media->setSlug('tgs-france-logo');
-        $media->setType('image');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
@@ -83,7 +82,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-header.png');
         $media->setSlug('tgs-france-header');
-        $media->setType('image');
         $companyGroup->setHeaderMedia($media);
 
         $media = new MediaVideo();
@@ -92,7 +90,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/tgs-france.mp4');
         $media->setSlug('tgs-france-video');
-        $media->setType('video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
 
@@ -191,7 +188,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-logo.png');
         $media->setSlug('eolis-logo');
-        $media->setType('image');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
@@ -200,7 +196,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-header.png');
         $media->setSlug('eolis-header');
-        $media->setType('image');
         $companyGroup->setHeaderMedia($media);
 
         $media = new MediaVideo();
@@ -209,7 +204,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/eolis.mp4');
         $media->setSlug('eolis-video');
-        $media->setType('video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
 
@@ -289,7 +283,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-logo.png');
         $media->setSlug('livli-logo');
-        $media->setType('image');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
@@ -298,7 +291,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-header.png');
         $media->setSlug('livli-header');
-        $media->setType('image');
         $companyGroup->setHeaderMedia($media);
 
         $media = new MediaVideo();
@@ -307,7 +299,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/livli.mp4');
         $media->setSlug('livli-video');
-        $media->setType('video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
 
@@ -383,7 +374,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-ouest-logo.png');
         $media->setSlug('in-extenso-ouest-logo');
-        $media->setType('image');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
@@ -392,7 +382,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-ouest-header.png');
         $media->setSlug('in-extenso-ouest-header');
-        $media->setType('image');
         $companyGroup->setHeaderMedia($media);
 
         $media = new MediaVideo();
@@ -401,7 +390,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/in-extenso-ouest.mp4');
         $media->setSlug('in-extenso-ouest-video');
-        $media->setType('video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
 
