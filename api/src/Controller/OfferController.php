@@ -27,7 +27,7 @@ class OfferController extends AbstractController
             if (!$count) {
                 return 0;
             }
-            
+
             return $count;
         }
 
@@ -35,6 +35,7 @@ class OfferController extends AbstractController
             $offer = $request->get('data');
             //TODO: récupération du user pour employer
             //TODO; récupération de l'ats
+            
             if ($offer instanceof Offer) {
                 $offer->setHeaderMedia($offer->getCompanyEntityOffice()->getCompanyEntity()->getCompanyGroup()->getHeaderMedia());
             }

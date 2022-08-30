@@ -44,6 +44,7 @@ class ApplicationController extends AbstractController
             if (!$companyEntityOffice instanceof CompanyEntityOffice || !$companyEntityOffice->hasId()) {
                 throw new \Exception('companyEntity not found');
             }
+            
             $application = new Application();
             $application->setMotivationText($motivation);
             $application->setcompanyEntityOffice($companyEntityOffice);
@@ -75,6 +76,7 @@ class ApplicationController extends AbstractController
             if (!$offer instanceof Offer || !$offer->hasId()) {
                 throw new \Exception('Offer not found');
             }
+
             $application = new Application();
             $application->setMotivationText($motivation);
             $application->setOffer($offer);
