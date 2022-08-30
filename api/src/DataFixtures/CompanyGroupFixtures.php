@@ -8,14 +8,14 @@ use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
-use App\Entity\Profil;
+use App\Entity\Profile;
 use App\Entity\References\Workforce;
 use App\Entity\Social;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
+class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 {
     public const COMPANY_GROUP_REFERENCE_1 = 'company_group1';
     public const COMPANY_GROUP_REFERENCE_2 = 'company_group2';
@@ -36,15 +36,15 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $social->setFacebook('https://www.facebook.com/tgs-france');
         $social->setTwitter('https://twitter.com/tgs-france');
 
-        $profil = new Profil();
-        $profil->setWorkforce(Workforce::LEVEL_8);
-        $profil->setCreationYear(2018);
-        $profil->setSocial($social);
-        $profil->setMiddleAge(35);
-        $profil->setUsText('TGS France est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés partout en France.');
+        $profile = new Profile();
+        $profile->setWorkforce(Workforce::LEVEL_8);
+        $profile->setCreationYear(2018);
+        $profile->setSocial($social);
+        $profile->setMiddleAge(35);
+        $profile->setUsText('TGS France est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés partout en France.');
 
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfil($profil);
+        $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('TGS France');
@@ -154,15 +154,15 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $social->setFacebook('https://www.facebook.com/Eolis');
         $social->setTwitter('https://twitter.com/Eolis');
 
-        $profil = new Profil();
-        $profil->setWorkforce(Workforce::LEVEL_3);
-        $profil->setSocial($social);
-        $profil->setCreationYear(2015);
-        $profil->setMiddleAge(41);
-        $profil->setUsText('Eolis est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Nantes');
+        $profile = new Profile();
+        $profile->setWorkforce(Workforce::LEVEL_3);
+        $profile->setSocial($social);
+        $profile->setCreationYear(2015);
+        $profile->setMiddleAge(41);
+        $profile->setUsText('Eolis est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Nantes');
 
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfil($profil);
+        $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Eolis');
@@ -250,14 +250,14 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         ###### LIVLI ######
 
-        $profil = new Profil();
-        $profil->setWorkforce(Workforce::LEVEL_2);
-        $profil->setCreationYear(2019);
-        $profil->setMiddleAge(26);
-        $profil->setUsText('Livli est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à St Nazaire');
+        $profile = new Profile();
+        $profile->setWorkforce(Workforce::LEVEL_2);
+        $profile->setCreationYear(2019);
+        $profile->setMiddleAge(26);
+        $profile->setUsText('Livli est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à St Nazaire');
 
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfil($profil);
+        $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Livli');
@@ -347,14 +347,14 @@ class  CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         ###### IN EXTENSO OUEST ######
 
-        $profil = new Profil();
-        $profil->setWorkforce(Workforce::LEVEL_6);
-        $profil->setCreationYear(2000);
-        $profil->setMiddleAge(38);
-        $profil->setUsText('In Extenso est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés dans l\'Ouest');
+        $profile = new Profile();
+        $profile->setWorkforce(Workforce::LEVEL_6);
+        $profile->setCreationYear(2000);
+        $profile->setMiddleAge(38);
+        $profile->setUsText('In Extenso est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés dans l\'Ouest');
 
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfil($profil);
+        $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('In Extenso');

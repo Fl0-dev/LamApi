@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: JobTypeRepository::class)]
 #[ApiResource(
     normalizationContext: [
-        'groups' => ['read:getAll', 'read:getAllCompanyGroups'], //indique l'annotation à utiliser pour récupérer certains champs lors d'un GET All
+        'groups' => ['read:getAll'], //indique l'annotation à utiliser pour récupérer certains champs lors d'un GET All
         'openapi_definition_name' => 'Collection'//pour renommer le schéma dans la documentation
     ],
     collectionOperations: [

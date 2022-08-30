@@ -39,23 +39,23 @@ class OfferStatus
     const STATUSES = [
         [
             'slug' => self::DRAFT,
-            'label' => 'draft'
+            'label' => 'Draft'
         ],
         [
             'slug' => self::PUBLISHED,
-            'label' => 'published'
+            'label' => 'Published'
         ],
         [
             'slug' => self::PROVIDED,
-            'label' => 'provided'
+            'label' => 'Provided'
         ],
         [
             'slug' => self::DISABLED,
-            'label' => 'disabled'
+            'label' => 'Disabled'
         ],
         [
             'slug' => self::ARCHIVED,
-            'label' => 'archived'
+            'label' => 'Archived'
         ],
     ];
 
@@ -72,8 +72,6 @@ class OfferStatus
         $this->slug = $slug;
         $this->label = $label;
     }
-
-
 
     /**
      * Get the value of id
@@ -95,8 +93,8 @@ class OfferStatus
         return $this;
     }
 
-    public static function isStatus($string)
+    public static function isStatus($statusSlug)
     {
-        return in_array($string, array_column(self::STATUSES, 'slug'));
+        return in_array($statusSlug, array_column(self::STATUSES, 'slug'));
     }
 }

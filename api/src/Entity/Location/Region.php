@@ -2,12 +2,14 @@
 
 namespace App\Entity\Location;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LocationRepositories\RegionRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RegionRepository::class)]
+#[ApiResource()]
 class Region
 {
     use Uuid;

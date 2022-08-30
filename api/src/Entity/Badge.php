@@ -14,21 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BadgeRepository::class)]
-#[ApiResource(
-    normalizationContext: [
-        'groups' => ['read:getAll'], //indique l'annotation à utiliser pour récupérer certains champs lors d'un GET All
-        'openapi_definition_name' => 'Collection'//pour renommer le schéma dans la documentation
-    ],
-    collectionOperations: [
-        "get",
-        "post",
-    ],
-    itemOperations: [
-        "get",
-        "put",
-        "delete",
-    ],
-)]
+#[ApiResource()]
 #[ApiFilter(SearchFilter::class, properties: ['slug' => 'ipartial'])]
 class Badge
 {
@@ -95,15 +81,13 @@ class Badge
     use Label;
     use Slug;
 
-    #[Groups(["read:getAll"])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $imageUri;
 
-    #[Groups(["read:getAll"])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    #[Groups(["read:getAll", 'read:getCompanyGroupDetails'])]
+    #[Groups(['read:getCompanyGroupDetails'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $badgePath;
 

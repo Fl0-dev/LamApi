@@ -197,8 +197,8 @@ class Experience
         return $this;
     }
 
-    public static function isExperience(int $value): bool
+    public static function isExperience(int $experience): bool
     {
-        return isset(self::EXPERIENCES[$value]);
+        return array_key_exists($experience, self::EXPERIENCES);
     }
 }

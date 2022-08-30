@@ -8,8 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\CountOffers;
-use App\Controller\PostOffer;
+use App\Controller\OfferController;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\User\Employer;
@@ -19,7 +18,6 @@ use App\Entity\Media\Media;
 use App\Entity\References\OfferStatus;
 use App\Entity\Tool;
 use App\Entity\User\User;
-use App\Filter\LocationFilter;
 use App\Repository\OfferRepositories\OfferRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -41,10 +39,10 @@ use Symfony\Component\Validator\Constraints\Length;
             ],
         ],
         ############################## SAVE OR UPDATE OFFER ##############################
-        'postOffer' => [
+        self::OPERATION_NAME_POST_OFFER => [
             'method' => 'POST',
             'path' => '/offers',
-            'controller' => PostOffer::class,
+            'controller' => OfferController::class,
             'denormalization_context' => [
                 'groups' => ['write:postOffer'],
             ],
@@ -52,10 +50,10 @@ use Symfony\Component\Validator\Constraints\Length;
     ],
     itemOperations: [
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
-        'countOffers' => [
+        self::OPERATION_NAME_COUNT_OFFERS => [
             'method' => 'GET',
             'path' => '/count-offers',
-            'controller' => CountOffers::class,
+            'controller' => OfferController::class,
             'pagination_enabled' => false,
             'read' => false,
             'filters' => [],
@@ -106,9 +104,14 @@ use Symfony\Component\Validator\Constraints\Length;
         'companyEntityOffice.companyEntity.companyGroup.id' => 'exact',
         'companyEntityOffice.address.city',
         'companyEntityOffice.address.city.department',
-        ])]
+        ]
+    )
+]
 class Offer
 {
+    const OPERATION_NAME_POST_OFFER = 'postOffer';
+    const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
+
     use Uuid;
     //use Slug;
     use CreatedDate;

@@ -17,12 +17,11 @@ class ApplicantStatusRepository
     {
         $applicantStatuses = [];
         $arrayApplicantStatuses = ApplicantStatus::APPLICANT_STATUSES;
-        if (is_array($arrayApplicantStatuses) && !empty($arrayApplicantStatuses)) {
-            foreach ($arrayApplicantStatuses as $applicantStatus) {
-                $applicantStatuses[] = new ApplicantStatus(Utils::getArrayValue('slug', $applicantStatus), Utils::getArrayValue('label', $applicantStatus));
-            }
-            return $applicantStatuses;
+
+        foreach ($arrayApplicantStatuses as $applicantStatus) {
+            $applicantStatuses[] = new ApplicantStatus(Utils::getArrayValue('slug', $applicantStatus), Utils::getArrayValue('label', $applicantStatus));
         }
-        return null;
+
+        return $applicantStatuses;
     }
 }

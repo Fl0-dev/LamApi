@@ -18,12 +18,10 @@ class AbstractUserTypeRepository
         $abstractUserTypes = [];
         $arrayAbstractUserTypes = AbstractUserType::USER_TYPES;
 
-        if (is_array($arrayAbstractUserTypes) && !empty($arrayAbstractUserTypes)) {
-            foreach ($arrayAbstractUserTypes as $abstractUserType) {
-                $abstractUserTypes[] = new AbstractUserType(Utils::getArrayValue('slug', $abstractUserType), Utils::getArrayValue('label', $abstractUserType));
-            }
-            return $abstractUserTypes;
+        foreach ($arrayAbstractUserTypes as $abstractUserType) {
+            $abstractUserTypes[] = new AbstractUserType(Utils::getArrayValue('slug', $abstractUserType), Utils::getArrayValue('label', $abstractUserType));
         }
-        return null;
+
+        return $abstractUserTypes;
     }
 }

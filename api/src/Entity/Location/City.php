@@ -30,12 +30,8 @@ class City
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCities", "read:getAllTeaserOffers", "read:getAllTeaserCompanyGroups", 'read:getCompanyGroupOffices'])]
+    #[Groups(["read:getAllCities", "read:getAllTeaserCompanyGroups", 'read:getCompanyGroupOffices'])]
     private $name;
-
-    #[ORM\Column(type: 'integer')]
-    #[Groups(["read:getAllTeaserOffers"])]
-    private $departmentNumber;
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
@@ -54,18 +50,6 @@ class City
         return $this;
     }
 
-    public function getDepartmentNumber(): ?int
-    {
-        return $this->departmentNumber;
-    }
-
-    public function setDepartmentNumber(int $departmentNumber): self
-    {
-        $this->departmentNumber = $departmentNumber;
-
-        return $this;
-    }
-
     public function getDepartment(): ?Department
     {
         return $this->department;
@@ -78,9 +62,9 @@ class City
         return $this;
     }
 
-    #[Groups(["read:getAllTeaserCompanyGroups"])]
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     public function getCityNameAndNbDepartment(): string
     {
-        return $this->name . ' (' . $this->departmentNumber . ')';
+        return $this->name . ' (' . $this->department->getDepartmentNumber() . ')';
     }
 }

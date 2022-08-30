@@ -23,9 +23,11 @@ class ContractTypeDataProvider implements ContextAwareCollectionDataProviderInte
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
         $list = Utils::getArrayValue(ContractTypeFilter::CONTRACT_TYPE_CONTEXT, $context);
-        if ($list) {
+
+        if (is_array($list)) {
             return $list;
         }
+        
         return $this->contractTypeRepository->findAll();
     }
 }

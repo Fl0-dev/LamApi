@@ -10,25 +10,29 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class IsInRepositoryValidator extends ConstraintValidator
 {
+    const PROPERTY_CONTRACT_TYPE = 'contractType';
+    const PROPERTY_EXPERIENCE = 'experience';
+    const PROPERTY_LEVEL_OF_STUDY = 'levelOfStudy';
+
     public function validate($value, Constraint $constraint)
     {
         /* @var App\Validator\IsInRepository $constraint */
         $property = $this->context->getPropertyPath();
 
         switch ($property) {
-            case 'contractType':
+            case self::PROPERTY_CONTRACT_TYPE:
                 if (ContractType::isContractType($value)) {
                     return;
                 }
                 break;
 
-            case 'experience':
+            case self::PROPERTY_EXPERIENCE:
                 if (Experience::isExperience($value)) {
                     return;
                 }
                 break;
 
-            case 'levelOfStudy':
+            case self::PROPERTY_LEVEL_OF_STUDY:
                 if (LevelOfStudy::isLevelOfStudy($value)) {
                     return;
                 }

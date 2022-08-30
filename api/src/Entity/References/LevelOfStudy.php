@@ -123,8 +123,8 @@ class LevelOfStudy
         return $this;
     }
 
-    public static function isLevelOfStudy($string)
+    public static function isLevelOfStudy($levelOfStudySlug)
     {
-        return in_array($string, array_column(self::LEVEL_OF_STUDIES, 'slug'));
+        return in_array($levelOfStudySlug, array_column(self::LEVEL_OF_STUDIES, 'slug'));
     }
 }

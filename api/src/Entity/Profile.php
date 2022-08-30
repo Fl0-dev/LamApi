@@ -3,15 +3,15 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfilRepository;
+use App\Repository\ProfileRepository;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: ProfilRepository::class)]
+#[ORM\Entity(repositoryClass: ProfileRepository::class)]
 #[ApiResource()]
-class Profil
+class Profile
 {
     use Uuid;
 

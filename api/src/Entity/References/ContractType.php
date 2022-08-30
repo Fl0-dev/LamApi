@@ -38,8 +38,8 @@ class ContractType
     const CDD = 'cdd';
     const CDI = 'cdi';
     const ALTERNANCE = 'alternance';
-    const INTERNSHIP = 'stage';
-    const FREELANCE = 'independant';
+    const INTERNSHIP = 'internship';
+    const FREELANCE = 'freelance';
 
     const CONTRACT_TYPES = [
         [
@@ -97,13 +97,8 @@ class ContractType
         return $this;
     }
 
-    public static function isContractType(string $string): ?bool
+    public static function isContractType(string $contractTypeSlug): ?bool
     {
-        foreach (self::CONTRACT_TYPES as $value) {
-            if (Utils::getArrayValue('slug', $value) === $string) {
-                return true;
-            }
-        }
-        return false;
+        return in_array($contractTypeSlug, array_column(self::CONTRACT_TYPES, 'slug'));
     }
 }

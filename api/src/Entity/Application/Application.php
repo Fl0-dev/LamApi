@@ -3,8 +3,7 @@
 namespace App\Entity\Application;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\PostApplicationByOfferId;
-use App\Controller\PostSpontaneousApplicationByCompanyEntityOfficeId;
+use App\Controller\ApplicationController;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Applicant\ApplicantCv;
 use App\Entity\Company\CompanyEntityOffice;
@@ -21,10 +20,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'postApplicationByOfferId' => [
+        self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID => [
             'method' => 'POST',
             'path' => '/applications/{offerId}',
-            'controller' => PostApplicationByOfferId::class,
+            'controller' => ApplicationController::class,
             'deserialize' => false,
             'denormalization_context' => [
                 'groups' => ['write:postApplicationByOfferId'],
@@ -52,7 +51,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                                         'type' => 'string',
                                         'format' => 'binary',
                                     ],
-                                    'motivation' => [
+                                    'motivationText' => [
                                         'type' => 'string',
                                     ],
                                 ],
@@ -62,10 +61,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ],
         ],
-        'postSpontaneaousApplicationByCompanyEntityOfficeId' => [
+        self::OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID => [
             'method' => 'POST',
             'path' => '/applications/spontaneaous/{companyEntityOfficeId}',
-            'controller' => PostSpontaneousApplicationByCompanyEntityOfficeId::class,
+            'controller' => ApplicationController::class,
             'deserialize' => false,
             'denormalization_context' => [
                 'groups' => ['write:postSpontaneousApplicationByCompanyEntityId'],
@@ -93,7 +92,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                                         'type' => 'string',
                                         'format' => 'binary',
                                     ],
-                                    'motivation' => [
+                                    'motivationText' => [
                                         'type' => 'string',
                                     ],
                                 ],
@@ -107,13 +106,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Application
 {
+    const OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
+    const OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID = 'postSpontaneaousApplicationByCompanyEntityOfficeId';
+
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications', 'write:postApplicationByOfferId'])]
-    private $motivation;
+    private $motivationText;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
@@ -129,7 +131,7 @@ class Application
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class, cascade: ['persist'])]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]
+    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications', 'write:postApplicationByOfferId'])]
     private $cv;
 
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
@@ -147,14 +149,14 @@ class Application
         $this->applicantionExchanges = new ArrayCollection();
     }
 
-    public function getMotivation(): ?string
+    public function getMotivationText(): ?string
     {
-        return $this->motivation;
+        return $this->motivationText;
     }
 
-    public function setMotivation(?string $motivation): self
+    public function setMotivationText(?string $motivationText): self
     {
-        $this->motivation = $motivation;
+        $this->motivationText = $motivationText;
 
         return $this;
     }

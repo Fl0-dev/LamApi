@@ -23,9 +23,11 @@ class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterf
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
         $list = Utils::getArrayValue(ExperienceFilter::EXPERIENCE_CONTEXT, $context);
-        if ($list) {
+
+        if (is_array($list)) {
             return $list;
         }
+
         return $this->experienceRepository->findAll();
     }
 }

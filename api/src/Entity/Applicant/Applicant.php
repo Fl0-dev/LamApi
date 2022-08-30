@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Applicant extends UserPhysical
 {
     #[ORM\Column(type: 'text', nullable: true)]
-    private $messagePerso;
+    private $introductionText;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $linkedin;
@@ -65,14 +65,14 @@ class Applicant extends UserPhysical
         $this->applications = new ArrayCollection();
     }
 
-    public function getMessagePerso(): ?string
+    public function getIntroductionText(): ?string
     {
-        return $this->messagePerso;
+        return $this->introductionText;
     }
 
-    public function setMessagePerso(?string $messagePerso): self
+    public function setIntroductionText(?string $introductionText): self
     {
-        $this->messagePerso = $messagePerso;
+        $this->introductionText = $introductionText;
 
         return $this;
     }

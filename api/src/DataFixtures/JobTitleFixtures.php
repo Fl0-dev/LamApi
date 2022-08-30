@@ -83,7 +83,6 @@ class JobTitleFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-
         $jobTitle = new JobTitle();
         $jobTitle->setSlug('assistant-administratif');
         $jobTitle->setLabel('Assistant administratif');

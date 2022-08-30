@@ -17,7 +17,9 @@ class WorkforceRepository
     {
         $workforces = [];
         $arrayWorkforces = Workforce::WORKFORCES;
+
         if (is_array($arrayWorkforces) && !empty($arrayWorkforces)) {
+
             foreach ($arrayWorkforces as $value => $workforce) {
                 $workforces[] = new Workforce(
                     $value,
@@ -25,27 +27,25 @@ class WorkforceRepository
                     Utils::getArrayValue('label', $workforce)
                 );
             }
-
-            return $workforces;
         }
 
-        return null;
+        return $workforces;
     }
 
     public function findByKeywords(string $keywords): ?array
     {
         $workforces = $this->findAll();
         $results = [];
+
         if (is_array($workforces) && !empty($workforces)) {
+
             foreach ($workforces as $workforce) {
                 if (strpos($workforce->getSlug(), $keywords) !== false) {
                     $results[] = $workforce;
                 }
             }
-
-            return $results;
         }
 
-        return null;
+        return $results;
     }
 }

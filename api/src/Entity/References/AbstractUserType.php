@@ -37,15 +37,15 @@ class AbstractUserType
     const USER_TYPES = [
         [
             'slug' => self::JOB_BOARD,
-            'label' => 'job_board'
+            'label' => 'Job Board'
         ],
         [
             'slug' => self::ATS,
-            'label' => 'ats'
+            'label' => 'Ats'
         ],
         [
             'slug' => self::PARTNER,
-            'label' => 'partner'
+            'label' => 'Partner'
         ],
     ];
 
@@ -82,14 +82,9 @@ class AbstractUserType
         return $this;
     }
 
-    public static function isAbtractUserType(array $array): bool
+    public static function isAbtractUserType(array $typeSlugs): bool
     {
-        foreach ($array as $string) {
-            if (in_array($string, array_column(self::USER_TYPES, 'slug'))) {
-                return true;
-            }
-        }
 
-        return false;
+        return !empty(array_intersect($typeSlugs, array_column(self::USER_TYPES, 'slug')));
     }
 }

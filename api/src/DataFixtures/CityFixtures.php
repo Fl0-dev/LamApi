@@ -20,7 +20,6 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
         $city->setName('Nantes');
         $city->setSlug('nantes');
         $city->setDepartment($this->getReference(DepartmentFixtures::DEPARTMENT_REFERENCE_1));
-        $city->setDepartmentNumber(44);
         $this->addReference(self::CITY_REFERENCE_1, $city);
         $manager->persist($city);
 
@@ -28,7 +27,6 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
         $city->setName('Saint-Nazaire');
         $city->setSlug('saint-nazaire');
         $city->setDepartment($this->getReference(DepartmentFixtures::DEPARTMENT_REFERENCE_1));
-        $city->setDepartmentNumber(44);
         $this->addReference(self::CITY_REFERENCE_2, $city);
         $manager->persist($city);
 
@@ -36,7 +34,6 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
         $city->setName('Challans');
         $city->setSlug('challans');
         $city->setDepartment($this->getReference(DepartmentFixtures::DEPARTMENT_REFERENCE_2));
-        $city->setDepartmentNumber(85);
         $this->addReference(self::CITY_REFERENCE_3, $city);
         $manager->persist($city);
 
@@ -44,7 +41,6 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
         $city->setName('Luçon');
         $city->setSlug('lucon');
         $city->setDepartment($this->getReference(DepartmentFixtures::DEPARTMENT_REFERENCE_2));
-        $city->setDepartmentNumber(85);
         $this->addReference(self::CITY_REFERENCE_4, $city);
         $manager->persist($city);
 

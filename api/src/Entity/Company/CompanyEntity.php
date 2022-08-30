@@ -5,7 +5,7 @@ namespace App\Entity\Company;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
-use App\Entity\Profil;
+use App\Entity\Profile;
 use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
 use App\Transversal\Slug;
@@ -50,7 +50,7 @@ class CompanyEntity
     private Collection $medias;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Profil $profil = null;
+    private ?Profile $profile = null;
 
     public function __construct()
     {
@@ -216,14 +216,14 @@ class CompanyEntity
         return $this;
     }
 
-    public function getProfil(): ?Profil
+    public function getProfile(): ?Profile
     {
-        return $this->profil;
+        return $this->profile;
     }
 
-    public function setProfil(?Profil $profil): self
+    public function setProfile(?Profile $profile): self
     {
-        $this->profil = $profil;
+        $this->profile = $profile;
 
         return $this;
     }

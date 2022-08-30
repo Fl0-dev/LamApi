@@ -49,7 +49,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de TGS France Nantes");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de TGS France Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
@@ -93,7 +93,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDD de de TGS France St Nazaire");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDD de de TGS France St Nazaire");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
@@ -104,7 +104,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDD de de TGS France St Nazaire");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDD de de TGS France St Nazaire");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
@@ -143,7 +143,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
@@ -154,7 +154,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_4));
@@ -193,7 +193,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i stage de Eolis Nantes");
+            $application->setMotivationText("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
@@ -204,7 +204,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i stage de Eolis Nantes");
+            $application->setMotivationText("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
@@ -215,7 +215,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i stage de Eolis Nantes");
+            $application->setMotivationText("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
@@ -258,7 +258,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
@@ -269,7 +269,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_5));
@@ -280,7 +280,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
@@ -323,7 +323,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
@@ -334,7 +334,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i CDI de Livli");
+            $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
@@ -376,7 +376,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso Challans");
+            $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Challans");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
@@ -387,7 +387,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso Challans");
+            $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Challans");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
@@ -428,7 +428,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso Luçon");
+            $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Luçon");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
@@ -439,7 +439,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso Luçon");
+            $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Luçon");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
@@ -450,7 +450,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application = new Application();
             $application->setCreatedDate(new \DateTime('now'));
             $application->setLastModifiedDate(new \DateTime('now'));
-            $application->setMotivation("Je suis motivé pour cette offre $i de In Extenso Luçon");
+            $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Luçon");
             $application->setScore(10);
             $application->setStatus(ApplicationStatus::NEW);
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_9));

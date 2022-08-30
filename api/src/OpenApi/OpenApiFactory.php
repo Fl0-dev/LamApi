@@ -42,9 +42,6 @@ class OpenApiFactory implements OpenApiFactoryInterface
             }
         }
 
-
-
-
         return $openApi;
     }
 }

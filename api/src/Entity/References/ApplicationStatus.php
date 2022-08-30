@@ -39,23 +39,23 @@ class ApplicationStatus
     const APPLICATION_STATUSES = [
         [
             'slug' => self::NEW,
-            'label' => 'nouvelle candidature'
+            'label' => 'Nouvelle candidature'
         ],
         [
             'slug' => self::IN_PROGRESS,
-            'label' => 'en traitement'
+            'label' => 'En traitement'
         ],
         [
             'slug' => self::APPROVED,
-            'label' => 'approuvée'
+            'label' => 'Approuvée'
         ],
         [
             'slug' => self::REJECTED,
-            'label' => 'rejetée'
+            'label' => 'Rejetée'
         ],
         [
             'slug' => self::ARCHIVED,
-            'label' => 'archivée'
+            'label' => 'Archivée'
         ],
     ];
 

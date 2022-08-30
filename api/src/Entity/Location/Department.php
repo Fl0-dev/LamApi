@@ -3,7 +3,7 @@
 namespace App\Entity\Location;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\CountAllDepartments;
+use App\Controller\DepartmentController;
 use App\Repository\LocationRepositories\DepartmentRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -15,11 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 #[ApiResource(
     itemOperations: [
-        'get',
-        'countAllDepartments' => [
+        self::OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY => [
             'method' => 'GET',
             'path' => '/count-departments',
-            'controller' => CountAllDepartments::class,
+            'controller' => DepartmentController::class,
             'pagination_enabled' => false,
             'read' => false,
             'filters' => [],
@@ -45,12 +44,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Department
 {
+    const OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY = 'countAllDepartmentsWithCompany';
+
     use Uuid;
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
     #[Groups(["read:getAllCities"])]
     private $name;
+
+    #[ORM\Column(type: 'string', length: 7)]
+    private $departmentNumber;
 
     #[ORM\ManyToOne(targetEntity: Region::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -72,6 +76,18 @@ class Department
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDepartmentNumber(): ?string
+    {
+        return $this->departmentNumber;
+    }
+
+    public function setDepartmentNumber(string $departmentNumber): self
+    {
+        $this->departmentNumber = $departmentNumber;
 
         return $this;
     }

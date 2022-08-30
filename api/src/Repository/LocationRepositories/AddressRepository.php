@@ -66,9 +66,10 @@ class AddressRepository extends ServiceEntityRepository
     public function findAllDepartmentNumberWithAddress()
     {
         $query = $this->createQueryBuilder('a')
-            ->select('c.departmentNumber')
+            ->select('d.departmentNumber')
             ->join('a.city', 'c')
-            ->groupBy('c.departmentNumber')
+            ->join('c.department', 'd')
+            ->groupBy('d.departmentNumber')
             ->getQuery();
 
         return $query->getResult();

@@ -39,7 +39,7 @@ class CompanyGroupRepository extends ServiceEntityRepository
         }
     }
 
-    public function findNameByPartial(string $keywords): array
+    public function findNameByPartialSlug(string $keywords): array
     {
         $qb = $this->createQueryBuilder('cg');
         $qb

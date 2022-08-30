@@ -5,15 +5,15 @@ namespace App\Entity\Company;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\CountCompanyGroups;
-use App\Controller\GetCompanyGroupName;
+use App\Controller\CompanyGroupController;
 use App\Entity\Ats;
 use App\Entity\Badge;
 use App\Entity\User\Employer;
 use App\Entity\JobType;
 use App\Entity\Media\Media;
+use App\Entity\Media\MediaImage;
 use App\Entity\Organisation;
-use App\Entity\Profil;
+use App\Entity\Profile;
 use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
@@ -33,17 +33,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getAllTeaserCompanyGroups'],
             ],
         ],
-        'getCompanyNameByKeyWords' => [
+        self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS => [
             'method' => 'GET',
             'path' => '/company-groups/name/keywords={keywords}',
             'normalization_context' => [
                 'groups' => ['read:getCompanyNameByKeyWords'],
             ],
-            'controller' => GetCompanyGroupName::class,
+            'controller' => CompanyGroupController::class,
             'filters' => [],
             'openapi_context' => [
-                'summary' => 'Retrives list of CompanyGroups names by keywords',
-                'description' => 'Retrives list of CompanyGroups names by keywords',
+                'summary' => 'Retrieves list of CompanyGroups names by keywords',
+                'description' => 'Retrieves list of CompanyGroups names by keywords',
                 'parameters' => [
                     [
                         'name' => 'keywords',
@@ -67,10 +67,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ],
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
-        'countCompanyGroups' => [
+        self::OPERATION_NAME_COUNT_COMPANY_GROUPS => [
             'method' => 'GET',
             'path' => '/count-company-groups',
-            'controller' => CountCompanyGroups::class,
+            'controller' => CompanyGroupController::class,
             'pagination_enabled' => false,
             'read' => false,
             'filters' => [],
@@ -101,8 +101,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getCompanyGroupOffers'],
             ],
             'openapi_context' => [
-                'summary' => 'Retrives list of offers by company group id',
-                'description' => 'Retrives list of offers by company group id',
+                'summary' => 'Retrieves list of offers by company group id',
+                'description' => 'Retrieves list of offers by company group id',
                 'parameters' => [
                     [
                         'name' => 'id',
@@ -123,8 +123,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getCompanyGroupOffices'],
             ],
             'openapi_context' => [
-                'summary' => 'Retrives list of offices by company group id',
-                'description' => 'Retrives list of offices by company group id',
+                'summary' => 'Retrieves list of offices by company group id',
+                'description' => 'Retrieves list of offices by company group id',
                 'parameters' => [
                     [
                         'name' => 'id',
@@ -145,8 +145,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['read:getCompanyGroupApplications'],
             ],
             'openapi_context' => [
-                'summary' => 'Retrives list of applications by company group id',
-                'description' => 'Retrives list of applications by company group id',
+                'summary' => 'Retrieves list of applications by company group id',
+                'description' => 'Retrieves list of applications by company group id',
                 'parameters' => [
                     [
                         'name' => 'id',
@@ -168,13 +168,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'name' => 'ipartial',
         'badges',
         'tools',
-        'profil.workforce',//slug exact match
-        'companyEntities.companyEntityOffices.address.city',//uuid exact match
-        'companyEntities.companyEntityOffices.address.city.department',//uuid exact match
+        'profile.workforce', //slug exact match
+        'companyEntities.companyEntityOffices.address.city', //uuid exact match
+        'companyEntities.companyEntityOffices.address.city.department', //uuid exact match
     ]
 )]
 class CompanyGroup
 {
+    const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
+    const OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
+
     use TechnicalProperties;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -205,7 +208,7 @@ class CompanyGroup
     #[Groups(['read:getCompanyGroupDetails'])]
     private $openToRecruitment;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 7)]
     #[Groups(['read:getCompanyGroupDetails'])]
     private $color;
 
@@ -237,7 +240,7 @@ class CompanyGroup
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[Groups(['read:getCompanyGroupDetails'])]
-    private $MainMedia;
+    private $mainMedia;
 
     #[ORM\ManyToMany(targetEntity: JobType::class)]
     #[Groups(['read:getCompanyGroupDetails'])]
@@ -257,9 +260,9 @@ class CompanyGroup
     #[ORM\JoinColumn(nullable: true)]
     private Collection $medias;
 
-    #[ORM\OneToOne(targetEntity: Profil::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Profile::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
-    private ?Profil $profil = null;
+    private ?Profile $profile = null;
 
     public function __construct()
     {
@@ -478,24 +481,24 @@ class CompanyGroup
         return $this;
     }
 
-    public function getLogo(): ?Media
+    public function getLogo(): ?MediaImage
     {
         return $this->logo;
     }
 
-    public function setLogo(?Media $logo): self
+    public function setLogo(?MediaImage $logo): self
     {
         $this->logo = $logo;
 
         return $this;
     }
 
-    public function getHeaderMedia(): ?Media
+    public function getHeaderMedia(): ?MediaImage
     {
         return $this->headerMedia;
     }
 
-    public function setHeaderMedia(?Media $headerMedia): self
+    public function setHeaderMedia(?MediaImage $headerMedia): self
     {
         $this->headerMedia = $headerMedia;
 
@@ -504,12 +507,12 @@ class CompanyGroup
 
     public function getMainMedia(): ?Media
     {
-        return $this->MainMedia;
+        return $this->mainMedia;
     }
 
-    public function setMainMedia(?Media $MainMedia): self
+    public function setMainMedia(?Media $mainMedia): self
     {
-        $this->MainMedia = $MainMedia;
+        $this->mainMedia = $mainMedia;
 
         return $this;
     }
@@ -604,12 +607,13 @@ class CompanyGroup
     {
         $companyEntities = $this->getCompanyEntities();
         $nbOffers = 0;
+
         foreach ($companyEntities as $companyEntity) {
             foreach ($companyEntity->getCompanyEntityOffices() as $office) {
-                # code...
+                $nbOffers += count($office->getOffers());
             }
-            $nbOffers += count($office->getOffers());
         }
+
         return $nbOffers;
     }
 
@@ -618,9 +622,11 @@ class CompanyGroup
     {
         $companyEntities = $this->getCompanyEntities();
         $nbOffices = 0;
+
         foreach ($companyEntities as $companyEntity) {
             $nbOffices += count($companyEntity->getCompanyEntityOffices());
         }
+        
         return $nbOffices;
     }
 
@@ -678,14 +684,14 @@ class CompanyGroup
         return $this;
     }
 
-    public function getProfil(): ?Profil
+    public function getProfile(): ?Profile
     {
-        return $this->profil;
+        return $this->profile;
     }
 
-    public function setProfil(?Profil $profil): self
+    public function setProfile(?Profile $profile): self
     {
-        $this->profil = $profil;
+        $this->profile = $profile;
 
         return $this;
     }
