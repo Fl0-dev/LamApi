@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
+use App\Entity\OfferSubscription\OfferResearchSubscription;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicantRepositories\ApplicantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -57,6 +58,9 @@ class Applicant extends UserPhysical
      */
     #[ORM\Column(type: "boolean", nullable: true)]
     private $optin;
+
+    #[ORM\OneToOne(mappedBy: 'applicant', cascade: ['persist', 'remove'])]
+    private ?OfferResearchSubscription $offerResearchSubscription = null;
 
     public function __construct()
     {
@@ -241,6 +245,23 @@ class Applicant extends UserPhysical
     public function setOptin(?bool $optin): self
     {
         $this->optin = $optin;
+
+        return $this;
+    }
+
+    public function getOfferResearchSubscription(): ?OfferResearchSubscription
+    {
+        return $this->offerResearchSubscription;
+    }
+
+    public function setOfferResearchSubscription(OfferResearchSubscription $offerResearchSubscription): self
+    {
+        // set the owning side of the relation if necessary
+        if ($offerResearchSubscription->getApplicant() !== $this) {
+            $offerResearchSubscription->setApplicant($this);
+        }
+
+        $this->offerResearchSubscription = $offerResearchSubscription;
 
         return $this;
     }
