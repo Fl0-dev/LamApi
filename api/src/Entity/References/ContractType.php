@@ -3,13 +3,8 @@
 namespace App\Entity\References;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Filter\ContractTypeFilter;
-use Symfony\Component\Uid\Uuid;
-use App\Transversal\Label;
-use App\Transversal\Slug;
-use App\Utils\Utils;
 
 #[ApiResource(
     collectionOperations: [

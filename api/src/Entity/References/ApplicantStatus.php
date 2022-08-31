@@ -2,11 +2,7 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Transversal\Label;
-use App\Transversal\Slug;
-use Symfony\Component\Uid\Uuid;
 
 #[ApiResource(
     collectionOperations: [

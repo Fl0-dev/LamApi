@@ -2,11 +2,7 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Transversal\Label;
-use App\Transversal\Slug;
-use Symfony\Component\Uid\Uuid;
 
 #[ApiResource(
     collectionOperations: [
@@ -30,7 +26,7 @@ use Symfony\Component\Uid\Uuid;
 )]
 class AbstractUserType extends Reference
 {
-    const JOB_BOARD = 'job_board';
+    const JOB_BOARD = 'job-board';
     const ATS = 'ats';
     const PARTNER = 'partner';
 

@@ -8,8 +8,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Filter\ExperienceFilter;
 use App\Transversal\Label;
 use Symfony\Component\Uid\Uuid;
-use Doctrine\ORM\Mapping as ORM;
-
 
 #[ApiResource(
     collectionOperations: [
