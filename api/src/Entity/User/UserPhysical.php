@@ -2,27 +2,42 @@
 
 namespace App\Entity\User;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Applicant\Applicant;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
     "admin" => "UserAdmin",
-    "consumer" => "UserConsumer",
+    "applicant" => Applicant::class,
+    "employer" => "Employer",
 ])]
 #[ORM\Entity]
+#[ORM\Table(name: "Physical_Users")]
 #[ApiResource()]
 class UserPhysical extends User
 {
     #[ORM\Column(type: "string", length: 180)]
+    #[Groups(['write:postApplicationByOfferId'])]
     private $firstname;
 
     #[ORM\Column(type: "string", length: 180)]
+    #[Groups(['write:postApplicationByOfferId'])]
     private $lastname;
 
     #[ORM\Column(type: "string", length: 180)]
+    #[Groups(['write:postApplicationByOfferId'])]
     private $email;
+
+    #[ORM\Column(type: "date", nullable: true)]
+    private $birthdate;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get the value of firstname
@@ -84,9 +99,9 @@ class UserPhysical extends User
         return $this;
     }
 
-     /**
+    /**
      * Get the value of type
-     */ 
+     */
     public function getType()
     {
         return $this->type;
@@ -96,10 +111,22 @@ class UserPhysical extends User
      * Set the value of type
      *
      * @return  self
-     */ 
+     */
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getBirthdate(): ?\DateTimeInterface
+    {
+        return $this->birthdate;
+    }
+
+    public function setBirthdate(?\DateTimeInterface $birthdate): self
+    {
+        $this->birthdate = $birthdate;
 
         return $this;
     }

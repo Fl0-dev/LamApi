@@ -2,54 +2,57 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\JobTypeRepository;
+use App\Transversal\Label;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
-/**
- * JobType
- */
+#[ORM\Entity(repositoryClass: JobTypeRepository::class)]
 #[ApiResource(
-    collectionOperations: ['get'],
-    itemOperations: ['get'],
+    normalizationContext: [
+        'groups' => ['read:getAll'], //indique l'annotation à utiliser pour récupérer certains champs lors d'un GET All
+        'openapi_definition_name' => 'Collection'//pour renommer le schéma dans la documentation
+    ],
+    collectionOperations: [
+        "get",
+        "post",
+    ],
+    itemOperations: [
+        "get",
+        "put",
+        "delete",
+    ],
 )]
-#[ORM\Entity]
+#[ApiFilter(SearchFilter::class, properties: ["slug" => "ipartial"])]
 class JobType
 {
-    // const JOB_TYPES = [
-    //     'expertise-comptable'   => 'Expertise comptable',
-    //     'audit-commissariat'    => 'Audit / Commissariat aux comptes',
-    //     'juridique'             => 'Juridique',
-    //     'social-paie'           => 'Social / Paie',
-    //     'conseil'               => 'Conseil',
-    //     'gestion-patrimoine'    => 'Gestion de patrimoine',
-    //     'transmission-cession'  => 'Transmission / Cession',
-    //     'fiscalite'             => 'Fiscalité',
-    //     'gestion-pilotage'      => 'Gestion / Pilotage',
-    //     'informatique'          => 'Informatique',
-    //     'comm-market'           => 'Communication / Marketing'
-    // ];
+    const JOB_TYPES = [
+        'expertise-comptable'       => 'Expertise comptable',
+        'audit-commissariat'        => 'Audit / Commissariat aux comptes',
+        'juridique'                 => 'Juridique',
+        'social-paie'               => 'Social / Paie',
+        'conseil'                   => 'Conseil',
+        'gestion-patrimoine'        => 'Gestion de patrimoine',
+        'transmission-cession'      => 'Transmission / Cession',
+        'fiscalite'                 => 'Fiscalité',
+        'gestion-pilotage'          => 'Gestion / Pilotage',
+        'evaluation'                => 'Evaluation',
+        'consolidation'             => 'Consolidation',
+        'daf-externalise'           => 'DAF externisé',
+        'recherche-de-financement'  => 'Recherche de financement',
+        'numerique'                 => 'Numérique',
+        'comm-market'               => 'Communication / Marketing',
+        'administratif'             => 'Administratif'
+    ];
 
     use Uuid;
     use Slug;
-
-    #[ORM\Column(type: "string", length: 255)]
-    private ?string $label = null;
-
-    /**
-     * Constructor
-     */
-    public function __construct(?string $slug = null)
-    {
-        $this->setSlug($slug);
-    }
-
-    public function __toString()
-    {
-        return $this->getSlug();
-    }
+    use Label;
 
     /**
      * Check if is valid JobType
@@ -91,15 +94,4 @@ class JobType
         return $isOk;
     }
 
-    /**
-     * Set the value of label
-     *
-     * @return  self
-     */ 
-    public function setLabel($label)
-    {
-        $this->label = $label;
-
-        return $this;
-    }
 }

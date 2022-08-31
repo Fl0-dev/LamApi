@@ -2,11 +2,10 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ApiResource()]
+#[ORM\Table(name: "Api_Users")]
 class UserApi extends UserAbstract
 {
 

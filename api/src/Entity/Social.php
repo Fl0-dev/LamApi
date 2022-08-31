@@ -2,64 +2,44 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\SocialRepository;
 use App\Transversal\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * Social
- *
- */
 #[ORM\Entity(repositoryClass: SocialRepository::class)]
+#[ApiResource()]
 class Social
 {
     use Uuid;
 
-    /**
-     * LinkedIn URL
-     *
-     */
-    #[ORM\Column(type: "string")]
-    private ?string $linkedin = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private $linkedin;
 
-    /**
-     * Twitter URL
-     *
-     */
-    #[ORM\Column(type: "string")]
-    private ?string $twitter = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private $twitter;
 
-    /**
-     * Facebook URL
-     *
-     */
-    #[ORM\Column(type: "string")]
-    private ?string $facebook = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private $facebook;
 
-    /**
-     * Instagram URL
-     *
-     */
-    #[ORM\Column(type: "string")]
-    private ?string $instagram = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private $instagram;
 
-    /**
-     * Youtube URL
-     *
-     */
-    #[ORM\Column(type: "string")]
-    private ?string $youtube = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private $youtube;
 
     /**
      * Social Constructor
      */
-    public function __construct()
-    {
-    }
+    public function __construct(){}
 
-    /**
-     * Get the LinkedIn URL
-     */
     public function getLinkedin(): ?string
     {
         return $this->linkedin;
@@ -70,7 +50,7 @@ class Social
      */
     public function setLinkedin(?string $linkedin): self
     {
-         $linkedin = self::cleanSocialUrl($linkedin);
+        $linkedin = self::cleanSocialUrl($linkedin);
 
          if (Utils::isUrl($linkedin) || is_null($linkedin)) {
              $this->linkedin = $linkedin;
@@ -87,9 +67,7 @@ class Social
         return Utils::isUrl($this->getLinkedin());
     }
 
-    /**
-     * Get the Twitter URL
-     */
+
     public function getTwitter(): ?string
     {
         return $this->twitter;
@@ -117,9 +95,6 @@ class Social
         return Utils::isUrl($this->getTwitter());
     }
 
-    /**
-     * Get the Facebook URL
-     */
     public function getFacebook(): ?string
     {
         return $this->facebook;
@@ -130,26 +105,11 @@ class Social
      */
     public function setFacebook(?string $facebook): self
     {
-        $facebook = self::cleanSocialUrl($facebook);
-
-        if (Utils::isUrl($facebook) || is_null($facebook)) {
-            $this->facebook = $facebook;
-        }
+        $this->facebook = $facebook;
 
         return $this;
     }
 
-    /**
-     * Check if has Facebook URL
-     */
-    public function hasFacebook(): bool
-    {
-        return Utils::isUrl($this->getFacebook());
-    }
-
-    /**
-     * Get the Instagram URL
-     */
     public function getInstagram(): ?string
     {
         return $this->instagram;
@@ -177,9 +137,6 @@ class Social
         return Utils::isUrl($this->getInstagram());
     }
 
-    /**
-     * Get the Youtube URL
-     */
     public function getYoutube(): ?string
     {
         return $this->youtube;
@@ -220,4 +177,5 @@ class Social
 
         return $url;
     }
+
 }

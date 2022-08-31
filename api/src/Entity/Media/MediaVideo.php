@@ -2,49 +2,22 @@
 
 namespace App\Entity\Media;
 
-use App\Entity\Media\Media;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\MediaRepositories\MediaVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: MediaVideoRepository::class)]
+#[ApiResource()]
 class MediaVideo extends Media
 {
-    /**
-     * Media Autoplay Video
-     */
+    #[ORM\Column(type: 'boolean')]
     private bool $autoplay = false;
 
-    /**
-     * Media Constructor
-     *
-     * @param string $src
-     * @param string $type
-     * @param boolean $autoplay
-     * @param boolean $zoomable
-     */
-    public function __construct($src, $autoplay = false)
-    {
-        $this->setFilePath($src);
-        $this->setAutoplay($autoplay);
-        // $this->setTypeVideo();
-    }
-
-    /**
-     * Check if this Media is an autoplay video
-     *
-     * @return bool
-     */
     public function isAutoplay()
     {
         return true === $this->autoplay;
     }
 
-    /**
-     * Set the value of autoplay
-     *
-     * @param bool $autoplay Media autoplay
-     *
-     * @return self
-     */
     public function setAutoplay($autoplay)
     {
         if (is_bool($autoplay)) {

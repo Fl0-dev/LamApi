@@ -4,6 +4,7 @@ namespace App\Transversal;
 
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Trait for using CreatedDate
@@ -14,8 +15,9 @@ trait CreatedDate
      * Date when CompanyGroup was created
      *
      */
-    #[ORM\Column(type: "datetime")]
-    private ?\DateTime $createdDate = null;
+    #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
+    #[Groups(['read:getOfferApplications'])]
+    private ?\DateTime $createdDate;
 
     /**
      * Get CompanyGroup Created Date

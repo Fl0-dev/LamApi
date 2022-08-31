@@ -3,9 +3,12 @@
 namespace App\Entity\Media;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: MediaImageRepository::class)]
+#[ORM\Table(name: "Media_Images")]
 #[ApiResource()]
 class MediaImage extends Media
 {
@@ -31,29 +34,14 @@ class MediaImage extends Media
     private ?int $height = null;
 
     /**
-     * MediaImage alt attribute
-     *
-     */
-    #[ORM\Column(type: "string", nullable: true)]
-    private ?string $alt = null;
-
-    /**
      * Contains  title to display under image zoomed
      *
      */
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $title = null;
 
-    /**
-     * MediaImage Constructor
-     *
-     * @param string $src MediaImage URI
-     */
-    public function __construct($src)
-    {
-        $this->setFilePath($src);
-        // $this->setTypeImage();
-    }
+    #[ORM\Column(type: "string", nullable: true)]
+    private ?string $alt = null;
 
     /**
      * Set MediaImage Dimensions informations (width and height)

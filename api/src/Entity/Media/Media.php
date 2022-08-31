@@ -2,10 +2,10 @@
 
 namespace App\Entity\Media;
 
-use App\Utils\Utils;
-
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Company\CompanyEntity;
+use App\Entity\Company\CompanyGroup;
+use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -13,50 +13,35 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-
-
-
-#[ApiResource(
-    iri: "http://schema.org/MediaObject",
-    normalizationContext: ["groups" => ["media_object_read"]],
-    collectionOperations: [
-        "post" => [
-            "controller" => CreateMediaObjectAction::class,
-            "deserialize" => false,
-            "security" => "is_granted('ROLE_USER')",
-            "validation_groups" => ["Default", "media_object_create"],
-            "openapi_context" => [
-                "requestBody" => [
-                    "content" => [
-                        "multipart/form-data" => [
-                            "schema" => [
-                                "type" => "object",
-                                "properties" => [
-                                    "file" => [
-                                        "type" => "string",
-                                        "format" => "binary"
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ],
-        "get"
-    ],
-    itemOperations: [
-        "get"
-    ]
-)]
-#[Vich\Uploadable]
+/**
+ * @Vich\Uploadable()
+ */
+#[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "image" => "MediaImage",
-    "video" => "MediaVideo"
+    "image" => MediaImage::class,
+    "video" => MediaVideo::class,
 ])]
-#[ORM\Entity]
+#[ApiResource(
+    normalizationContext: ["read:getMedia"],
+    collectionOperations: [
+        "get" => [
+            "method" => "GET",
+            "path" => "/media",
+            "normalization_context" => [
+                "groups" => ["read:getMedia"]
+            ]
+        ],
+        "post" => [
+            "method" => "POST",
+            "path" => "/media",
+            "normalization_context" => [
+                "groups" => ["read:getMedia"]
+            ]
+        ]
+    ]
+)]
 abstract class Media
 {
     use TechnicalProperties;
@@ -64,215 +49,125 @@ abstract class Media
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 
-    /**
-     * @var string|null
-     *
-     */
-    #[ApiProperty(iri: "http://schema.org/contentUrl")]
-    #[Groups(["media_object_read"])]
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['read:getMedia'])]
     private $contentUrl;
 
-    /**
-     * @var File|null
-     *
-     */
-    #[Assert\NotNull()]
-    #[Groups(["media_object_create"])]
-    #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
-    private ?File $file;
-
-    /**
-     * @var string|null
-     *
-     */
-    #[ORM\Column(type: "string", nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('read:getCompanyGroupDetails', 'read:getMedia')]
     private $filePath;
 
     /**
-     * Media alt attribute
-     *
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
      */
-    #[ORM\Column(type: "string", nullable: true)]
-    private $alt;
+    #[Assert\NotNull()]
+    private ?File $file = null;
 
-    /**
-     * Media Constructor
-     *
-     * @param string $filePath
-     */
-    public function __construct($filePath)
+    #[ORM\ManyToOne(inversedBy: 'medias')]
+    #[Groups(['read:getMedia'])]
+    private ?CompanyEntity $companyEntity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'medias')]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['read:getMedia'])]
+    private ?CompanyGroup $companyGroup = null;
+
+    public function __construct()
     {
-        $this->setFilePath($filePath);
+       if($this instanceof MediaImage) {
+           $this->type = self::TYPE_IMAGE;
+       } 
+
+       if($this instanceof MediaVideo) {
+           $this->type = self::TYPE_VIDEO;
+       }
     }
 
-    /**
-     * Check if this Media is an Image
-     */
-    public function isImage(): bool
-    {
-        return self::TYPE_IMAGE === $this->getType();
-    }
-
-    /**
-     * Check if this Media is a Video
-     */
-    public function isVideo(): bool
-    {
-        return self::TYPE_VIDEO === $this->getType();
-    }
-
-    /**
-     * Get the Type
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    // /**
-    //  * Set the value of type
-    //  *
-    //  * @param string $type Media type
-    //  *
-    //  * @return self
-    //  */
-    // public function setType($type)
-    // {
-    //     if (in_array($type, [self::TYPE_IMAGE, self::TYPE_VIDEO])) {
-    //         $this->type = $type;
-    //     }
-
-    //     return $this;
-    // }
-
-    // /**
-    //  * Set type on Image
-    //  *
-    //  * @return self
-    //  */
-    // public function setTypeImage()
-    // {
-    //     $this->type = self::TYPE_IMAGE;
-
-    //     return $this;
-    // }
-
-    // /**
-    //  * Set type on Video
-    //  *
-    //  * @return self
-    //  */
-    // public function setTypeVideo()
-    // {
-    //     $this->type = self::TYPE_VIDEO;
-
-    //     return $this;
-    // }
-
-    /**
-     * Get the value of src
-     *
-     * @return string
-     */
-    public function getSrc()
-    {
-        return $this->src;
-    }
-
-    /**
-     * Set the value of src
-     *
-     * @param string $src Media URI
-     *
-     * @return self
-     */
-    public function setFilePath($src)
-    {
-        $this->src = $src;
-
-        return $this;
-    }
-
-    /**
-     * Check if Media has a src value
-     *
-     * @return bool
-     */
-    public function hasSrc()
-    {
-        return Utils::isUrl($this->getSrc());
-    }
-
-    /**
-     * Get media alt attribute
-     *
-     * @return string
-     */
-    public function getAlt()
-    {
-        return $this->alt;
-    }
-
-    /**
-     * Set media alt attribute
-     *
-     * @param string|null $alt Media alt attribute
-     *
-     * @return self
-     */
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of contentUrl
-     */ 
-    public function getContentUrl()
+    public function getContentUrl(): ?string
     {
         return $this->contentUrl;
     }
 
-    /**
-     * Set the value of contentUrl
-     *
-     * @return  self
-     */ 
-    public function setContentUrl($contentUrl)
+    public function setContentUrl(?string $contentUrl): self
     {
         $this->contentUrl = $contentUrl;
 
         return $this;
     }
 
-    /**
-     * Get the value of file
-     */ 
-    public function getFile()
+    public function getFilePath(): ?string
     {
-        return $this->file;
+        return $this->filePath;
     }
 
-    /**
-     * Set the value of file
-     *
-     * @return  self
-     */ 
-    public function setFile($file)
+    public function setFilePath(?string $filePath): self
     {
-        $this->file = $file;
+        $this->filePath = $filePath;
 
         return $this;
     }
 
-    /**
-     * Get the value of filePath
-     */ 
-    public function getFilePath()
+    public function isImage(): bool
     {
-        return $this->filePath;
+        return self::TYPE_IMAGE === $this->getMediaType();
     }
+
+    public function isVideo(): bool
+    {
+        return self::TYPE_VIDEO === $this->getMediaType();
+    }
+
+    #[Groups(['read:getMedia'])]
+    public function getMediaType(): string
+    {
+        return get_class($this) === MediaImage::class ? self::TYPE_IMAGE : self::TYPE_VIDEO;
+    }
+
+    public function setType($type)
+    {
+        if (in_array($type, [self::TYPE_IMAGE, self::TYPE_VIDEO])) {
+            $this->type = $type;
+        }
+
+        return $this;
+    }
+
+    public function setTypeImage()
+    {
+        $this->type = self::TYPE_IMAGE;
+
+        return $this;
+    }
+
+    public function setTypeVideo()
+    {
+        $this->type = self::TYPE_VIDEO;
+
+        return $this;
+    }
+
+    public function getCompanyEntity(): ?CompanyEntity
+    {
+        return $this->companyEntity;
+    }
+
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
+    {
+        $this->companyEntity = $companyEntity;
+
+        return $this;
+    }
+
+    public function getCompanyGroup(): ?CompanyGroup
+    {
+        return $this->companyGroup;
+    }
+
+    public function setCompanyGroup(?CompanyGroup $companyGroup): self
+    {
+        $this->companyGroup = $companyGroup;
+
+        return $this;
+    }
+
 }

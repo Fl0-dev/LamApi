@@ -2,128 +2,48 @@
 
 namespace App\Entity;
 
-use App\Entity\Media\MediaImage;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\OrganisationRepository;
+use App\Transversal\CreatedDate;
+use App\Transversal\Slug;
 use App\Transversal\Uuid;
-use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Organisation (Partners...)
- *
-
- */
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: OrganisationRepository::class)]
+#[ApiResource()]
 class Organisation
 {
     use Uuid;
+    use Slug;
+    use CreatedDate;
 
-    /**
-     * Name
-     *
-     */
-    #[ORM\Column(type: "string")]
-    private ?string $name = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
 
-    /**
-     * Logo
-     *
-     */
-    #[ORM\ManyToOne(targetEntity: MediaImage::class)]
-    private ?MediaImage $logo = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $website;
 
-    /**
-     * Organisation website
-     *
-     */
-    #[ORM\Column(type: "string", nullable: true)]
-    private ?string $website = null;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get Name
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set Name
-     */
-    public function setName(?string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Check if has a valid Name
-     */
-    public function hasName(): bool
-    {
-        $name = $this->getName();
-
-        return is_string($name) && strlen($name) > 0;
-    }
-
-    /**
-     * Get Logo
-     */
-    public function getLogo(): ?MediaImage
-    {
-        return $this->logo;
-    }
-
-    /**
-     * Set Logo
-     */
-    public function setLogo(?MediaImage $logo): self
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Check if has a valid Logo
-     */
-    public function hasLogo(): bool
-    {
-        $logo = $this->getLogo();
-
-        return $logo instanceof MediaImage && $logo->hasSrc();
-    }
-
-    /**
-     * Get Website URL
-     */
     public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    /**
-     * Set Website URL
-     */
-    public function setWebsite(string $website): self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
 
         return $this;
-    }
-
-    /**
-     * Check if has a valid Website URL
-     */
-    public function hasWebsite(): bool
-    {
-        return Utils::isUrl($this->getWebsite());
     }
 }

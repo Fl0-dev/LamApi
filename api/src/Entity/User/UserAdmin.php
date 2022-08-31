@@ -5,6 +5,7 @@ namespace App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\Table(name: "Admin_Users")]
 class UserAdmin extends UserPhysical
 {
     #[ORM\Column(type: "string")]
@@ -31,3 +32,4 @@ class UserAdmin extends UserPhysical
         return $this;
     }
 }
+
