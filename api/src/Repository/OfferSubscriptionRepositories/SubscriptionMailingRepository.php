@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\OfferSubscriptionRepositories;
 
 use App\Entity\OfferSubscription\SubscriptionMailing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

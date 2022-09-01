@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\OfferSubscriptionRepositories;
 
 use App\Entity\OfferSubscription\SubscriptionHistory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
