@@ -2,6 +2,7 @@
 
 namespace App\Entity\OfferSubscription;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\JobTitle;
 use App\Entity\Location\City;
@@ -13,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource()]
 #[ORM\Entity(repositoryClass: OfferResearchRepository::class)]
 class OfferResearch
 {

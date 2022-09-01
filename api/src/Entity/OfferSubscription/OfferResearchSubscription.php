@@ -2,8 +2,9 @@
 
 namespace App\Entity\OfferSubscription;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Applicant\Applicant;
-use App\Repository\OfferResearchSubscriptionRepository;
+use App\Repository\OfferSubscriptionRepositories\OfferResearchSubscriptionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
@@ -12,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource()]
 #[ORM\Entity(repositoryClass: OfferResearchSubscriptionRepository::class)]
 class OfferResearchSubscription
 {

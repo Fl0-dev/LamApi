@@ -2,7 +2,7 @@
 
 namespace App\Entity\OfferSubscription;
 
-use App\Repository\SubscriptionHistoryRepository;
+use App\Repository\OfferSubscriptionRepositories\SubscriptionHistoryRepository;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
