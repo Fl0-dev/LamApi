@@ -3,13 +3,14 @@
 namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
+use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\References\Workforce;
 use App\Filter\WorkforceFilter;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Utils\Utils;
 
-class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
+class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterface, ItemDataProviderInterface, RestrictedDataProviderInterface
 {
     public function __construct(private WorkforceRepository $workforceRepository)
     {
@@ -29,5 +30,10 @@ class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterfa
         }
         
         return $this->workforceRepository->findAll();
+    }
+
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    {
+        return $this->workforceRepository->find($id);
     }
 }

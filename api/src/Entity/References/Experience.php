@@ -22,18 +22,16 @@ use Doctrine\ORM\Mapping as ORM;
     ],
     itemOperations: [
         'get' => [
-            'controller' => NotFoundAction::class,
-            'read' => false, // pour supprimer la lecture
-            'output' => false, // pour supprimer la sortie
+            'method' => 'GET',
             'openapi_context' => [
-                'summary' => 'hidden', //Indique le summary à supprimer avec openapiFactory  
-            ]
-        ],
+                'tags' => ['References by id'],
+            ],
+        ], 
     ]
 )]
 
 #[ApiFilter(ExperienceFilter::class)]
-class Experience
+class Experience extends Reference
 {
     const UNSPECIFIED = 0;
     const JUNIOR = 1;
@@ -44,38 +42,40 @@ class Experience
     const EXPERIENCES = [
         0 => [
             'full'          => 'Non précisé',
+            'slug'          => 'non-precise',
             'label'         => 'Non précisé',
             'duration'      => 'Non précisé',
             'minNbMonths'   => 0
         ],
         1 => [
             'full'          => 'Lamajunior (- 1 an)',
+            'slug'          => 'lamajunior',
             'label'         => 'Lamajunior',
             'duration'      => "< 1 an d'expérience",
             'minNbMonths'   => 0
         ],
         2 => [
             'full'          => 'Lamaffirmé (1 à 2 ans)',
+            'slug'          => 'lamaffirmé',
             'label'         => 'Lamaffirmé',
             'duration'      => "de 1 à 2 ans d'expérience",
             'minNbMonths'   => 12
         ],
         3 => [
             'full'          => 'Lamasenior (2 à 5 ans)',
+            'slug'          => 'lamasenior',
             'label'         => 'Lamasenior',
             'duration'      => "de 2 à 5 ans d'expérience",
             'minNbMonths'   => 24
         ],
         4 => [
             'full'          => 'Lamexpert (+ 5 ans)',
+            'slug'          => 'lamexpert',
             'label'         => 'Lamexpert',
             'duration'      => "+ de 5 ans d'expérience",
             'minNbMonths'   => 60
         ]
     ];
-
-    #[ApiProperty(identifier: true)]
-    private $id;
 
     private ?int $value = null;
 
@@ -85,36 +85,14 @@ class Experience
 
     private ?int $minNbMonths = null;
 
-    use Label;
 
-    public function __construct(int $value, string $label, string $full, string $duration, int $minNbMonths)
+    public function __construct(string $slug, string $label ,int $value, string $full, string $duration, int $minNbMonths)
     {
-        $this->id = Uuid::v3(Uuid::fromString(Uuid::NAMESPACE_URL), $label);
+        parent::__construct($slug, $label);
         $this->value = $value;
-        $this->label = $label;
         $this->full = $full;
         $this->duration = $duration;
         $this->minNbMonths = $minNbMonths;
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**

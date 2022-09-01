@@ -3,13 +3,14 @@
 namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
+use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\References\Experience;
 use App\Filter\ExperienceFilter;
 use App\Repository\ReferencesRepositories\ExperienceRepository;
 use App\Utils\Utils;
 
-class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
+class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterface, ItemDataProviderInterface, RestrictedDataProviderInterface
 {
     public function __construct(private ExperienceRepository $experienceRepository)
     {
@@ -29,5 +30,10 @@ class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterf
         }
 
         return $this->experienceRepository->findAll();
+    }
+
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    {
+        return $this->experienceRepository->find($id);
     }
 }

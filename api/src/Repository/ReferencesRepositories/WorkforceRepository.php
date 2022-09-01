@@ -48,4 +48,17 @@ class WorkforceRepository
 
         return $results;
     }
+
+    public function find(string $id): ?Workforce
+    {
+        $workforces = $this->findAll();
+
+        foreach ($workforces as $workforce) {
+            if ($workforce->getId() === $id) {
+                return $workforce;
+            }
+        }
+
+        return null;
+    }
 }

@@ -26,4 +26,17 @@ class OfferStatusRepository
 
         return $statuses;
     }
+
+    public function find(string $id): ?OfferStatus
+    {
+        $statuses = $this->findAll();
+
+        foreach ($statuses as $status) {
+            if ($status->getId() === $id) {
+                return $status;
+            }
+        }
+
+        return null;
+    }
 }
