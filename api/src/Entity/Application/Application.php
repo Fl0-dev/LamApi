@@ -137,7 +137,7 @@ class Application
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
     private $applicantionExchanges;
 
-    #[ORM\Column(length: 11)]
+    #[ORM\Column()]
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'applications', cascade: ['persist'])]

@@ -20,7 +20,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1));
-            $offer->setContractType(ContractType::CDI);
+            $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
             $offer->setExperience(Experience::SENIOR);
             $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
             $offer->setCreatedDate(new \DateTime());
@@ -64,7 +64,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_2));
-            $offer->setContractType(ContractType::CDD);
+            $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
             $offer->setExperience(Experience::JUNIOR);
             $offer->setLevelOfStudy(LevelOfStudy::BAC_2);
             $offer->setCreatedDate(new \DateTime());
@@ -118,7 +118,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 4; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
-            $offer->setContractType(ContractType::CDI);
+            $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
             $offer->setExperience(Experience::SENIOR);
             $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
             $offer->setCreatedDate(new \DateTime());
@@ -168,7 +168,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
-            $offer->setContractType(ContractType::INTERNSHIP);
+            $offer->setContractType((new ContractType(ContractType::INTERNSHIP, 'Stage'))->getId());
             $offer->setExperience(Experience::UNSPECIFIED);
             $offer->setLevelOfStudy(LevelOfStudy::UNSPECIFIED);
             $offer->setCreatedDate(new \DateTime());
@@ -229,7 +229,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
-            $offer->setContractType(ContractType::CDI);
+            $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
             $offer->setExperience(Experience::UNSPECIFIED);
             $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
             $offer->setCreatedDate(new \DateTime());
@@ -294,7 +294,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
-            $offer->setContractType(ContractType::CDD);
+            $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
             $offer->setExperience(Experience::UNSPECIFIED);
             $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
             $offer->setCreatedDate(new \DateTime());
@@ -349,7 +349,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_5));
-            $offer->setContractType(ContractType::CDI);
+            $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
             $offer->setExperience(Experience::EXPERT);
             $offer->setLevelOfStudy(LevelOfStudy::BAC_8);
             $offer->setCreatedDate(new \DateTime());
@@ -401,7 +401,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_6));
-            $offer->setContractType(ContractType::ALTERNANCE);
+            $offer->setContractType((new ContractType(ContractType::ALTERNANCE, 'Alternance'))->getId());
             $offer->setExperience(Experience::JUNIOR);
             $offer->setLevelOfStudy(LevelOfStudy::BAC);
             $offer->setCreatedDate(new \DateTime());

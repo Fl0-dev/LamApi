@@ -14,7 +14,7 @@ class OfferStatusHistory
     use Uuid;
     use LastModifiedDate;
 
-    #[ORM\Column(type: 'string', length: 9)]
+    #[ORM\Column(type: 'string')]
     private $offerStatus;
 
     #[ORM\ManyToOne(targetEntity: Offer::class)]

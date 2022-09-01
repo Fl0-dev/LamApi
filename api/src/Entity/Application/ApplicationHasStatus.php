@@ -24,7 +24,7 @@ class ApplicationHasStatus
     #[ORM\ManyToOne]
     private ?Application $application = null;
 
-    #[ORM\Column(length: 11, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?string $status = null;
 
     public function getComment(): ?string
