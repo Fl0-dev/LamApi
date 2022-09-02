@@ -19,6 +19,7 @@ use App\Entity\References\OfferStatus;
 use App\Entity\Tool;
 use App\Entity\User\User;
 use App\Repository\OfferRepositories\OfferRepository;
+use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
@@ -200,7 +201,7 @@ class Offer
     private $headerMedia;
 
     #[Validator\IsInRepository()]
-    #[ORM\Column(type: 'string', length: 11, nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $levelOfStudy;
 
@@ -210,16 +211,16 @@ class Offer
     private $jobTitle;
 
     #[Validator\IsInRepository()]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $experience;
 
     #[Validator\IsInRepository()]
-    #[ORM\Column(type: 'string', length: 10, nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $contractType;
 
-    #[ORM\Column(type: 'string', length: 9, nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false)]
     private $status;
 
     #[ORM\Column(type: "string", length: 255, nullable: false)]
@@ -544,12 +545,12 @@ class Offer
         return $this;
     }
 
-    public function getExperience(): ?int
+    public function getExperience(): ?string
     {
         return $this->experience;
     }
 
-    public function setExperience(?int $experience): self
+    public function setExperience(?string $experience): self
     {
         $this->experience = $experience;
 
@@ -615,4 +616,12 @@ class Offer
 
         return $this;
     }
+
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers"])]
+    public function getContractTypeLabel(): ?string
+    {
+        $contractTypeRepository = new ContractTypeRepository();
+        
+        return $contractTypeRepository->find($this->contractType)->getLabel();
+    } 
 }

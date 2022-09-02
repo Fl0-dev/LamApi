@@ -187,7 +187,7 @@ class CompanyGroup
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $publishDate;
 
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $status;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

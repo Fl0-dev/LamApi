@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProfileRepository;
+use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator;
 
 #[ORM\Entity(repositoryClass: ProfileRepository::class)]
 #[ApiResource()]
@@ -47,8 +49,8 @@ class Profile
     #[Groups(['read:getCompanyGroupDetails'])]
     private ?Social $social = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Validator\IsInRepository()]
+    #[ORM\Column(nullable: true)]
     private ?string $workforce = null;
 
     public function getCreationYear(): ?int
@@ -157,5 +159,13 @@ class Profile
         $this->workforce = $workforce;
 
         return $this;
+    }
+
+    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    public function getWorkforceLabel(): ?string
+    {
+        $workforceRepository = new WorkforceRepository();
+
+        return $workforceRepository->find($this->workforce)->getLabel();
     }
 }

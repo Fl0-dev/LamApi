@@ -19,9 +19,10 @@ class ExperienceRepository
 
         foreach ($arrayExperiences as $value => $experience) {
             $experiences[] = new Experience(
+                Utils::getArrayValue('slug', $experience),
+                Utils::getArrayValue('label', $experience),
                 $value,
                 Utils::getArrayValue('full', $experience),
-                Utils::getArrayValue('label', $experience),
                 Utils::getArrayValue('duration', $experience),
                 Utils::getArrayValue('minNbMonths', $experience)
             );
@@ -45,5 +46,19 @@ class ExperienceRepository
         }
 
         return $results;
+    }
+
+    public function find(string $id): ?Experience
+    {
+        $experiences = $this->findAll();
+
+        foreach ($experiences as $experience) {
+            if ($experience->getId() === $id) {
+                
+                return $experience;
+            }
+        }
+
+        return null;
     }
 }

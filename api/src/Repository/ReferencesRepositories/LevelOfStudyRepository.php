@@ -23,4 +23,17 @@ class LevelOfStudyRepository
 
         return $levelOfStudies;
     }
+
+    public function find(string $id): ?LevelOfStudy
+    {
+        $levelOfStudies = $this->findAll();
+
+        foreach ($levelOfStudies as $levelOfStudy) {
+            if ($levelOfStudy->getId() === $id) {
+                return $levelOfStudy;
+            }
+        }
+
+        return null;
+    }
 }

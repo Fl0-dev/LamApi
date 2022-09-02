@@ -37,7 +37,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $social->setTwitter('https://twitter.com/tgs-france');
 
         $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_8);
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_8, '1000 à 1999 salariés'))->getId());
         $profile->setCreationYear(2018);
         $profile->setSocial($social);
         $profile->setMiddleAge(35);
@@ -155,7 +155,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $social->setTwitter('https://twitter.com/Eolis');
 
         $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_3);
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_3, '20 à 49 salariés'))->getId());
         $profile->setSocial($social);
         $profile->setCreationYear(2015);
         $profile->setMiddleAge(41);
@@ -251,7 +251,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         ###### LIVLI ######
 
         $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_2);
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_2, '10 à 19 salariés'))->getId());
         $profile->setCreationYear(2019);
         $profile->setMiddleAge(26);
         $profile->setUsText('Livli est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à St Nazaire');
@@ -348,7 +348,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         ###### IN EXTENSO OUEST ######
 
         $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_6);
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_6, '200 à 499 salariés'))->getId());
         $profile->setCreationYear(2000);
         $profile->setMiddleAge(38);
         $profile->setUsText('In Extenso est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés dans l\'Ouest');

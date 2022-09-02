@@ -3,11 +3,12 @@
 namespace App\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
+use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\References\ApplicantStatus;
 use App\Repository\ReferencesRepositories\ApplicantStatusRepository;
 
-class ApplicantStatusDataProvider implements ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
+class ApplicantStatusDataProvider implements ContextAwareCollectionDataProviderInterface, ItemDataProviderInterface, RestrictedDataProviderInterface
 {
 
     public function __construct(private ApplicantStatusRepository $applicantStatusRepository)
@@ -22,5 +23,10 @@ class ApplicantStatusDataProvider implements ContextAwareCollectionDataProviderI
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
         return $this->applicantStatusRepository->findAll();
+    }
+
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    {
+        return $this->applicantStatusRepository->find($id);
     }
 }

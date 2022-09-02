@@ -22,13 +22,11 @@ use App\Transversal\Slug;
     ],
     itemOperations: [
         'get' => [
-            'controller' => NotFoundAction::class,
-            'read' => false, // pour supprimer la lecture
-            'output' => false, // pour supprimer la sortie
+            'method' => 'GET',
             'openapi_context' => [
-                'summary' => 'hidden', //Indique le summary à supprimer avec openapiFactory  
-            ]
-        ],
+                'tags' => ['References by id'],
+            ],
+        ], 
     ]
 )]
 #[ApiFilter(WorkforceFilter::class)]
