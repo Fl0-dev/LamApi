@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
-#[ORM\Table(name: "Applicants")]
+#[ORM\Table(name: "applicant")]
 #[ApiResource()]
 class Applicant extends UserPhysical
 {

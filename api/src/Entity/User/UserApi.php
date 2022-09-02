@@ -5,7 +5,7 @@ namespace App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: "Api_Users")]
+#[ORM\Table(name: "api_user")]
 class UserApi extends UserAbstract
 {
 
