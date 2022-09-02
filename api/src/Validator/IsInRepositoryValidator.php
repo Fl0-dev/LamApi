@@ -8,6 +8,7 @@ use App\Entity\References\LevelOfStudy;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Repository\ReferencesRepositories\ExperienceRepository;
 use App\Repository\ReferencesRepositories\LevelOfStudyRepository;
+use App\Repository\ReferencesRepositories\WorkforceRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -16,11 +17,13 @@ class IsInRepositoryValidator extends ConstraintValidator
     const PROPERTY_CONTRACT_TYPE = 'contractType';
     const PROPERTY_EXPERIENCE = 'experience';
     const PROPERTY_LEVEL_OF_STUDY = 'levelOfStudy';
+    const PROPERTY_WORKFORCE = 'workforce';
 
     public function __construct(
         private ContractTypeRepository $contractTypeRepository, 
         private ExperienceRepository $experienceRepository, 
-        private LevelOfStudyRepository $levelOfStudyRepository)
+        private LevelOfStudyRepository $levelOfStudyRepository,
+        private WorkforceRepository $workforceRepository)
     {
     }
 
@@ -44,6 +47,12 @@ class IsInRepositoryValidator extends ConstraintValidator
 
             case self::PROPERTY_LEVEL_OF_STUDY:
                 if ($this->levelOfStudyRepository->find($id) != null) {
+                    return;
+                }
+                break;
+
+            case self::PROPERTY_WORKFORCE:
+                if ($this->workforceRepository->find($id) != null) {
                     return;
                 }
                 break;

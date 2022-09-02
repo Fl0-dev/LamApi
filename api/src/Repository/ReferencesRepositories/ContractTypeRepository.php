@@ -46,7 +46,9 @@ class ContractTypeRepository
         $contractTypes = $this->findAll();
 
         foreach ($contractTypes as $contractType) {
+
             if ($contractType->getId() === $id) {
+                
                 return $contractType;
             }
         }

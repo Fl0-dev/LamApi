@@ -15,7 +15,6 @@ use App\Entity\User\Employer;
 use App\Entity\JobBoard;
 use App\Entity\JobTitle;
 use App\Entity\Media\Media;
-use App\Entity\References\ContractType;
 use App\Entity\References\OfferStatus;
 use App\Entity\Tool;
 use App\Entity\User\User;
@@ -622,6 +621,7 @@ class Offer
     public function getContractTypeLabel(): ?string
     {
         $contractTypeRepository = new ContractTypeRepository();
+        
         return $contractTypeRepository->find($this->contractType)->getLabel();
     } 
 }
