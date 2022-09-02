@@ -8,7 +8,7 @@ use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
-use App\Entity\Profile;
+use App\Entity\Company\CompanyProfile;
 use App\Entity\References\Workforce;
 use App\Entity\Social;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -36,7 +36,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $social->setFacebook('https://www.facebook.com/tgs-france');
         $social->setTwitter('https://twitter.com/tgs-france');
 
-        $profile = new Profile();
+        $profile = new CompanyProfile();
         $profile->setWorkforce(Workforce::LEVEL_8);
         $profile->setCreationYear(2018);
         $profile->setSocial($social);
@@ -154,7 +154,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $social->setFacebook('https://www.facebook.com/Eolis');
         $social->setTwitter('https://twitter.com/Eolis');
 
-        $profile = new Profile();
+        $profile = new CompanyProfile();
         $profile->setWorkforce(Workforce::LEVEL_3);
         $profile->setSocial($social);
         $profile->setCreationYear(2015);
@@ -250,7 +250,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         ###### LIVLI ######
 
-        $profile = new Profile();
+        $profile = new CompanyProfile();
         $profile->setWorkforce(Workforce::LEVEL_2);
         $profile->setCreationYear(2019);
         $profile->setMiddleAge(26);
@@ -347,7 +347,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         ###### IN EXTENSO OUEST ######
 
-        $profile = new Profile();
+        $profile = new CompanyProfile();
         $profile->setWorkforce(Workforce::LEVEL_6);
         $profile->setCreationYear(2000);
         $profile->setMiddleAge(38);

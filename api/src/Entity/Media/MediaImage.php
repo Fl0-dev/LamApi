@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
-#[ORM\Table(name: "Media_Images")]
+#[ORM\Table(name: "Media_Image")]
 #[ApiResource()]
 class MediaImage extends Media
 {

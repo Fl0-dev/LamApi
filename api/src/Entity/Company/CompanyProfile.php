@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfileRepository;
+use App\Entity\Social;
+use App\Repository\CompanyProfileRepository;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: ProfileRepository::class)]
+#[ORM\Entity(repositoryClass: CompanyProfileRepository::class)]
 #[ApiResource()]
-class Profile
+class CompanyProfile
 {
     use Uuid;
 

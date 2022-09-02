@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\CompanyRepositories\Repository;
 
-use App\Entity\Profile;
+use App\Entity\Company\CompanyProfile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,14 +14,14 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Profile[]    findAll()
  * @method Profile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProfileRepository extends ServiceEntityRepository
+class CompanyProfileRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Profile::class);
     }
 
-    public function add(Profile $entity, bool $flush = false): void
+    public function add(CompanyProfile $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ProfileRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Profile $entity, bool $flush = false): void
+    public function remove(CompanyProfile $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
