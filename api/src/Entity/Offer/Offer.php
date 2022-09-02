@@ -15,10 +15,12 @@ use App\Entity\User\Employer;
 use App\Entity\JobBoard;
 use App\Entity\JobTitle;
 use App\Entity\Media\Media;
+use App\Entity\References\ContractType;
 use App\Entity\References\OfferStatus;
 use App\Entity\Tool;
 use App\Entity\User\User;
 use App\Repository\OfferRepositories\OfferRepository;
+use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
@@ -216,7 +218,7 @@ class Offer
 
     #[Validator\IsInRepository()]
     #[ORM\Column(type: 'string', nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
     private $contractType;
 
     #[ORM\Column(type: 'string', nullable: false)]
@@ -615,4 +617,11 @@ class Offer
 
         return $this;
     }
+
+    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers"])]
+    public function getContractTypeLabel(): ?string
+    {
+        $contractTypeRepository = new ContractTypeRepository();
+        return $contractTypeRepository->find($this->contractType)->getLabel();
+    } 
 }

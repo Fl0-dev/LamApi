@@ -21,8 +21,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience(Experience::SENIOR);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
+            $offer->setExperience((new Experience(Experience::SENIOR, 'Lamasenior', 3, 'Lamasenior (2 à 5 ans)', "de 2 à 5 ans d'expérience",24))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i CDI de TGS France Nantes");
@@ -34,7 +34,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de TGS France Nantes");
             $offer->setSlug("offer-$i-tgs-france-nantes");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de TGS France Nantes");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -51,7 +51,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de TGS France Nantes");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1));
             $application->setOffer($offer);
@@ -65,8 +65,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_2));
             $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
-            $offer->setExperience(Experience::JUNIOR);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC_2);
+            $offer->setExperience((new Experience(Experience::JUNIOR, 'Lamajunior', 1, 'Lamajunior (- 1 an)', "< 1 an d'expérience",0))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i CDD de de TGS France St Nazaire");
@@ -78,7 +78,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de TGS France St Nazaire");
             $offer->setSlug("offer-$i-tgs-france-st-nazaire");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de TGS France St Nazaire");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -95,7 +95,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDD de de TGS France St Nazaire");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1));
             $application->setOffer($offer);
@@ -106,7 +106,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDD de de TGS France St Nazaire");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1));
             $application->setOffer($offer);
@@ -119,8 +119,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience(Experience::SENIOR);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
+            $offer->setExperience((new Experience(Experience::SENIOR, 'Lamasenior', 3, 'Lamasenior (2 à 5 ans)', "de 2 à 5 ans d'expérience",24))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i CDI de Eolis Nantes");
@@ -132,7 +132,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de Eolis Nantes");
             $offer->setSlug("offer-$i-eolis-nantes");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de Eolis Nantes");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -145,7 +145,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $application->setOffer($offer);
@@ -156,7 +156,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Eolis Nantes");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_4));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $application->setOffer($offer);
@@ -169,8 +169,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $offer->setContractType((new ContractType(ContractType::INTERNSHIP, 'Stage'))->getId());
-            $offer->setExperience(Experience::UNSPECIFIED);
-            $offer->setLevelOfStudy(LevelOfStudy::UNSPECIFIED);
+            $offer->setExperience((new Experience(Experience::UNSPECIFIED, 'Non précisé', 0, 'Non précisé', "Non précisé",0))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'Non précisé'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i stage de Eolis Nantes");
@@ -182,7 +182,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de Eolis Nantes");
             $offer->setSlug("offer-$i-eolis-nantes");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de Eolis Nantes");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -195,7 +195,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $application->setOffer($offer);
@@ -206,7 +206,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $application->setOffer($offer);
@@ -217,7 +217,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i stage de Eolis Nantes");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $application->setOffer($offer);
@@ -230,8 +230,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience(Experience::UNSPECIFIED);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
+            $offer->setExperience((new Experience(Experience::UNSPECIFIED, 'Non précisé', 0, 'Non précisé', "Non précisé",0))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i CDI de Livli");
@@ -243,7 +243,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de Livli");
             $offer->setSlug("offer-$i-livli");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de Livli");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -260,7 +260,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $application->setOffer($offer);
@@ -271,7 +271,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_5));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $application->setOffer($offer);
@@ -282,7 +282,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $application->setOffer($offer);
@@ -295,8 +295,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
-            $offer->setExperience(Experience::UNSPECIFIED);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC_4);
+            $offer->setExperience((new Experience(Experience::UNSPECIFIED, 'Non précisé', 0, 'Non précisé', "Non précisé",0))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i CDD de Livli");
@@ -308,7 +308,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de Livli");
             $offer->setSlug("offer-$i-livli");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de Livli");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -325,7 +325,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $application->setOffer($offer);
@@ -336,7 +336,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i CDI de Livli");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $application->setOffer($offer);
@@ -350,8 +350,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_5));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience(Experience::EXPERT);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC_8);
+            $offer->setExperience((new Experience(Experience::EXPERT, 'Lamexpert ', 4, 'Lamexpert (+ 5 ans)', "+ de 5 ans d'expérience",60))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_8, 'BAC + 8'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i de In Extenso Challans");
@@ -363,7 +363,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de In Extenso Challans");
             $offer->setSlug("offer-$i-in-extenso-challans");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de In Extenso Challans");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -378,7 +378,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Challans");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_6));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_5));
             $application->setOffer($offer);
@@ -389,7 +389,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Challans");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_5));
             $application->setOffer($offer);
@@ -402,8 +402,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_6));
             $offer->setContractType((new ContractType(ContractType::ALTERNANCE, 'Alternance'))->getId());
-            $offer->setExperience(Experience::JUNIOR);
-            $offer->setLevelOfStudy(LevelOfStudy::BAC);
+            $offer->setExperience((new Experience(Experience::JUNIOR, 'Lamajunior', 1, 'Lamajunior (- 1 an)', "< 1 an d'expérience",0))->getId());
+            $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'BAC'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
             $offer->setTitle("Offre $i alternance de In Extenso Luçon");
@@ -415,7 +415,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setProvided(false);
             $offer->setRecruitmentProcess("Recruitment Process $i de In Extenso Luçon");
             $offer->setSlug("offer-$i-in-extenso-lucon");
-            $offer->setStatus(OfferStatus::PUBLISHED);
+            $offer->setStatus((new OfferStatus(OfferStatus::PUBLISHED, 'Published'))->getId());
             $offer->setWorkWithUs("Work with us $i de In Extenso Luçon");
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
@@ -430,7 +430,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Luçon");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_7));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_6));
             $application->setOffer($offer);
@@ -441,7 +441,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Luçon");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_8));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_6));
             $application->setOffer($offer);
@@ -452,7 +452,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setLastModifiedDate(new \DateTime('now'));
             $application->setMotivationText("Je suis motivé pour cette offre $i de In Extenso Luçon");
             $application->setScore(10);
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_9));
             $application->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_6));
             $application->setOffer($offer);
