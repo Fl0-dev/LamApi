@@ -259,7 +259,7 @@ class CompanyGroup
     #[ORM\JoinColumn(nullable: true)]
     private Collection $medias;
 
-    #[ORM\OneToOne(targetEntity: Profile::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private ?CompanyProfile $profile = null;
 
