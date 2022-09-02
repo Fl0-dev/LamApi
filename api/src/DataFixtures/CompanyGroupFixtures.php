@@ -9,6 +9,7 @@ use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
 use App\Entity\Company\CompanyProfile;
+use App\Entity\References\CompanySubscriptionType;
 use App\Entity\References\Workforce;
 use App\Entity\Social;
 use App\Entity\SocialFeed;
@@ -49,6 +50,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('TGS France');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('tgs-france');
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff0000');
@@ -167,6 +169,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Eolis');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('eolis');
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff1111');
@@ -262,6 +265,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Livli');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('livli');
         $companyGroup->setCareerWebsite(true);
         $companyGroup->setColor('#ff2222');
@@ -359,6 +363,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('In Extenso');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('in-extenso');
         $companyGroup->setCareerWebsite(true);
         $companyGroup->setColor('#ff3333');

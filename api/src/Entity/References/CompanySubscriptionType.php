@@ -22,29 +22,24 @@ use ApiPlatform\Core\Annotation\ApiResource;
         ], 
     ]
 )]
-class AbstractUserType extends Reference
+class CompanySubscriptionType extends Reference
 {
-    const JOB_BOARD = 'job_board';
-    const ATS = 'ats';
-    const PARTNER = 'partner';
+    const FREE = 'free';
+    const PREMIUM = 'premium';
 
-    const USER_TYPES = [
+    const COMPANY_SUBSCRIPTION_TYPES = [
         [
-            'slug' => self::JOB_BOARD,
-            'label' => 'Job Board'
+            'slug' => self::FREE,
+            'label' => 'Free'
         ],
         [
-            'slug' => self::ATS,
-            'label' => 'Ats'
-        ],
-        [
-            'slug' => self::PARTNER,
-            'label' => 'Partner'
+            'slug' => self::PREMIUM,
+            'label' => 'Premium'
         ],
     ];
 
-    public static function isAbtractUserType(array $typeSlugs): bool
+    public static function isCompanySubscriptionType(array $typeSlugs): bool
     {
-        return !empty(array_intersect($typeSlugs, array_column(self::USER_TYPES, 'slug')));
+        return !empty(array_intersect($typeSlugs, array_column(self::COMPANY_SUBSCRIPTION_TYPES, 'slug')));
     }
 }

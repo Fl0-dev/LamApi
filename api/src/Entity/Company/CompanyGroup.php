@@ -268,6 +268,9 @@ class CompanyGroup
     #[Groups(['read:getCompanyGroupDetails'])]
     private ?Social $social = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $subscriptionType = null;
+
     public function __construct()
     {
         $this->badges = new ArrayCollection();
@@ -708,6 +711,18 @@ class CompanyGroup
     public function setSocial(?Social $social): self
     {
         $this->social = $social;
+
+        return $this;
+    }
+
+    public function getSubscriptionType(): ?string
+    {
+        return $this->subscriptionType;
+    }
+
+    public function setSubscriptionType(?string $subscriptionType): self
+    {
+        $this->subscriptionType = $subscriptionType;
 
         return $this;
     }
