@@ -3,7 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Social;
+use App\Entity\SocialFeed;
 use App\Repository\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
@@ -48,7 +48,7 @@ class CompanyProfile
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[Groups(['read:getCompanyGroupDetails'])]
-    private ?Social $social = null;
+    private ?SocialFeed $socialFeed = null;
 
     #[Validator\IsInRepository()]
     #[ORM\Column(nullable: true)]
@@ -138,14 +138,14 @@ class CompanyProfile
         return $this;
     }
 
-    public function getSocial(): ?Social
+    public function getSocialFeed(): ?SocialFeed
     {
-        return $this->social;
+        return $this->socialFeed;
     }
 
-    public function setSocial(?Social $social): self
+    public function setSocialFeed(?SocialFeed $socialFeed): self
     {
-        $this->social = $social;
+        $this->socialFeed = $socialFeed;
 
         return $this;
     }

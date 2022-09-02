@@ -13,6 +13,7 @@ use App\Entity\JobType;
 use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
+use App\Entity\Social;
 use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
@@ -262,6 +263,10 @@ class CompanyGroup
     #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private ?CompanyProfile $profile = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private ?Social $social = null;
 
     public function __construct()
     {
@@ -691,6 +696,18 @@ class CompanyGroup
     public function setProfile(?CompanyProfile $profile): self
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getSocial(): ?Social
+    {
+        return $this->social;
+    }
+
+    public function setSocial(?Social $social): self
+    {
+        $this->social = $social;
 
         return $this;
     }

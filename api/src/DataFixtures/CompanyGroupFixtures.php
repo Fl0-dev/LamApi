@@ -11,6 +11,7 @@ use App\Entity\Media\MediaVideo;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\References\Workforce;
 use App\Entity\Social;
+use App\Entity\SocialFeed;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -32,14 +33,14 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         ###### TGS FRANCE ######
-        $social = new Social();
-        $social->setFacebook('https://www.facebook.com/tgs-france');
-        $social->setTwitter('https://twitter.com/tgs-france');
+       $socialFeed = new SocialFeed();
+       $socialFeed->setFacebook('https://www.facebook.com/tgs-france');
+       $socialFeed->setTwitter('https://twitter.com/tgs-france');
 
         $profile = new CompanyProfile();
         $profile->setWorkforce((new Workforce(Workforce::LEVEL_8, '1000 à 1999 salariés'))->getId());
         $profile->setCreationYear(2018);
-        $profile->setSocial($social);
+        $profile->setSocialFeed($socialFeed);
         $profile->setMiddleAge(35);
         $profile->setUsText('TGS France est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés partout en France.');
 
@@ -150,13 +151,13 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         ###### EOLIS ######
-        $social = new Social();
-        $social->setFacebook('https://www.facebook.com/Eolis');
-        $social->setTwitter('https://twitter.com/Eolis');
+       $socialFeed = new SocialFeed();
+       $socialFeed->setFacebook('https://www.facebook.com/Eolis');
+       $socialFeed->setTwitter('https://twitter.com/Eolis');
 
         $profile = new CompanyProfile();
         $profile->setWorkforce((new Workforce(Workforce::LEVEL_3, '20 à 49 salariés'))->getId());
-        $profile->setSocial($social);
+        $profile->setSocialFeed($socialFeed);
         $profile->setCreationYear(2015);
         $profile->setMiddleAge(41);
         $profile->setUsText('Eolis est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Nantes');
