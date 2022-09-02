@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     "employer" => "Employer",
 ])]
 #[ORM\Entity]
-#[ORM\Table(name: "Physical_User")]
+#[ORM\Table(name: "physical_user")]
 #[ApiResource()]
 class UserPhysical extends User
 {

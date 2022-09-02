@@ -6,7 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: "Employer")]
+#[ORM\Table(name: "employer")]
 #[ApiResource()]
 class Employer extends UserPhysical
 {
