@@ -3,13 +3,13 @@
 namespace App\Entity\Offer;
 
 use App\Entity\User\User;
-use App\Repository\OfferRepositories\OfferStatusHistoryRepository;
+use App\Repository\OfferRepositories\OfferHistoryRepository;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: OfferStatusHistoryRepository::class)]
-class OfferStatusHistory
+#[ORM\Entity(repositoryClass: OfferHistoryRepository::class)]
+class OfferHistory
 {
     use Uuid;
     use LastModifiedDate;

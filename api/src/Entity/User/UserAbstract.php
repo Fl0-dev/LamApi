@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
     "api" => "UserApi"
 ])]
 #[ORM\Entity]
-#[ORM\Table(name: "Abstract_Users")]
+#[ORM\Table(name: "Abstract_User")]
 abstract class UserAbstract extends User
 {
     #[ORM\Column(type: "string", length: 180)]

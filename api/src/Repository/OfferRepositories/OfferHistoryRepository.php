@@ -2,7 +2,7 @@
 
 namespace App\Repository\OfferRepositories;
 
-use App\Entity\Offer\OfferStatusHistory;
+use App\Entity\Offer\OfferHistory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,14 +14,14 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method OfferStatusHistory[]    findAll()
  * @method OfferStatusHistory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OfferStatusHistoryRepository extends ServiceEntityRepository
+class OfferHistoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, OfferStatusHistory::class);
     }
 
-    public function add(OfferStatusHistory $entity, bool $flush = false): void
+    public function add(OfferHistory $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class OfferStatusHistoryRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(OfferStatusHistory $entity, bool $flush = false): void
+    public function remove(OfferHistory $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

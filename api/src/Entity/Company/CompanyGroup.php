@@ -11,9 +11,8 @@ use App\Entity\Badge;
 use App\Entity\User\Employer;
 use App\Entity\JobType;
 use App\Entity\Media\Media;
-use App\Entity\Media\MediaImage;
 use App\Entity\Organisation;
-use App\Entity\Profile;
+use App\Entity\Company\CompanyProfile;
 use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
@@ -221,12 +220,12 @@ class CompanyGroup
     private $tools;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
-    #[ORM\JoinTable(name: "company_group_pools")]
+    #[ORM\JoinTable(name: "company_group_pool")]
     #[Groups(['read:getCompanyGroupDetails'])]
     private $pools;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
-    #[ORM\JoinTable(name: "company_group_partners")]
+    #[ORM\JoinTable(name: "company_group_partner")]
     #[Groups(['read:getCompanyGroupDetails'])]
     private $partners;
 
@@ -262,7 +261,7 @@ class CompanyGroup
 
     #[ORM\OneToOne(targetEntity: Profile::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
-    private ?Profile $profile = null;
+    private ?CompanyProfile $profile = null;
 
     public function __construct()
     {
@@ -684,12 +683,12 @@ class CompanyGroup
         return $this;
     }
 
-    public function getProfile(): ?Profile
+    public function getProfile(): ?CompanyProfile
     {
         return $this->profile;
     }
 
-    public function setProfile(?Profile $profile): self
+    public function setProfile(?CompanyProfile $profile): self
     {
         $this->profile = $profile;
 
