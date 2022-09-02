@@ -46,11 +46,14 @@ class CompanyEntity
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     private Collection $tools;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Media::class)]
-    private Collection $medias;
-
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
+
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\JoinTable(name: "company_entity_has_media")]
+    #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
+    private Collection $medias;
 
     public function __construct()
     {
@@ -186,6 +189,18 @@ class CompanyEntity
         return $this;
     }
 
+    public function getProfile(): ?CompanyProfile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?CompanyProfile $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Media>
      */
@@ -198,7 +213,6 @@ class CompanyEntity
     {
         if (!$this->medias->contains($media)) {
             $this->medias->add($media);
-            $media->setCompanyEntity($this);
         }
 
         return $this;
@@ -206,24 +220,7 @@ class CompanyEntity
 
     public function removeMedia(Media $media): self
     {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getCompanyEntity() === $this) {
-                $media->setCompanyEntity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getProfile(): ?CompanyProfile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?CompanyProfile $profile): self
-    {
-        $this->profile = $profile;
+        $this->medias->removeElement($media);
 
         return $this;
     }
