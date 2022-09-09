@@ -43,9 +43,6 @@ class CompanyEntity
     #[Groups(['read:getAllTeaserCompanyGroups'])]
     private Collection $companyEntityOffices;
 
-    #[ORM\ManyToMany(targetEntity: Tool::class)]
-    private Collection $tools;
-
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
 
@@ -59,7 +56,6 @@ class CompanyEntity
     {
         $this->admins = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
-        $this->tools = new ArrayCollection();
         $this->medias = new ArrayCollection();
     }
 
@@ -161,30 +157,6 @@ class CompanyEntity
                 $companyEntityOffice->setCompanyEntity(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Tool>
-     */
-    public function getTools(): Collection
-    {
-        return $this->tools;
-    }
-
-    public function addTool(Tool $tool): self
-    {
-        if (!$this->tools->contains($tool)) {
-            $this->tools->add($tool);
-        }
-
-        return $this;
-    }
-
-    public function removeTool(Tool $tool): self
-    {
-        $this->tools->removeElement($tool);
 
         return $this;
     }

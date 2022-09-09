@@ -14,7 +14,6 @@ use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\Social;
-use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -216,10 +215,6 @@ class CompanyGroup
     #[Groups(['read:getCompanyGroupDetails'])]
     private $badges;
 
-    #[ORM\ManyToMany(targetEntity: Tool::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $tools;
-
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pool")]
     #[Groups(['read:getCompanyGroupDetails'])]
@@ -276,7 +271,6 @@ class CompanyGroup
     public function __construct()
     {
         $this->badges = new ArrayCollection();
-        $this->tools = new ArrayCollection();
         $this->pools = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->jobTypes = new ArrayCollection();
@@ -414,30 +408,6 @@ class CompanyGroup
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Tool>
-     */
-    public function getTools(): Collection
-    {
-        return $this->tools;
-    }
-
-    public function addTool(Tool $tool): self
-    {
-        if (!$this->tools->contains($tool)) {
-            $this->tools[] = $tool;
-        }
-
-        return $this;
-    }
-
-    public function removeTool(Tool $tool): self
-    {
-        $this->tools->removeElement($tool);
 
         return $this;
     }
