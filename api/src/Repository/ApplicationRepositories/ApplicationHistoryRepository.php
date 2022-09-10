@@ -2,26 +2,26 @@
 
 namespace App\Repository\ApplicationRepositories;
 
-use App\Entity\Application\ApplicationHasStatus;
+use App\Entity\Application\ApplicationHistory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ApplicationHasStatus>
+ * @extends ServiceEntityRepository<ApplicationHistory>
  *
- * @method ApplicationHasStatus|null find($id, $lockMode = null, $lockVersion = null)
- * @method ApplicationHasStatus|null findOneBy(array $criteria, array $orderBy = null)
- * @method ApplicationHasStatus[]    findAll()
- * @method ApplicationHasStatus[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ApplicationHistory|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ApplicationHistory|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ApplicationHistory[]    findAll()
+ * @method ApplicationHistory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ApplicationHasStatusRepository extends ServiceEntityRepository
+class ApplicationHistoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ApplicationHasStatus::class);
+        parent::__construct($registry, ApplicationHistory::class);
     }
 
-    public function add(ApplicationHasStatus $entity, bool $flush = false): void
+    public function add(ApplicationHistory $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ApplicationHasStatusRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(ApplicationHasStatus $entity, bool $flush = false): void
+    public function remove(ApplicationHistory $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ApplicationHasStatusRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return ApplicationHasStatus[] Returns an array of ApplicationHasStatus objects
+//     * @return ApplicationHistory[] Returns an array of ApplicationHistory objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ApplicationHasStatusRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ApplicationHasStatus
+//    public function findOneBySomeField($value): ?ApplicationHistory
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')
