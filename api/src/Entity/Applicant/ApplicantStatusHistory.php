@@ -3,7 +3,7 @@
 namespace App\Entity\Applicant;
 
 use App\Repository\ApplicantRepositories\ApplicantStatusHistoryRepository;
-use App\Transversal\LastModifiedDate;
+use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ApplicantStatusHistory
 {
     use Uuid;
-    use LastModifiedDate;
+    use CreatedDate;
 
     #[ORM\Column(type: 'string', length: 11)]
     private $status;

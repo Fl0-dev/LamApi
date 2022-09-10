@@ -4,7 +4,7 @@ namespace App\Entity\Offer;
 
 use App\Entity\User\User;
 use App\Repository\OfferRepositories\OfferHistoryRepository;
-use App\Transversal\LastModifiedDate;
+use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class OfferHistory
 {
     use Uuid;
-    use LastModifiedDate;
+    use CreatedDate;
 
     #[ORM\Column(type: 'string')]
     private $offerStatus;

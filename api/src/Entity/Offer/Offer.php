@@ -115,7 +115,6 @@ class Offer
 
     use Uuid;
     //use Slug;
-    use CreatedDate;
     use LastModifiedDate;
 
     #[ORM\Column(type: 'boolean')]
