@@ -114,8 +114,8 @@ class Offer
     const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
 
     use Uuid;
-    //use Slug;
     use LastModifiedDate;
+    use CreatedDate;
 
     #[ORM\Column(type: 'boolean')]
     #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
