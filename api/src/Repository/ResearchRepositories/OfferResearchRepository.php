@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\OfferSubscriptionRepositories;
+namespace App\Repository\ResearchRepositories;
 
-use App\Entity\OfferSubscription\OfferResearch;
+use App\Entity\Research\OfferResearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\OfferSubscription;
+namespace App\Entity\Research;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Applicant\Applicant;
