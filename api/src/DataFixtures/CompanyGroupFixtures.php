@@ -107,7 +107,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Paix');
         $address->setName('TGS Nantes');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('TGSNantesRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -118,6 +117,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('TGS Nantes');
         $companyEntityOffice->setSlug('tgs-nantes');
+        $companyEntityOffice->setHrMailAddress('TGSNantesRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_1, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
@@ -127,7 +127,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue du Port');
         $address->setName('TGS St Nazaire');
         $address->setPostalCode('44800');
-        $address->setHrMailAddress('TGSStNazRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -138,6 +137,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('TGS St-Nazaire');
         $companyEntityOffice->setSlug('tgs-st-nazaire');
+        $companyEntityOffice->setHrMailAddress('TGSStNazRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_2, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
@@ -218,7 +218,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Liberté');
         $address->setName('Eolis Nantes');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('EolisRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -235,6 +234,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('Eolis Nantes');
         $companyEntityOffice->setSlug('eolis-nantes');
+        $companyEntityOffice->setHrMailAddress('EolisRH@gmail.com');
 
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_3, $companyEntityOffice);
 
@@ -313,7 +313,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Liberté');
         $address->setName('Livli St Naz');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('LivliRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -329,6 +328,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('Livli St Naz');
         $companyEntityOffice->setSlug('livli-st-naz');
+        $companyEntityOffice->setHrMailAddress('LivliRH@gmail.com');
 
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_4, $companyEntityOffice);
 
@@ -412,7 +412,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Liberté');
         $address->setName('In Extenso Challans');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('InExtensoRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -423,6 +422,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('In Extenso Challans');
         $companyEntityOffice->setSlug('in-extenso-challans');
+        $companyEntityOffice->setHrMailAddress('InExtensoRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_5, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
@@ -432,7 +432,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Liberté');
         $address->setName('In Extenso Luçon');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('InExtensoRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -443,6 +442,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('In Extenso Luçon');
         $companyEntityOffice->setSlug('in-extenso-lucon');
+        $companyEntityOffice->setHrMailAddress('InExtensoRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_6, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
