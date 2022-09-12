@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Media\MediaImage;
+use App\Entity\User\UserAbstract;
 use App\Repository\AtsRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -27,6 +28,9 @@ class Ats
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?MediaImage $logo = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?UserAbstract $abstractUser = null;
 
     public function getName(): ?string
     {
@@ -72,6 +76,18 @@ class Ats
     public function setLogo(?MediaImage $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getAbstractUser(): ?UserAbstract
+    {
+        return $this->abstractUser;
+    }
+
+    public function setAbstractUser(?UserAbstract $abstractUser): self
+    {
+        $this->abstractUser = $abstractUser;
 
         return $this;
     }

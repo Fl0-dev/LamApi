@@ -27,10 +27,6 @@ class UserPhysical extends User
     #[Groups(['write:postApplicationByOfferId'])]
     private $lastname;
 
-    #[ORM\Column(type: "string", length: 180)]
-    #[Groups(['write:postApplicationByOfferId'])]
-    private $email;
-
     #[ORM\Column(type: "date", nullable: true)]
     private $birthdate;
 
@@ -75,26 +71,6 @@ class UserPhysical extends User
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of email
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
