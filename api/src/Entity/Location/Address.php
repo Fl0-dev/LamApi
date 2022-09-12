@@ -34,10 +34,6 @@ class Address
     #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
     private $longitude;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getCompanyGroupOffices'])]
-    private $hrMailAddress;
-
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
@@ -99,18 +95,6 @@ class Address
     public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getHrMailAddress(): ?string
-    {
-        return $this->hrMailAddress;
-    }
-
-    public function setHrMailAddress(string $hrMailAddress): self
-    {
-        $this->hrMailAddress = $hrMailAddress;
 
         return $this;
     }
