@@ -3,7 +3,7 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG NODE_VERSION=14
+ARG NODE_VERSION=18
 
 # "common" stage
 FROM node:${NODE_VERSION}-alpine AS api_platform_pwa_common
@@ -28,7 +28,7 @@ VOLUME /usr/src/pwa/node_modules
 FROM api_platform_pwa_common AS api_platform_pwa_dev
 
 ENV API_PLATFORM_CLIENT_GENERATOR_OUTPUT .
-RUN yarn global add @api-platform/client-generator
+RUN yarn global add @api-platform/create-client
 
 CMD ["yarn", "dev"]
 
