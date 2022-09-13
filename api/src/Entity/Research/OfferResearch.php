@@ -7,6 +7,7 @@ use App\Entity\Applicant\Applicant;
 use App\Entity\JobTitle;
 use App\Entity\Location\City;
 use App\Entity\Location\Department;
+use App\Entity\Offer\Offer;
 use App\Repository\ResearchRepositories\OfferResearchRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
@@ -43,11 +44,15 @@ class OfferResearch
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
 
+    #[ORM\ManyToMany(targetEntity: Offer::class)]
+    private Collection $OfferResults;
+
     public function __construct()
     {
         $this->cities = new ArrayCollection();
         $this->departments = new ArrayCollection();
         $this->jobTitles = new ArrayCollection();
+        $this->OfferResults = new ArrayCollection();
     }
 
     /**
@@ -194,6 +199,30 @@ class OfferResearch
     public function setApplicant(?Applicant $applicant): self
     {
         $this->applicant = $applicant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOfferResults(): Collection
+    {
+        return $this->OfferResults;
+    }
+
+    public function addOfferResult(Offer $offerResult): self
+    {
+        if (!$this->OfferResults->contains($offerResult)) {
+            $this->OfferResults->add($offerResult);
+        }
+
+        return $this;
+    }
+
+    public function removeOfferResult(Offer $offerResult): self
+    {
+        $this->OfferResults->removeElement($offerResult);
 
         return $this;
     }
