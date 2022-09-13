@@ -36,7 +36,7 @@ class OfferResearch
     private $experiences;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
-    private $contractTypes ;
+    private $contractTypes;
 
     #[ORM\Column]
     private ?int $nbResult = null;
@@ -134,9 +134,10 @@ class OfferResearch
 
     public function addExperience(?string $experience): self
     {
-        if ($this->experiences === null) {
+        if (!is_array($this->experiences)) {
             $this->experiences = [];
         }
+
         if (!in_array($experience, $this->experiences)) {
             $this->experiences[] = $experience;
         }
@@ -160,9 +161,10 @@ class OfferResearch
 
     public function addtContractType(?string $contractType): self
     {
-        if ($this->contractTypes === null) {
+        if (!is_array($this->contractTypes)) {
             $this->contractTypes = [];
         }
+
         if (!in_array($contractType, $this->contractTypes)) {
             $this->contractTypes[] = $contractType;
         }
