@@ -57,20 +57,11 @@ abstract class Media
     #[Groups('read:getCompanyGroupDetails', 'read:getMedia')]
     private $filePath;
 
-    /**
-     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
-     */
+    // /**
+    //  * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
+    //  */
     #[Assert\NotNull()]
     private ?File $file = null;
-
-    #[ORM\ManyToOne(inversedBy: 'medias')]
-    #[Groups(['read:getMedia'])]
-    private ?CompanyEntity $companyEntity = null;
-
-    #[ORM\ManyToOne(inversedBy: 'medias')]
-    #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['read:getMedia'])]
-    private ?CompanyGroup $companyGroup = null;
 
     public function __construct()
     {
@@ -145,29 +136,4 @@ abstract class Media
 
         return $this;
     }
-
-    public function getCompanyEntity(): ?CompanyEntity
-    {
-        return $this->companyEntity;
-    }
-
-    public function setCompanyEntity(?CompanyEntity $companyEntity): self
-    {
-        $this->companyEntity = $companyEntity;
-
-        return $this;
-    }
-
-    public function getCompanyGroup(): ?CompanyGroup
-    {
-        return $this->companyGroup;
-    }
-
-    public function setCompanyGroup(?CompanyGroup $companyGroup): self
-    {
-        $this->companyGroup = $companyGroup;
-
-        return $this;
-    }
-
 }

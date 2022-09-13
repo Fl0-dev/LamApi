@@ -43,20 +43,19 @@ class CompanyEntity
     #[Groups(['read:getAllTeaserCompanyGroups'])]
     private Collection $companyEntityOffices;
 
-    #[ORM\ManyToMany(targetEntity: Tool::class)]
-    private Collection $tools;
-
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Media::class)]
-    private Collection $medias;
-
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
+
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\JoinTable(name: "company_entity_has_media")]
+    #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
+    private Collection $medias;
 
     public function __construct()
     {
         $this->admins = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
-        $this->tools = new ArrayCollection();
         $this->medias = new ArrayCollection();
     }
 
@@ -162,26 +161,14 @@ class CompanyEntity
         return $this;
     }
 
-    /**
-     * @return Collection<int, Tool>
-     */
-    public function getTools(): Collection
+    public function getProfile(): ?CompanyProfile
     {
-        return $this->tools;
+        return $this->profile;
     }
 
-    public function addTool(Tool $tool): self
+    public function setProfile(?CompanyProfile $profile): self
     {
-        if (!$this->tools->contains($tool)) {
-            $this->tools->add($tool);
-        }
-
-        return $this;
-    }
-
-    public function removeTool(Tool $tool): self
-    {
-        $this->tools->removeElement($tool);
+        $this->profile = $profile;
 
         return $this;
     }
@@ -198,7 +185,6 @@ class CompanyEntity
     {
         if (!$this->medias->contains($media)) {
             $this->medias->add($media);
-            $media->setCompanyEntity($this);
         }
 
         return $this;
@@ -206,24 +192,7 @@ class CompanyEntity
 
     public function removeMedia(Media $media): self
     {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getCompanyEntity() === $this) {
-                $media->setCompanyEntity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getProfile(): ?CompanyProfile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?CompanyProfile $profile): self
-    {
-        $this->profile = $profile;
+        $this->medias->removeElement($media);
 
         return $this;
     }

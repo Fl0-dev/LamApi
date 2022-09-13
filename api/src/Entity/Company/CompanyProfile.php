@@ -3,14 +3,17 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Social;
+use App\Entity\SocialFeed;
 use App\Repository\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
+use App\Entity\Tool;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Validator;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CompanyProfileRepository::class)]
 #[ApiResource()]
@@ -48,11 +51,21 @@ class CompanyProfile
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[Groups(['read:getCompanyGroupDetails'])]
-    private ?Social $social = null;
+    private ?SocialFeed $socialFeed = null;
 
     #[Validator\IsInRepository()]
     #[ORM\Column(nullable: true)]
     private ?string $workforce = null;
+
+    #[ORM\ManyToMany(targetEntity: Tool::class)]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private $tools;
+
+    public function __construct()
+    {
+        $this->tools = new ArrayCollection();
+    }
+
 
     public function getCreationYear(): ?int
     {
@@ -138,14 +151,14 @@ class CompanyProfile
         return $this;
     }
 
-    public function getSocial(): ?Social
+    public function getSocialFeed(): ?SocialFeed
     {
-        return $this->social;
+        return $this->socialFeed;
     }
 
-    public function setSocial(?Social $social): self
+    public function setSocialFeed(?SocialFeed $socialFeed): self
     {
-        $this->social = $social;
+        $this->socialFeed = $socialFeed;
 
         return $this;
     }
@@ -158,6 +171,30 @@ class CompanyProfile
     public function setWorkforce(?string $workforce): self
     {
         $this->workforce = $workforce;
+
+        return $this;
+    }
+
+     /**
+     * @return Collection<int, Tool>
+     */
+    public function getTools(): Collection
+    {
+        return $this->tools;
+    }
+
+    public function addTool(Tool $tool): self
+    {
+        if (!$this->tools->contains($tool)) {
+            $this->tools[] = $tool;
+        }
+
+        return $this;
+    }
+
+    public function removeTool(Tool $tool): self
+    {
+        $this->tools->removeElement($tool);
 
         return $this;
     }

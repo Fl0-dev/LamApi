@@ -2,15 +2,16 @@
 
 namespace App\Entity\Application;
 
+use App\Entity\Applicant\ApplicantCv;
 use App\Entity\User\Employer;
-use App\Repository\ApplicationRepositories\ApplicationHasStatusRepository;
+use App\Repository\ApplicationRepositories\ApplicationHistoryRepository;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ApplicationHasStatusRepository::class)]
-class ApplicationHasStatus
+#[ORM\Entity(repositoryClass: ApplicationHistoryRepository::class)]
+class ApplicationHistory
 {
     use Uuid;
     use LastModifiedDate;
@@ -24,8 +25,17 @@ class ApplicationHasStatus
     #[ORM\ManyToOne]
     private ?Application $application = null;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $motivationText;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $score;
+
     #[ORM\Column(nullable: true)]
     private ?string $status = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?ApplicantCv $cv = null;
 
     public function getComment(): ?string
     {
@@ -71,6 +81,42 @@ class ApplicationHasStatus
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getMotivationText(): ?string
+    {
+        return $this->motivationText;
+    }
+
+    public function setMotivationText(?string $motivationText): self
+    {
+        $this->motivationText = $motivationText;
+
+        return $this;
+    }
+
+    public function getScore(): ?int
+    {
+        return $this->score;
+    }
+
+    public function setScore(?int $score): self
+    {
+        $this->score = $score;
+
+        return $this;
+    }
+
+    public function getCv(): ?ApplicantCv
+    {
+        return $this->cv;
+    }
+
+    public function setCv(?ApplicantCv $cv): self
+    {
+        $this->cv = $cv;
 
         return $this;
     }

@@ -13,7 +13,7 @@ use App\Entity\JobType;
 use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
-use App\Entity\Tool;
+use App\Entity\Social;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -215,10 +215,6 @@ class CompanyGroup
     #[Groups(['read:getCompanyGroupDetails'])]
     private $badges;
 
-    #[ORM\ManyToMany(targetEntity: Tool::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
-    private $tools;
-
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pool")]
     #[Groups(['read:getCompanyGroupDetails'])]
@@ -255,25 +251,33 @@ class CompanyGroup
     #[ORM\ManyToMany(targetEntity: Ats::class)]
     private Collection $ats;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private Collection $medias;
-
     #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
     #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
     private ?CompanyProfile $profile = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups(['read:getCompanyGroupDetails'])]
+    private ?Social $social = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $subscriptionType = null;
+
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\JoinTable(name: "company_group_has_media")]
+    #[ORM\JoinColumn(name: "companyGroup_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
+    private Collection $medias;
+
     public function __construct()
     {
         $this->badges = new ArrayCollection();
-        $this->tools = new ArrayCollection();
-        $this->medias = new ArrayCollection();
         $this->pools = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->jobTypes = new ArrayCollection();
         $this->companyEntities = new ArrayCollection();
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -404,30 +408,6 @@ class CompanyGroup
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Tool>
-     */
-    public function getTools(): Collection
-    {
-        return $this->tools;
-    }
-
-    public function addTool(Tool $tool): self
-    {
-        if (!$this->tools->contains($tool)) {
-            $this->tools[] = $tool;
-        }
-
-        return $this;
-    }
-
-    public function removeTool(Tool $tool): self
-    {
-        $this->tools->removeElement($tool);
 
         return $this;
     }
@@ -653,6 +633,42 @@ class CompanyGroup
         return $this;
     }
 
+    public function getProfile(): ?CompanyProfile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?CompanyProfile $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getSocial(): ?Social
+    {
+        return $this->social;
+    }
+
+    public function setSocial(?Social $social): self
+    {
+        $this->social = $social;
+
+        return $this;
+    }
+
+    public function getSubscriptionType(): ?string
+    {
+        return $this->subscriptionType;
+    }
+
+    public function setSubscriptionType(?string $subscriptionType): self
+    {
+        $this->subscriptionType = $subscriptionType;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Media>
      */
@@ -665,7 +681,6 @@ class CompanyGroup
     {
         if (!$this->medias->contains($media)) {
             $this->medias->add($media);
-            $media->setCompanyGroup($this);
         }
 
         return $this;
@@ -673,24 +688,7 @@ class CompanyGroup
 
     public function removeMedia(Media $media): self
     {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getCompanyGroup() === $this) {
-                $media->setCompanyGroup(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getProfile(): ?CompanyProfile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?CompanyProfile $profile): self
-    {
-        $this->profile = $profile;
+        $this->medias->removeElement($media);
 
         return $this;
     }

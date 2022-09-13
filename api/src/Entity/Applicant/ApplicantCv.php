@@ -23,7 +23,6 @@ class ApplicantCv
 {
     use Uuid;
     use CreatedDate;
-    use LastModifiedDate;
     
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]

@@ -25,70 +25,60 @@ class ApplicantCvFixtures extends Fixture
     {
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv1.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_1, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv2.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_2, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv3.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_3, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv4.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_4, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv5.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_5, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv6.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_6, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv7.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_7, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv8.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_8, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv9.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_9, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setLastModifiedDate(new \DateTime('now'));
         $cv->setFilePath('cv10.pdf');
         $this->addReference(self::APPLICANT_CV_REFERENCE_10, $cv);
         $manager->persist($cv);

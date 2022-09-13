@@ -34,6 +34,10 @@ class CompanyEntityOffice
     #[Groups(["read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
     private ?Address $address = null;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['read:getCompanyGroupOffices'])]
+    private $hrMailAddress;
+
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
@@ -84,6 +88,18 @@ class CompanyEntityOffice
     public function setCompanyEntity(?CompanyEntity $companyEntity): self
     {
         $this->companyEntity = $companyEntity;
+
+        return $this;
+    }
+
+    public function getHrMailAddress(): ?string
+    {
+        return $this->hrMailAddress;
+    }
+
+    public function setHrMailAddress(string $hrMailAddress): self
+    {
+        $this->hrMailAddress = $hrMailAddress;
 
         return $this;
     }
