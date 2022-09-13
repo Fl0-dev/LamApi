@@ -38,4 +38,16 @@ class AddressRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findAllCodeWithAddress()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('d.code')
+            ->join('a.city', 'c')
+            ->join('c.department', 'd')
+            ->groupBy('d.code')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
