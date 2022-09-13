@@ -7,6 +7,7 @@ use App\Entity\Applicant\Applicant;
 use App\Entity\JobTitle;
 use App\Entity\Location\City;
 use App\Entity\Location\Department;
+use App\Repository\ResearchRepositories\OfferResearchRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -30,11 +31,11 @@ class OfferResearch
     #[ORM\ManyToMany(targetEntity: JobTitle::class)]
     private Collection $jobTitles;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $experiences = [];
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private $experiences;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $contractTypes = [];
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private $contractTypes ;
 
     #[ORM\Column]
     private ?int $nbResult = null;
@@ -126,9 +127,23 @@ class OfferResearch
         return $this->experiences;
     }
 
-    public function setExperiences(?array $experiences): self
+    public function addExperience(?string $experience): self
     {
-        $this->experiences = $experiences;
+        if ($this->experiences === null) {
+            $this->experiences = [];
+        }
+        if (!in_array($experience, $this->experiences)) {
+            $this->experiences[] = $experience;
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(?string $experience): self
+    {
+        if (in_array($experience, $this->experiences)) {
+            unset($experience, $this->experiences);
+        } 
 
         return $this;
     }
@@ -138,9 +153,23 @@ class OfferResearch
         return $this->contractTypes;
     }
 
-    public function setContractTypes(?array $contractTypes): self
+    public function addtContractType(?string $contractType): self
     {
-        $this->contractTypes = $contractTypes;
+        if ($this->contractTypes === null) {
+            $this->contractTypes = [];
+        }
+        if (!in_array($contractType, $this->contractTypes)) {
+            $this->contractTypes[] = $contractType;
+        }
+
+        return $this;
+    }
+
+    public function removeContractType(?string $contractType): self
+    {
+        if (in_array($contractType, $this->contractTypes)) {
+            unset($contractType, $this->contractTypes);
+        } 
 
         return $this;
     }
