@@ -26,7 +26,7 @@ class CompanyResearch
     use CreatedDate;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $CompanyName = null;
+    private ?string $companyName = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private array $workforces;
@@ -67,12 +67,12 @@ class CompanyResearch
 
     public function getCompanyName(): ?string
     {
-        return $this->CompanyName;
+        return $this->companyName;
     }
 
-    public function setCompanyName(?string $CompanyName): self
+    public function setCompanyName(?string $companyName): self
     {
-        $this->CompanyName = $CompanyName;
+        $this->companyName = $companyName;
 
         return $this;
     }
@@ -84,9 +84,10 @@ class CompanyResearch
 
     public function addWorkforce(?string $workforce): self
     {
-        if ($this->workforces === null) {
+        if (!is_array($this->workforces)) {
             $this->workforces = [];
         }
+        
         if (!in_array($workforce, $this->workforces)) {
             $this->workforces[] = $workforce;
         }
