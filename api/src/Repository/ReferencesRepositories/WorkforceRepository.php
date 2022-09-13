@@ -9,8 +9,6 @@ class WorkforceRepository
 {
 
     /**
-     * Undocumented function
-     *
      * @return Workforce[]
      */
     public function findAll(): array

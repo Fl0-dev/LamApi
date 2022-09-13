@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class SubscriptionStatusRepository
 {
     /**
-     * Undocumented function
-     *
      * @return SubscriptionStatus[]
      */
     public function findAll(): array

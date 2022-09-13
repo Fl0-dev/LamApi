@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class OfferStatusRepository
 {
     /**
-     * Undocumented function
-     *
      * @return OfferStatus[]
      */
     public function findAll(): array

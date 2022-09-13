@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class LevelOfStudyRepository
 {
     /**
-     * Undocumented function
-     *
      * @return LevelOfStudy[]
      */
     public function findAll(): array

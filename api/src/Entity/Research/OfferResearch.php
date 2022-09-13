@@ -39,20 +39,20 @@ class OfferResearch
     private $contractTypes;
 
     #[ORM\Column]
-    private ?int $nbResult = null;
+    private ?int $nbResults = null;
 
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
 
     #[ORM\ManyToMany(targetEntity: Offer::class)]
-    private Collection $OfferResults;
+    private Collection $offerResults;
 
     public function __construct()
     {
         $this->cities = new ArrayCollection();
         $this->departments = new ArrayCollection();
         $this->jobTitles = new ArrayCollection();
-        $this->OfferResults = new ArrayCollection();
+        $this->offerResults = new ArrayCollection();
     }
 
     /**
@@ -181,14 +181,14 @@ class OfferResearch
         return $this;
     }
 
-    public function getNbResult(): ?int
+    public function getNbResults(): ?int
     {
-        return $this->nbResult;
+        return $this->nbResults;
     }
 
-    public function setNbResult(int $nbResult): self
+    public function setNbResults(int $nbResults): self
     {
-        $this->nbResult = $nbResult;
+        $this->nbResults = $nbResults;
 
         return $this;
     }
@@ -210,13 +210,13 @@ class OfferResearch
      */
     public function getOfferResults(): Collection
     {
-        return $this->OfferResults;
+        return $this->offerResults;
     }
 
     public function addOfferResult(Offer $offerResult): self
     {
-        if (!$this->OfferResults->contains($offerResult)) {
-            $this->OfferResults->add($offerResult);
+        if (!$this->offerResults->contains($offerResult)) {
+            $this->offerResults->add($offerResult);
         }
 
         return $this;
@@ -224,7 +224,7 @@ class OfferResearch
 
     public function removeOfferResult(Offer $offerResult): self
     {
-        $this->OfferResults->removeElement($offerResult);
+        $this->offerResults->removeElement($offerResult);
 
         return $this;
     }
