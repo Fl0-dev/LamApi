@@ -15,9 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 #[ApiResource(
     itemOperations: [
+        'get',
         self::OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY => [
             'method' => 'GET',
-            'path' => '/count-departments',
+            'path' => '/departments-count',
             'controller' => DepartmentController::class,
             'pagination_enabled' => false,
             'read' => false,

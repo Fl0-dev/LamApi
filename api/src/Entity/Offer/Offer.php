@@ -3,6 +3,7 @@
 namespace App\Entity\Offer;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Validator;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
@@ -23,6 +24,7 @@ use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -50,10 +52,26 @@ use Symfony\Component\Validator\Constraints\Length;
         ],
     ],
     itemOperations: [
+        ############################## GET DETAILS OF ONE OFFER ##############################
+        'getOfferDetails' => [
+            'method' => 'GET',
+            'path' => '/offers/{id}',
+            'normalization_context' => [
+                'groups' => ['read:getOfferDetails'],
+            ],
+        ],
+        ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
+        'getOfferApplications' => [
+            'method' => 'GET',
+            'path' => '/offers/{id}/applications',
+            'normalization_context' => [
+                'groups' => ['read:getOfferApplications'],
+            ],
+        ],
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
         self::OPERATION_NAME_COUNT_OFFERS => [
             'method' => 'GET',
-            'path' => '/count-offers',
+            'path' => '/offers-count',
             'controller' => OfferController::class,
             'pagination_enabled' => false,
             'read' => false,
@@ -77,22 +95,6 @@ use Symfony\Component\Validator\Constraints\Length;
                 ],
             ]
         ],
-        ############################## GET DETAILS OF ONE OFFER ##############################
-        'getOfferDetails' => [
-            'method' => 'GET',
-            'path' => '/offers/{id}',
-            'normalization_context' => [
-                'groups' => ['read:getOfferDetails'],
-            ],
-        ],
-        ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
-        'getOfferApplications' => [
-            'method' => 'GET',
-            'path' => '/offers/{id}/applications',
-            'normalization_context' => [
-                'groups' => ['read:getOfferApplications'],
-            ],
-        ],
     ]
 )]
 #[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'desc'])]
@@ -114,7 +116,7 @@ class Offer
     const OPERATION_NAME_POST_OFFER = 'postOffer';
     const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
 
-    use Uuid;
+
     use LastModifiedDate;
     use CreatedDate;
 
@@ -133,6 +135,44 @@ class Offer
         )
     ]
     private $title;
+
+    /**
+     * Uuid Property
+     *
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
+    #[ApiProperty(identifier: true)]
+    #[Groups(['read:getAllTeaserOffers'])]
+    private ?BaseUuid $id = null;
+
+    /**
+     * Get Uuid value
+     */
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Uuid value
+     */
+    public function setId(BaseUuid $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Check if Uuid has a valid value
+     */
+    public function hasId(): bool
+    {
+        return $this->id instanceof BaseUuid;
+    }
 
     #[ORM\Column(type: 'boolean')]
     #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
