@@ -52,7 +52,6 @@ class ApplicationController extends AbstractController
             $applicantCV = new ApplicantCv();
             $applicantCV->setFile($file);
             $applicantCV->setCreatedDate(new \DateTime());
-            $applicantCV->setLastModifiedDate(new \DateTime());
 
             $application->setCv($applicantCV);
             $application->setCreatedDate(new \DateTime());
@@ -84,7 +83,6 @@ class ApplicationController extends AbstractController
             $applicantCV = new ApplicantCv();
             $applicantCV->setFile($file);
             $applicantCV->setCreatedDate(new \DateTime());
-            $applicantCV->setLastModifiedDate(new \DateTime());
 
             $application->setCv($applicantCV);
             $application->setCreatedDate(new \DateTime());
