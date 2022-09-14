@@ -120,6 +120,18 @@ class Offer
     use LastModifiedDate;
     use CreatedDate;
 
+    /**
+     * Uuid Property
+     *
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
+    #[ApiProperty(identifier: true)]
+    #[Groups(['read:getAllTeaserOffers'])]
+    private ?BaseUuid $id = null;
+
     #[ORM\Column(type: 'boolean')]
     #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
     private $provided;
@@ -135,44 +147,6 @@ class Offer
         )
     ]
     private $title;
-
-    /**
-     * Uuid Property
-     *
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
-    #[ApiProperty(identifier: true)]
-    #[Groups(['read:getAllTeaserOffers'])]
-    private ?BaseUuid $id = null;
-
-    /**
-     * Get Uuid value
-     */
-    public function getId(): ?BaseUuid
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set Uuid value
-     */
-    public function setId(BaseUuid $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Check if Uuid has a valid value
-     */
-    public function hasId(): bool
-    {
-        return $this->id instanceof BaseUuid;
-    }
 
     #[ORM\Column(type: 'boolean')]
     #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
@@ -295,6 +269,32 @@ class Offer
         $this->status = OfferStatus::DRAFT;
     }
 
+    /**
+     * Get Uuid value
+     */
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Uuid value
+     */
+    public function setId(BaseUuid $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Check if Uuid has a valid value
+     */
+    public function hasId(): bool
+    {
+        return $this->id instanceof BaseUuid;
+    }
+    
     public function getSlug(): ?string
     {
         return $this->slug;

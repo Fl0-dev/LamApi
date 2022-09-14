@@ -3,6 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
@@ -15,7 +16,10 @@ use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\Social;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
-use App\Transversal\TechnicalProperties;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
+use App\Transversal\Slug;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -166,7 +170,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'jobTypes',
         'name' => 'ipartial',
         'badges',
-        'tools',
+        'profile.tools',
         'profile.workforce', //slug exact match
         'companyEntities.companyEntityOffices.address.city', //uuid exact match
         'companyEntities.companyEntityOffices.address.city.department', //uuid exact match
@@ -177,7 +181,21 @@ class CompanyGroup
     const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
     const OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
 
-    use TechnicalProperties;
+    use Slug;
+    use CreatedDate;
+    use LastModifiedDate;
+
+    /**
+     * Uuid Property
+     *
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
+    #[ApiProperty(identifier: true)]
+    #[Groups(["read:getAllTeaserCompanyGroups"])]
+    private ?BaseUuid $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups(["read:getAllTeaserCompanyGroups", "read:getCompanyNameByKeyWords", 'read:getCompanyGroupDetails'])]
@@ -278,6 +296,32 @@ class CompanyGroup
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();
         $this->medias = new ArrayCollection();
+    }
+
+    /**
+     * Get Uuid value
+     */
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Uuid value
+     */
+    public function setId(BaseUuid $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Check if Uuid has a valid value
+     */
+    public function hasId(): bool
+    {
+        return $this->id instanceof BaseUuid;
     }
 
     public function getName(): ?string

@@ -46,7 +46,6 @@ class OfferSubscriber implements EventSubscriberInterface
 
             //récupère les filtres
             $filters = $event->getRequest()->query->all();
-            // dd($filters);
 
             //jobTitle
             $jobTitles = Utils::getArrayValue('jobTitle', $filters);
