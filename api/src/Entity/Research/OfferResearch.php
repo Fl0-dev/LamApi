@@ -38,9 +38,6 @@ class OfferResearch
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private $contractTypes;
 
-    #[ORM\Column]
-    private ?int $nbResults = null;
-
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
 
@@ -177,18 +174,6 @@ class OfferResearch
         if (in_array($contractType, $this->contractTypes)) {
             unset($contractType, $this->contractTypes);
         } 
-
-        return $this;
-    }
-
-    public function getNbResults(): ?int
-    {
-        return $this->nbResults;
-    }
-
-    public function setNbResults(int $nbResults): self
-    {
-        $this->nbResults = $nbResults;
 
         return $this;
     }
