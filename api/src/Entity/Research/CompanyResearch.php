@@ -46,9 +46,6 @@ class CompanyResearch
     #[ORM\ManyToMany(targetEntity: Badge::class)]
     private Collection $badges;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $nbResults = null;
-
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
 
@@ -220,18 +217,6 @@ class CompanyResearch
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
-
-        return $this;
-    }
-
-    public function getNbResults(): ?int
-    {
-        return $this->nbResults;
-    }
-
-    public function setNbResults(?int $nbResults): self
-    {
-        $this->nbResults = $nbResults;
 
         return $this;
     }
