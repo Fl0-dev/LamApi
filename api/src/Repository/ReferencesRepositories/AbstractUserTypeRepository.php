@@ -9,8 +9,6 @@ class AbstractUserTypeRepository
 {
 
     /**
-     * Undocumented function
-     *
      * @return AbstractUserType[]
      */
     public function findAll(): array

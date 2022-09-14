@@ -9,8 +9,6 @@ class ApplicantStatusRepository
 {
 
     /**
-     * Undocumented function
-     *
      * @return ApplicantStatus[]
      */
     public function findAll(): array

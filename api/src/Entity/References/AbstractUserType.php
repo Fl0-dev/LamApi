@@ -24,7 +24,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 )]
 class AbstractUserType extends Reference
 {
-    const JOB_BOARD = 'job_board';
+    const JOB_BOARD = 'job-board';
     const ATS = 'ats';
     const PARTNER = 'partner';
 

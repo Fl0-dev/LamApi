@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class ExperienceRepository
 {
     /**
-     * Undocumented function
-     *
      * @return ContractType[]
      */
     public function findAll(): array
