@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'getOfferTeasers' => [
+        self::OPERATION_NAME_GET_OFFER_TEASERS => [
             'method' => 'GET',
             'path' => '/offers/teasers',
             'normalization_context' => [
@@ -110,6 +110,7 @@ use Symfony\Component\Validator\Constraints\Length;
 ]
 class Offer
 {
+    const OPERATION_NAME_GET_OFFER_TEASERS = 'getOfferTeasers';
     const OPERATION_NAME_POST_OFFER = 'postOffer';
     const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
 
