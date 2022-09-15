@@ -22,35 +22,35 @@ class CompanyProfile
     use Uuid;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?int $creationYear = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?int $turnover = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?string $usText = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?string $values = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?int $customersNumber = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?string $customersDesc = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?int $middleAge = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?SocialFeed $socialFeed = null;
 
     #[Validator\IsInRepository()]
@@ -58,7 +58,7 @@ class CompanyProfile
     private ?string $workforce = null;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $tools;
 
     public function __construct()
@@ -175,7 +175,7 @@ class CompanyProfile
         return $this;
     }
 
-     /**
+    /**
      * @return Collection<int, Tool>
      */
     public function getTools(): Collection
@@ -199,7 +199,7 @@ class CompanyProfile
         return $this;
     }
 
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     public function getWorkforceLabel(): ?string
     {
         $workforceRepository = new WorkforceRepository();

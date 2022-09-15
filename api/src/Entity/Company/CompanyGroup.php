@@ -3,6 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
@@ -15,7 +16,10 @@ use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\Social;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
-use App\Transversal\TechnicalProperties;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
+use App\Transversal\Slug;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,19 +28,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'getCompanyGroupTeaser' => [
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS => [
             'method' => 'GET',
             'path' => '/company-groups/teasers',
             'openapi_context' => [],
             'normalization_context' => [
-                'groups' => ['read:getAllTeaserCompanyGroups'],
+                'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS],
             ],
         ],
         self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS => [
             'method' => 'GET',
             'path' => '/company-groups/name/keywords={keywords}',
             'normalization_context' => [
-                'groups' => ['read:getCompanyNameByKeyWords'],
+                'groups' => [self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS],
             ],
             'controller' => CompanyGroupController::class,
             'filters' => [],
@@ -58,11 +62,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     itemOperations: [
         ############################## GET DETAILS OF ONE COMPANYGROUP ##############################
-        'getCompanyGroupDetails' => [
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS => [
             'method' => 'GET',
             'path' => '/company-groups/{id}',
             'normalization_context' => [
-                'groups' => ['read:getCompanyGroupDetails'],
+                'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS],
             ],
         ],
         ############################## GET NUMBER OF COMPANYGROUPS ##############################
@@ -93,11 +97,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ]
         ],
         ############################## GET ALL OFFERS BY COMPANYGROUP ID ##############################
-        'getCompanyGroupOffers' => [
+        self::OPERATION_NAME_GET_COMPANY_OFFERS => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/offers',
             'normalization_context' => [
-                'groups' => ['read:getCompanyGroupOffers'],
+                'groups' => [self::OPERATION_NAME_GET_COMPANY_OFFERS],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of offers by company group id',
@@ -115,11 +119,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ],
         ############################## GET ALL OFFICES BY COMPANYGROUP ID ##############################
-        'getCompanyGroupOffices' => [
+        self::OPERATION_NAME_GET_COMPANY_OFFICES => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/offices',
             'normalization_context' => [
-                'groups' => ['read:getCompanyGroupOffices'],
+                'groups' => [self::OPERATION_NAME_GET_COMPANY_OFFICES],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of offices by company group id',
@@ -137,11 +141,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ],
         ############################## GET ALL APPLICATIONS BY COMPANYGROUP ID ##############################
-        'getCompanyGroupApplications' => [
+        self::OPERATION_NAME_GET_COMPANY_APPLICATIONS => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/applications',
             'normalization_context' => [
-                'groups' => ['read:getCompanyGroupApplications'],
+                'groups' => [self::OPERATION_NAME_GET_COMPANY_APPLICATIONS],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of applications by company group id',
@@ -166,7 +170,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'jobTypes',
         'name' => 'ipartial',
         'badges',
-        'tools',
+        'profile.tools',
         'profile.workforce', //slug exact match
         'companyEntities.companyEntityOffices.address.city', //uuid exact match
         'companyEntities.companyEntityOffices.address.city.department', //uuid exact match
@@ -176,11 +180,30 @@ class CompanyGroup
 {
     const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
     const OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
+    const OPERATION_NAME_GET_COMPANY_APPLICATIONS = 'getCompanyGroupApplications';
+    const OPERATION_NAME_GET_COMPANY_OFFICES = 'getCompanyGroupOffices';
+    const OPERATION_NAME_GET_COMPANY_OFFERS = 'getCompanyGroupOffers';
+    const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
+    const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
 
-    use TechnicalProperties;
+    use Slug;
+    use CreatedDate;
+    use LastModifiedDate;
+
+    /**
+     * Uuid Property
+     *
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
+    #[ApiProperty(identifier: true)]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
+    private ?BaseUuid $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups", "read:getCompanyNameByKeyWords", 'read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $name;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -190,59 +213,59 @@ class CompanyGroup
     private $status;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $globalHrMail;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $referralCode;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $website;
 
     #[ORM\Column(type: 'boolean')]
     private $careerWebsite;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $openToRecruitment;
 
     #[ORM\Column(type: 'string', length: 7)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $color;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $badges;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pool")]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $pools;
 
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_partner")]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $partners;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $logo;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $headerMedia;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $mainMedia;
 
     #[ORM\ManyToMany(targetEntity: JobType::class)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
-    #[Groups(['read:getCompanyGroupDetails', "read:getAllTeaserCompanyGroups", 'read:getCompanyGroupOffers', 'read:getCompanyGroupOffices', 'read:getCompanyGroupApplications'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_OFFERS, self::OPERATION_NAME_GET_COMPANY_OFFICES, self::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -252,11 +275,11 @@ class CompanyGroup
     private Collection $ats;
 
     #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?CompanyProfile $profile = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?Social $social = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -278,6 +301,32 @@ class CompanyGroup
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();
         $this->medias = new ArrayCollection();
+    }
+
+    /**
+     * Get Uuid value
+     */
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Uuid value
+     */
+    public function setId(BaseUuid $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Check if Uuid has a valid value
+     */
+    public function hasId(): bool
+    {
+        return $this->id instanceof BaseUuid;
     }
 
     public function getName(): ?string
@@ -574,14 +623,14 @@ class CompanyGroup
         return $this;
     }
 
-    #[Groups(["read:getAllTeaserCompanyGroups"])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
     public function getNbBadges(): ?int
     {
         $nbBadges = count($this->getBadges());
         return $nbBadges;
     }
 
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     public function getNbOffers(): ?int
     {
         $companyEntities = $this->getCompanyEntities();
@@ -596,7 +645,7 @@ class CompanyGroup
         return $nbOffers;
     }
 
-    #[Groups(["read:getAllTeaserCompanyGroups", 'read:getCompanyGroupDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     public function getNbCompanyEntityOffices(): ?int
     {
         $companyEntities = $this->getCompanyEntities();
@@ -605,7 +654,7 @@ class CompanyGroup
         foreach ($companyEntities as $companyEntity) {
             $nbOffices += count($companyEntity->getCompanyEntityOffices());
         }
-        
+
         return $nbOffices;
     }
 

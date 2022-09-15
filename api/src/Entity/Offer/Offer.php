@@ -3,6 +3,7 @@
 namespace App\Entity\Offer;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Validator;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
@@ -11,6 +12,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\OfferController;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyEntityOffice;
+use App\Entity\Company\CompanyGroup;
 use App\Entity\User\Employer;
 use App\Entity\JobBoard;
 use App\Entity\JobTitle;
@@ -23,6 +25,7 @@ use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,11 +35,11 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'getOfferTeasers' => [
+        self::OPERATION_NAME_GET_OFFER_TEASERS => [
             'method' => 'GET',
             'path' => '/offers/teasers',
             'normalization_context' => [
-                'groups' => ['read:getAllTeaserOffers'],
+                'groups' => [self::OPERATION_NAME_GET_OFFER_TEASERS],
             ],
         ],
         ############################## SAVE OR UPDATE OFFER ##############################
@@ -45,15 +48,31 @@ use Symfony\Component\Validator\Constraints\Length;
             'path' => '/offers',
             'controller' => OfferController::class,
             'denormalization_context' => [
-                'groups' => ['write:postOffer'],
+                'groups' => [self::OPERATION_NAME_POST_OFFER],
             ],
         ],
     ],
     itemOperations: [
+        ############################## GET DETAILS OF ONE OFFER ##############################
+        self::OPERATION_NAME_GET_OFFER_DETAILS => [
+            'method' => 'GET',
+            'path' => '/offers/{id}',
+            'normalization_context' => [
+                'groups' => [self::OPERATION_NAME_GET_OFFER_DETAILS],
+            ],
+        ],
+        ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
+        self::OPERATION_NAME_GET_OFFER_APPLICATIONS => [
+            'method' => 'GET',
+            'path' => '/offers/{id}/applications',
+            'normalization_context' => [
+                'groups' => [self::OPERATION_NAME_GET_OFFER_APPLICATIONS],
+            ],
+        ],
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
         self::OPERATION_NAME_COUNT_OFFERS => [
             'method' => 'GET',
-            'path' => '/count-offers',
+            'path' => '/offers-count',
             'controller' => OfferController::class,
             'pagination_enabled' => false,
             'read' => false,
@@ -77,53 +96,53 @@ use Symfony\Component\Validator\Constraints\Length;
                 ],
             ]
         ],
-        ############################## GET DETAILS OF ONE OFFER ##############################
-        'getOfferDetails' => [
-            'method' => 'GET',
-            'path' => '/offers/{id}',
-            'normalization_context' => [
-                'groups' => ['read:getOfferDetails'],
-            ],
-        ],
-        ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
-        'getOfferApplications' => [
-            'method' => 'GET',
-            'path' => '/offers/{id}/applications',
-            'normalization_context' => [
-                'groups' => ['read:getOfferApplications'],
-            ],
-        ],
     ]
 )]
 #[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'desc'])]
 #[ApiFilter(BooleanFilter::class, properties: ['provided' => false])]
-#[ApiFilter(SearchFilter::class, 
-    properties: [
-        'contractType', 
-        'jobTitle', 
-        'experience', 
-        'companyEntityOffice.companyEntity.companyGroup.id' => 'exact',
-        'companyEntityOffice.address.city',
-        'companyEntityOffice.address.city.department',
+#[
+    ApiFilter(
+        SearchFilter::class,
+        properties: [
+            'contractType',
+            'jobTitle',
+            'experience',
+            'companyEntityOffice.companyEntity.companyGroup.id' => 'exact',
+            'companyEntityOffice.address.city',
+            'companyEntityOffice.address.city.department',
         ]
     )
 ]
 class Offer
 {
+    const OPERATION_NAME_GET_OFFER_TEASERS = 'getOfferTeasers';
     const OPERATION_NAME_POST_OFFER = 'postOffer';
     const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
+    const OPERATION_NAME_GET_OFFER_APPLICATIONS = 'getOfferApplications';
+    const OPERATION_NAME_GET_OFFER_DETAILS = 'getOfferDetails';
 
-    use Uuid;
     use LastModifiedDate;
     use CreatedDate;
 
+    /**
+     * Uuid Property
+     *
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
+    #[ApiProperty(identifier: true)]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_TEASERS])]
+    private ?BaseUuid $id = null;
+
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers"])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS])]
     private $provided;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[
-        Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer']),
+        Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER]),
         Length(
             min: 3,
             max: 255,
@@ -134,51 +153,51 @@ class Offer
     private $title;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $fullyTelework;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $missions;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $needs;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $prospectWithUs;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $recruitmentProcess;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $workWithUs;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $weeklyHours;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $startASAP;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $salaryMin;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $salaryMax;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $startDate;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    #[Groups(['read:getOfferDetails'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS])]
     private $publishedAt;
 
     #[ORM\ManyToMany(targetEntity: JobBoard::class, inversedBy: 'offers')]
@@ -186,7 +205,7 @@ class Offer
     private $jobBoards;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
-    #[Groups(['read:getOfferApplications', "read:getJobBoardOffers"])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_APPLICATIONS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS])]
     #[ORM\JoinColumn(nullable: true)]
     private $applications;
 
@@ -196,27 +215,27 @@ class Offer
 
     #[ORM\ManyToOne(targetEntity: Media::class)]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers"])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS])]
     private $headerMedia;
 
     #[Validator\IsInRepository()]
     #[ORM\Column(type: 'string', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $levelOfStudy;
 
     #[ORM\ManyToOne(targetEntity: JobTitle::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $jobTitle;
 
     #[Validator\IsInRepository()]
     #[ORM\Column(type: 'string', nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $experience;
 
     #[Validator\IsInRepository()]
     #[ORM\Column(type: 'string', nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private $contractType;
 
     #[ORM\Column(type: 'string', nullable: false)]
@@ -224,7 +243,7 @@ class Offer
 
     #[ORM\Column(type: "string", length: 255, nullable: false)]
     #[
-        Groups(['write:postOffer']),
+        Groups([self::OPERATION_NAME_POST_OFFER]),
         Length(
             min: 3,
             max: 255,
@@ -239,7 +258,7 @@ class Offer
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 
     public function __construct()
@@ -252,6 +271,32 @@ class Offer
         $this->provided = false;
         $this->publishedAt = null;
         $this->status = OfferStatus::DRAFT;
+    }
+
+    /**
+     * Get Uuid value
+     */
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Uuid value
+     */
+    public function setId(BaseUuid $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Check if Uuid has a valid value
+     */
+    public function hasId(): bool
+    {
+        return $this->id instanceof BaseUuid;
     }
 
     public function getSlug(): ?string
@@ -616,11 +661,11 @@ class Offer
         return $this;
     }
 
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers"])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS])]
     public function getContractTypeLabel(): ?string
     {
         $contractTypeRepository = new ContractTypeRepository();
-        
+
         return $contractTypeRepository->find($this->contractType)->getLabel();
-    } 
+    }
 }

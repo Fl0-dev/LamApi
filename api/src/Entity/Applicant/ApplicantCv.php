@@ -4,9 +4,11 @@ namespace App\Entity\Applicant;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Application\Application;
+use App\Entity\Company\CompanyGroup;
+use App\Entity\Offer\Offer;
 use App\Repository\ApplicantRepositories\ApplicantCvRepository;
 use App\Transversal\CreatedDate;
-use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -17,19 +19,18 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @Vich\Uploadable()
  */
 #[ORM\Entity(repositoryClass: ApplicantCvRepository::class)]
-#[ApiResource(
-)]
+#[ApiResource()]
 class ApplicantCv
 {
     use Uuid;
     use CreatedDate;
-    
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications','write:postApplicationByOfferId'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $filePath;
 
     #[ApiProperty(iri: 'https://schema.org/contentUrl')]
-    #[Groups(['write:postApplicationByOfferId'])]
+    #[Groups([Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     public ?string $contentUrl = null;
 
     /**
@@ -78,7 +79,7 @@ class ApplicantCv
 
     /**
      * Get the value of contentUrl
-     */ 
+     */
     public function getContentUrl()
     {
         return $this->contentUrl;
@@ -88,7 +89,7 @@ class ApplicantCv
      * Set the value of contentUrl
      *
      * @return  self
-     */ 
+     */
     public function setContentUrl($contentUrl)
     {
         $this->contentUrl = $contentUrl;

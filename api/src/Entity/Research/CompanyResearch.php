@@ -29,7 +29,7 @@ class CompanyResearch
     private ?string $companyName = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
-    private array $workforces;
+    private $workforces;
 
     #[ORM\ManyToMany(targetEntity: City::class)]
     private Collection $cities;

@@ -16,7 +16,7 @@ trait LastModifiedDate
      *
      */
     #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
-    #[Groups(['read:getOfferApplications'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS])]
     private ?\DateTime $lastModifiedDate;
 
     /**

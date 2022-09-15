@@ -156,7 +156,7 @@ class OfferResearch
         return $this->contractTypes;
     }
 
-    public function addtContractType(?string $contractType): self
+    public function addContractType(?string $contractType): self
     {
         if (!is_array($this->contractTypes)) {
             $this->contractTypes = [];

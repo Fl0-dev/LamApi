@@ -3,6 +3,8 @@
 namespace App\Entity\Location;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Company\CompanyGroup;
+use App\Entity\Offer\Offer;
 use App\Repository\LocationRepositories\AddressRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,28 +17,28 @@ class Address
     use Uuid;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups(['read:getCompanyGroupOffices'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $latitude;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read:getOfferDetails','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $longitude;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers','read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $city;
 
     public function getName(): ?string
