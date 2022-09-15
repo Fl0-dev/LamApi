@@ -2,6 +2,7 @@
 
 namespace App\Transversal;
 
+use App\Entity\Offer\Offer;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
