@@ -51,7 +51,7 @@ class Department
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCities"])]
+    #[Groups([City::OPERATION_NAME__GET_ALL_CITIES])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 7)]

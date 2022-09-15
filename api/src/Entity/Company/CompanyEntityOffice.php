@@ -4,6 +4,7 @@ namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Application\Application;
+use App\Entity\JobBoard;
 use App\Entity\Location\Address;
 use App\Entity\Offer\Offer;
 use App\Repository\CompanyRepositories\CompanyEntityOfficeRepository;
@@ -26,28 +27,28 @@ class CompanyEntityOffice
     use LastModifiedDate;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, Offer::OPERATION_NAME_POST_OFFER])]
     private ?string $name = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(["read:getAllTeaserCompanyGroups",'read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getCompanyGroupDetails', 'read:getCompanyGroupOffices'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private ?Address $address = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:getCompanyGroupOffices'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $hrMailAddress;
 
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', "read:getJobBoardOffers", 'write:postOffer'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, Offer::OPERATION_NAME_POST_OFFER])]
     private ?CompanyEntity $companyEntity = null;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Offer::class)]
     private Collection $offers;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Application::class)]
-    #[Groups(['read:getCompanyGroupApplications'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
     private Collection $applications;
 
     public function __construct()

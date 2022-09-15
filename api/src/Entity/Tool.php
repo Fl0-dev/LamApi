@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\Media;
 use App\Repository\ToolRepository;
 use App\Transversal\Label;
@@ -23,7 +24,7 @@ class Tool
     use Label;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?Media $logo = null;
 
     public function getLogo(): ?Media

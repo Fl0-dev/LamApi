@@ -4,6 +4,7 @@ namespace App\Entity\User;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Applicant\Applicant;
+use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -20,11 +21,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class UserPhysical extends User
 {
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups(['write:postApplicationByOfferId'])]
+    #[Groups([Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $firstname;
 
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups(['write:postApplicationByOfferId'])]
+    #[Groups([Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $lastname;
 
     #[ORM\Column(type: "date", nullable: true)]

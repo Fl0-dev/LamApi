@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
 use App\Entity\Company\CompanyProfile;
+use App\Entity\Offer\Offer;
 use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
 use App\Transversal\Slug;
@@ -23,14 +24,14 @@ class CompanyEntity
     use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $hrMail;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
@@ -40,7 +41,7 @@ class CompanyEntity
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read:getAllTeaserCompanyGroups'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
     private Collection $companyEntityOffices;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
