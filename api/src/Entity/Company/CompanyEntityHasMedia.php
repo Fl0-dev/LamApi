@@ -4,22 +4,22 @@ namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Media\Media;
-use App\Repository\Company\CompanyGroupHasMediaRepository;
+use App\Repository\Company\CompanyEntityHasMediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: CompanyGroupHasMediaRepository::class)]
+#[ORM\Entity(repositoryClass: CompanyEntityHasMediaRepository::class)]
 #[ApiResource]
-class CompanyGroupHasMedia
+class CompanyEntityHasMedia
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'companyGroupMedias')]
+    #[ORM\ManyToOne(inversedBy: 'companyEntityMedias')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CompanyGroup $companyGroup = null;
+    private ?CompanyEntity $companyEntity = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -31,14 +31,14 @@ class CompanyGroupHasMedia
         return $this->id;
     }
 
-    public function getCompanyGroup(): ?CompanyGroup
+    public function getCompanyEntity(): ?CompanyEntity
     {
-        return $this->companyGroup;
+        return $this->companyEntity;
     }
 
-    public function setCompanyGroup(?CompanyGroup $companyGroup): self
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
     {
-        $this->companyGroupId = $companyGroup;
+        $this->companyEntity = $companyEntity;
 
         return $this;
     }

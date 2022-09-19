@@ -235,10 +235,6 @@ class CompanyGroup
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $color;
 
-    #[ORM\ManyToMany(targetEntity: Badge::class)]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
-    private $badges;
-
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pool")]
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
@@ -290,11 +286,15 @@ class CompanyGroup
     private Collection $revisionCompanyGroups;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupHasMedia::class)]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private Collection $companyGroupMedias;
+
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupBadge::class)]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    private Collection $companyGroupBadges;
 
     public function __construct()
     {
-        $this->badges = new ArrayCollection();
         $this->pools = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->jobTypes = new ArrayCollection();
@@ -304,6 +304,7 @@ class CompanyGroup
         $this->medias = new ArrayCollection();
         $this->revisionCompanyGroups = new ArrayCollection();
         $this->companyGroupMedias = new ArrayCollection();
+        $this->companyGroupBadges = new ArrayCollection();
     }
 
     /**
@@ -436,30 +437,6 @@ class CompanyGroup
     public function setColor(string $color): self
     {
         $this->color = $color;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Badge>
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-
-    public function addBadge(Badge $badge): self
-    {
-        if (!$this->badges->contains($badge)) {
-            $this->badges[] = $badge;
-        }
-
-        return $this;
-    }
-
-    public function removeBadge(Badge $badge): self
-    {
-        $this->badges->removeElement($badge);
 
         return $this;
     }
@@ -629,7 +606,13 @@ class CompanyGroup
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
     public function getNbBadges(): ?int
     {
-        $nbBadges = count($this->getBadges());
+        $companyGroupBadges = $this->getCompanyGroupBadges();
+        $nbBadges = 0;
+
+        foreach ($companyGroupBadges as $companyGroupBadge) {
+            $nbBadges += 1;
+        }
+        
         return $nbBadges;
     }
 
@@ -775,6 +758,36 @@ class CompanyGroup
             // set the owning side to null (unless already changed)
             if ($companyGroupMedia->getCompanyGroup() === $this) {
                 $companyGroupMedia->setCompanyGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyGroupBadge>
+     */
+    public function getCompanyGroupBadges(): Collection
+    {
+        return $this->companyGroupBadges;
+    }
+
+    public function addCompanyGroupBadge(CompanyGroupBadge $companyGroupBadge): self
+    {
+        if (!$this->companyGroupBadges->contains($companyGroupBadge)) {
+            $this->companyGroupBadges->add($companyGroupBadge);
+            $companyGroupBadge->setCompanyGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyGroupBadge(CompanyGroupBadge $companyGroupBadge): self
+    {
+        if ($this->companyGroupBadges->removeElement($companyGroupBadge)) {
+            // set the owning side to null (unless already changed)
+            if ($companyGroupBadge->getCompanyGroup() === $this) {
+                $companyGroupBadge->setCompanyGroup(null);
             }
         }
 
