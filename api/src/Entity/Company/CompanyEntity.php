@@ -47,14 +47,18 @@ class CompanyEntity
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityHasMedia::class, orphanRemoval: true)]
-    private Collection $companyEntityMedias;
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\JoinTable(name: "company_entity_has_media")]
+    #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
+    private Collection $medias;
+
 
     public function __construct()
     {
         $this->admins = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
-        $this->companyEntityMedias = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getHrMail(): ?string
@@ -172,32 +176,27 @@ class CompanyEntity
     }
 
     /**
-     * @return Collection<int, CompanyEntityHasMedia>
+     * @return Collection<int, Media>
      */
-    public function getCompanyEntityMedias(): Collection
+    public function getMedias(): Collection
     {
-        return $this->companyEntityMedias;
+        return $this->medias;
     }
 
-    public function addCompanyEntityMedia(CompanyEntityHasMedia $companyEntityMedia): self
+    public function addMedia(Media $media): self
     {
-        if (!$this->companyEntityMedias->contains($companyEntityMedia)) {
-            $this->companyEntityMedias->add($companyEntityMedia);
-            $companyEntityMedia->setCompanyEntity($this);
+        if (!$this->medias->contains($media)) {
+            $this->medias->add($media);
         }
 
         return $this;
     }
 
-    public function removeCompanyEntityMedia(CompanyEntityHasMedia $companyEntityMedia): self
+    public function removeMedia(Media $media): self
     {
-        if ($this->companyEntityMedias->removeElement($companyEntityMedia)) {
-            // set the owning side to null (unless already changed)
-            if ($companyEntityMedia->getCompanyEntity() === $this) {
-                $companyEntityMedia->setCompanyEntity(null);
-            }
-        }
+        $this->medias->removeElement($media);
 
         return $this;
     }
+
 }
