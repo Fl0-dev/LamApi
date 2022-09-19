@@ -288,8 +288,11 @@ class CompanyGroup
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
     private Collection $medias;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroupId', targetEntity: RevisionCompanyGroup::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: RevisionCompanyGroup::class, orphanRemoval: true)]
     private Collection $revisionCompanyGroups;
+
+    #[ORM\ManyToMany(targetEntity: Badge::class)]
+    private Collection $badges;
 
     public function __construct()
     {
@@ -301,6 +304,7 @@ class CompanyGroup
         $this->ats = new ArrayCollection();
         $this->medias = new ArrayCollection();
         $this->revisionCompanyGroups = new ArrayCollection();
+        $this->badges = new ArrayCollection();
     }
 
     /**
@@ -602,13 +606,7 @@ class CompanyGroup
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
     public function getNbBadges(): ?int
     {
-        $companyGroupBadges = $this->getCompanyGroupBadges();
-        $nbBadges = 0;
-
-        foreach ($companyGroupBadges as $companyGroupBadge) {
-            $nbBadges += 1;
-        }
-        
+        $nbBadges = count($this->getBadges());
         return $nbBadges;
     }
 
@@ -750,6 +748,30 @@ class CompanyGroup
                 $revisionCompanyGroup->setCompanyGroup(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        $this->badges->removeElement($badge);
 
         return $this;
     }
