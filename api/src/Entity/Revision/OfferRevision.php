@@ -5,25 +5,24 @@ namespace App\Entity\Revision;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Offer\Offer;
 use App\Repository\RevisionRepositories\OfferRevisionRepository;
+use App\Transversal\CreatedDate;
+use App\Transversal\FieldContent;
+use App\Transversal\FieldName;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 #[ApiResource]
 class OfferRevision
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Uuid;
+    use CreatedDate;
+    use FieldName;
+    use FieldContent;
 
     #[ORM\ManyToOne(inversedBy: 'offerRevisions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getOffer(): ?Offer
     {

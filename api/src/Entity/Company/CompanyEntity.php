@@ -57,7 +57,6 @@ class CompanyEntity
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityRevision::class, orphanRemoval: true)]
     private Collection $companyEntityRevisions;
 
-
     public function __construct()
     {
         $this->admins = new ArrayCollection();
