@@ -9,7 +9,6 @@ use App\Transversal\CreatedDate;
 use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RevisionCompanyGroupRepository::class)]
@@ -23,16 +22,16 @@ class RevisionCompanyGroup
 
     #[ORM\ManyToOne(inversedBy: 'revisionCompanyGroups')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CompanyGroup $companyGroupId = null;
+    private ?CompanyGroup $companyGroup = null;
 
-    public function getCompanyGroupId(): ?CompanyGroup
+    public function getCompanyGroup(): ?CompanyGroup
     {
-        return $this->companyGroupId;
+        return $this->companyGroup;
     }
 
-    public function setCompanyGroupId(?CompanyGroup $companyGroupId): self
+    public function setCompanyGroup(?CompanyGroup $companyGroup): self
     {
-        $this->companyGroupId = $companyGroupId;
+        $this->companyGroup = $companyGroup;
 
         return $this;
     }
