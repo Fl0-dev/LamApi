@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
 use App\Entity\Ats;
 use App\Entity\Badge;
+use App\Entity\Revision\RevisionCompanyGroup;
 use App\Entity\User\Employer;
 use App\Entity\JobType;
 use App\Entity\Media\Media;
@@ -285,11 +286,11 @@ class CompanyGroup
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subscriptionType = null;
 
-    #[ORM\ManyToMany(targetEntity: Media::class)]
-    #[ORM\JoinTable(name: "company_group_has_media")]
-    #[ORM\JoinColumn(name: "companyGroup_id", referencedColumnName: "id")]
-    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
-    private Collection $medias;
+    #[ORM\OneToMany(mappedBy: 'companyGroupId', targetEntity: RevisionCompanyGroup::class, orphanRemoval: true)]
+    private Collection $revisionCompanyGroups;
+
+    #[ORM\OneToMany(mappedBy: 'companyGroupId', targetEntity: CompanyGroupHasMedia::class)]
+    private Collection $companyGroupMedias;
 
     public function __construct()
     {
@@ -301,6 +302,8 @@ class CompanyGroup
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->revisionCompanyGroups = new ArrayCollection();
+        $this->companyGroupMedias = new ArrayCollection();
     }
 
     /**
@@ -719,25 +722,61 @@ class CompanyGroup
     }
 
     /**
-     * @return Collection<int, Media>
+     * @return Collection<int, RevisionCompanyGroup>
      */
-    public function getMedias(): Collection
+    public function getRevisionCompanyGroups(): Collection
     {
-        return $this->medias;
+        return $this->revisionCompanyGroups;
     }
 
-    public function addMedia(Media $media): self
+    public function addRevisionCompanyGroup(RevisionCompanyGroup $revisionCompanyGroup): self
     {
-        if (!$this->medias->contains($media)) {
-            $this->medias->add($media);
+        if (!$this->revisionCompanyGroups->contains($revisionCompanyGroup)) {
+            $this->revisionCompanyGroups->add($revisionCompanyGroup);
+            $revisionCompanyGroup->setCompanyGroupId($this);
         }
 
         return $this;
     }
 
-    public function removeMedia(Media $media): self
+    public function removeRevisionCompanyGroup(RevisionCompanyGroup $revisionCompanyGroup): self
     {
-        $this->medias->removeElement($media);
+        if ($this->revisionCompanyGroups->removeElement($revisionCompanyGroup)) {
+            // set the owning side to null (unless already changed)
+            if ($revisionCompanyGroup->getCompanyGroupId() === $this) {
+                $revisionCompanyGroup->setCompanyGroupId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyGroupHasMedia>
+     */
+    public function getCompanyGroupMedias(): Collection
+    {
+        return $this->companyGroupMedias;
+    }
+
+    public function addCompanyGroupMedia(CompanyGroupHasMedia $companyGroupMedia): self
+    {
+        if (!$this->companyGroupMedias->contains($companyGroupMedia)) {
+            $this->companyGroupMedias->add($companyGroupMedia);
+            $companyGroupMedia->setCompanyGroupId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyGroupMedia(CompanyGroupHasMedia $companyGroupMedia): self
+    {
+        if ($this->companyGroupMedias->removeElement($companyGroupMedia)) {
+            // set the owning side to null (unless already changed)
+            if ($companyGroupMedia->getCompanyGroupId() === $this) {
+                $companyGroupMedia->setCompanyGroupId(null);
+            }
+        }
 
         return $this;
     }
