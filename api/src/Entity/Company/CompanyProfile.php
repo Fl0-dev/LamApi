@@ -3,6 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
 use App\Repository\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
@@ -61,9 +62,13 @@ class CompanyProfile
     #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $tools;
 
+    #[ORM\OneToMany(mappedBy: 'CompanyProfile', targetEntity: CompanyProfileRevision::class, orphanRemoval: true)]
+    private Collection $companyProfileRevisions;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
+        $this->companyProfileRevisions = new ArrayCollection();
     }
 
 
@@ -205,5 +210,35 @@ class CompanyProfile
         $workforceRepository = new WorkforceRepository();
 
         return $workforceRepository->find($this->workforce)->getLabel();
+    }
+
+    /**
+     * @return Collection<int, CompanyProfileRevision>
+     */
+    public function getCompanyProfileRevisions(): Collection
+    {
+        return $this->companyProfileRevisions;
+    }
+
+    public function addCompanyProfileRevision(CompanyProfileRevision $companyProfileRevision): self
+    {
+        if (!$this->companyProfileRevisions->contains($companyProfileRevision)) {
+            $this->companyProfileRevisions->add($companyProfileRevision);
+            $companyProfileRevision->setCompanyProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyProfileRevision(CompanyProfileRevision $companyProfileRevision): self
+    {
+        if ($this->companyProfileRevisions->removeElement($companyProfileRevision)) {
+            // set the owning side to null (unless already changed)
+            if ($companyProfileRevision->getCompanyProfile() === $this) {
+                $companyProfileRevision->setCompanyProfile(null);
+            }
+        }
+
+        return $this;
     }
 }
