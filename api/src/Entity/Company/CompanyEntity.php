@@ -3,6 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Revision\CompanyEntityRevision;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
 use App\Entity\Company\CompanyProfile;
@@ -53,12 +54,16 @@ class CompanyEntity
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
     private Collection $medias;
 
+    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityRevision::class, orphanRemoval: true)]
+    private Collection $companyEntityRevisions;
+
 
     public function __construct()
     {
         $this->admins = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->companyEntityRevisions = new ArrayCollection();
     }
 
     public function getHrMail(): ?string
@@ -199,4 +204,33 @@ class CompanyEntity
         return $this;
     }
 
+    /**
+     * @return Collection<int, CompanyEntityRevision>
+     */
+    public function getCompanyEntityRevisions(): Collection
+    {
+        return $this->companyEntityRevisions;
+    }
+
+    public function addCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
+    {
+        if (!$this->companyEntityRevisions->contains($companyEntityRevision)) {
+            $this->companyEntityRevisions->add($companyEntityRevision);
+            $companyEntityRevision->setCompanyEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
+    {
+        if ($this->companyEntityRevisions->removeElement($companyEntityRevision)) {
+            // set the owning side to null (unless already changed)
+            if ($companyEntityRevision->getCompanyEntity() === $this) {
+                $companyEntityRevision->setCompanyEntity(null);
+            }
+        }
+
+        return $this;
+    }
 }

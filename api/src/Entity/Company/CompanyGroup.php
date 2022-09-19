@@ -9,7 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
 use App\Entity\Ats;
 use App\Entity\Badge;
-use App\Entity\Revision\RevisionCompanyGroup;
+use App\Entity\Revision\CompanyGroupRevision;
 use App\Entity\User\Employer;
 use App\Entity\JobType;
 use App\Entity\Media\Media;
@@ -288,8 +288,8 @@ class CompanyGroup
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
     private Collection $medias;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: RevisionCompanyGroup::class, orphanRemoval: true)]
-    private Collection $revisionCompanyGroups;
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupRevision::class, orphanRemoval: true)]
+    private Collection $companyGroupRevisions;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
     private Collection $badges;
@@ -303,7 +303,7 @@ class CompanyGroup
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();
         $this->medias = new ArrayCollection();
-        $this->revisionCompanyGroups = new ArrayCollection();
+        $this->companyGroupRevisions = new ArrayCollection();
         $this->badges = new ArrayCollection();
     }
 
@@ -723,29 +723,29 @@ class CompanyGroup
     }
 
     /**
-     * @return Collection<int, RevisionCompanyGroup>
+     * @return Collection<int, CompanyGroupRevision>
      */
-    public function getRevisionCompanyGroups(): Collection
+    public function getCompanyGroupRevisions(): Collection
     {
-        return $this->revisionCompanyGroups;
+        return $this->companyGroupRevisions;
     }
 
-    public function addRevisionCompanyGroup(RevisionCompanyGroup $revisionCompanyGroup): self
+    public function addCompanyGroupRevision(CompanyGroupRevision $CompanyGroupRevision): self
     {
-        if (!$this->revisionCompanyGroups->contains($revisionCompanyGroup)) {
-            $this->revisionCompanyGroups->add($revisionCompanyGroup);
-            $revisionCompanyGroup->setCompanyGroup($this);
+        if (!$this->companyGroupRevisions->contains($CompanyGroupRevision)) {
+            $this->companyGroupRevisions->add($CompanyGroupRevision);
+            $CompanyGroupRevision->setCompanyGroup($this);
         }
 
         return $this;
     }
 
-    public function removeRevisionCompanyGroup(RevisionCompanyGroup $revisionCompanyGroup): self
+    public function removeCompanyGroupRevision(CompanyGroupRevision $CompanyGroupRevision): self
     {
-        if ($this->revisionCompanyGroups->removeElement($revisionCompanyGroup)) {
+        if ($this->companyGroupRevisions->removeElement($CompanyGroupRevision)) {
             // set the owning side to null (unless already changed)
-            if ($revisionCompanyGroup->getCompanyGroup() === $this) {
-                $revisionCompanyGroup->setCompanyGroup(null);
+            if ($CompanyGroupRevision->getCompanyGroup() === $this) {
+                $CompanyGroupRevision->setCompanyGroup(null);
             }
         }
 

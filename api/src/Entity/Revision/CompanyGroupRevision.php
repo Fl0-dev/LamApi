@@ -4,23 +4,23 @@ namespace App\Entity\Revision;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyGroup;
-use App\Repository\Revision\RevisionCompanyGroupRepository;
+use App\Repository\Revision\CompanyGroupRevisionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RevisionCompanyGroupRepository::class)]
+#[ORM\Entity(repositoryClass: CompanyGroupRevisionRepository::class)]
 #[ApiResource]
-class RevisionCompanyGroup
+class CompanyGroupRevision
 {
     use Uuid;
     use CreatedDate;
     use FieldName;
     use FieldContent;
 
-    #[ORM\ManyToOne(inversedBy: 'revisionCompanyGroups')]
+    #[ORM\ManyToOne(inversedBy: 'companyGroupRevisions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyGroup $companyGroup = null;
 
