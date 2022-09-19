@@ -286,10 +286,10 @@ class CompanyGroup
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subscriptionType = null;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroupId', targetEntity: RevisionCompanyGroup::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: RevisionCompanyGroup::class, orphanRemoval: true)]
     private Collection $revisionCompanyGroups;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroupId', targetEntity: CompanyGroupHasMedia::class)]
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupHasMedia::class)]
     private Collection $companyGroupMedias;
 
     public function __construct()
@@ -733,7 +733,7 @@ class CompanyGroup
     {
         if (!$this->revisionCompanyGroups->contains($revisionCompanyGroup)) {
             $this->revisionCompanyGroups->add($revisionCompanyGroup);
-            $revisionCompanyGroup->setCompanyGroupId($this);
+            $revisionCompanyGroup->setCompanyGroup($this);
         }
 
         return $this;
@@ -743,8 +743,8 @@ class CompanyGroup
     {
         if ($this->revisionCompanyGroups->removeElement($revisionCompanyGroup)) {
             // set the owning side to null (unless already changed)
-            if ($revisionCompanyGroup->getCompanyGroupId() === $this) {
-                $revisionCompanyGroup->setCompanyGroupId(null);
+            if ($revisionCompanyGroup->getCompanyGroup() === $this) {
+                $revisionCompanyGroup->setCompanyGroup(null);
             }
         }
 
@@ -763,7 +763,7 @@ class CompanyGroup
     {
         if (!$this->companyGroupMedias->contains($companyGroupMedia)) {
             $this->companyGroupMedias->add($companyGroupMedia);
-            $companyGroupMedia->setCompanyGroupId($this);
+            $companyGroupMedia->setCompanyGroup($this);
         }
 
         return $this;
@@ -773,8 +773,8 @@ class CompanyGroup
     {
         if ($this->companyGroupMedias->removeElement($companyGroupMedia)) {
             // set the owning side to null (unless already changed)
-            if ($companyGroupMedia->getCompanyGroupId() === $this) {
-                $companyGroupMedia->setCompanyGroupId(null);
+            if ($companyGroupMedia->getCompanyGroup() === $this) {
+                $companyGroupMedia->setCompanyGroup(null);
             }
         }
 

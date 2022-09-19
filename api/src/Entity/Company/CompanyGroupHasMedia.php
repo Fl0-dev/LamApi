@@ -18,7 +18,7 @@ class CompanyGroupHasMedia
 
     #[ORM\ManyToOne(inversedBy: 'companyGroupMedias')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CompanyGroup $companyGroupId = null;
+    private ?CompanyGroup $companyGroup = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,14 +29,14 @@ class CompanyGroupHasMedia
         return $this->id;
     }
 
-    public function getCompanyGroupId(): ?CompanyGroup
+    public function getCompanyGroup(): ?CompanyGroup
     {
-        return $this->companyGroupId;
+        return $this->companyGroup;
     }
 
-    public function setCompanyGroupId(?CompanyGroup $companyGroupId): self
+    public function setCompanyGroup(?CompanyGroup $companyGroup): self
     {
-        $this->companyGroupId = $companyGroupId;
+        $this->companyGroupId = $companyGroup;
 
         return $this;
     }
