@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Repository\Revision;
+namespace App\Repository\RevisionRepositories;
 
-use App\Entity\Revision\CompanyEntityRevision;
+use App\Entity\Revision\CompanyGroupRevision;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CompanyEntityRevision>
+ * @extends ServiceEntityRepository<CompanyGroupRevision>
  *
- * @method CompanyEntityRevision|null find($id, $lockMode = null, $lockVersion = null)
- * @method CompanyEntityRevision|null findOneBy(array $criteria, array $orderBy = null)
- * @method CompanyEntityRevision[]    findAll()
- * @method CompanyEntityRevision[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CompanyGroupRevision|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CompanyGroupRevision|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CompanyGroupRevision[]    findAll()
+ * @method CompanyGroupRevision[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CompanyEntityRevisionRepository extends ServiceEntityRepository
+class CompanyGroupRevisionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CompanyEntityRevision::class);
+        parent::__construct($registry, CompanyGroupRevision::class);
     }
 
-    public function add(CompanyEntityRevision $entity, bool $flush = false): void
+    public function add(CompanyGroupRevision $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CompanyEntityRevisionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(CompanyEntityRevision $entity, bool $flush = false): void
+    public function remove(CompanyGroupRevision $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CompanyEntityRevisionRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return CompanyEntityRevision[] Returns an array of CompanyEntityRevision objects
+    //     * @return CompanyGroupRevision[] Returns an array of CompanyGroupRevision objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -54,7 +54,7 @@ class CompanyEntityRevisionRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?CompanyEntityRevision
+    //    public function findOneBySomeField($value): ?CompanyGroupRevision
     //    {
     //        return $this->createQueryBuilder('r')
     //            ->andWhere('r.exampleField = :val')

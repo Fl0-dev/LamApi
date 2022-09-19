@@ -4,7 +4,7 @@ namespace App\Entity\Revision;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyEntity;
-use App\Repository\Revision\CompanyEntityRevisionRepository;
+use App\Repository\RevisionRepositories\CompanyEntityRevisionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\FieldContent;
 use App\Transversal\FieldName;

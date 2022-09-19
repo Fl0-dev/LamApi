@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Revision;
+namespace App\Repository\RevisionRepositories;
 
 use App\Entity\Revision\CompanyProfileRevision;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

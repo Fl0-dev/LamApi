@@ -4,6 +4,7 @@ namespace App\Entity\Offer;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use App\Entity\Revision\OfferRevision;
 use App\Validator;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
@@ -261,6 +262,9 @@ class Offer
     #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, self::OPERATION_NAME_POST_OFFER])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferRevision::class, orphanRemoval: true)]
+    private Collection $offerRevisions;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
@@ -271,6 +275,7 @@ class Offer
         $this->provided = false;
         $this->publishedAt = null;
         $this->status = OfferStatus::DRAFT;
+        $this->offerRevisions = new ArrayCollection();
     }
 
     /**
@@ -667,5 +672,35 @@ class Offer
         $contractTypeRepository = new ContractTypeRepository();
 
         return $contractTypeRepository->find($this->contractType)->getLabel();
+    }
+
+    /**
+     * @return Collection<int, OfferRevision>
+     */
+    public function getOfferRevisions(): Collection
+    {
+        return $this->offerRevisions;
+    }
+
+    public function addOfferRevision(OfferRevision $offerRevision): self
+    {
+        if (!$this->offerRevisions->contains($offerRevision)) {
+            $this->offerRevisions->add($offerRevision);
+            $offerRevision->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOfferRevision(OfferRevision $offerRevision): self
+    {
+        if ($this->offerRevisions->removeElement($offerRevision)) {
+            // set the owning side to null (unless already changed)
+            if ($offerRevision->getOffer() === $this) {
+                $offerRevision->setOffer(null);
+            }
+        }
+
+        return $this;
     }
 }
