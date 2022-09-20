@@ -13,6 +13,7 @@ use App\Repository\ApplicationRepositories\ApplicationRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
+use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -111,28 +112,47 @@ class Application
     const OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID = 'postSpontaneaousApplicationByCompanyEntityOfficeId';
 
     use Uuid;
-    use CreatedDate;
     use LastModifiedDate;
 
+    #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
+    ])]
+    private ?\DateTime $createdDate;
+
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
+        self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID
+    ])]
     private $motivationText;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
+    ])]
     private $score;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
+    ])]
     private $applicant;
 
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications', cascade: ['persist'])]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID])]
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class, cascade: ['persist'])]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
+        self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID
+    ])]
     private $cv;
 
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
@@ -149,7 +169,28 @@ class Application
     {
         $this->applicantionExchanges = new ArrayCollection();
     }
+    
+    public function getCreatedDate(): ?\DateTime
+    {
+        return $this->createdDate;
+    }
 
+    public function setCreatedDate(\DateTime|string|null $createdDate): self
+    {
+        if (is_string($createdDate)) {
+            $createdDate = Utils::createDateTimeFromString($createdDate);
+        }
+
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    public function hasCreatedDate(): bool
+    {
+        return $this->getCreatedDate() instanceof \DateTime;
+    }
+    
     public function getMotivationText(): ?string
     {
         return $this->motivationText;

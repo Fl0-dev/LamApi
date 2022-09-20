@@ -142,11 +142,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ],
         ############################## GET ALL APPLICATIONS BY COMPANYGROUP ID ##############################
-        self::OPERATION_NAME_GET_COMPANY_APPLICATIONS => [
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/applications',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_COMPANY_APPLICATIONS],
+                'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of applications by company group id',
@@ -181,7 +181,7 @@ class CompanyGroup
 {
     const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
     const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
-    const OPERATION_NAME_GET_COMPANY_APPLICATIONS = 'getCompanyGroupApplications';
+    const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
     const OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffices';
     const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
     const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
@@ -273,11 +273,11 @@ class CompanyGroup
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
-        self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID, 
-        self::OPERATION_NAME_GET_COMPANY_APPLICATIONS
+        self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
     ])]
     private $companyEntities;
 
