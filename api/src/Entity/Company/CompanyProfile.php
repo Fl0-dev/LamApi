@@ -232,12 +232,7 @@ class CompanyProfile
 
     public function removeCompanyProfileRevision(CompanyProfileRevision $companyProfileRevision): self
     {
-        if ($this->companyProfileRevisions->removeElement($companyProfileRevision)) {
-            // set the owning side to null (unless already changed)
-            if ($companyProfileRevision->getCompanyProfile() === $this) {
-                $companyProfileRevision->setCompanyProfile(null);
-            }
-        }
+        $this->companyProfileRevisions->removeElement($companyProfileRevision);
 
         return $this;
     }

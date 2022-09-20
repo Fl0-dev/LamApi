@@ -223,13 +223,8 @@ class CompanyEntity
 
     public function removeCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
     {
-        if ($this->companyEntityRevisions->removeElement($companyEntityRevision)) {
-            // set the owning side to null (unless already changed)
-            if ($companyEntityRevision->getCompanyEntity() === $this) {
-                $companyEntityRevision->setCompanyEntity(null);
-            }
-        }
-
+        $this->companyEntityRevisions->removeElement($companyEntityRevision);
+            
         return $this;
     }
 }

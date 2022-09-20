@@ -694,12 +694,7 @@ class Offer
 
     public function removeOfferRevision(OfferRevision $offerRevision): self
     {
-        if ($this->offerRevisions->removeElement($offerRevision)) {
-            // set the owning side to null (unless already changed)
-            if ($offerRevision->getOffer() === $this) {
-                $offerRevision->setOffer(null);
-            }
-        }
+        $this->offerRevisions->removeElement($offerRevision);
 
         return $this;
     }

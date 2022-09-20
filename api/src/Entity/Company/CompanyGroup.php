@@ -742,13 +742,8 @@ class CompanyGroup
 
     public function removeCompanyGroupRevision(CompanyGroupRevision $CompanyGroupRevision): self
     {
-        if ($this->companyGroupRevisions->removeElement($CompanyGroupRevision)) {
-            // set the owning side to null (unless already changed)
-            if ($CompanyGroupRevision->getCompanyGroup() === $this) {
-                $CompanyGroupRevision->setCompanyGroup(null);
-            }
-        }
-
+        $this->companyGroupRevisions->removeElement($CompanyGroupRevision);
+            
         return $this;
     }
 
