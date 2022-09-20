@@ -51,7 +51,8 @@ class CompanyEntity
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
     ])]
     private Collection $companyEntityOffices;
 
