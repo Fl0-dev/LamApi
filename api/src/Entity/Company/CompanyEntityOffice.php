@@ -45,6 +45,7 @@ class CompanyEntityOffice
     private ?CompanyEntity $companyEntity = null;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Offer::class)]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID])]
     private Collection $offers;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Application::class)]

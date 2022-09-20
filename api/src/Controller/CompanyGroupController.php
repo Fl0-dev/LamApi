@@ -32,10 +32,10 @@ class CompanyGroupController extends AbstractController
             return $count;
         }
 
-        if ($operationName === CompanyGroup::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS) {
+        if ($operationName === CompanyGroup::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS) {
             $keywords = strtolower($request->get('keywords'));
             $keywords = trim($keywords);
-            
+
             return $this->companyGroupRepository->findNameByPartialSlug($keywords);
         }
     }
