@@ -8,7 +8,6 @@ use App\Transversal\Label;
 use App\Transversal\Slug;
 use Symfony\Component\Uid\Uuid;
 
-#[ApiResource()]
 abstract class Reference
 {
     #[ApiProperty(identifier: true)]

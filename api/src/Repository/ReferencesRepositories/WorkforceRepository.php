@@ -9,8 +9,6 @@ class WorkforceRepository
 {
 
     /**
-     * Undocumented function
-     *
      * @return Workforce[]
      */
     public function findAll(): array
@@ -20,9 +18,8 @@ class WorkforceRepository
 
         if (is_array($arrayWorkforces) && !empty($arrayWorkforces)) {
 
-            foreach ($arrayWorkforces as $value => $workforce) {
+            foreach ($arrayWorkforces as $workforce) {
                 $workforces[] = new Workforce(
-                    $value,
                     Utils::getArrayValue('slug', $workforce),
                     Utils::getArrayValue('label', $workforce)
                 );
@@ -47,5 +44,19 @@ class WorkforceRepository
         }
 
         return $results;
+    }
+
+    public function find(string $id): ?Workforce
+    {
+        $workforces = $this->findAll();
+
+        foreach ($workforces as $workforce) {
+            
+            if ($workforce->getId() === $id) {
+                return $workforce;
+            }
+        }
+
+        return null;
     }
 }

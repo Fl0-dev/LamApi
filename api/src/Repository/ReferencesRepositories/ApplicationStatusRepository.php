@@ -9,8 +9,6 @@ class ApplicationStatusRepository
 {
 
     /**
-     * Undocumented function
-     *
      * @return ApplicantStatus[]
      */
     public function findAll(): array
@@ -23,5 +21,18 @@ class ApplicationStatusRepository
         }
 
         return $applicantStatuses;
+    }
+
+    public function find(string $id): ?ApplicationStatus
+    {
+        $applicantStatuses = $this->findAll();
+
+        foreach ($applicantStatuses as $applicantStatus) {
+            if ($applicantStatus->getId() === $id) {
+                return $applicantStatus;
+            }
+        }
+
+        return null;
     }
 }

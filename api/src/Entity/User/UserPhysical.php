@@ -4,6 +4,7 @@ namespace App\Entity\User;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Applicant\Applicant;
+use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -15,21 +16,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
     "employer" => "Employer",
 ])]
 #[ORM\Entity]
-#[ORM\Table(name: "Physical_Users")]
+#[ORM\Table(name: "physical_user")]
 #[ApiResource()]
 class UserPhysical extends User
 {
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups(['write:postApplicationByOfferId'])]
+    #[Groups([Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $firstname;
 
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups(['write:postApplicationByOfferId'])]
+    #[Groups([Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $lastname;
-
-    #[ORM\Column(type: "string", length: 180)]
-    #[Groups(['write:postApplicationByOfferId'])]
-    private $email;
 
     #[ORM\Column(type: "date", nullable: true)]
     private $birthdate;
@@ -75,26 +72,6 @@ class UserPhysical extends User
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of email
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }

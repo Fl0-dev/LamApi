@@ -9,8 +9,6 @@ class AbstractUserTypeRepository
 {
 
     /**
-     * Undocumented function
-     *
      * @return AbstractUserType[]
      */
     public function findAll(): array
@@ -23,5 +21,18 @@ class AbstractUserTypeRepository
         }
 
         return $abstractUserTypes;
+    }
+
+    public function find(string $id): ?AbstractUserType
+    {
+        $abstractUserTypes = $this->findAll();
+
+        foreach ($abstractUserTypes as $abstractUserType) {
+            if ($abstractUserType->getId() === $id) {
+                return $abstractUserType;
+            }
+        }
+
+        return null;
     }
 }

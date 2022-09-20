@@ -2,6 +2,7 @@
 
 namespace App\Transversal;
 
+use App\Entity\Company\CompanyGroup;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -14,7 +15,7 @@ trait Label
      * Label
      *
      */
-    #[Groups(["read:getAll", 'read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     #[ORM\Column(type: "string", length: 255)]
     private ?string $label = null;
 
@@ -45,5 +46,4 @@ trait Label
 
         return is_string($label) && strlen($label) > 0;
     }
-
 }

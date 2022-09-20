@@ -4,6 +4,8 @@ namespace App\Entity\Location;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Company\CompanyGroup;
+use App\Entity\Offer\Offer;
 use App\Filter\LocationFilter;
 use App\Repository\LocationRepositories\CityRepository;
 use App\Transversal\Slug;
@@ -18,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'method' => 'GET',
             'path' => '/cities',
             'normalization_context' => [
-                'groups' => ['read:getAllCities'],
+                'groups' => [self::OPERATION_NAME__GET_ALL_CITIES],
             ],
         ],
     ],
@@ -26,16 +28,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(LocationFilter::class)]
 class City
 {
+    const OPERATION_NAME__GET_ALL_CITIES = 'getAllCities';
+    
     use Uuid;
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCities", "read:getAllTeaserCompanyGroups", 'read:getCompanyGroupOffices'])]
+    #[Groups([self::OPERATION_NAME__GET_ALL_CITIES, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(["read:getAllCities", 'read:getCompanyGroupOffices'])]
+    #[Groups([self::OPERATION_NAME__GET_ALL_CITIES, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $department;
 
     public function getName(): ?string
@@ -62,7 +66,7 @@ class City
         return $this;
     }
 
-    #[Groups(['read:getOfferDetails', 'read:getAllTeaserOffers', 'read:getAllTeaserCompanyGroups', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     public function getCityNameAndNbDepartment(): string
     {
         return $this->name . ' (' . $this->department->getCode() . ')';

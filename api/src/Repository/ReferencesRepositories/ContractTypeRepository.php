@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class ContractTypeRepository
 {
     /**
-     * Undocumented function
-     *
      * @return ContractType[]
      */
     public function findAll(): array
@@ -39,5 +37,20 @@ class ContractTypeRepository
         }
 
         return $results;
+    }
+
+    public function find(string $id): ?ContractType
+    {
+        $contractTypes = $this->findAll();
+
+        foreach ($contractTypes as $contractType) {
+
+            if ($contractType->getId() === $id) {
+                
+                return $contractType;
+            }
+        }
+
+        return null;
     }
 }

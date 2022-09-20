@@ -8,9 +8,11 @@ use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
-use App\Entity\Profile;
+use App\Entity\Company\CompanyProfile;
+use App\Entity\References\CompanySubscriptionType;
 use App\Entity\References\Workforce;
 use App\Entity\Social;
+use App\Entity\SocialFeed;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -32,22 +34,25 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         ###### TGS FRANCE ######
-        $social = new Social();
-        $social->setFacebook('https://www.facebook.com/tgs-france');
-        $social->setTwitter('https://twitter.com/tgs-france');
+       $socialFeed = new SocialFeed();
+       $socialFeed->setFacebook('https://www.facebook.com/tgs-france');
+       $socialFeed->setTwitter('https://twitter.com/tgs-france');
 
-        $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_8);
+        $profile = new CompanyProfile();
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_8, '1000 à 1999 salariés'))->getId());
         $profile->setCreationYear(2018);
-        $profile->setSocial($social);
+        $profile->setSocialFeed($socialFeed);
         $profile->setMiddleAge(35);
         $profile->setUsText('TGS France est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés partout en France.');
+        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
+        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('TGS France');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('tgs-france');
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff0000');
@@ -57,9 +62,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_1, $companyGroup);
-
-        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
@@ -75,8 +77,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/tgs-france-logo.png');
         $media->setSlug('tgs-france-logo');
         $companyGroup->setLogo($media);
-        $media->setCompanyGroup($companyGroup);
-
+        
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/header.png');
         $media->setCreatedDate(new \DateTime());
@@ -84,7 +85,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/tgs-france-header.png');
         $media->setSlug('tgs-france-header');
         $companyGroup->setHeaderMedia($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -94,7 +95,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('tgs-france-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);
@@ -106,7 +107,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Paix');
         $address->setName('TGS Nantes');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('TGSNantesRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -117,6 +117,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('TGS Nantes');
         $companyEntityOffice->setSlug('tgs-nantes');
+        $companyEntityOffice->setHrMailAddress('TGSNantesRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_1, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
@@ -126,7 +127,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue du Port');
         $address->setName('TGS St Nazaire');
         $address->setPostalCode('44800');
-        $address->setHrMailAddress('TGSStNazRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -137,6 +137,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('TGS St-Nazaire');
         $companyEntityOffice->setSlug('tgs-st-nazaire');
+        $companyEntityOffice->setHrMailAddress('TGSStNazRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_2, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
@@ -150,22 +151,24 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         ###### EOLIS ######
-        $social = new Social();
-        $social->setFacebook('https://www.facebook.com/Eolis');
-        $social->setTwitter('https://twitter.com/Eolis');
+       $socialFeed = new SocialFeed();
+       $socialFeed->setFacebook('https://www.facebook.com/Eolis');
+       $socialFeed->setTwitter('https://twitter.com/Eolis');
 
-        $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_3);
-        $profile->setSocial($social);
+        $profile = new CompanyProfile();
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_3, '20 à 49 salariés'))->getId());
+        $profile->setSocialFeed($socialFeed);
         $profile->setCreationYear(2015);
         $profile->setMiddleAge(41);
         $profile->setUsText('Eolis est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Nantes');
+        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Eolis');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('eolis');
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff1111');
@@ -177,8 +180,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_3));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_5));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_2, $companyGroup);
-
-        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
@@ -192,7 +193,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/eolis-logo.png');
         $media->setSlug('eolis-logo');
         $companyGroup->setLogo($media);
-        $media->setCompanyGroup($companyGroup);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/header.png');
@@ -201,7 +201,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/eolis-header.png');
         $media->setSlug('eolis-header');
         $companyGroup->setHeaderMedia($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -211,14 +211,13 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('eolis-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
         $address->setStreet('Rue de la Liberté');
         $address->setName('Eolis Nantes');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('EolisRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -235,6 +234,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('Eolis Nantes');
         $companyEntityOffice->setSlug('eolis-nantes');
+        $companyEntityOffice->setHrMailAddress('EolisRH@gmail.com');
 
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_3, $companyEntityOffice);
 
@@ -250,17 +250,20 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         ###### LIVLI ######
 
-        $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_2);
+        $profile = new CompanyProfile();
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_2, '10 à 19 salariés'))->getId());
         $profile->setCreationYear(2019);
         $profile->setMiddleAge(26);
         $profile->setUsText('Livli est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à St Nazaire');
+        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
+        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Livli');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('livli');
         $companyGroup->setCareerWebsite(true);
         $companyGroup->setColor('#ff2222');
@@ -272,9 +275,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_3, $companyGroup);
-
-        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
@@ -290,8 +290,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/livli-logo.png');
         $media->setSlug('livli-logo');
         $companyGroup->setLogo($media);
-        $media->setCompanyGroup($companyGroup);
-
+        
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/header.png');
         $media->setCreatedDate(new \DateTime());
@@ -299,8 +298,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/livli-header.png');
         $media->setSlug('livli-header');
         $companyGroup->setHeaderMedia($media);
-        $media->setCompanyGroup($companyGroup);
-
+        
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
         $media->setCreatedDate(new \DateTime());
@@ -309,14 +307,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('livli-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
-        $media->setCompanyGroup($companyGroup);
-
+        
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
         $address->setStreet('Rue de la Liberté');
         $address->setName('Livli St Naz');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('LivliRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -332,6 +328,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('Livli St Naz');
         $companyEntityOffice->setSlug('livli-st-naz');
+        $companyEntityOffice->setHrMailAddress('LivliRH@gmail.com');
 
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_4, $companyEntityOffice);
 
@@ -347,17 +344,19 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         ###### IN EXTENSO OUEST ######
 
-        $profile = new Profile();
-        $profile->setWorkforce(Workforce::LEVEL_6);
+        $profile = new CompanyProfile();
+        $profile->setWorkforce((new Workforce(Workforce::LEVEL_6, '200 à 499 salariés'))->getId());
         $profile->setCreationYear(2000);
         $profile->setMiddleAge(38);
         $profile->setUsText('In Extenso est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés dans l\'Ouest');
+        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('In Extenso');
+        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
         $companyGroup->setSlug('in-extenso');
         $companyGroup->setCareerWebsite(true);
         $companyGroup->setColor('#ff3333');
@@ -367,8 +366,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_4, $companyGroup);
-
-        $companyGroup->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
@@ -384,7 +381,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/in-extenso-ouest-logo.png');
         $media->setSlug('in-extenso-ouest-logo');
         $companyGroup->setLogo($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/header.png');
@@ -393,7 +390,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setFilePath('/assets/images/in-extenso-ouest-header.png');
         $media->setSlug('in-extenso-ouest-header');
         $companyGroup->setHeaderMedia($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
@@ -403,7 +400,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('in-extenso-ouest-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
-        $media->setCompanyGroup($companyGroup);
+        
 
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);
@@ -415,7 +412,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Liberté');
         $address->setName('In Extenso Challans');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('InExtensoRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -426,6 +422,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('In Extenso Challans');
         $companyEntityOffice->setSlug('in-extenso-challans');
+        $companyEntityOffice->setHrMailAddress('InExtensoRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_5, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
@@ -435,7 +432,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setStreet('Rue de la Liberté');
         $address->setName('In Extenso Luçon');
         $address->setPostalCode('44000');
-        $address->setHrMailAddress('InExtensoRH@gmail.com');
         $address->setLatitude(47.218371);
         $address->setLongitude(-1.553621);
 
@@ -446,6 +442,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntityOffice->setLastModifiedDate(new \DateTime());
         $companyEntityOffice->setName('In Extenso Luçon');
         $companyEntityOffice->setSlug('in-extenso-lucon');
+        $companyEntityOffice->setHrMailAddress('InExtensoRH@gmail.com');
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_6, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);

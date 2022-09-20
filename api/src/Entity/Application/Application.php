@@ -7,6 +7,7 @@ use App\Controller\ApplicationController;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Applicant\ApplicantCv;
 use App\Entity\Company\CompanyEntityOffice;
+use App\Entity\Company\CompanyGroup;
 use App\Entity\Offer\Offer;
 use App\Repository\ApplicationRepositories\ApplicationRepository;
 use App\Transversal\CreatedDate;
@@ -26,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'controller' => ApplicationController::class,
             'deserialize' => false,
             'denormalization_context' => [
-                'groups' => ['write:postApplicationByOfferId'],
+                'groups' => [self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Post application for an offer by offer id',
@@ -67,7 +68,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'controller' => ApplicationController::class,
             'deserialize' => false,
             'denormalization_context' => [
-                'groups' => ['write:postSpontaneousApplicationByCompanyEntityId'],
+                'groups' => [self::OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Post spontaneous application for a company entity by company entity id',
@@ -114,30 +115,30 @@ class Application
     use LastModifiedDate;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications', 'write:postApplicationByOfferId'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $motivationText;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
     private $score;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
     private $applicant;
 
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications', cascade: ['persist'])]
-    #[Groups(['read:getCompanyGroupApplications'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class, cascade: ['persist'])]
-    #[Groups(['read:getOfferApplications', 'read:getCompanyGroupApplications', 'write:postApplicationByOfferId'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
     private $cv;
 
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
     private $applicantionExchanges;
 
-    #[ORM\Column(length: 11)]
+    #[ORM\Column()]
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'applications', cascade: ['persist'])]

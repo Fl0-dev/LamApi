@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Company\CompanyGroup;
 use App\Repository\SocialRepository;
 use App\Transversal\Uuid;
 use App\Utils\Utils;
@@ -16,29 +17,31 @@ class Social
     use Uuid;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $linkedin;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $twitter;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $facebook;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $instagram;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $youtube;
 
     /**
      * Social Constructor
      */
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     public function getLinkedin(): ?string
     {
@@ -52,9 +55,9 @@ class Social
     {
         $linkedin = self::cleanSocialUrl($linkedin);
 
-         if (Utils::isUrl($linkedin) || is_null($linkedin)) {
-             $this->linkedin = $linkedin;
-         }
+        if (Utils::isUrl($linkedin) || is_null($linkedin)) {
+            $this->linkedin = $linkedin;
+        }
 
         return $this;
     }
@@ -177,5 +180,4 @@ class Social
 
         return $url;
     }
-
 }

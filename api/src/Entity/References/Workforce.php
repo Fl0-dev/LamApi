@@ -3,13 +3,9 @@
 namespace App\Entity\References;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\References\Reference;
 use App\Filter\WorkforceFilter;
-use App\Transversal\Label;
-use App\Transversal\Slug;
-
 
 #[ApiResource(
     collectionOperations: [
@@ -22,13 +18,11 @@ use App\Transversal\Slug;
     ],
     itemOperations: [
         'get' => [
-            'controller' => NotFoundAction::class,
-            'read' => false, // pour supprimer la lecture
-            'output' => false, // pour supprimer la sortie
+            'method' => 'GET',
             'openapi_context' => [
-                'summary' => 'hidden', //Indique le summary à supprimer avec openapiFactory  
-            ]
-        ],
+                'tags' => ['References by id'],
+            ],
+        ], 
     ]
 )]
 #[ApiFilter(WorkforceFilter::class)]

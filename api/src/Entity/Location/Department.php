@@ -15,9 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 #[ApiResource(
     itemOperations: [
+        'get',
         self::OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY => [
             'method' => 'GET',
-            'path' => '/count-departments',
+            'path' => '/departments-count',
             'controller' => DepartmentController::class,
             'pagination_enabled' => false,
             'read' => false,
@@ -50,7 +51,7 @@ class Department
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups(["read:getAllCities"])]
+    #[Groups([City::OPERATION_NAME__GET_ALL_CITIES])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 7)]

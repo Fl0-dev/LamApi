@@ -3,9 +3,11 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Revision\CompanyEntityRevision;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
-use App\Entity\Profile;
+use App\Entity\Company\CompanyProfile;
+use App\Entity\Offer\Offer;
 use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
 use App\Transversal\Slug;
@@ -23,14 +25,14 @@ class CompanyEntity
     use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:getOfferDetails', 'read:getCompanyGroupOffices'])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $hrMail;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(["read:getCompanyGroupDetails", 'read:getCompanyGroupOffices'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
@@ -40,24 +42,27 @@ class CompanyEntity
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read:getAllTeaserCompanyGroups'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
     private Collection $companyEntityOffices;
 
-    #[ORM\ManyToMany(targetEntity: Tool::class)]
-    private Collection $tools;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?CompanyProfile $profile = null;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: Media::class)]
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\JoinTable(name: "company_entity_has_media")]
+    #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
     private Collection $medias;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Profile $profile = null;
+    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityRevision::class, orphanRemoval: true)]
+    private Collection $companyEntityRevisions;
 
     public function __construct()
     {
         $this->admins = new ArrayCollection();
         $this->companyEntityOffices = new ArrayCollection();
-        $this->tools = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->companyEntityRevisions = new ArrayCollection();
     }
 
     public function getHrMail(): ?string
@@ -162,26 +167,14 @@ class CompanyEntity
         return $this;
     }
 
-    /**
-     * @return Collection<int, Tool>
-     */
-    public function getTools(): Collection
+    public function getProfile(): ?CompanyProfile
     {
-        return $this->tools;
+        return $this->profile;
     }
 
-    public function addTool(Tool $tool): self
+    public function setProfile(?CompanyProfile $profile): self
     {
-        if (!$this->tools->contains($tool)) {
-            $this->tools->add($tool);
-        }
-
-        return $this;
-    }
-
-    public function removeTool(Tool $tool): self
-    {
-        $this->tools->removeElement($tool);
+        $this->profile = $profile;
 
         return $this;
     }
@@ -198,7 +191,6 @@ class CompanyEntity
     {
         if (!$this->medias->contains($media)) {
             $this->medias->add($media);
-            $media->setCompanyEntity($this);
         }
 
         return $this;
@@ -206,25 +198,33 @@ class CompanyEntity
 
     public function removeMedia(Media $media): self
     {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getCompanyEntity() === $this) {
-                $media->setCompanyEntity(null);
-            }
+        $this->medias->removeElement($media);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyEntityRevision>
+     */
+    public function getCompanyEntityRevisions(): Collection
+    {
+        return $this->companyEntityRevisions;
+    }
+
+    public function addCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
+    {
+        if (!$this->companyEntityRevisions->contains($companyEntityRevision)) {
+            $this->companyEntityRevisions->add($companyEntityRevision);
+            $companyEntityRevision->setCompanyEntity($this);
         }
 
         return $this;
     }
 
-    public function getProfile(): ?Profile
+    public function removeCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
     {
-        return $this->profile;
-    }
-
-    public function setProfile(?Profile $profile): self
-    {
-        $this->profile = $profile;
-
+        $this->companyEntityRevisions->removeElement($companyEntityRevision);
+            
         return $this;
     }
 }

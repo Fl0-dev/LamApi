@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class LevelOfStudyRepository
 {
     /**
-     * Undocumented function
-     *
      * @return LevelOfStudy[]
      */
     public function findAll(): array
@@ -22,5 +20,18 @@ class LevelOfStudyRepository
         }
 
         return $levelOfStudies;
+    }
+
+    public function find(string $id): ?LevelOfStudy
+    {
+        $levelOfStudies = $this->findAll();
+
+        foreach ($levelOfStudies as $levelOfStudy) {
+            if ($levelOfStudy->getId() === $id) {
+                return $levelOfStudy;
+            }
+        }
+
+        return null;
     }
 }

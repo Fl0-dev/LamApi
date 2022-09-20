@@ -3,13 +3,8 @@
 namespace App\Entity\References;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Filter\ContractTypeFilter;
-use Symfony\Component\Uid\Uuid;
-use App\Transversal\Label;
-use App\Transversal\Slug;
-use App\Utils\Utils;
 
 #[ApiResource(
     collectionOperations: [
@@ -19,9 +14,7 @@ use App\Utils\Utils;
                 'tags' => ['References'],
             ],
         ],
-    ],
-    itemOperations: [
-        'get' => [
+        'post' => [
             'controller' => NotFoundAction::class,
             'read' => false, // pour supprimer la lecture
             'output' => false, // pour supprimer la sortie
@@ -29,6 +22,14 @@ use App\Utils\Utils;
                 'summary' => 'hidden', //Indique le summary à supprimer avec openapiFactory  
             ]
         ],
+    ],
+    itemOperations: [
+        'get' => [
+            'method' => 'GET',
+            'openapi_context' => [
+                'tags' => ['References by id'],
+            ],
+        ], 
     ]
 )]
 #[ApiFilter(ContractTypeFilter::class)]

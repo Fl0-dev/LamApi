@@ -2,11 +2,7 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Transversal\Label;
-use App\Transversal\Slug;
-use Symfony\Component\Uid\Uuid;
 
 #[ApiResource(
     collectionOperations: [
@@ -19,13 +15,11 @@ use Symfony\Component\Uid\Uuid;
     ],
     itemOperations: [
         'get' => [
-            'controller' => NotFoundAction::class,
-            'read' => false, // pour supprimer la lecture
-            'output' => false, // pour supprimer la sortie
+            'method' => 'GET',
             'openapi_context' => [
-                'summary' => 'hidden', //Indique le summary à supprimer avec openapiFactory  
-            ]
-        ],
+                'tags' => ['References by id'],
+            ],
+        ], 
     ]
 )]
 class LevelOfStudy extends Reference

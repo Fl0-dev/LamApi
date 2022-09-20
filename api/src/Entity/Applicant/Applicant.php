@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
-#[ORM\Table(name: "Applicants")]
+#[ORM\Table(name: "applicant")]
 #[ApiResource()]
 class Applicant extends UserPhysical
 {
@@ -32,22 +32,22 @@ class Applicant extends UserPhysical
     #[ORM\OneToMany(mappedBy: 'applicant', targetEntity: Application::class)]
     private $applications;
 
-    #[ORM\Column(type: 'string', length: 11, nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $levelOfStudy;
 
     #[ORM\ManyToOne(targetEntity: JobTitle::class)]
     private $jobTitle;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $experience;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     private $city;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $contractType;
 
-    #[ORM\Column(type: 'string', length: 30)]
+    #[ORM\Column(type: 'string')]
     private $status;
 
     /**

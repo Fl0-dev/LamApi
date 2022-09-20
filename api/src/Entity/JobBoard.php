@@ -15,17 +15,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: JobBoardRepository::class)]
 #[ApiResource(
     itemOperations: [
-        'getJobBoardOffers' => [
+        self::OPERATION_NAME__GET_JOB_BOARD_OFFERS => [
             'method' => 'GET',
             'path' => '/job-boards/{id}/offers',
             'normalization_context' => [
-                'groups' => ['read:getJobBoardOffers']
+                'groups' => [self::OPERATION_NAME__GET_JOB_BOARD_OFFERS]
             ],
         ],
     ],
 )]
 class JobBoard
 {
+    const OPERATION_NAME__GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
+
     use Uuid;
     use Slug;
 
@@ -39,7 +41,7 @@ class JobBoard
     private $free;
 
     #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'jobBoards')]
-    #[Groups(["read:getJobBoardOffers"])]
+    #[Groups([JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS])]
     private $offers;
 
     public function __construct()

@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Entity\Company\CompanyGroup;
 use App\Repository\BadgeRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -87,7 +88,7 @@ class Badge
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    #[Groups(['read:getCompanyGroupDetails'])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $badgePath;
 

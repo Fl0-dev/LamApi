@@ -2,6 +2,7 @@
 
 namespace App\Entity\User;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
     "api" => "UserApi"
 ])]
 #[ORM\Entity]
-#[ORM\Table(name: "Abstract_Users")]
+#[ORM\Table(name: "abstract_user")]
+#[ApiResource()]
 abstract class UserAbstract extends User
 {
     #[ORM\Column(type: "string", length: 180)]
