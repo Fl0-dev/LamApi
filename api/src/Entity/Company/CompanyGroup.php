@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
 use App\Entity\Ats;
 use App\Entity\Badge;
+use App\Entity\Revision\CompanyGroupRevision;
 use App\Entity\User\Employer;
 use App\Entity\JobType;
 use App\Entity\Media\Media;
@@ -234,10 +235,6 @@ class CompanyGroup
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $color;
 
-    #[ORM\ManyToMany(targetEntity: Badge::class)]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
-    private $badges;
-
     #[ORM\ManyToMany(targetEntity: Organisation::class)]
     #[ORM\JoinTable(name: "company_group_pool")]
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
@@ -291,9 +288,14 @@ class CompanyGroup
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
     private Collection $medias;
 
+    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupRevision::class, orphanRemoval: true)]
+    private Collection $companyGroupRevisions;
+
+    #[ORM\ManyToMany(targetEntity: Badge::class)]
+    private Collection $badges;
+
     public function __construct()
     {
-        $this->badges = new ArrayCollection();
         $this->pools = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->jobTypes = new ArrayCollection();
@@ -301,6 +303,8 @@ class CompanyGroup
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->companyGroupRevisions = new ArrayCollection();
+        $this->badges = new ArrayCollection();
     }
 
     /**
@@ -433,30 +437,6 @@ class CompanyGroup
     public function setColor(string $color): self
     {
         $this->color = $color;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Badge>
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-
-    public function addBadge(Badge $badge): self
-    {
-        if (!$this->badges->contains($badge)) {
-            $this->badges[] = $badge;
-        }
-
-        return $this;
-    }
-
-    public function removeBadge(Badge $badge): self
-    {
-        $this->badges->removeElement($badge);
 
         return $this;
     }
@@ -738,6 +718,55 @@ class CompanyGroup
     public function removeMedia(Media $media): self
     {
         $this->medias->removeElement($media);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompanyGroupRevision>
+     */
+    public function getCompanyGroupRevisions(): Collection
+    {
+        return $this->companyGroupRevisions;
+    }
+
+    public function addCompanyGroupRevision(CompanyGroupRevision $CompanyGroupRevision): self
+    {
+        if (!$this->companyGroupRevisions->contains($CompanyGroupRevision)) {
+            $this->companyGroupRevisions->add($CompanyGroupRevision);
+            $CompanyGroupRevision->setCompanyGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyGroupRevision(CompanyGroupRevision $CompanyGroupRevision): self
+    {
+        $this->companyGroupRevisions->removeElement($CompanyGroupRevision);
+            
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        $this->badges->removeElement($badge);
 
         return $this;
     }
