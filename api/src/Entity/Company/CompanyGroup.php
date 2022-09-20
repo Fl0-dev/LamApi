@@ -98,11 +98,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ]
         ],
         ############################## GET ALL OFFERS BY COMPANYGROUP ID ##############################
-        self::OPERATION_NAME_GET_COMPANY_OFFERS => [
+        self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/offers',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_COMPANY_OFFERS],
+                'groups' => [self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of offers by company group id',
@@ -183,7 +183,7 @@ class CompanyGroup
     const OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
     const OPERATION_NAME_GET_COMPANY_APPLICATIONS = 'getCompanyGroupApplications';
     const OPERATION_NAME_GET_COMPANY_OFFICES = 'getCompanyGroupOffices';
-    const OPERATION_NAME_GET_COMPANY_OFFERS = 'getCompanyGroupOffers';
+    const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
     const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
     const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
 
@@ -205,8 +205,8 @@ class CompanyGroup
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
     ])]
     private $name;
@@ -251,14 +251,14 @@ class CompanyGroup
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
     ])]
     private $logo;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
     ])]
     private $headerMedia;
@@ -273,10 +273,10 @@ class CompanyGroup
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        self::OPERATION_NAME_GET_COMPANY_OFFERS, 
-        self::OPERATION_NAME_GET_COMPANY_OFFICES, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        self::OPERATION_NAME_GET_COMPANY_OFFICES,
         self::OPERATION_NAME_GET_COMPANY_APPLICATIONS
     ])]
     private $companyEntities;
@@ -289,7 +289,7 @@ class CompanyGroup
 
     #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
     ])]
     private ?CompanyProfile $profile = null;
@@ -763,7 +763,7 @@ class CompanyGroup
     public function removeCompanyGroupRevision(CompanyGroupRevision $CompanyGroupRevision): self
     {
         $this->companyGroupRevisions->removeElement($CompanyGroupRevision);
-            
+
         return $this;
     }
 
