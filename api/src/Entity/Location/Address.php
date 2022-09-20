@@ -23,7 +23,8 @@ class Address
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private $street;
@@ -32,6 +33,7 @@ class Address
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private $postalCode;
@@ -40,6 +42,7 @@ class Address
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private $latitude;
@@ -47,7 +50,8 @@ class Address
     #[ORM\Column(type: 'float')]
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,  
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private $longitude;
@@ -57,6 +61,7 @@ class Address
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]

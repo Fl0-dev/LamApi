@@ -50,14 +50,15 @@ class CompanyEntity
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
     ])]
     private Collection $companyEntityOffices;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
 
-    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\ManyToMany(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinTable(name: "company_entity_has_media")]
     #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]

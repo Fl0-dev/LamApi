@@ -9,6 +9,7 @@ use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
 use App\Entity\Company\CompanyProfile;
+use App\Entity\Organisation;
 use App\Entity\References\CompanySubscriptionType;
 use App\Entity\References\Workforce;
 use App\Entity\Social;
@@ -61,6 +62,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
+        $companyGroup->addPool($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_1));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_1, $companyGroup);
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
@@ -95,8 +97,31 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('tgs-france-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
-        
 
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-media1.png');
+        $media->setSlug('tgs-france-media1');
+        $companyGroup->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-media2.png');
+        $media->setSlug('tgs-france-media2');
+        $companyGroup->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france.com/assets/images/media3.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-media3.png');
+        $media->setSlug('tgs-france-media3');
+        $companyGroup->addMedia($media);
+        
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Ouest');
@@ -142,6 +167,22 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-ouest-media1.png');
+        $media->setSlug('tgs-france-ouest-media1');
+        $companyEntity->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/tgs-france-ouest-media2.png');
+        $media->setSlug('tgs-france-ouest-media2');
+        $companyEntity->addMedia($media);
+
         $manager->persist($companyEntity);
 
         $companyGroup->addCompanyEntity($companyEntity);
@@ -179,6 +220,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_3));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_5));
+        $companyGroup->addPool($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_2));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_2, $companyGroup);
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
@@ -211,8 +253,23 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('eolis-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
-        
 
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.eolis.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/eolis-media1.png');
+        $media->setSlug('eolis-media1');
+        $companyGroup->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.eolis.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/eolis-media2.png');
+        $media->setSlug('eolis-media2');
+        $companyGroup->addMedia($media);
+        
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
         $address->setStreet('Rue de la Liberté');
@@ -239,6 +296,22 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COMPANY_ENTITY_OFFICE_REFERENCE_3, $companyEntityOffice);
 
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.eolis-ouest.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/eolis-ouest-media1.png');
+        $media->setSlug('eolis-ouest-media1');
+        $companyEntity->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.eolis-ouest.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/eolis-ouest-media2.png');
+        $media->setSlug('eolis-ouest-media2');
+        $companyEntity->addMedia($media);
 
         $manager->persist($companyEntity);
 
@@ -274,6 +347,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_13));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_6));
+        $companyGroup->addPool($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_3));
+        $companyGroup->addPartner($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_4));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_3, $companyGroup);
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
@@ -307,6 +382,30 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('livli-video');
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-media1.png');
+        $media->setSlug('livli-media1');
+        $companyGroup->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-media2.png');
+        $media->setSlug('livli-media2');
+        $companyGroup->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli.com/assets/images/media3.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-media3.png');
+        $media->setSlug('livli-media3');
+        $companyGroup->addMedia($media);
         
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
@@ -320,6 +419,22 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Livli Ouest');
         $companyEntity->setSlug('livli-ouest');
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli-ouest.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-ouest-media1.png');
+        $media->setSlug('livli-ouest-media1');
+        $companyEntity->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.livli-ouest.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/livli-ouest-media2.png');
+        $media->setSlug('livli-ouest-media2');
+        $companyEntity->addMedia($media);
 
         $companyEntityOffice = new CompanyEntityOffice();
         $companyEntityOffice->setCompanyEntity($companyEntity);
@@ -365,6 +480,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_1));
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
+        $companyGroup->addPartner($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_5));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_4, $companyGroup);
 
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
@@ -382,7 +498,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('in-extenso-ouest-logo');
         $companyGroup->setLogo($media);
         
-
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/header.png');
         $media->setCreatedDate(new \DateTime());
@@ -391,7 +506,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setSlug('in-extenso-ouest-header');
         $companyGroup->setHeaderMedia($media);
         
-
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
         $media->setCreatedDate(new \DateTime());
@@ -401,11 +515,42 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $media->setAutoplay(true);
         $companyGroup->setMainMedia($media);
         
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/in-extenso-ouest-media1.png');
+        $media->setSlug('in-extenso-ouest-media1');
+        $companyGroup->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/in-extenso-ouest-media2.png');
+        $media->setSlug('in-extenso-ouest-media2');
+        $companyGroup->addMedia($media);
 
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Ouest');
-        $companyEntity->setSlug('In Extenso-ouest');
+        $companyEntity->setSlug('in-Extenso-ouest');
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/in-extenso-ouest-media1.png');
+        $media->setSlug('in-extenso-ouest-media1');
+        $companyEntity->addMedia($media);
+
+        $media = new MediaImage();
+        $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media2.png');
+        $media->setCreatedDate(new \DateTime());
+        $media->setLastModifiedDate(new \DateTime());
+        $media->setFilePath('/assets/images/in-extenso-ouest-media2.png');
+        $media->setSlug('in-extenso-ouest-media2');
+        $companyEntity->addMedia($media);
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
@@ -459,6 +604,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            OrganisationFixtures::class,
             CityFixtures::class,
             JobTypeFixtures::class,
             ToolFixtures::class,

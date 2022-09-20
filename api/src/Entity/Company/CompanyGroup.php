@@ -204,7 +204,11 @@ class CompanyGroup
     private ?BaseUuid $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     private $name;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -246,11 +250,17 @@ class CompanyGroup
     private $partners;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     private $logo;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     private $headerMedia;
 
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
@@ -262,7 +272,13 @@ class CompanyGroup
     private $jobTypes;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_OFFERS, self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID, self::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_OFFERS, 
+        self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID, 
+        self::OPERATION_NAME_GET_COMPANY_APPLICATIONS
+    ])]
     private $companyEntities;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -272,7 +288,10 @@ class CompanyGroup
     private Collection $ats;
 
     #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     private ?CompanyProfile $profile = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -282,10 +301,11 @@ class CompanyGroup
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subscriptionType = null;
 
-    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\ManyToMany(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinTable(name: "company_group_has_media")]
     #[ORM\JoinColumn(name: "companyGroup_id", referencedColumnName: "id")]
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private Collection $medias;
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupRevision::class, orphanRemoval: true)]
