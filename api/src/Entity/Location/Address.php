@@ -21,24 +21,50 @@ class Address
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $latitude;
 
     #[ORM\Column(type: 'float')]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $longitude;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $city;
 
     public function getName(): ?string

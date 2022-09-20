@@ -5,7 +5,6 @@ namespace App\Entity\Media;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "media_image")]

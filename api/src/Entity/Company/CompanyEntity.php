@@ -25,14 +25,20 @@ class CompanyEntity
     use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $hrMail;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES
+    ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
@@ -42,13 +48,16 @@ class CompanyEntity
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     private Collection $companyEntityOffices;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
 
-    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\ManyToMany(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinTable(name: "company_entity_has_media")]
     #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
