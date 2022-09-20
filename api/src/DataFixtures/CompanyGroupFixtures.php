@@ -534,7 +534,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity = new CompanyEntity();
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Ouest');
-        $companyEntity->setSlug('in-Extenso-ouest');
+        $companyEntity->setSlug('in-extenso-ouest');
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
