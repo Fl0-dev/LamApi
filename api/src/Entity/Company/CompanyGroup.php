@@ -37,11 +37,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS],
             ],
         ],
-        self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS => [
+        self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS => [
             'method' => 'GET',
             'path' => '/company-groups/name/keywords={keywords}',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS],
+                'groups' => [self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS],
             ],
             'controller' => CompanyGroupController::class,
             'filters' => [],
@@ -180,7 +180,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class CompanyGroup
 {
     const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
-    const OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
+    const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
     const OPERATION_NAME_GET_COMPANY_APPLICATIONS = 'getCompanyGroupApplications';
     const OPERATION_NAME_GET_COMPANY_OFFICES = 'getCompanyGroupOffices';
     const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
@@ -206,7 +206,7 @@ class CompanyGroup
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        self::OPERATION_NAME__GET_COMPANY_NAME_BY_KEYWORDS,
+        self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
     ])]
     private $name;
