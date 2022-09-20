@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $token;
 
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups([Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
     private $email;
 
     public function __construct()

@@ -28,10 +28,10 @@ class CompanyEntityOffice
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         Offer::OPERATION_NAME_POST_OFFER
     ])]
     private ?string $name = null;
@@ -39,10 +39,10 @@ class CompanyEntityOffice
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private ?Address $address = null;
@@ -54,9 +54,9 @@ class CompanyEntityOffice
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         Offer::OPERATION_NAME_POST_OFFER
     ])]
     private ?CompanyEntity $companyEntity = null;

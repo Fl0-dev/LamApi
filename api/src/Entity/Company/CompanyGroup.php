@@ -102,7 +102,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'method' => 'GET',
             'path' => '/company-groups/{id}/offers',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID],
+                'groups' => [self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, ],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of offers by company group id',
