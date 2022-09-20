@@ -32,11 +32,11 @@ class CompanyEntityOffice
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
     private ?Address $address = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
     private $hrMailAddress;
 
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]

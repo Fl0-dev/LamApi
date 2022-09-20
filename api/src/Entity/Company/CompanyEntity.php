@@ -25,14 +25,20 @@ class CompanyEntity
     use Slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+    ])]
     private $hrMail;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $officeNumber;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_COMPANY_OFFICES])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+    ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
@@ -42,7 +48,10 @@ class CompanyEntity
     private $admins;
 
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+    ])]
     private Collection $companyEntityOffices;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -224,7 +233,7 @@ class CompanyEntity
     public function removeCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
     {
         $this->companyEntityRevisions->removeElement($companyEntityRevision);
-            
+
         return $this;
     }
 }
