@@ -2,6 +2,7 @@
 
 namespace App\Entity\Media;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyEntity;
 use App\Entity\Company\CompanyGroup;
@@ -51,17 +52,20 @@ abstract class Media
     const TYPE_VIDEO = 'video';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ApiProperty(iri: 'https://schema.org/contentUrl')]
     #[Groups([self::OPERATION_NAME__GET_MEDIA])]
     private $contentUrl;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, self::OPERATION_NAME__GET_MEDIA)]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        self::OPERATION_NAME__GET_MEDIA
+    ])]
     private $filePath;
 
-    // /**
-    //  * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
-    //  */
-    #[Assert\NotNull()]
+    /**
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
+     */
     private ?File $file = null;
 
     public function __construct()
@@ -134,6 +138,18 @@ abstract class Media
     public function setTypeVideo()
     {
         $this->type = self::TYPE_VIDEO;
+
+        return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

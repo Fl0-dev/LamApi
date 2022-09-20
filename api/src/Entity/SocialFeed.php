@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyGroup;
 use App\Repository\SocialFeedRepository;
 use App\Transversal\Uuid;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SocialFeedRepository::class)]
+#[ApiResource()]
 class SocialFeed
 {
     use Uuid;
