@@ -3,7 +3,6 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
@@ -20,7 +19,7 @@ use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
-use Symfony\Component\Uid\Uuid as BaseUuid;
+use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -187,21 +186,10 @@ class CompanyGroup
     const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
     const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
 
+    use Uuid;
     use Slug;
     use CreatedDate;
     use LastModifiedDate;
-
-    /**
-     * Uuid Property
-     *
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
-    #[ApiProperty(identifier: true)]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
-    private ?BaseUuid $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
@@ -327,30 +315,10 @@ class CompanyGroup
         $this->badges = new ArrayCollection();
     }
 
-    /**
-     * Get Uuid value
-     */
-    public function getId(): ?BaseUuid
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
+    public function getId(): ?string
     {
         return $this->id;
-    }
-
-    /**
-     * Set Uuid value
-     */
-    public function setId(BaseUuid $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Check if Uuid has a valid value
-     */
-    public function hasId(): bool
-    {
-        return $this->id instanceof BaseUuid;
     }
 
     public function getName(): ?string

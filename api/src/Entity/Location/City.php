@@ -34,12 +34,19 @@ class City
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups([self::OPERATION_NAME_GET_ALL_CITIES, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        self::OPERATION_NAME_GET_ALL_CITIES, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+    ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([self::OPERATION_NAME_GET_ALL_CITIES, CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        self::OPERATION_NAME_GET_ALL_CITIES, 
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+    ])]
     private $department;
 
     public function getName(): ?string
@@ -66,7 +73,12 @@ class City
         return $this;
     }
 
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+    ])]
     public function getCityNameAndNbDepartment(): string
     {
         return $this->name . ' (' . $this->department->getCode() . ')';
