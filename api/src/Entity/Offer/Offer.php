@@ -18,6 +18,9 @@ use App\Entity\User\Employer;
 use App\Entity\JobBoard;
 use App\Entity\JobTitle;
 use App\Entity\Media\Media;
+use App\Entity\References\ContractType;
+use App\Entity\References\Experience;
+use App\Entity\References\LevelOfStudy;
 use App\Entity\References\OfferStatus;
 use App\Entity\Tool;
 use App\Entity\User\User;
@@ -410,14 +413,10 @@ class Offer
     ])]
     public function getContractTypeLabel(): ?string
     {
-        $label = null;
         $contractTypeRepository = new ContractTypeRepository();
+        $contractType = $contractTypeRepository->find($this->contractType);
 
-        if ($contractTypeRepository->find($this->contractType) !== null) {
-            $label = $contractTypeRepository->find($this->contractType)->getLabel();
-        }
-
-        return $label;
+        return $contractType instanceof ContractType ? $contractType->getLabel() : null;
     }
 
     #[Groups([
@@ -426,14 +425,10 @@ class Offer
     ])]
     public function getExperienceLabel(): ?string
     {
-        $label = null;
         $experienceRepository = new ExperienceRepository();
+        $experience = $experienceRepository->find($this->experience);
 
-        if ($experienceRepository->find($this->experience) !== null) {
-            $label = $experienceRepository->find($this->experience)->getDuration();
-        }
-
-        return $label;
+        return $experience instanceof Experience ? $experience->getDuration() : null;
     }
 
     #[Groups([
@@ -442,14 +437,10 @@ class Offer
     ])]
     public function getLevelOfStudyLabel(): ?string
     {
-        $label = null;
         $levelOfStudyRepository = new LevelOfStudyRepository();
+        $levelOfStudy = $levelOfStudyRepository->find($this->levelOfStudy);
 
-        if ($levelOfStudyRepository->find($this->levelOfStudy) !== null) {
-            $label = $levelOfStudyRepository->find($this->levelOfStudy)->getLabel();
-        }
-
-        return $label;
+        return $levelOfStudy instanceof LevelOfStudy ? $levelOfStudy->getLabel() : null;
     }
 
     public function isProvided(): ?bool
