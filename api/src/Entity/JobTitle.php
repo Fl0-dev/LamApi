@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Entity\Offer\Offer;
 use App\Filter\JobFilter;
 use App\Repository\JobTitleRepository;
 use App\Transversal\Label;
@@ -13,6 +14,7 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: JobTitleRepository::class)]
 #[ApiResource()]
@@ -66,6 +68,12 @@ class JobTitle
     public function __construct()
     {
         $this->jobTypes = new ArrayCollection();
+    }
+
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS])]
+    public function getLabel(): ?string
+    {
+        return $this->label;
     }
 
     /**
