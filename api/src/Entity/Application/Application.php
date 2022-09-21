@@ -116,7 +116,7 @@ class Application
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
         self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
     ])]
@@ -124,7 +124,7 @@ class Application
 
     #[ORM\Column(type: 'integer', nullable: true)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
     ])]
     private $score;
@@ -132,7 +132,7 @@ class Application
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
     ])]
     private $applicant;
@@ -143,7 +143,7 @@ class Application
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class, cascade: ['persist'])]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
         self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
     ])]
@@ -162,6 +162,24 @@ class Application
     public function __construct()
     {
         $this->applicantionExchanges = new ArrayCollection();
+    }
+
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+    ])]
+    public function getCreatedDate(): ?\DateTime
+    {
+        return $this->createdDate;
+    }
+
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+    ])]
+    public function getLastModifiedDate(): ?\DateTime
+    {
+        return $this->lastModifiedDate;
     }
 
     public function getMotivationText(): ?string
@@ -276,11 +294,5 @@ class Application
         $this->companyEntityOffice = $companyEntityOffice;
 
         return $this;
-    }
-
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,])]
-    public function getCreatedDate(): ?\DateTime
-    {
-        return $this->createdDate;
     }
 }

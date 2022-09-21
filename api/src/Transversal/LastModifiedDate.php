@@ -2,10 +2,8 @@
 
 namespace App\Transversal;
 
-use App\Entity\Offer\Offer;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Trait for using LastModifiedDate
@@ -17,7 +15,6 @@ trait LastModifiedDate
      *
      */
     #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS])]
     private ?\DateTime $lastModifiedDate;
 
     /**

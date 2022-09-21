@@ -27,8 +27,8 @@ class ApplicantCv
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
-        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
     ])]
     private $filePath;

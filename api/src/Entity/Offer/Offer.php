@@ -3,7 +3,6 @@
 namespace App\Entity\Offer;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Entity\Revision\OfferRevision;
 use App\Validator;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -73,11 +72,15 @@ use Symfony\Component\Validator\Constraints\Length;
             ],
         ],
         ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
-        self::OPERATION_NAME_GET_OFFER_APPLICATIONS => [
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID => [
             'method' => 'GET',
             'path' => '/offers/{id}/applications',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFER_APPLICATIONS],
+                'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID],
+            ],
+            'openapi_context' => [
+                'summary' => 'Retrieves all applications by offer id',
+                'description' => 'Retrieves all applications by offer id',
             ],
         ],
         ############################## GET TOTAL NUMBER OF OFFERS ##############################
@@ -130,7 +133,7 @@ class Offer
     const OPERATION_NAME_GET_OFFER_TEASERS = 'getOfferTeasers';
     const OPERATION_NAME_POST_OFFER = 'postOffer';
     const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
-    const OPERATION_NAME_GET_OFFER_APPLICATIONS = 'getOfferApplications';
+    const OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID = 'getOfferApplications';
     const OPERATION_NAME_GET_OFFER_DETAILS = 'getOfferDetails';
 
     use Uuid;
@@ -141,8 +144,8 @@ class Offer
     #[ORM\Column(type: 'boolean')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $provided;
@@ -151,11 +154,12 @@ class Offer
     #[
         Groups([
             self::OPERATION_NAME_GET_ALL_OFFER,
-            self::OPERATION_NAME_GET_OFFER_DETAILS, 
-            self::OPERATION_NAME_GET_OFFER_TEASERS, 
-            CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-            JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
-            self::OPERATION_NAME_POST_OFFER]),
+            self::OPERATION_NAME_GET_OFFER_DETAILS,
+            self::OPERATION_NAME_GET_OFFER_TEASERS,
+            CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+            JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+            self::OPERATION_NAME_POST_OFFER
+        ]),
         Length(
             min: 3,
             max: 255,
@@ -168,9 +172,9 @@ class Offer
     #[ORM\Column(type: 'boolean')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $fullyTelework;
@@ -178,9 +182,9 @@ class Offer
     #[ORM\Column(type: 'text')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $missions;
@@ -188,9 +192,9 @@ class Offer
     #[ORM\Column(type: 'text')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $needs;
@@ -198,9 +202,9 @@ class Offer
     #[ORM\Column(type: 'text')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $prospectWithUs;
@@ -208,9 +212,9 @@ class Offer
     #[ORM\Column(type: 'text')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $recruitmentProcess;
@@ -218,9 +222,9 @@ class Offer
     #[ORM\Column(type: 'text')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $workWithUs;
@@ -228,9 +232,9 @@ class Offer
     #[ORM\Column(type: 'float')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $weeklyHours;
@@ -238,10 +242,10 @@ class Offer
     #[ORM\Column(type: 'boolean')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $startASAP;
@@ -249,10 +253,10 @@ class Offer
     #[ORM\Column(type: 'float', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $salaryMin;
@@ -260,10 +264,10 @@ class Offer
     #[ORM\Column(type: 'float', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $salaryMax;
@@ -271,10 +275,10 @@ class Offer
     #[ORM\Column(type: 'datetime', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $startDate;
@@ -289,7 +293,7 @@ class Offer
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
     #[Groups([
-        self::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     #[ORM\JoinColumn(nullable: true)]
@@ -302,8 +306,8 @@ class Offer
     #[ORM\ManyToOne(targetEntity: Media::class)]
     #[ORM\JoinColumn(nullable: true)]
     #[Groups([
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $headerMedia;
@@ -312,9 +316,9 @@ class Offer
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $levelOfStudy;
@@ -323,9 +327,9 @@ class Offer
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $jobTitle;
@@ -334,9 +338,9 @@ class Offer
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $experience;
@@ -345,9 +349,9 @@ class Offer
     #[ORM\Column(type: 'string', nullable: false)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $contractType;
@@ -362,9 +366,9 @@ class Offer
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
