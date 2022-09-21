@@ -21,13 +21,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID => [
+        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID => [
             'method' => 'POST',
             'path' => '/applications/{offerId}',
             'controller' => ApplicationController::class,
             'deserialize' => false,
             'denormalization_context' => [
-                'groups' => [self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID],
+                'groups' => [self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Post application for an offer by offer id',
@@ -62,13 +62,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ],
         ],
-        self::OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID => [
+        self::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID => [
             'method' => 'POST',
             'path' => '/applications/spontaneaous/{companyEntityOfficeId}',
             'controller' => ApplicationController::class,
             'deserialize' => false,
             'denormalization_context' => [
-                'groups' => [self::OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID],
+                'groups' => [self::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Post spontaneous application for a company entity by company entity id',
@@ -107,32 +107,46 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Application
 {
-    const OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
-    const OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID = 'postSpontaneaousApplicationByCompanyEntityOfficeId';
+    const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
+    const OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID = 'postSpontaneaousApplicationByCompanyEntityOfficeId';
 
     use Uuid;
-    use CreatedDate;
     use LastModifiedDate;
+    use CreatedDate;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
+    ])]
     private $motivationText;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
+    ])]
     private $score;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
+    ])]
     private $applicant;
 
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications', cascade: ['persist'])]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID])]
     private $offer;
 
     #[ORM\ManyToOne(targetEntity: ApplicantCv::class, cascade: ['persist'])]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS, CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS, self::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
+    ])]
     private $cv;
 
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
@@ -262,5 +276,11 @@ class Application
         $this->companyEntityOffice = $companyEntityOffice;
 
         return $this;
+    }
+
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,])]
+    public function getCreatedDate(): ?\DateTime
+    {
+        return $this->createdDate;
     }
 }

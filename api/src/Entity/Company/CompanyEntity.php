@@ -8,8 +8,9 @@ use App\Entity\User\Employer;
 use App\Entity\Media\Media;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\Offer\Offer;
-use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,6 +24,8 @@ class CompanyEntity
 {
     use Uuid;
     use Slug;
+    use CreatedDate;
+    use LastModifiedDate;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
@@ -52,7 +55,8 @@ class CompanyEntity
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
     ])]
     private Collection $companyEntityOffices;
 

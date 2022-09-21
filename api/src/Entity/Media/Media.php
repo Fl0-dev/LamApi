@@ -25,20 +25,20 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     "video" => MediaVideo::class,
 ])]
 #[ApiResource(
-    normalizationContext: [self::OPERATION_NAME__GET_MEDIA],
+    normalizationContext: [self::OPERATION_NAME_GET_MEDIA],
     collectionOperations: [
         "get" => [
             "method" => "GET",
             "path" => "/media",
             "normalization_context" => [
-                "groups" => [self::OPERATION_NAME__GET_MEDIA]
+                "groups" => [self::OPERATION_NAME_GET_MEDIA]
             ]
         ],
         "post" => [
             "method" => "POST",
             "path" => "/media",
             "normalization_context" => [
-                "groups" => [self::OPERATION_NAME__GET_MEDIA]
+                "groups" => [self::OPERATION_NAME_GET_MEDIA]
             ]
         ]
     ]
@@ -47,19 +47,19 @@ abstract class Media
 {
     use TechnicalProperties;
 
-    const OPERATION_NAME__GET_MEDIA = "getMedia";
+    const OPERATION_NAME_GET_MEDIA = "getMedia";
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[ApiProperty(iri: 'https://schema.org/contentUrl')]
-    #[Groups([self::OPERATION_NAME__GET_MEDIA])]
+    #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     private $contentUrl;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        self::OPERATION_NAME__GET_MEDIA
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        self::OPERATION_NAME_GET_MEDIA
     ])]
     private $filePath;
 
@@ -113,7 +113,7 @@ abstract class Media
         return self::TYPE_VIDEO === $this->getMediaType();
     }
 
-    #[Groups([self::OPERATION_NAME__GET_MEDIA])]
+    #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     public function getMediaType(): string
     {
         return get_class($this) === MediaImage::class ? self::TYPE_IMAGE : self::TYPE_VIDEO;

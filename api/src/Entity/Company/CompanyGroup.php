@@ -3,7 +3,6 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Controller\CompanyGroupController;
@@ -20,9 +19,10 @@ use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
-use Symfony\Component\Uid\Uuid as BaseUuid;
+use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -102,7 +102,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'method' => 'GET',
             'path' => '/company-groups/{id}/offers',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID],
+                'groups' => [self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, ],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of offers by company group id',
@@ -142,11 +142,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ],
         ############################## GET ALL APPLICATIONS BY COMPANYGROUP ID ##############################
-        self::OPERATION_NAME_GET_COMPANY_APPLICATIONS => [
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID => [
             'method' => 'GET',
             'path' => '/company-groups/{id}/applications',
             'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_COMPANY_APPLICATIONS],
+                'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID],
             ],
             'openapi_context' => [
                 'summary' => 'Retrieves list of applications by company group id',
@@ -181,27 +181,16 @@ class CompanyGroup
 {
     const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
     const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
-    const OPERATION_NAME_GET_COMPANY_APPLICATIONS = 'getCompanyGroupApplications';
+    const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
     const OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffices';
     const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
     const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
     const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
 
+    use Uuid;
     use Slug;
     use CreatedDate;
     use LastModifiedDate;
-
-    /**
-     * Uuid Property
-     *
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
-    #[ApiProperty(identifier: true)]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
-    private ?BaseUuid $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
@@ -273,11 +262,11 @@ class CompanyGroup
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     #[Groups([
-        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
-        self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID, 
-        self::OPERATION_NAME_GET_COMPANY_APPLICATIONS
+        self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
     ])]
     private $companyEntities;
 
@@ -327,30 +316,10 @@ class CompanyGroup
         $this->badges = new ArrayCollection();
     }
 
-    /**
-     * Get Uuid value
-     */
+    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
-    }
-
-    /**
-     * Set Uuid value
-     */
-    public function setId(BaseUuid $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Check if Uuid has a valid value
-     */
-    public function hasId(): bool
-    {
-        return $this->id instanceof BaseUuid;
     }
 
     public function getName(): ?string

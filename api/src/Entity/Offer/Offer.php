@@ -25,6 +25,7 @@ use App\Repository\OfferRepositories\OfferRepository;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
+use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -132,27 +133,17 @@ class Offer
     const OPERATION_NAME_GET_OFFER_APPLICATIONS = 'getOfferApplications';
     const OPERATION_NAME_GET_OFFER_DETAILS = 'getOfferDetails';
 
+    use Uuid;
+    use Slug;
     use LastModifiedDate;
     use CreatedDate;
-
-    /**
-     * Uuid Property
-     *
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    #[ORM\CustomIdGenerator(class: "doctrine.uuid_generator")]
-    #[ApiProperty(identifier: true)]
-    #[Groups([self::OPERATION_NAME_GET_OFFER_TEASERS])]
-    private ?BaseUuid $id = null;
 
     #[ORM\Column(type: 'boolean')]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $provided;
 
@@ -163,7 +154,7 @@ class Offer
             self::OPERATION_NAME_GET_OFFER_DETAILS, 
             self::OPERATION_NAME_GET_OFFER_TEASERS, 
             CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-            JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+            JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
             self::OPERATION_NAME_POST_OFFER]),
         Length(
             min: 3,
@@ -179,7 +170,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $fullyTelework;
@@ -189,7 +180,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $missions;
@@ -199,7 +190,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $needs;
@@ -209,7 +200,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $prospectWithUs;
@@ -219,7 +210,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $recruitmentProcess;
@@ -229,7 +220,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $workWithUs;
@@ -239,7 +230,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $weeklyHours;
@@ -250,7 +241,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         self::OPERATION_NAME_GET_OFFER_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $startASAP;
@@ -261,7 +252,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         self::OPERATION_NAME_GET_OFFER_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $salaryMin;
@@ -272,7 +263,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         self::OPERATION_NAME_GET_OFFER_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $salaryMax;
@@ -283,7 +274,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         self::OPERATION_NAME_GET_OFFER_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $startDate;
@@ -299,7 +290,7 @@ class Offer
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_APPLICATIONS, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     #[ORM\JoinColumn(nullable: true)]
     private $applications;
@@ -313,7 +304,7 @@ class Offer
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $headerMedia;
 
@@ -323,7 +314,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $levelOfStudy;
@@ -334,7 +325,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $jobTitle;
@@ -345,7 +336,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $experience;
@@ -356,27 +347,13 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $contractType;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private $status;
-
-    #[ORM\Column(type: "string", length: 255, nullable: false)]
-    #[
-        Groups([
-            self::OPERATION_NAME_POST_OFFER
-        ]),
-        Length(
-            min: 3,
-            max: 255,
-            minMessage: "Le slug de l'offre doit contenir au moins {{ limit }} caractères",
-            maxMessage: "Le slug de l'offre ne doit pas dépasser {{ limit }} caractères"
-        )
-    ]
-    private ?string $slug = null;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     private Collection $tools;
@@ -387,7 +364,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFER,
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
         self::OPERATION_NAME_GET_OFFER_TEASERS, 
-        JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS, 
         self::OPERATION_NAME_POST_OFFER
     ])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
@@ -408,42 +385,16 @@ class Offer
         $this->offerRevisions = new ArrayCollection();
     }
 
-    /**
-     * Get Uuid value
-     */
+    #[Groups([self::OPERATION_NAME_GET_OFFER_TEASERS])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
     }
 
-    /**
-     * Set Uuid value
-     */
-    public function setId(BaseUuid $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Check if Uuid has a valid value
-     */
-    public function hasId(): bool
-    {
-        return $this->id instanceof BaseUuid;
-    }
-
-    public function getSlug(): ?string
+    #[Groups([self::OPERATION_NAME_POST_OFFER])]
+    public function setSlug(): ?string
     {
         return $this->slug;
-    }
-
-    public function setSlug(?string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 
     public function isProvided(): ?bool
@@ -796,7 +747,7 @@ class Offer
         return $this;
     }
 
-    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS])]
+    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
     public function getContractTypeLabel(): ?string
     {
         $contractTypeRepository = new ContractTypeRepository();

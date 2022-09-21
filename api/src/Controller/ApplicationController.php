@@ -30,7 +30,7 @@ class ApplicationController extends AbstractController
             $operationName = $request->attributes->get('_api_collection_operation_name');
         }
 
-        if ($operationName === Application::OPERATION_NAME__PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID) {
+        if ($operationName === Application::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID) {
             $companyEntityOfficeId = $request->attributes->get('companyEntityOfficeId');
             $file = $request->files->get('file');
 
@@ -44,7 +44,7 @@ class ApplicationController extends AbstractController
             if (!$companyEntityOffice instanceof CompanyEntityOffice || !$companyEntityOffice->hasId()) {
                 throw new \Exception('companyEntity not found');
             }
-            
+
             $application = new Application();
             $application->setMotivationText($motivation);
             $application->setcompanyEntityOffice($companyEntityOffice);
@@ -61,7 +61,7 @@ class ApplicationController extends AbstractController
             return $application;
         }
 
-        if ($operationName === Application::OPERATION_NAME__POST_APPLICATION_BY_OFFER_ID) {
+        if ($operationName === Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID) {
             $offerId = $request->attributes->get('offerId');
             $file = $request->files->get('file');
 

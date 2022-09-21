@@ -4,18 +4,20 @@ namespace App\Transversal;
 
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * Trait for using Slug
  */
 trait Slug
 {
-    /**
-     * Slug
-     *
-     */
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
+    #[Length(
+        min: 3,
+        max: 255,
+        minMessage: "Le slug de l'offre doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le slug de l'offre ne doit pas dépasser {{ limit }} caractères"
+    )]
     private ?string $slug = null;
 
     /**

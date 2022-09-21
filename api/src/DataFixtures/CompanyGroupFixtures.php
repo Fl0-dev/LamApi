@@ -126,6 +126,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Ouest');
         $companyEntity->setSlug('tgs-france-ouest');
+        $companyEntity->setCreatedDate(new \DateTime());
+        $companyEntity->setLastModifiedDate(new \DateTime());
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
@@ -282,6 +284,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Eolis Ouest');
         $companyEntity->setSlug('eolis-ouest');
+        $companyEntity->setCreatedDate(new \DateTime());
+        $companyEntity->setLastModifiedDate(new \DateTime());
 
 
         $companyEntityOffice = new CompanyEntityOffice();
@@ -419,6 +423,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Livli Ouest');
         $companyEntity->setSlug('livli-ouest');
+        $companyEntity->setCreatedDate(new \DateTime());
+        $companyEntity->setLastModifiedDate(new \DateTime());
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli-ouest.com/assets/images/media1.png');
@@ -535,6 +541,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Ouest');
         $companyEntity->setSlug('in-extenso-ouest');
+        $companyEntity->setCreatedDate(new \DateTime());
+        $companyEntity->setLastModifiedDate(new \DateTime());
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
