@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\Media;
+use App\Entity\Offer\Offer;
 use App\Repository\ToolRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -24,7 +25,10 @@ class Tool
     use Label;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS
+    ])]
     private ?Media $logo = null;
 
     public function getLogo(): ?Media

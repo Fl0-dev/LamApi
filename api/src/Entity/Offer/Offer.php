@@ -17,11 +17,16 @@ use App\Entity\User\Employer;
 use App\Entity\JobBoard;
 use App\Entity\JobTitle;
 use App\Entity\Media\Media;
+use App\Entity\References\ContractType;
+use App\Entity\References\Experience;
+use App\Entity\References\LevelOfStudy;
 use App\Entity\References\OfferStatus;
 use App\Entity\Tool;
 use App\Entity\User\User;
 use App\Repository\OfferRepositories\OfferRepository;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
+use App\Repository\ReferencesRepositories\ExperienceRepository;
+use App\Repository\ReferencesRepositories\LevelOfStudyRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
@@ -360,6 +365,10 @@ class Offer
     private $status;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
+    #[Groups([
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_POST_OFFER
+    ])]
     private Collection $tools;
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
@@ -395,10 +404,47 @@ class Offer
         return $this->id;
     }
 
-    #[Groups([self::OPERATION_NAME_POST_OFFER])]
-    public function setSlug(): ?string
+    // #[Groups([self::OPERATION_NAME_POST_OFFER])]
+    // public function setSlug(): ?string
+    // {
+    //     return $this->slug;
+    // }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_GET_OFFER_TEASERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
+    public function getContractTypeLabel(): ?string
     {
-        return $this->slug;
+        $contractTypeRepository = new ContractTypeRepository();
+        $contractType = $contractTypeRepository->find($this->contractType);
+
+        return $contractType instanceof ContractType ? $contractType->getLabel() : null;
+    }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
+    public function getExperienceLabel(): ?string
+    {
+        $experienceRepository = new ExperienceRepository();
+        $experience = $experienceRepository->find($this->experience);
+
+        return $experience instanceof Experience ? $experience->getDuration() : null;
+    }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
+    public function getLevelOfStudyLabel(): ?string
+    {
+        $levelOfStudyRepository = new LevelOfStudyRepository();
+        $levelOfStudy = $levelOfStudyRepository->find($this->levelOfStudy);
+
+        return $levelOfStudy instanceof LevelOfStudy ? $levelOfStudy->getLabel() : null;
     }
 
     public function isProvided(): ?bool
@@ -749,14 +795,6 @@ class Offer
         $this->companyEntityOffice = $companyEntityOffice;
 
         return $this;
-    }
-
-    #[Groups([self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getContractTypeLabel(): ?string
-    {
-        $contractTypeRepository = new ContractTypeRepository();
-
-        return $contractTypeRepository->find($this->contractType)->getLabel();
     }
 
     /**

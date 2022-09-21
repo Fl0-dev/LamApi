@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyEntity;
 use App\Entity\Company\CompanyGroup;
+use App\Entity\Offer\Offer;
 use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
@@ -59,6 +60,7 @@ abstract class Media
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_MEDIA
     ])]
     private $filePath;
