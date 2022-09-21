@@ -13,8 +13,6 @@ use App\Repository\ApplicationRepositories\ApplicationRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
-use App\Utils\Utils;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -281,7 +279,7 @@ class Application
     }
 
     #[Groups([CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,])]
-    public function getCreatedDate(): ?DateTime
+    public function getCreatedDate(): ?\DateTime
     {
         return $this->createdDate;
     }

@@ -22,6 +22,7 @@ use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -316,7 +317,7 @@ class CompanyGroup
     }
 
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
-    public function getId(): ?string
+    public function getId(): ?BaseUuid
     {
         return $this->id;
     }
