@@ -410,9 +410,14 @@ class Offer
     ])]
     public function getContractTypeLabel(): ?string
     {
+        $label = null;
         $contractTypeRepository = new ContractTypeRepository();
 
-        return $contractTypeRepository->find($this->contractType)->getLabel();
+        if ($contractTypeRepository->find($this->contractType) !== null) {
+            $label = $contractTypeRepository->find($this->contractType)->getLabel();
+        }
+
+        return $label;
     }
 
     #[Groups([
@@ -421,9 +426,14 @@ class Offer
     ])]
     public function getExperienceLabel(): ?string
     {
+        $label = null;
         $experienceRepository = new ExperienceRepository();
 
-        return $experienceRepository->find($this->experience)->getDuration();
+        if ($experienceRepository->find($this->experience) !== null) {
+            $label = $experienceRepository->find($this->experience)->getDuration();
+        }
+
+        return $label;
     }
 
     #[Groups([
@@ -432,9 +442,14 @@ class Offer
     ])]
     public function getLevelOfStudyLabel(): ?string
     {
+        $label = null;
         $levelOfStudyRepository = new LevelOfStudyRepository();
 
-        return $levelOfStudyRepository->find($this->levelOfStudy)->getLabel();
+        if ($levelOfStudyRepository->find($this->levelOfStudy) !== null) {
+            $label = $levelOfStudyRepository->find($this->levelOfStudy)->getLabel();
+        }
+
+        return $label;
     }
 
     public function isProvided(): ?bool
