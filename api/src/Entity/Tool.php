@@ -29,16 +29,12 @@ class Tool
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-        Offer::OPERATION_NAME_GET_ALL_OFFERS,
     ])]
     private ?Media $logo = null;
 
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-        Offer::OPERATION_NAME_GET_ALL_OFFERS,
     ])]
     public function getId(): ?BaseUuid
     {
@@ -55,5 +51,23 @@ class Tool
         $this->logo = $logo;
 
         return $this;
+    }
+
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
+    ])]
+    public function getTool(): array
+    {
+        $logoPath= $this->getLogo()->getFilePath();
+        $arrayToolInfos = [
+            'id' => $this->getId(),
+            'label' => $this->getLabel(),
+            'url' => "https:://lamacompta.co/$logoPath",
+        ];
+
+        return $arrayToolInfos;
     }
 }

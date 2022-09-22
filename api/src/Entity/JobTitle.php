@@ -70,8 +70,6 @@ class JobTitle
 
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     public function getLabel(): ?string
     {

@@ -72,7 +72,6 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $city;
 
@@ -136,7 +135,7 @@ class Address
         return $this;
     }
 
-    public function getCity(): ?City
+    public function getCityObject(): ?City
     {
         return $this->city;
     }
@@ -146,5 +145,21 @@ class Address
         $this->city = $city;
 
         return $this;
+    }
+
+    #[Groups([
+        Offer::OPERATION_NAME_GET_ALL_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
+    public function getCityInfos(): ?array
+    {
+        $arrayCityInfos = [
+            'id' => $this->city->getId(),
+            'name' => $this->city->getName(),
+            'fullName' => $this->city->getCityNameAndNbDepartment(),
+            'department' => $this->city->getDepartment()->getName(),
+            'region' => $this->city->getDepartment()->getRegion()->getName(),
+        ];
+        return $arrayCityInfos;
     }
 }

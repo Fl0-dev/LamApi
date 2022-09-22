@@ -54,7 +54,6 @@ class Department
     #[ORM\Column(type: 'string', length: 75)]
     #[Groups([
         City::OPERATION_NAME_GET_ALL_CITIES,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $name;
 
@@ -63,9 +62,6 @@ class Department
 
     #[ORM\ManyToOne(targetEntity: Region::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
     private $region;
 
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: City::class)]

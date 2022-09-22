@@ -151,10 +151,8 @@ class Offer
 
     #[ORM\Column(type: 'boolean')]
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $provided;
 
@@ -307,8 +305,6 @@ class Offer
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
     #[Groups([
         self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-        self::OPERATION_NAME_GET_ALL_OFFERS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
     ])]
     #[ORM\JoinColumn(nullable: true)]
@@ -323,7 +319,6 @@ class Offer
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_OFFER_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $headerMedia;
 
@@ -340,10 +335,8 @@ class Offer
     #[ORM\ManyToOne(targetEntity: JobTitle::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $jobTitle;
@@ -389,10 +382,10 @@ class Offer
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
+        // self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_OFFER_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        // JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
@@ -439,6 +432,15 @@ class Offer
     public function getSlug(): ?string
     {
         return $this->slug;
+    }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
+    public function getJobTitleLabel(): string
+    {
+        return $this->getJobTitleObject()->getLabel();
     }
 
     #[Groups([
@@ -506,6 +508,21 @@ class Offer
         }
 
         return $url;
+    }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
+    public function getCompany(): ?array
+    {
+        $arrayCompanyInfos = [
+            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(),
+            'id' => $this->companyEntityOffice->getCompanyEntity()->getId(),
+            'address'=> $this->companyEntityOffice->getAddress(),
+        ];
+            
+        return $arrayCompanyInfos;
     }
 
     public function isProvided(): ?bool
@@ -774,7 +791,7 @@ class Offer
         return $this;
     }
 
-    public function getJobTitle(): ?JobTitle
+    public function getJobTitleObject(): ?JobTitle
     {
         return $this->jobTitle;
     }

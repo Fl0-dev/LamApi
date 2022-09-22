@@ -18,9 +18,6 @@ class Region
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups([
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'regions')]

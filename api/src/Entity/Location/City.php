@@ -40,7 +40,6 @@ class City
         self::OPERATION_NAME_GET_ALL_CITIES,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $name;
 
@@ -49,14 +48,9 @@ class City
     #[Groups([
         self::OPERATION_NAME_GET_ALL_CITIES,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $department;
 
-    #[Groups([
-        Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
@@ -67,7 +61,6 @@ class City
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     public function getCityNameAndNbDepartment(): string
     {
