@@ -1,6 +1,7 @@
 api_platform:
     title: LamAPI
     version: 1.0.0
+    allow_plain_identifiers: true
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     # ajout des formats de données supportés

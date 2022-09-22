@@ -6,7 +6,6 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\Offer\Offer;
-use App\Filter\JobFilter;
 use App\Repository\JobTitleRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -57,7 +56,6 @@ class JobTitle
         'senior-manager-audit' => 'Senior Manager Audit',
         'transmission-cession' => 'Transmission / Cession'
     ];
-
     use Uuid;
     use Slug;
     use Label;

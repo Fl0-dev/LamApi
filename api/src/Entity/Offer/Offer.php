@@ -49,7 +49,7 @@ use Symfony\Component\Validator\Constraints\Length;
                     self::OPERATION_NAME_GET_ALL_OFFER
                 ]
             ]
-        ],
+        ],        
         self::OPERATION_NAME_GET_OFFER_TEASERS => [
             'method' => 'GET',
             'path' => '/offers/teasers',
@@ -64,6 +64,9 @@ use Symfony\Component\Validator\Constraints\Length;
             'controller' => OfferController::class,
             'denormalization_context' => [
                 'groups' => [self::OPERATION_NAME_POST_OFFER],
+            ],
+            'input_formats' => [
+                'json' => ['application/json'],
             ],
         ],
     ],
@@ -113,7 +116,7 @@ use Symfony\Component\Validator\Constraints\Length;
                         ],
                     ],
                 ],
-            ]
+            ],
         ],
     ]
 )]
@@ -403,12 +406,6 @@ class Offer
     {
         return $this->id;
     }
-
-    // #[Groups([self::OPERATION_NAME_POST_OFFER])]
-    // public function setSlug(): ?string
-    // {
-    //     return $this->slug;
-    // }
 
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS, 

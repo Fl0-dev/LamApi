@@ -16,9 +16,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 
 #[ORM\Entity(repositoryClass: CompanyEntityOfficeRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class CompanyEntityOffice
 {
     use Uuid;
@@ -32,7 +33,6 @@ class CompanyEntityOffice
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-        Offer::OPERATION_NAME_POST_OFFER
     ])]
     private ?string $name = null;
 
@@ -56,8 +56,7 @@ class CompanyEntityOffice
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-        Offer::OPERATION_NAME_POST_OFFER
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private ?CompanyEntity $companyEntity = null;
 
