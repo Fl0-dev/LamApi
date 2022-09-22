@@ -43,12 +43,16 @@ class CompanyEntityOffice
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private ?Address $address = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $hrMailAddress;
 
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]
@@ -72,6 +76,15 @@ class CompanyEntityOffice
     {
         $this->offers = new ArrayCollection();
         $this->applications = new ArrayCollection();
+    }
+#[Groups([
+        Offer::OPERATION_NAME_GET_ALL_OFFER,
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
     }
 
     public function getName(): ?string

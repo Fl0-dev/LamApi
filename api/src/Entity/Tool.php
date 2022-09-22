@@ -13,6 +13,7 @@ use App\Transversal\Label;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ToolRepository::class)]
@@ -27,9 +28,22 @@ class Tool
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Offer::OPERATION_NAME_GET_ALL_OFFER,
     ])]
     private ?Media $logo = null;
+
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Offer::OPERATION_NAME_GET_ALL_OFFER,
+    ])]
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
+    }
 
     public function getLogo(): ?Media
     {

@@ -4,6 +4,7 @@ namespace App\Entity\Location;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\DepartmentController;
+use App\Entity\JobBoard;
 use App\Repository\LocationRepositories\DepartmentRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -51,7 +52,10 @@ class Department
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups([City::OPERATION_NAME_GET_ALL_CITIES])]
+    #[Groups([
+        City::OPERATION_NAME_GET_ALL_CITIES,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 7)]
@@ -59,6 +63,9 @@ class Department
 
     #[ORM\ManyToOne(targetEntity: Region::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups([
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     private $region;
 
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: City::class)]

@@ -3,10 +3,12 @@
 namespace App\Entity\Location;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\JobBoard;
 use App\Repository\LocationRepositories\RegionRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RegionRepository::class)]
 #[ApiResource()]
@@ -16,6 +18,9 @@ class Region
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
+    #[Groups([
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'regions')]

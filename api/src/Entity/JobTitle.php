@@ -68,7 +68,11 @@ class JobTitle
         $this->jobTypes = new ArrayCollection();
     }
 
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_ALL_OFFER,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     public function getLabel(): ?string
     {
         return $this->label;

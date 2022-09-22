@@ -4,6 +4,7 @@ namespace App\Entity\Location;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyGroup;
+use App\Entity\JobBoard;
 use App\Entity\Offer\Offer;
 use App\Repository\LocationRepositories\AddressRepository;
 use App\Transversal\Uuid;
@@ -17,7 +18,10 @@ class Address
     use Uuid;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -25,7 +29,8 @@ class Address
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $street;
 
@@ -34,7 +39,8 @@ class Address
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $postalCode;
 
@@ -43,7 +49,8 @@ class Address
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $latitude;
 
@@ -52,7 +59,8 @@ class Address
         Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,  
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $longitude;
 
@@ -63,7 +71,8 @@ class Address
         Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $city;
 
