@@ -100,19 +100,15 @@ use Symfony\Component\Validator\Constraints\Length;
             'read' => false,
             'filters' => [],
             'openapi_context' => [
-                'summary' => 'Count all offers',
-                'description' => 'Count all offers. #withoutIdentifier',
-                'parameters' => [],
-                'responses' => [
-                    '200' => [
-                        'description' => 'Count all offers',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'integer',
-                                    'example' => 271,
-                                ],
-                            ],
+                'summary' => 'Retrieves list of applications by company group id',
+                'description' => 'Retrieves list of applications by company group id',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'body',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
                         ],
                     ],
                 ],
