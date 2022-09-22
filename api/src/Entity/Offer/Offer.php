@@ -41,15 +41,16 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        self::OPERATION_NAME_GET_ALL_OFFER => [
-            'method' => 'GET',
-            'path' => '/offers/all',
-            'normalization_context' => [
-                'groups' => [
-                    self::OPERATION_NAME_GET_ALL_OFFER
-                ]
-            ]
-        ],
+        // PENDING CODE
+        // self::OPERATION_NAME_GET_ALL_OFFER => [
+        //     'method' => 'GET',
+        //     'path' => '/offers/all',
+        //     'normalization_context' => [
+        //         'groups' => [
+        //             self::OPERATION_NAME_GET_ALL_OFFER
+        //         ]
+        //     ]
+        // ],
         self::OPERATION_NAME_GET_OFFER_TEASERS => [
             'method' => 'GET',
             'path' => '/offers/teasers',
@@ -64,6 +65,9 @@ use Symfony\Component\Validator\Constraints\Length;
             'controller' => OfferController::class,
             'denormalization_context' => [
                 'groups' => [self::OPERATION_NAME_POST_OFFER],
+            ],
+            'input_formats' => [
+                'json' => ['application/json'],
             ],
         ],
     ],
@@ -97,23 +101,19 @@ use Symfony\Component\Validator\Constraints\Length;
             'read' => false,
             'filters' => [],
             'openapi_context' => [
-                'summary' => 'Count all offers',
-                'description' => 'Count all offers. #withoutIdentifier',
-                'parameters' => [],
-                'responses' => [
-                    '200' => [
-                        'description' => 'Count all offers',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'integer',
-                                    'example' => 271,
-                                ],
-                            ],
+                'summary' => 'Retrieves list of applications by company group id',
+                'description' => 'Retrieves list of applications by company group id',
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'in' => 'body',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
                         ],
                     ],
                 ],
-            ]
+            ],
         ],
     ]
 )]
@@ -403,12 +403,6 @@ class Offer
     {
         return $this->id;
     }
-
-    // #[Groups([self::OPERATION_NAME_POST_OFFER])]
-    // public function setSlug(): ?string
-    // {
-    //     return $this->slug;
-    // }
 
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS, 

@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class OfferSubscriber implements EventSubscriberInterface
+class OfferResearchSubscriber implements EventSubscriberInterface
 {
     const OPERATION_NAME = "api_offers_getOfferTeasers_collection";
 
