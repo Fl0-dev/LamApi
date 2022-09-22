@@ -37,8 +37,8 @@ class City
 
     #[ORM\Column(type: 'string', length: 75)]
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_CITIES, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        self::OPERATION_NAME_GET_ALL_CITIES,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
@@ -47,14 +47,14 @@ class City
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_CITIES, 
+        self::OPERATION_NAME_GET_ALL_CITIES,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $department;
 
     #[Groups([
-        Offer::OPERATION_NAME_GET_ALL_OFFER,
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     public function getId(): ?BaseUuid
@@ -63,9 +63,9 @@ class City
     }
 
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
@@ -73,7 +73,7 @@ class City
     {
         return $this->name . ' (' . $this->department->getCode() . ')';
     }
-    
+
     public function getName(): ?string
     {
         return $this->name;

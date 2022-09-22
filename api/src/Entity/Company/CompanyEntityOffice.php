@@ -77,8 +77,8 @@ class CompanyEntityOffice
         $this->offers = new ArrayCollection();
         $this->applications = new ArrayCollection();
     }
-#[Groups([
-        Offer::OPERATION_NAME_GET_ALL_OFFER,
+    #[Groups([
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]

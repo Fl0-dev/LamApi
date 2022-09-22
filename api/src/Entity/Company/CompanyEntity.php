@@ -31,7 +31,7 @@ class CompanyEntity
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private $hrMail;
@@ -41,7 +41,7 @@ class CompanyEntity
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
@@ -85,7 +85,7 @@ class CompanyEntity
     }
 
     #[Groups([
-        Offer::OPERATION_NAME_GET_ALL_OFFER,
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     public function getId(): ?BaseUuid

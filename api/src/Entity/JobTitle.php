@@ -25,7 +25,7 @@ class JobTitle
         'assistant-comptable'      => 'Assistant comptable',
         'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',
         'assistant-juridique-droit-social'      => 'Assistant juridique - Droit Social',
-        'auditeur-assistant' =>'Auditeur Assistant',
+        'auditeur-assistant' => 'Auditeur Assistant',
         'autres-metiers' => 'Autres métiers',
         'avocat-droit-des-societes' => 'Avocat - Droit des Sociétés',
         'avocat-droit-social' => 'Avocat - Droit Social',
@@ -70,7 +70,7 @@ class JobTitle
 
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        Offer::OPERATION_NAME_GET_ALL_OFFER,
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     public function getLabel(): ?string
