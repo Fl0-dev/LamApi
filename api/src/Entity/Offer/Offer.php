@@ -398,17 +398,14 @@ class Offer
         $this->offerRevisions = new ArrayCollection();
     }
 
-    #[Groups([self::OPERATION_NAME_GET_OFFER_TEASERS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
     }
-
-    // #[Groups([self::OPERATION_NAME_POST_OFFER])]
-    // public function setSlug(): ?string
-    // {
-    //     return $this->slug;
-    // }
 
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS, 
