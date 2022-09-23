@@ -22,3 +22,8 @@ git clone https://gitlab.com/lamacompta/lamapi.git
 ```bash
 docker-compose up -d
 ```
+## Fixtures
+
+```bash
+php bin/console doctrine:fixtures:load
+```
