@@ -26,9 +26,9 @@ class Address
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
@@ -36,9 +36,9 @@ class Address
 
     #[ORM\Column(type: 'string', length: 10)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
@@ -46,9 +46,9 @@ class Address
 
     #[ORM\Column(type: 'float')]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
@@ -56,9 +56,9 @@ class Address
 
     #[ORM\Column(type: 'float')]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,  
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
@@ -67,10 +67,10 @@ class Address
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        Offer::OPERATION_NAME_GET_OFFER_TEASERS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
     ])]
     private $city;
@@ -148,7 +148,7 @@ class Address
     }
 
     #[Groups([
-        Offer::OPERATION_NAME_GET_ALL_OFFERS, 
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     public function getCityInfos(): ?array
@@ -156,7 +156,7 @@ class Address
         $arrayCityInfos = [
             'id' => $this->city->getId(),
             'name' => $this->city->getName(),
-            'fullName' => $this->city->getCityNameAndNbDepartment(),
+            'fullName' => $this->city->getCityNameAndDepartmentCode(),
             'department' => $this->city->getDepartment()->getName(),
             'region' => $this->city->getDepartment()->getRegion()->getName(),
         ];

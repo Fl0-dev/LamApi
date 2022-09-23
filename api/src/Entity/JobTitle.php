@@ -22,9 +22,9 @@ class JobTitle
 {
     const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',
-        'assistant-comptable'      => 'Assistant comptable',
-        'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',
-        'assistant-juridique-droit-social'      => 'Assistant juridique - Droit Social',
+        'assistant-comptable' => 'Assistant comptable',
+        'assistant-juridique-droit-des-societes' => 'Assistant juridique - Droit des Sociétés',
+        'assistant-juridique-droit-social' => 'Assistant juridique - Droit Social',
         'auditeur-assistant' => 'Auditeur Assistant',
         'autres-metiers' => 'Autres métiers',
         'avocat-droit-des-societes' => 'Avocat - Droit des Sociétés',

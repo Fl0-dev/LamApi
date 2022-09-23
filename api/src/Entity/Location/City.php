@@ -62,7 +62,7 @@ class City
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
     ])]
-    public function getCityNameAndNbDepartment(): string
+    public function getCityNameAndDepartmentCode(): string
     {
         return $this->name . ' (' . $this->department->getCode() . ')';
     }

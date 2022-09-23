@@ -32,6 +32,7 @@ use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
+use App\Utils\Constants;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -502,7 +503,7 @@ class Offer
             $companyGroupSlug = $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getSlug();
 
             $offerSlug = $this->getSlug();
-            $url = "https::/lamacompta.co/cabinets/$companyGroupSlug/offres/$offerSlug";
+            $url = Constants::HOST_URL .'/'. Constants::COMPANY_TAG_SLUG .'/'. $companyGroupSlug .'/'. Constants::OFFER_TAG_SLUG .'/'.$offerSlug;
         }
 
         return $url;
@@ -515,8 +516,8 @@ class Offer
     public function getCompany(): ?array
     {
         $arrayCompanyInfos = [
-            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(),
             'id' => $this->companyEntityOffice->getCompanyEntity()->getId(),
+            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(),
             'address'=> $this->companyEntityOffice->getAddress(),
         ];
             

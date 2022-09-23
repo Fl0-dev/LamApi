@@ -12,6 +12,7 @@ use App\Repository\ToolRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
+use App\Utils\Constants;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -65,7 +66,7 @@ class Tool
         $arrayToolInfos = [
             'id' => $this->getId(),
             'label' => $this->getLabel(),
-            'url' => "https:://lamacompta.co/$logoPath",
+            'url' =>Constants::HOST_URL .'/'. $logoPath,
         ];
 
         return $arrayToolInfos;
