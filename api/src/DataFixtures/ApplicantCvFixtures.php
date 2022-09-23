@@ -21,7 +21,7 @@ class ApplicantCvFixtures extends Fixture
     public const APPLICANT_CV_REFERENCE_11 = 'application_cv_11';
     public const APPLICANT_CV_REFERENCE_12 = 'application_cv_12';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));

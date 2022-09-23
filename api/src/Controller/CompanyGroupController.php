@@ -13,7 +13,7 @@ class CompanyGroupController extends AbstractController
     {
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): int|array
     {
 
         $operationName = $request->attributes->get('_api_item_operation_name');

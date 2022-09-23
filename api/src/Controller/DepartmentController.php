@@ -13,7 +13,7 @@ class DepartmentController extends AbstractController
     {
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): int
     {
         $operationName = $request->attributes->get('_api_item_operation_name');
 

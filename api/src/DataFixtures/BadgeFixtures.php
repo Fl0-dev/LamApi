@@ -78,7 +78,7 @@ class BadgeFixtures extends Fixture
         ],
     ];
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $badge = new Badge();
         $badge->setLabel('Cabinet à impact +');

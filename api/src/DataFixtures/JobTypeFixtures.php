@@ -44,9 +44,8 @@ class JobTypeFixtures extends Fixture
         'administratif'             => 'Administratif'
     ];
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-
         $jobType = new JobType();
         $jobType->setSlug('expertise-comptable');
         $jobType->setLabel('Expertise comptable');

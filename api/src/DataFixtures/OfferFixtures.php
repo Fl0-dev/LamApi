@@ -15,7 +15,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class OfferFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 2; $i++) {
             $offer = new Offer();
