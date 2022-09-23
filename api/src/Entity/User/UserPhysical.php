@@ -11,15 +11,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "admin" => "UserAdmin",
+    "admin" => UserAdmin::class,
     "applicant" => Applicant::class,
-    "employer" => "Employer",
+    "employer" => Employer::class,
 ])]
 #[ORM\Entity]
 #[ORM\Table(name: "physical_user")]
 #[ApiResource()]
 class UserPhysical extends User
 {
+    const TYPE_ADMIN = "admin";
+    const TYPE_APPLICANT = "applicant";
+    const TYPE_EMPLOYER = "employer";
+
     #[ORM\Column(type: "string", length: 180)]
     #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
     private $firstname;
@@ -34,6 +38,11 @@ class UserPhysical extends User
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_PHYSICAL;
     }
 
     /**
@@ -74,14 +83,6 @@ class UserPhysical extends User
         $this->lastname = $lastname;
 
         return $this;
-    }
-
-    /**
-     * Get the value of type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

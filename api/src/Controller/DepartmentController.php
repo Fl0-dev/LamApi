@@ -13,7 +13,7 @@ class DepartmentController extends AbstractController
     {
     }
 
-    public function __invoke(Request $request): int
+    public function __invoke(Request $request): ?int
     {
         $operationName = $request->attributes->get('_api_item_operation_name');
 
@@ -24,5 +24,7 @@ class DepartmentController extends AbstractController
         if ($operationName === Department::OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY) {
             return count($this->addressRepository->findAllCodeWithAddress());
         }
+
+        return null;
     }
 }

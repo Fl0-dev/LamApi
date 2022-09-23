@@ -13,7 +13,7 @@ class CompanyGroupController extends AbstractController
     {
     }
 
-    public function __invoke(Request $request): int|array
+    public function __invoke(Request $request): int|array|null
     {
         $operationName = $request->attributes->get('_api_item_operation_name');
 
@@ -38,6 +38,6 @@ class CompanyGroupController extends AbstractController
             return $this->companyGroupRepository->findNameByPartialSlug($keywords);
         }
 
-        return [];
+        return null;
     }
 }

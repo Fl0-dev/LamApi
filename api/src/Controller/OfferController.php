@@ -14,7 +14,7 @@ class OfferController extends AbstractController
     {
     }
 
-    public function __invoke(Request $request): int|Offer
+    public function __invoke(Request $request): null|int|Offer
     {
         $operationName = $request->attributes->get('_api_item_operation_name');
         
@@ -44,5 +44,7 @@ class OfferController extends AbstractController
 
             return $offer;
         }
+
+        return null;
     }
 }

@@ -7,15 +7,17 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\InheritanceType("JOINED")]
-#[ORM\DiscriminatorColumn(name: "typeOfAbstractUser", type: "string")]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "api" => "UserApi"
+    "api" => UserApi::class,
 ])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
 #[ApiResource()]
 abstract class UserAbstract extends User
 {
+    const TYPE_API = "api";
+
     #[ORM\Column(type: "string", length: 180)]
     private $name;
 
@@ -28,8 +30,22 @@ abstract class UserAbstract extends User
     #[ORM\Column(type: "string", length: 180)]
     private $contact_phone;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $type = [];
+    public function getType(): string
+    {
+        return self::TYPE_ABSTRACT;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * Get the value of name
@@ -107,26 +123,6 @@ abstract class UserAbstract extends User
     public function setContact_phone($contact_phone)
     {
         $this->contact_phone = $contact_phone;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of type
-     */
-    public function getTypeOfAbstractUser()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @return  self
-     */
-    public function setTypeOfAbstractUser($type)
-    {
-        $this->type = $type;
 
         return $this;
     }
