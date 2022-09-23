@@ -38,7 +38,7 @@ class ApplicationController extends AbstractController
                 throw new \Exception('No file');
             }
 
-            $motivation = $request->request->get('motivation');
+            $motivation = $request->request->get('motivationText');
             $companyEntityOffice = $this->companyEntityOfficeRepository->find($companyEntityOfficeId);
 
             if (!$companyEntityOffice instanceof CompanyEntityOffice || !$companyEntityOffice->hasId()) {
@@ -56,7 +56,8 @@ class ApplicationController extends AbstractController
             $application->setCv($applicantCV);
             $application->setCreatedDate(new \DateTime());
             $application->setLastModifiedDate(new \DateTime());
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
+            $companyEntityOffice->addApplication($application);
 
             return $application;
         }
