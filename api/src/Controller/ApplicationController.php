@@ -15,12 +15,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends AbstractController
 {
+
+    const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
+    const APPLICATION_PROPERTY_FILE = 'file';
+    const POST_SPONTANEOUS_APPLICATION_IDENTIFIER_NAME = 'companyEntityOfficeId';
+
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
         private OfferRepository $offerRepository
-    ) {
-    }
-
+    ) {}
 
     public function __invoke(Request $request)
     {
@@ -31,18 +34,18 @@ class ApplicationController extends AbstractController
         }
 
         if ($operationName === Application::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID) {
-            $companyEntityOfficeId = $request->attributes->get('companyEntityOfficeId');
-            $file = $request->files->get('file');
+            $companyEntityOfficeId = $request->attributes->get(self::POST_SPONTANEOUS_APPLICATION_IDENTIFIER_NAME);
+            $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
             if (!$file instanceof File) {
                 throw new \Exception('No file');
             }
 
-            $motivation = $request->request->get('motivationText');
+            $motivation = $request->request->get(self::APPLICATION_PROPERTY_MOTIVATION_TEXT);
             $companyEntityOffice = $this->companyEntityOfficeRepository->find($companyEntityOfficeId);
 
             if (!$companyEntityOffice instanceof CompanyEntityOffice || !$companyEntityOffice->hasId()) {
-                throw new \Exception('companyEntity not found');
+                throw new \Exception('CompanyEntity not found');
             }
 
             $application = new Application();
