@@ -49,7 +49,9 @@ class ApplicationController extends AbstractController
             }
 
             $application = new Application();
-            $application->setMotivationText((string) $motivation);
+            if ($motivation instanceof string) {
+                $application->setMotivationText($motivation);
+            }
             $application->setcompanyEntityOffice($companyEntityOffice);
 
             $applicantCV = new ApplicantCv();
@@ -81,7 +83,10 @@ class ApplicationController extends AbstractController
             }
 
             $application = new Application();
-            $application->setMotivationText($motivation);
+            if ($motivation instanceof string) {
+                $application->setMotivationText($motivation);
+            }
+            
             $application->setOffer($offer);
             
             $applicantCV = new ApplicantCv();
