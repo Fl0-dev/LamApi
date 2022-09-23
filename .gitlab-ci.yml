@@ -16,4 +16,4 @@ phpstan:
   stage: phpstan
   script:
     - phpstan analyse --level=0 src
-  allow_failure: false
+  allow_failure: true
