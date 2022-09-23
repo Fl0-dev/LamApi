@@ -21,7 +21,7 @@ class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterf
         return Experience::class === $resourceClass;
     }
 
-    public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
+    public function getCollection(string $resourceClass, string $operationName = null, array $context = []): ?iterable
     {
         $list = Utils::getArrayValue(ExperienceFilter::EXPERIENCE_CONTEXT, $context);
 
@@ -32,7 +32,7 @@ class ExperienceDataProvider implements ContextAwareCollectionDataProviderInterf
         return $this->experienceRepository->findAll();
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
         return $this->experienceRepository->find($id);
     }

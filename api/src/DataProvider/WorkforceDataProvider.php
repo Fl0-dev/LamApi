@@ -21,7 +21,7 @@ class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterfa
         return Workforce::class === $resourceClass;
     }
 
-    public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
+    public function getCollection(string $resourceClass, string $operationName = null, array $context = []): ?iterable
     {
         $list = Utils::getArrayValue(WorkforceFilter::WORKFORCE_CONTEXT, $context);
 
@@ -32,7 +32,7 @@ class WorkforceDataProvider implements ContextAwareCollectionDataProviderInterfa
         return $this->workforceRepository->findAll();
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
         return $this->workforceRepository->find($id);
     }

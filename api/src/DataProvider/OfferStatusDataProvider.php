@@ -19,12 +19,12 @@ class OfferStatusDataProvider implements ContextAwareCollectionDataProviderInter
         return OfferStatus::class === $resourceClass;
     }
 
-    public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
+    public function getCollection(string $resourceClass, string $operationName = null, array $context = []): ?iterable
     {
         return $this->offerStatusRepository->findAll();
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
         return $this->offerStatusRepository->find($id);
     }

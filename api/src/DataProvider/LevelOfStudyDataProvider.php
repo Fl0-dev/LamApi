@@ -19,12 +19,12 @@ class LevelOfStudyDataProvider implements ContextAwareCollectionDataProviderInte
         return LevelOfStudy::class === $resourceClass;
     }
 
-    public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
+    public function getCollection(string $resourceClass, string $operationName = null, array $context = []): ?iterable
     {
         return $this->levelOfStudyRepository->findAll();
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
         return $this->levelOfStudyRepository->find($id);
     }

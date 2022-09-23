@@ -15,7 +15,7 @@ class DbalGetTypesInfos extends \Symfony\Component\Console\Command\Command
             ->setHelp('This command prints the currently loaded types for Doctrine DBAL');
     }
 
-    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output): int
     {
         $output->writeln(var_dump(\Doctrine\DBAL\Types\Type::getTypesMap()));
 

@@ -1,0 +1,19 @@
+image:
+  jakzal/phpqa
+
+before_script:
+    - cd api
+    - composer install
+
+cache:
+  paths:
+    - vendor/
+
+stages:
+  - phpstan
+
+phpstan:
+  stage: phpstan
+  script:
+    - phpstan analyse --level=7 src
+  allow_failure: true
