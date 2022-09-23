@@ -17,7 +17,8 @@ class ApplicationController extends AbstractController
 {
     const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
     const APPLICATION_PROPERTY_FILE = 'file';
-    const POST_APPLICATION_APPLICATION_IDENTIFIER_NAME = 'offerId'; 
+    const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
+    const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId'; 
 
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
@@ -33,18 +34,18 @@ class ApplicationController extends AbstractController
         }
 
         if ($operationName === Application::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID) {
-            $companyEntityOfficeId = $request->attributes->get('companyEntityOfficeId');
-            $file = $request->files->get('file');
+            $companyEntityOfficeId = $request->attributes->get(self::POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME);
+            $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
             if (!$file instanceof File) {
                 throw new \Exception('No file');
             }
 
-            $motivation = $request->request->get('motivation');
+            $motivation = $request->request->get(self::APPLICATION_PROPERTY_MOTIVATION_TEXT);
             $companyEntityOffice = $this->companyEntityOfficeRepository->find($companyEntityOfficeId);
 
             if (!$companyEntityOffice instanceof CompanyEntityOffice || !$companyEntityOffice->hasId()) {
-                throw new \Exception('companyEntity not found');
+                throw new \Exception('CompanyEntity not found');
             }
 
             $application = new Application();
@@ -58,13 +59,14 @@ class ApplicationController extends AbstractController
             $application->setCv($applicantCV);
             $application->setCreatedDate(new \DateTime());
             $application->setLastModifiedDate(new \DateTime());
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
+            $companyEntityOffice->addApplication($application);
 
             return $application;
         }
 
         if ($operationName === Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID) {
-            $offerId = $request->attributes->get(self::POST_APPLICATION_APPLICATION_IDENTIFIER_NAME);
+            $offerId = $request->attributes->get(self::POST_APPLICATION_OFFER_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
             if (!$file instanceof File) {

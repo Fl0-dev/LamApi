@@ -177,7 +177,6 @@ class CompanyEntityOffice
     {
         if (!$this->applications->contains($application)) {
             $this->applications->add($application);
-            $application->setCompanyEntityOffice($this);
         }
 
         return $this;
