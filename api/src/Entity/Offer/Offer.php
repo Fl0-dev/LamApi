@@ -503,7 +503,7 @@ class Offer
             $companyGroupSlug = $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getSlug();
 
             $offerSlug = $this->getSlug();
-            $url = Constants::HOST_URL . '/' . Constants::COMPANY_TAG_SLUG . "/$companyGroupSlug/" . Constants::OFFER_TAG_SLUG . "/$offerSlug;
+            $url = Constants::HOST_URL . '/' . Constants::COMPANY_TAG_SLUG . "/$companyGroupSlug/" . Constants::OFFER_TAG_SLUG . "/$offerSlug";
         }
 
         return $url;
