@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends AbstractController
 {
-
     const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
     const APPLICATION_PROPERTY_FILE = 'file';
     const POST_SPONTANEOUS_APPLICATION_IDENTIFIER_NAME = 'companyEntityOfficeId';
