@@ -644,7 +644,6 @@ class Offer
     {
         if (!$this->applications->contains($application)) {
             $this->applications[] = $application;
-            $application->setOffer($this->offer);
         }
 
         return $this;

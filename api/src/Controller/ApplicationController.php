@@ -69,7 +69,7 @@ class ApplicationController extends AbstractController
                 throw new \Exception('No file');
             }
 
-            $motivation = $request->request->get('motivation');
+            $motivation = $request->request->get('motivationText');
             $offer = $this->offerRepository->find($offerId);
 
             if (!$offer instanceof Offer || !$offer->hasId()) {
@@ -79,7 +79,7 @@ class ApplicationController extends AbstractController
             $application = new Application();
             $application->setMotivationText($motivation);
             $application->setOffer($offer);
-
+            
             $applicantCV = new ApplicantCv();
             $applicantCV->setFile($file);
             $applicantCV->setCreatedDate(new \DateTime());
@@ -87,7 +87,7 @@ class ApplicationController extends AbstractController
             $application->setCv($applicantCV);
             $application->setCreatedDate(new \DateTime());
             $application->setLastModifiedDate(new \DateTime());
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCompanyEntityOffice($offer->getCompanyEntityOffice());
             $offer->addApplication($application);
 
