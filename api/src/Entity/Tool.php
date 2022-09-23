@@ -66,7 +66,7 @@ class Tool
         $arrayToolInfos = [
             'id' => $this->getId(),
             'label' => $this->getLabel(),
-            'url' =>Constants::HOST_URL .'/'. $logoPath,
+            'url' => Constants::HOST_URL . "/$logoPath",
         ];
 
         return $arrayToolInfos;
