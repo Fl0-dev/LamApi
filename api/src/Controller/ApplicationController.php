@@ -15,12 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends AbstractController
 {
+    const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
+    const APPLICATION_PROPERTY_FILE = 'file';
+    const POST_APPLICATION_APPLICATION_IDENTIFIER_NAME = 'offerId'; 
+
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
         private OfferRepository $offerRepository
-    ) {
-    }
-
+    ) {}
 
     public function __invoke(Request $request)
     {
@@ -62,14 +64,14 @@ class ApplicationController extends AbstractController
         }
 
         if ($operationName === Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID) {
-            $offerId = $request->attributes->get('offerId');
-            $file = $request->files->get('file');
+            $offerId = $request->attributes->get(self::POST_APPLICATION_APPLICATION_IDENTIFIER_NAME);
+            $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
             if (!$file instanceof File) {
                 throw new \Exception('No file');
             }
 
-            $motivation = $request->request->get('motivation');
+            $motivation = $request->request->get(self::APPLICATION_PROPERTY_MOTIVATION_TEXT);
             $offer = $this->offerRepository->find($offerId);
 
             if (!$offer instanceof Offer || !$offer->hasId()) {
@@ -79,7 +81,7 @@ class ApplicationController extends AbstractController
             $application = new Application();
             $application->setMotivationText($motivation);
             $application->setOffer($offer);
-
+            
             $applicantCV = new ApplicantCv();
             $applicantCV->setFile($file);
             $applicantCV->setCreatedDate(new \DateTime());
@@ -87,7 +89,7 @@ class ApplicationController extends AbstractController
             $application->setCv($applicantCV);
             $application->setCreatedDate(new \DateTime());
             $application->setLastModifiedDate(new \DateTime());
-            $application->setStatus(ApplicationStatus::NEW);
+            $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCompanyEntityOffice($offer->getCompanyEntityOffice());
             $offer->addApplication($application);
 
