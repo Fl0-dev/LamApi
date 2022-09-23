@@ -17,8 +17,8 @@ class ApplicationController extends AbstractController
 {
     const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
     const APPLICATION_PROPERTY_FILE = 'file';
-    const POST_SPONTANEOUS_APPLICATION_IDENTIFIER_NAME = 'companyEntityOfficeId';
-    const POST_OFFER_APPLICATION_IDENTIFIER_NAME = 'offerId'; 
+    const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
+    const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId'; 
 
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
@@ -34,7 +34,7 @@ class ApplicationController extends AbstractController
         }
 
         if ($operationName === Application::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID) {
-            $companyEntityOfficeId = $request->attributes->get(self::POST_SPONTANEOUS_APPLICATION_IDENTIFIER_NAME);
+            $companyEntityOfficeId = $request->attributes->get(self::POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
             if (!$file instanceof File) {
@@ -66,7 +66,7 @@ class ApplicationController extends AbstractController
         }
 
         if ($operationName === Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID) {
-            $offerId = $request->attributes->get(self::POST_APPLICATION_APPLICATION_IDENTIFIER_NAME);
+            $offerId = $request->attributes->get(self::POST_APPLICATION_OFFER_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
             if (!$file instanceof File) {
