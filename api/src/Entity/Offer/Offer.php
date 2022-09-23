@@ -382,10 +382,8 @@ class Offer
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        // self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_OFFER_TEASERS,
-        // JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
