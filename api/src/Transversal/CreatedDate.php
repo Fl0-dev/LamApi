@@ -2,10 +2,8 @@
 
 namespace App\Transversal;
 
-use App\Entity\Offer\Offer;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Trait for using CreatedDate
@@ -17,20 +15,13 @@ trait CreatedDate
      *
      */
     #[ORM\Column(type: "datetime", options: ["default" => 'CURRENT_TIMESTAMP'])]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_APPLICATIONS])]
     private ?\DateTime $createdDate;
 
-    /**
-     * Get CompanyGroup Created Date
-     */
     public function getCreatedDate(): ?\DateTime
     {
         return $this->createdDate;
     }
 
-    /**
-     * Set CompanyGroup Created Date
-     */
     public function setCreatedDate(\DateTime|string|null $createdDate): self
     {
         if (is_string($createdDate)) {
@@ -42,9 +33,6 @@ trait CreatedDate
         return $this;
     }
 
-    /**
-     * Check if CompanyGroup has a valid Created Date
-     */
     public function hasCreatedDate(): bool
     {
         return $this->getCreatedDate() instanceof \DateTime;

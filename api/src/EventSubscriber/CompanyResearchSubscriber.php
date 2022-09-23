@@ -22,7 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class CompanySubscriber implements EventSubscriberInterface
+class CompanyResearchSubscriber implements EventSubscriberInterface
 {
     const OPERATION_NAME = "api_company_groups_getCompanyGroupTeaser_collection";   
 

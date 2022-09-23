@@ -20,8 +20,8 @@ abstract class Constants
     const USER_ID_AIRTABLE = 9;
     const USER_ID_BUBBLE = 10;
 
-    const COMPANY_TAG_SLUG = 'entreprise';
-    const OFFER_TAG_SLUG   = 'offre';
+    const COMPANY_TAG_SLUG = 'cabinets';
+    const OFFER_TAG_SLUG   = 'offres';
     const BADGE_TAG_SLUG   = 'badge';
     const TOOL_TAG_SLUG    = 'outil';
 

@@ -16,9 +16,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 
 #[ORM\Entity(repositoryClass: CompanyEntityOfficeRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class CompanyEntityOffice
 {
     use Uuid;
@@ -27,34 +28,63 @@ class CompanyEntityOffice
     use LastModifiedDate;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, Offer::OPERATION_NAME_POST_OFFER])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     private ?string $name = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private ?Address $address = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $hrMailAddress;
 
     #[ORM\ManyToOne(inversedBy: 'companyEntityOffices', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS, Offer::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME__GET_JOB_BOARD_OFFERS, Offer::OPERATION_NAME_POST_OFFER])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private ?CompanyEntity $companyEntity = null;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Offer::class)]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID])]
     private Collection $offers;
 
     #[ORM\OneToMany(mappedBy: 'companyEntityOffice', targetEntity: Application::class)]
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_APPLICATIONS])]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID])]
     private Collection $applications;
 
     public function __construct()
     {
         $this->offers = new ArrayCollection();
         $this->applications = new ArrayCollection();
+    }
+    #[Groups([
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
     }
 
     public function getName(): ?string
@@ -147,7 +177,6 @@ class CompanyEntityOffice
     {
         if (!$this->applications->contains($application)) {
             $this->applications->add($application);
-            $application->setCompanyEntityOffice($this);
         }
 
         return $this;

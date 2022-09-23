@@ -7,14 +7,17 @@ use App\Entity\Revision\CompanyEntityRevision;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
 use App\Entity\Company\CompanyProfile;
+use App\Entity\JobBoard;
 use App\Entity\Offer\Offer;
-use App\Entity\Tool;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyEntityRepository::class)]
@@ -23,10 +26,12 @@ class CompanyEntity
 {
     use Uuid;
     use Slug;
+    use CreatedDate;
+    use LastModifiedDate;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
     ])]
     private $hrMail;
@@ -36,12 +41,14 @@ class CompanyEntity
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
+    #[Groups(JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,)]
     private $companyGroup;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -50,14 +57,17 @@ class CompanyEntity
     #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
     ])]
     private Collection $companyEntityOffices;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?CompanyProfile $profile = null;
 
-    #[ORM\ManyToMany(targetEntity: Media::class)]
+    #[ORM\ManyToMany(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinTable(name: "company_entity_has_media")]
     #[ORM\JoinColumn(name: "companyEntity_id", referencedColumnName: "id")]
     #[ORM\InverseJoinColumn(name: "media_id", referencedColumnName: "id", unique: true)]
@@ -72,6 +82,15 @@ class CompanyEntity
         $this->companyEntityOffices = new ArrayCollection();
         $this->medias = new ArrayCollection();
         $this->companyEntityRevisions = new ArrayCollection();
+    }
+
+    #[Groups([
+        Offer::OPERATION_NAME_GET_ALL_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
     }
 
     public function getHrMail(): ?string

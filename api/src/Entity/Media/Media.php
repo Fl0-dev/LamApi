@@ -2,9 +2,12 @@
 
 namespace App\Entity\Media;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyEntity;
 use App\Entity\Company\CompanyGroup;
+use App\Entity\JobBoard;
+use App\Entity\Offer\Offer;
 use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,20 +27,20 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     "video" => MediaVideo::class,
 ])]
 #[ApiResource(
-    normalizationContext: [self::OPERATION_NAME__GET_MEDIA],
+    normalizationContext: [self::OPERATION_NAME_GET_MEDIA],
     collectionOperations: [
         "get" => [
             "method" => "GET",
             "path" => "/media",
             "normalization_context" => [
-                "groups" => [self::OPERATION_NAME__GET_MEDIA]
+                "groups" => [self::OPERATION_NAME_GET_MEDIA]
             ]
         ],
         "post" => [
             "method" => "POST",
             "path" => "/media",
             "normalization_context" => [
-                "groups" => [self::OPERATION_NAME__GET_MEDIA]
+                "groups" => [self::OPERATION_NAME_GET_MEDIA]
             ]
         ]
     ]
@@ -46,22 +49,27 @@ abstract class Media
 {
     use TechnicalProperties;
 
-    const OPERATION_NAME__GET_MEDIA = "getMedia";
+    const OPERATION_NAME_GET_MEDIA = "getMedia";
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([self::OPERATION_NAME__GET_MEDIA])]
+    #[ApiProperty(iri: 'https://schema.org/contentUrl')]
+    #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     private $contentUrl;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, self::OPERATION_NAME__GET_MEDIA)]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_MEDIA,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+    ])]
     private $filePath;
 
-    // /**
-    //  * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
-    //  */
-    #[Assert\NotNull()]
+    /**
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
+     */
     private ?File $file = null;
 
     public function __construct()
@@ -109,7 +117,7 @@ abstract class Media
         return self::TYPE_VIDEO === $this->getMediaType();
     }
 
-    #[Groups([self::OPERATION_NAME__GET_MEDIA])]
+    #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     public function getMediaType(): string
     {
         return get_class($this) === MediaImage::class ? self::TYPE_IMAGE : self::TYPE_VIDEO;
@@ -134,6 +142,18 @@ abstract class Media
     public function setTypeVideo()
     {
         $this->type = self::TYPE_VIDEO;
+
+        return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

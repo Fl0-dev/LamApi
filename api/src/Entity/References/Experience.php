@@ -3,11 +3,10 @@
 namespace App\Entity\References;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Offer\Offer;
 use App\Filter\ExperienceFilter;
-use App\Transversal\Label;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     collectionOperations: [
@@ -39,37 +38,37 @@ class Experience extends Reference
 
     const EXPERIENCES = [
         0 => [
-            'full'          => 'Non précisé',
             'slug'          => 'non-precise',
             'label'         => 'Non précisé',
+            'full'          => 'Non précisé',
             'duration'      => 'Non précisé',
             'minNbMonths'   => 0
         ],
         1 => [
-            'full'          => 'Lamajunior (- 1 an)',
             'slug'          => 'lamajunior',
             'label'         => 'Lamajunior',
+            'full'          => 'Lamajunior (- 1 an)',
             'duration'      => "< 1 an d'expérience",
             'minNbMonths'   => 0
         ],
         2 => [
-            'full'          => 'Lamaffirmé (1 à 2 ans)',
             'slug'          => 'lamaffirmé',
             'label'         => 'Lamaffirmé',
+            'full'          => 'Lamaffirmé (1 à 2 ans)',
             'duration'      => "de 1 à 2 ans d'expérience",
             'minNbMonths'   => 12
         ],
         3 => [
-            'full'          => 'Lamasenior (2 à 5 ans)',
             'slug'          => 'lamasenior',
             'label'         => 'Lamasenior',
+            'full'          => 'Lamasenior (2 à 5 ans)',
             'duration'      => "de 2 à 5 ans d'expérience",
             'minNbMonths'   => 24
         ],
         4 => [
-            'full'          => 'Lamexpert (+ 5 ans)',
             'slug'          => 'lamexpert',
             'label'         => 'Lamexpert',
+            'full'          => 'Lamexpert (+ 5 ans)',
             'duration'      => "+ de 5 ans d'expérience",
             'minNbMonths'   => 60
         ]

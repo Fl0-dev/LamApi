@@ -5,7 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Filter\JobFilter;
+use App\Entity\Offer\Offer;
 use App\Repository\JobTitleRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -13,6 +13,7 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: JobTitleRepository::class)]
 #[ApiResource()]
@@ -21,10 +22,10 @@ class JobTitle
 {
     const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',
-        'assistant-comptable'      => 'Assistant comptable',
-        'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',
-        'assistant-juridique-droit-social'      => 'Assistant juridique - Droit Social',
-        'auditeur-assistant' =>'Auditeur Assistant',
+        'assistant-comptable' => 'Assistant comptable',
+        'assistant-juridique-droit-des-societes' => 'Assistant juridique - Droit des Sociétés',
+        'assistant-juridique-droit-social' => 'Assistant juridique - Droit Social',
+        'auditeur-assistant' => 'Auditeur Assistant',
         'autres-metiers' => 'Autres métiers',
         'avocat-droit-des-societes' => 'Avocat - Droit des Sociétés',
         'avocat-droit-social' => 'Avocat - Droit Social',
@@ -55,7 +56,6 @@ class JobTitle
         'senior-manager-audit' => 'Senior Manager Audit',
         'transmission-cession' => 'Transmission / Cession'
     ];
-
     use Uuid;
     use Slug;
     use Label;
@@ -66,6 +66,14 @@ class JobTitle
     public function __construct()
     {
         $this->jobTypes = new ArrayCollection();
+    }
+
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+    ])]
+    public function getLabel(): ?string
+    {
+        return $this->label;
     }
 
     /**

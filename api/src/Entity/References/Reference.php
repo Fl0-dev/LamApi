@@ -3,7 +3,6 @@
 namespace App\Entity\References;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Transversal\Label;
 use App\Transversal\Slug;
 use Symfony\Component\Uid\Uuid;
@@ -23,16 +22,8 @@ abstract class Reference
         $this->label = $label;
     }
 
-
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    public function setId(string $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }
