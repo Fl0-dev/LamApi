@@ -35,14 +35,14 @@ class JobTitleTest extends ApiTestCase
 
     public function testGetJobTitle(): void
     {
-        $response = static::createClient()->request('GET', '/job_titles/1ed342cd-a3db-6e3e-b837-bf1b38a66a96');
+        $response = static::createClient()->request('GET', '/job_titles/1ed39a64-e30b-6fc0-9d6c-63bb3c9a0400');
 
         $this->assertJsonContains([
           "@context" => "/contexts/JobTitle",
-          "@id" => "/job_titles/1ed342cd-a3db-6e3e-b837-bf1b38a66a96",
+          "@id" => "/job_titles/1ed39a64-e30b-6fc0-9d6c-63bb3c9a0400",
           "@type" => "JobTitle",
           "jobTypes" => [],
-          "id" => "1ed342cd-a3db-6e3e-b837-bf1b38a66a96",
+          "id" => "1ed39a64-e30b-6fc0-9d6c-63bb3c9a0400",
           "slug" => "assistant-administratif",
           "label" => "Assistant administratif"
         ]);
