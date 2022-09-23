@@ -117,6 +117,11 @@ abstract class Media
         return self::TYPE_VIDEO === $this->getMediaType();
     }
 
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     public function getMediaType(): string
     {

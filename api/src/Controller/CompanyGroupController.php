@@ -15,7 +15,6 @@ class CompanyGroupController extends AbstractController
 
     public function __invoke(Request $request): int|array
     {
-
         $operationName = $request->attributes->get('_api_item_operation_name');
 
         if (!$operationName) {
@@ -38,5 +37,7 @@ class CompanyGroupController extends AbstractController
 
             return $this->companyGroupRepository->findNameByPartialSlug($keywords);
         }
+
+        return [];
     }
 }

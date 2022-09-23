@@ -2,6 +2,7 @@
 
 namespace App\Entity\References;
 
+use ApiPlatform\Core\Action\NotFoundAction;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Filter\ContractTypeFilter;

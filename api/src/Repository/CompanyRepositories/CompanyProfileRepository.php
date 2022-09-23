@@ -18,7 +18,7 @@ class CompanyProfileRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Profile::class);
+        parent::__construct($registry, CompanyProfile::class);
     }
 
     public function add(CompanyProfile $entity, bool $flush = false): void

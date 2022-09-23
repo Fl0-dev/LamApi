@@ -5,7 +5,7 @@ namespace App\Entity\Company;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
-use App\Repository\CompanyProfileRepository;
+use App\Repository\CompanyRepositories\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;

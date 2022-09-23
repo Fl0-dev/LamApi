@@ -17,7 +17,7 @@ class DbalGetTypesInfos extends \Symfony\Component\Console\Command\Command
 
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output): int
     {
-        $output->writeln(var_dump(\Doctrine\DBAL\Types\Type::getTypesMap()));
+        $output->writeln((string)var_dump(\Doctrine\DBAL\Types\Type::getTypesMap()));
 
         return 1;
     }
