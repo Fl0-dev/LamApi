@@ -22,10 +22,10 @@ class JobTitle
 {
     const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',
-        'assistant-comptable'      => 'Assistant comptable',
-        'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',
-        'assistant-juridique-droit-social'      => 'Assistant juridique - Droit Social',
-        'auditeur-assistant' =>'Auditeur Assistant',
+        'assistant-comptable' => 'Assistant comptable',
+        'assistant-juridique-droit-des-societes' => 'Assistant juridique - Droit des Sociétés',
+        'assistant-juridique-droit-social' => 'Assistant juridique - Droit Social',
+        'auditeur-assistant' => 'Auditeur Assistant',
         'autres-metiers' => 'Autres métiers',
         'avocat-droit-des-societes' => 'Avocat - Droit des Sociétés',
         'avocat-droit-social' => 'Avocat - Droit Social',
@@ -68,7 +68,9 @@ class JobTitle
         $this->jobTypes = new ArrayCollection();
     }
 
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+    ])]
     public function getLabel(): ?string
     {
         return $this->label;

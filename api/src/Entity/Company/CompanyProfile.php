@@ -71,7 +71,6 @@ class CompanyProfile
         $this->companyProfileRevisions = new ArrayCollection();
     }
 
-
     public function getCreationYear(): ?int
     {
         return $this->creationYear;
@@ -204,7 +203,10 @@ class CompanyProfile
         return $this;
     }
 
-    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     public function getWorkforceLabel(): ?string
     {
         $workforceRepository = new WorkforceRepository();
