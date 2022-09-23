@@ -36,18 +36,6 @@ abstract class UserAbstract extends User
     }
 
     /**
-     * Set the value of type
-     *
-     * @return  self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      */
     public function getName()

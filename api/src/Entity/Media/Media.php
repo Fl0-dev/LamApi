@@ -72,16 +72,7 @@ abstract class Media
      */
     private ?File $file = null;
 
-    public function __construct()
-    {
-        if ($this instanceof MediaImage) {
-            $this->type = self::TYPE_IMAGE;
-        }
-
-        if ($this instanceof MediaVideo) {
-            $this->type = self::TYPE_VIDEO;
-        }
-    }
+    public function __construct(){}
 
     public function getContentUrl(): ?string
     {
@@ -117,38 +108,10 @@ abstract class Media
         return self::TYPE_VIDEO === $this->getMediaType();
     }
 
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
     #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     public function getMediaType(): string
     {
         return get_class($this) === MediaImage::class ? self::TYPE_IMAGE : self::TYPE_VIDEO;
-    }
-
-    public function setType($type)
-    {
-        if (in_array($type, [self::TYPE_IMAGE, self::TYPE_VIDEO])) {
-            $this->type = $type;
-        }
-
-        return $this;
-    }
-
-    public function setTypeImage()
-    {
-        $this->type = self::TYPE_IMAGE;
-
-        return $this;
-    }
-
-    public function setTypeVideo()
-    {
-        $this->type = self::TYPE_VIDEO;
-
-        return $this;
     }
 
     public function getFile(): ?File

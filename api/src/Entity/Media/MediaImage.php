@@ -17,6 +17,12 @@ class MediaImage extends Media
     const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
     const MAX_IMAGE_FILE_SIZE = 307200; // 307 200 octets = 300 Kio (for Windows)
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->type = self::TYPE_IMAGE;
+    }
+
     public function getType(): string
     {
         return self::TYPE_IMAGE;

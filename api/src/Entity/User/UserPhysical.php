@@ -85,18 +85,6 @@ class UserPhysical extends User
         return $this;
     }
 
-    /**
-     * Set the value of type
-     *
-     * @return  self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getBirthdate(): ?\DateTimeInterface
     {
         return $this->birthdate;
