@@ -21,6 +21,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'normalization_context' => [
                 'groups' => [self::OPERATION_NAME_GET_JOB_BOARD_OFFERS]
             ],
+            'formats' => [
+                'json' => ['application/json'],
+            ],
         ],
     ],
 )]

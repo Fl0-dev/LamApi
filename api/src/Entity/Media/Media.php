@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Company\CompanyEntity;
 use App\Entity\Company\CompanyGroup;
+use App\Entity\JobBoard;
 use App\Entity\Offer\Offer;
 use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
@@ -61,7 +62,8 @@ abstract class Media
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        self::OPERATION_NAME_GET_MEDIA
+        self::OPERATION_NAME_GET_MEDIA,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $filePath;
 

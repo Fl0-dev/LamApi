@@ -14,6 +14,7 @@ use App\Entity\JobType;
 use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
+use App\Entity\JobBoard;
 use App\Entity\Social;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\CreatedDate;
@@ -196,7 +197,8 @@ class CompanyGroup
     #[Groups([
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS,
-        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
     ])]
     private $name;
 
@@ -316,7 +318,10 @@ class CompanyGroup
         $this->badges = new ArrayCollection();
     }
 
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
