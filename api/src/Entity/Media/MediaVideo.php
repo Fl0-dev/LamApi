@@ -16,7 +16,6 @@ class MediaVideo extends Media
     public function __construct()
     {
         parent::__construct();
-        $this->type = self::TYPE_IMAGE;
     }
 
     public function getType(): string
