@@ -377,6 +377,8 @@ class MediaImage extends Media
             return false;
         }
 
+        $im = false;
+
         switch ($type) {
             case 1:
                 $im = imageCreateFromGif($filepath);

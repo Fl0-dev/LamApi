@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class OrganisationTypeRepository
 {
     /**
-     * Undocumented function
-     *
      * @return OrganisationType[]
      */
     public function findAll(): array

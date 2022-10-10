@@ -8,8 +8,6 @@ use App\Utils\Utils;
 class CompanySubscriptionTypeRepository 
 {
     /**
-     * Undocumented function
-     *
      * @return CompanySubscriptionType[]
      */
     public function findAll(): array
