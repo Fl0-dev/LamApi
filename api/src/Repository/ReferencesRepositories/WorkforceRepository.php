@@ -16,7 +16,7 @@ class WorkforceRepository
         $workforces = [];
         $arrayWorkforces = Workforce::WORKFORCES;
 
-        if (is_array($arrayWorkforces) && !empty($arrayWorkforces)) {
+        if (is_array($arrayWorkforces)) {
 
             foreach ($arrayWorkforces as $workforce) {
                 $workforces[] = new Workforce(

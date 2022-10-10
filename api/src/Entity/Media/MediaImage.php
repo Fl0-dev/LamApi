@@ -5,6 +5,7 @@ namespace App\Entity\Media;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use GdImage;
 
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "media_image")]
@@ -361,7 +362,7 @@ class MediaImage extends Media
      *
      * @return resource
      */
-    function imageCreateFromAny($filepath)
+    function imageCreateFromAny($filepath): false|GdImage
     {
         $type = exif_imagetype($filepath);
 

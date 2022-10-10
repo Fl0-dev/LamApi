@@ -15,16 +15,21 @@ class ExperienceRepository
         $experiences = [];
         $arrayExperiences = Experience::EXPERIENCES;
 
-        foreach ($arrayExperiences as $value => $experience) {
-            $experiences[] = new Experience(
-                Utils::getArrayValue('slug', $experience),
-                Utils::getArrayValue('label', $experience),
-                $value,
-                Utils::getArrayValue('full', $experience),
-                Utils::getArrayValue('duration', $experience),
-                Utils::getArrayValue('minNbMonths', $experience)
-            );
+        if (is_array($arrayExperiences)) {
+
+            foreach ($arrayExperiences as $value => $experience) {
+
+                $experiences[] = new Experience(
+                    Utils::getArrayValue('slug', $experience),
+                    Utils::getArrayValue('label', $experience),
+                    $value,
+                    Utils::getArrayValue('full', $experience),
+                    Utils::getArrayValue('duration', $experience),
+                    Utils::getArrayValue('minNbMonths', $experience)
+                );
+            }
         }
+
 
         return $experiences;
     }
