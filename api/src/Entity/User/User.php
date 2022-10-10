@@ -18,12 +18,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "physical" => "UserPhysical",
-    "abstract" => "UserAbstract",
+    "physical" => UserPhysical::class,
+    "abstract" => UserAbstract::class,
 ])]
 #[ApiResource()]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    const TYPE_PHYSICAL = 'physical';
+    const TYPE_ABSTRACT = 'abstract';
+
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
@@ -106,18 +109,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setToken(string $token): self
     {
         $this->token = $token;
-
-        return $this;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }

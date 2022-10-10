@@ -32,7 +32,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public const COMPANY_ENTITY_OFFICE_REFERENCE_5 = 'company_entity_office5';
     public const COMPANY_ENTITY_OFFICE_REFERENCE_6 = 'company_entity_office6';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         ###### TGS FRANCE ######
        $socialFeed = new SocialFeed();

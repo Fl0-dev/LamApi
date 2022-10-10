@@ -11,7 +11,6 @@ class UserAdmin extends UserPhysical
     #[ORM\Column(type: "string")]
     private $level;
 
-
     /**
      * Get the value of level
      */ 
@@ -30,6 +29,11 @@ class UserAdmin extends UserPhysical
         $this->level = $level;
 
         return $this;
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_ADMIN;
     }
 }
 

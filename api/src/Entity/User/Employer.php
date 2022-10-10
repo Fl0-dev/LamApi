@@ -10,5 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource()]
 class Employer extends UserPhysical
 {
-    
+    public function getType(): string
+    {
+        return self::TYPE_EMPLOYER;
+    }
 }

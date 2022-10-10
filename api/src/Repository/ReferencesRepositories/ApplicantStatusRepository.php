@@ -16,8 +16,14 @@ class ApplicantStatusRepository
         $applicantStatuses = [];
         $arrayApplicantStatuses = ApplicantStatus::APPLICANT_STATUSES;
 
-        foreach ($arrayApplicantStatuses as $applicantStatus) {
-            $applicantStatuses[] = new ApplicantStatus(Utils::getArrayValue('slug', $applicantStatus), Utils::getArrayValue('label', $applicantStatus));
+        if (is_array($arrayApplicantStatuses)) {
+
+            foreach ($arrayApplicantStatuses as $applicantStatus) {
+                $applicantStatuses[] = new ApplicantStatus(
+                    Utils::getArrayValue('slug', $applicantStatus),
+                    Utils::getArrayValue('label', $applicantStatus)
+                );
+            }
         }
 
         return $applicantStatuses;

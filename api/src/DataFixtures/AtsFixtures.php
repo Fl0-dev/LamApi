@@ -17,7 +17,7 @@ class AtsFixtures extends Fixture
     public const ATS_REFERENCE_7 = 'ats7';
     public const ATS_REFERENCE_8 = 'ats8';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $ats = new Ats();
         $ats->setName('Digital Recruiters');

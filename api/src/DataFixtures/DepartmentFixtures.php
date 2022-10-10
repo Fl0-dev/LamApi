@@ -13,7 +13,7 @@ class DepartmentFixtures extends Fixture implements DependentFixtureInterface
     public const DEPARTMENT_REFERENCE_2 = 'department2';
     public const DEPARTMENT_REFERENCE_3 = 'department3';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $department = new Department();
         $department->setName('Loire-Atlantique');

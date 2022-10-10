@@ -5,18 +5,28 @@ namespace App\Entity\Media;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use GdImage;
 
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "media_image")]
 #[ApiResource()]
 class MediaImage extends Media
 {
-
     const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
     const DEFAULT_MAX_IMAGE_WIDTH = 1200;
     const DEFAULT_MIN_IMAGE_QUALITY = 40;
     const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
     const MAX_IMAGE_FILE_SIZE = 307200; // 307 200 octets = 300 Kio (for Windows)
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_IMAGE;
+    }
 
     /**
      * MediaImage Width in pixels
@@ -352,7 +362,7 @@ class MediaImage extends Media
      *
      * @return resource
      */
-    function imageCreateFromAny($filepath)
+    function imageCreateFromAny($filepath): false|GdImage
     {
         $type = exif_imagetype($filepath);
 
@@ -366,6 +376,8 @@ class MediaImage extends Media
         if (!in_array($type, $allowedTypes)) {
             return false;
         }
+
+        $im = false;
 
         switch ($type) {
             case 1:

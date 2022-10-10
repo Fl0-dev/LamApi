@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class OfferResearchFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $offerResearch = new OfferResearch();
         $offerResearch->setCreatedDate(new \Datetime());

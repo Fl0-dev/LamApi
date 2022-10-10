@@ -19,12 +19,12 @@ class OrganisationTypeDataProvider implements ContextAwareCollectionDataProvider
         return OrganisationType::class === $resourceClass;
     }
 
-    public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
+    public function getCollection(string $resourceClass, string $operationName = null, array $context = []): ?iterable
     {
         return $this->organisationTypeRepository->findAll();
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
         return $this->organisationTypeRepository->find($id);
     }

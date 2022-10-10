@@ -15,10 +15,16 @@ class ContractTypeRepository
         $contractTypes = [];
         $arrayContractTypes = ContractType::CONTRACT_TYPES;
 
-        foreach ($arrayContractTypes as $contractType) {
-            $contractTypes[] = new ContractType(Utils::getArrayValue('slug', $contractType), Utils::getArrayValue('label', $contractType));
+        if (is_array($arrayContractTypes)) {
+
+            foreach ($arrayContractTypes as $contractType) {
+                $contractTypes[] = new ContractType(
+                    Utils::getArrayValue('slug', $contractType),
+                    Utils::getArrayValue('label', $contractType)
+                );
+            }
         }
-        
+
         return $contractTypes;
     }
 

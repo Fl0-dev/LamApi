@@ -25,7 +25,7 @@ class ApplicationController extends AbstractController
         private OfferRepository $offerRepository
     ) {}
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): ?Application
     {
         $operationName = $request->attributes->get('_api_item_operation_name');
 
@@ -49,7 +49,7 @@ class ApplicationController extends AbstractController
             }
 
             $application = new Application();
-            $application->setMotivationText($motivation);
+            $application->setMotivationText((string) $motivation);
             $application->setcompanyEntityOffice($companyEntityOffice);
 
             $applicantCV = new ApplicantCv();
@@ -81,7 +81,7 @@ class ApplicationController extends AbstractController
             }
 
             $application = new Application();
-            $application->setMotivationText($motivation);
+            $application->setMotivationText((string) $motivation);
             $application->setOffer($offer);
             
             $applicantCV = new ApplicantCv();

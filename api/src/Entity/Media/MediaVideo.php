@@ -13,6 +13,16 @@ class MediaVideo extends Media
     #[ORM\Column(type: 'boolean')]
     private bool $autoplay = false;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_VIDEO;
+    }
+
     public function isAutoplay()
     {
         return true === $this->autoplay;

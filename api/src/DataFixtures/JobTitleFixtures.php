@@ -81,7 +81,7 @@ class JobTitleFixtures extends Fixture
     public const JOB_TITLE_REFERENCE_33 = 'job_title_reference_33';
     public const JOB_TITLE_REFERENCE_34 = 'job_title_reference_34';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $jobTitle = new JobTitle();
         $jobTitle->setSlug('assistant-administratif');
