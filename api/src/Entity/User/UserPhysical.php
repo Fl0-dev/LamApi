@@ -2,49 +2,46 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+#[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "admin" => UserAdmin::class,
-    "applicant" => Applicant::class,
-    "employer" => Employer::class,
-])]
+#[ORM\DiscriminatorMap(["admin" => UserAdmin::class, "applicant" => Applicant::class, "employer" => Employer::class])]
 #[ORM\Entity]
 #[ORM\Table(name: "physical_user")]
-#[ApiResource()]
 class UserPhysical extends User
 {
     const TYPE_ADMIN = "admin";
     const TYPE_APPLICANT = "applicant";
     const TYPE_EMPLOYER = "employer";
-
     #[ORM\Column(type: "string", length: 180)]
     #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
     private $firstname;
-
     #[ORM\Column(type: "string", length: 180)]
     #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
     private $lastname;
-
     #[ORM\Column(type: "date", nullable: true)]
     private $birthdate;
-
     public function __construct()
     {
         parent::__construct();
     }
-
-    public function getType(): string
+    public function getType() : string
     {
         return self::TYPE_PHYSICAL;
     }
-
     /**
      * Get the value of firstname
      */
@@ -52,7 +49,6 @@ class UserPhysical extends User
     {
         return $this->firstname;
     }
-
     /**
      * Set the value of firstname
      *
@@ -61,10 +57,8 @@ class UserPhysical extends User
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-
         return $this;
     }
-
     /**
      * Get the value of lastname
      */
@@ -72,7 +66,6 @@ class UserPhysical extends User
     {
         return $this->lastname;
     }
-
     /**
      * Set the value of lastname
      *
@@ -81,19 +74,15 @@ class UserPhysical extends User
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-
         return $this;
     }
-
-    public function getBirthdate(): ?\DateTimeInterface
+    public function getBirthdate() : ?\DateTimeInterface
     {
         return $this->birthdate;
     }
-
-    public function setBirthdate(?\DateTimeInterface $birthdate): self
+    public function setBirthdate(?\DateTimeInterface $birthdate) : self
     {
         $this->birthdate = $birthdate;
-
         return $this;
     }
 }

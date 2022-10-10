@@ -2,11 +2,7 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\References\Reference;
-use App\Filter\WorkforceFilter;
-
 
 class SubscriptionStatus extends Reference
 {
@@ -23,4 +19,9 @@ class SubscriptionStatus extends Reference
             'label' => 'Désinscrit',
         ],
     ];
+
+    public static function isSubscriptionStatus(array $statusSlugs): bool
+    {
+        return !empty(array_intersect($statusSlugs, array_column(self::STATUSES, 'slug')));
+    }
 }

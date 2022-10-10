@@ -2,8 +2,7 @@
 
 namespace App\Filter;
 
-use ApiPlatform\Core\Serializer\Filter\FilterInterface;
-
+use ApiPlatform\Api\FilterInterface;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PropertyInfo\Type;

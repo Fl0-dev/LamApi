@@ -2,26 +2,23 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\State\ApplicationStatusDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: ApplicationStatusDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: ApplicationStatusDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
 class ApplicationStatus extends Reference
 {
     const NEW = 'new';
@@ -29,7 +26,6 @@ class ApplicationStatus extends Reference
     const APPROVED = 'approved';
     const REJECTED = 'rejected';
     const ARCHIVED = 'archived';
-
     const APPLICATION_STATUSES = [
         [
             'slug' => self::NEW,
@@ -49,7 +45,13 @@ class ApplicationStatus extends Reference
         ],
         [
             'slug' => self::ARCHIVED,
-            'label' => 'Archivée'
-        ],
+            'label' => 'Archivée
+        '
+        ]
     ];
+
+    public static function isApplicationStatus(array $statusSlugs): bool
+    {
+        return !empty(array_intersect($statusSlugs, array_column(self::APPLICATION_STATUSES, 'slug')));
+    }
 }

@@ -35,4 +35,5 @@ api_platform:
     collection:
         pagination:
             items_per_page_parameter_name: itemsPerPage # Default value
-       
+    # Utilisation du metadata system
+    metadata_backward_compatibility_layer: false

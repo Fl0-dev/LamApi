@@ -2,7 +2,14 @@
 
 namespace App\Entity\Application;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Controller\ApplicationController;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Applicant\ApplicantCv;
@@ -18,18 +25,20 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: ApplicationRepository::class)]
-#[ApiResource(
-    collectionOperations: [
-        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID => [
-            'method' => 'POST',
-            'path' => '/applications/{offerId}',
-            'controller' => ApplicationController::class,
-            'deserialize' => false,
-            'denormalization_context' => [
-                'groups' => [self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID],
+#[
+    ApiResource(operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new Post(
+            uriTemplate: '/applications/{offerId}',
+            controller: ApplicationController::class,
+            deserialize: false,
+            denormalizationContext: [
+                'groups' => ['postApplicationByOfferId']
             ],
-            'openapi_context' => [
+            openapiContext: [
                 'summary' => 'Post application for an offer by offer id',
                 'description' => 'Post application for an offer by offer id',
                 'parameters' => [
@@ -38,9 +47,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
                         'in' => 'path',
                         'required' => true,
                         'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
+                            'type' => 'string'
+                        ]
+                    ]
                 ],
                 'requestBody' => [
                     'content' => [
@@ -50,27 +59,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
                                 'properties' => [
                                     'file' => [
                                         'type' => 'string',
-                                        'format' => 'binary',
+                                        'format' => 'binary'
                                     ],
                                     'motivationText' => [
-                                        'type' => 'string',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
+                                        'type' => 'string'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ),
+        new Post(
+            uriTemplate: '/applications/spontaneaous/{companyEntityOfficeId}',
+            controller: ApplicationController::class,
+            deserialize: false,
+            denormalizationContext: [
+                'groups' => [
+                    'postSpontaneaousApplicationByCompanyEntityOfficeId'
+                ]
             ],
-        ],
-        self::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID => [
-            'method' => 'POST',
-            'path' => '/applications/spontaneaous/{companyEntityOfficeId}',
-            'controller' => ApplicationController::class,
-            'deserialize' => false,
-            'denormalization_context' => [
-                'groups' => [self::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID],
-            ],
-            'openapi_context' => [
+            openapiContext: [
                 'summary' => 'Post spontaneous application for a company entity by company entity id',
                 'description' => 'Post spontaneous application for a company entity by company entity id',
                 'parameters' => [
@@ -79,9 +89,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
                         'in' => 'path',
                         'required' => true,
                         'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
+                            'type' => 'string'
+                        ]
+                    ]
                 ],
                 'requestBody' => [
                     'content' => [
@@ -91,20 +101,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
                                 'properties' => [
                                     'file' => [
                                         'type' => 'string',
-                                        'format' => 'binary',
+                                        'format' => 'binary'
                                     ],
                                     'motivationText' => [
-                                        'type' => 'string',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ]
-    ],
-)]
+                                        'type' => 'string'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        )
+    ])
+]
+#[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 class Application
 {
     const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
@@ -152,7 +163,7 @@ class Application
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
     private $applicantionExchanges;
 
-    #[ORM\Column()]
+    #[ORM\Column]
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'applications', cascade: ['persist'])]
@@ -165,8 +176,8 @@ class Application
     }
 
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
-        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID
     ])]
     public function getCreatedDate(): ?\DateTime
     {
@@ -174,8 +185,8 @@ class Application
     }
 
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID, 
-        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID
     ])]
     public function getLastModifiedDate(): ?\DateTime
     {
@@ -238,7 +249,6 @@ class Application
     public function setCv(?ApplicantCv $cv): self
     {
         $this->cv = $cv;
-
         return $this;
     }
 
@@ -256,7 +266,7 @@ class Application
             $this->applicantionExchanges[] = $applicantionExchange;
             $applicantionExchange->setApplication($this);
         }
-
+        
         return $this;
     }
 
@@ -292,7 +302,7 @@ class Application
     public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice): self
     {
         $this->companyEntityOffice = $companyEntityOffice;
-
+        
         return $this;
     }
 }

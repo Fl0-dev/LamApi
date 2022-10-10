@@ -2,7 +2,15 @@
 
 namespace App\Entity\Revision;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Offer\Offer;
 use App\Repository\RevisionRepositories\OfferRevisionRepository;
 use App\Transversal\CreatedDate;
@@ -10,29 +18,24 @@ use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 class OfferRevision
 {
     use Uuid;
     use CreatedDate;
     use FieldName;
     use FieldContent;
-
     #[ORM\ManyToOne(inversedBy: 'offerRevisions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
-
-    public function getOffer(): ?Offer
+    public function getOffer() : ?Offer
     {
         return $this->offer;
     }
-
-    public function setOffer(?Offer $offer): self
+    public function setOffer(?Offer $offer) : self
     {
         $this->offer = $offer;
-
         return $this;
     }
 }

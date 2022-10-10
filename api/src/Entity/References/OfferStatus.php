@@ -2,26 +2,23 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\State\OfferStatusDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: OfferStatusDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: OfferStatusDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
 class OfferStatus extends Reference
 {
     const DRAFT = 'draft';
@@ -29,30 +26,29 @@ class OfferStatus extends Reference
     const PROVIDED = 'provided';
     const DISABLED = 'disabled';
     const ARCHIVED = 'archived';
-
     const STATUSES = [
         [
-            'slug' => self::DRAFT,
+            'slug' => self::DRAFT, 
             'label' => 'Draft'
         ],
         [
-            'slug' => self::PUBLISHED,
+            'slug' => self::PUBLISHED, 
             'label' => 'Published'
         ],
         [
-            'slug' => self::PROVIDED,
+            'slug' => self::PROVIDED, 
             'label' => 'Provided'
         ],
         [
-            'slug' => self::DISABLED,
+            'slug' => self::DISABLED, 
             'label' => 'Disabled'
         ],
         [
-            'slug' => self::ARCHIVED,
+            'slug' => self::ARCHIVED, 
             'label' => 'Archived'
-        ],
+        ]
     ];
-
+    
     public static function isStatus($statusSlug)
     {
         return in_array($statusSlug, array_column(self::STATUSES, 'slug'));

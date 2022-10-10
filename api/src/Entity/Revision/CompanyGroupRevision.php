@@ -2,7 +2,15 @@
 
 namespace App\Entity\Revision;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Company\CompanyGroup;
 use App\Repository\RevisionRepositories\CompanyGroupRevisionRepository;
 use App\Transversal\CreatedDate;
@@ -10,29 +18,24 @@ use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: CompanyGroupRevisionRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: CompanyGroupRevisionRepository::class)]
 class CompanyGroupRevision
 {
     use Uuid;
     use CreatedDate;
     use FieldName;
     use FieldContent;
-
     #[ORM\ManyToOne(inversedBy: 'companyGroupRevisions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyGroup $companyGroup = null;
-
-    public function getCompanyGroup(): ?CompanyGroup
+    public function getCompanyGroup() : ?CompanyGroup
     {
         return $this->companyGroup;
     }
-
-    public function setCompanyGroup(?CompanyGroup $companyGroup): self
+    public function setCompanyGroup(?CompanyGroup $companyGroup) : self
     {
         $this->companyGroup = $companyGroup;
-
         return $this;
     }
 }

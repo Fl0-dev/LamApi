@@ -2,7 +2,15 @@
 
 namespace App\Entity\Research;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
 use App\Entity\Company\CompanyGroup;
@@ -17,41 +25,30 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: CompanyResearchRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: CompanyResearchRepository::class)]
 class CompanyResearch
 {
     use Uuid;
     use CreatedDate;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $companyName = null;
-
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private $workforces;
-
     #[ORM\ManyToMany(targetEntity: City::class)]
     private Collection $cities;
-
     #[ORM\ManyToMany(targetEntity: Department::class)]
     private Collection $departments;
-
     #[ORM\ManyToMany(targetEntity: JobType::class)]
     private Collection $jobTypes;
-
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     private Collection $tools;
-
     #[ORM\ManyToMany(targetEntity: Badge::class)]
     private Collection $badges;
-
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
-
     #[ORM\ManyToMany(targetEntity: CompanyGroup::class)]
     private Collection $companyResults;
-
     public function __construct()
     {
         $this->cities = new ArrayCollection();
@@ -61,199 +58,157 @@ class CompanyResearch
         $this->badges = new ArrayCollection();
         $this->companyResults = new ArrayCollection();
     }
-
-    public function getCompanyName(): ?string
+    public function getCompanyName() : ?string
     {
         return $this->companyName;
     }
-
-    public function setCompanyName(?string $companyName): self
+    public function setCompanyName(?string $companyName) : self
     {
         $this->companyName = $companyName;
-
         return $this;
     }
-
-    public function getWorkforces(): array
+    public function getWorkforces() : array
     {
         return $this->workforces;
     }
-
-    public function addWorkforce(?string $workforce): self
+    public function addWorkforce(?string $workforce) : self
     {
         if (!is_array($this->workforces)) {
             $this->workforces = [];
         }
-        
         if (!in_array($workforce, $this->workforces)) {
             $this->workforces[] = $workforce;
         }
-
         return $this;
     }
-
-    public function removeWorkforce(?string $workforce): self
+    public function removeWorkforce(?string $workforce) : self
     {
         if (in_array($workforce, $this->workforces)) {
             unset($workforce, $this->workforces);
-        } 
-
+        }
         return $this;
     }
-
     /**
      * @return Collection<int, City>
      */
-    public function getCities(): Collection
+    public function getCities() : Collection
     {
         return $this->cities;
     }
-
-    public function addCity(City $city): self
+    public function addCity(City $city) : self
     {
         if (!$this->cities->contains($city)) {
             $this->cities->add($city);
         }
-
         return $this;
     }
-
-    public function removeCity(City $city): self
+    public function removeCity(City $city) : self
     {
         $this->cities->removeElement($city);
-
         return $this;
     }
-
     /**
      * @return Collection<int, Department>
      */
-    public function getDepartments(): Collection
+    public function getDepartments() : Collection
     {
         return $this->departments;
     }
-
-    public function addDepartment(Department $department): self
+    public function addDepartment(Department $department) : self
     {
         if (!$this->departments->contains($department)) {
             $this->departments->add($department);
         }
-
         return $this;
     }
-
-    public function removeDepartment(Department $department): self
+    public function removeDepartment(Department $department) : self
     {
         $this->departments->removeElement($department);
-
         return $this;
     }
-
     /**
      * @return Collection<int, JobType>
      */
-    public function getJobTypes(): Collection
+    public function getJobTypes() : Collection
     {
         return $this->jobTypes;
     }
-
-    public function addJobType(JobType $jobType): self
+    public function addJobType(JobType $jobType) : self
     {
         if (!$this->jobTypes->contains($jobType)) {
             $this->jobTypes->add($jobType);
         }
-
         return $this;
     }
-
-    public function removeJobType(JobType $jobType): self
+    public function removeJobType(JobType $jobType) : self
     {
         $this->jobTypes->removeElement($jobType);
-
         return $this;
     }
-
     /**
      * @return Collection<int, Tool>
      */
-    public function getTools(): Collection
+    public function getTools() : Collection
     {
         return $this->tools;
     }
-
-    public function addTool(Tool $tool): self
+    public function addTool(Tool $tool) : self
     {
         if (!$this->tools->contains($tool)) {
             $this->tools->add($tool);
         }
-
         return $this;
     }
-
-    public function removeTool(Tool $tool): self
+    public function removeTool(Tool $tool) : self
     {
         $this->tools->removeElement($tool);
-
         return $this;
     }
-
     /**
      * @return Collection<int, Badge>
      */
-    public function getBadges(): Collection
+    public function getBadges() : Collection
     {
         return $this->badges;
     }
-
-    public function addBadge(Badge $badge): self
+    public function addBadge(Badge $badge) : self
     {
         if (!$this->badges->contains($badge)) {
             $this->badges->add($badge);
         }
-
         return $this;
     }
-
-    public function removeBadge(Badge $badge): self
+    public function removeBadge(Badge $badge) : self
     {
         $this->badges->removeElement($badge);
-
         return $this;
     }
-
-    public function getApplicant(): ?Applicant
+    public function getApplicant() : ?Applicant
     {
         return $this->applicant;
     }
-
-    public function setApplicant(?Applicant $applicant): self
+    public function setApplicant(?Applicant $applicant) : self
     {
         $this->applicant = $applicant;
-
         return $this;
     }
-
     /**
      * @return Collection<int, CompanyGroup>
      */
-    public function getCompanyResults(): Collection
+    public function getCompanyResults() : Collection
     {
         return $this->companyResults;
     }
-
-    public function addCompanyResult(CompanyGroup $companyResult): self
+    public function addCompanyResult(CompanyGroup $companyResult) : self
     {
         if (!$this->companyResults->contains($companyResult)) {
             $this->companyResults->add($companyResult);
         }
-
         return $this;
     }
-
-    public function removeCompanyResult(CompanyGroup $companyResult): self
+    public function removeCompanyResult(CompanyGroup $companyResult) : self
     {
         $this->companyResults->removeElement($companyResult);
-
         return $this;
     }
 }

@@ -2,8 +2,7 @@
 
 namespace App\Filter;
 
-use ApiPlatform\Core\Serializer\Filter\FilterInterface;
-
+use ApiPlatform\Api\FilterInterface;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PropertyInfo\Type;
@@ -19,10 +18,13 @@ class WorkforceFilter implements FilterInterface
     
     public function apply(Request $request, bool $normalization, array $attributes, array &$context)
     {
+        dd($request);
         $workforce = $request->query->get(self::WORKFORCE_QUERY_PARAMETER);
         if (!$workforce) {
+
             return;
         }
+
         $keywords = strtolower($request->get(self::WORKFORCE_QUERY_PARAMETER));
         $keywords = trim($keywords);
         $workforces = $this->workforceRepository->findByKeywords($keywords);

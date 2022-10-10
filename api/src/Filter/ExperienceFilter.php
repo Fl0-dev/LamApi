@@ -2,9 +2,8 @@
 
 namespace App\Filter;
 
-use ApiPlatform\Core\Serializer\Filter\FilterInterface;
+use ApiPlatform\Api\FilterInterface;
 use App\Repository\ReferencesRepositories\ExperienceRepository;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PropertyInfo\Type;
 
@@ -38,7 +37,6 @@ class ExperienceFilter implements FilterInterface
                 'required' => false,
                 'description' => 'Search experiences with keywords',
                 'openapi' => [
-                    'example' => 'lama',
                 ],
     
             ]

@@ -2,32 +2,28 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\State\AbstractUserTypeDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: AbstractUserTypeDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: AbstractUserTypeDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
 class AbstractUserType extends Reference
 {
     const JOB_BOARD = 'job-board';
     const ATS = 'ats';
     const PARTNER = 'partner';
-
     const USER_TYPES = [
         [
             'slug' => self::JOB_BOARD,
@@ -40,7 +36,7 @@ class AbstractUserType extends Reference
         [
             'slug' => self::PARTNER,
             'label' => 'Partner'
-        ],
+        ]
     ];
 
     public static function isAbtractUserType(array $typeSlugs): bool
