@@ -2,26 +2,32 @@
 
 namespace App\Controller;
 
-use App\Entity\Company\CompanyGroup;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 class CompanyGroupController extends AbstractController
 {
+
+    const ENDPOINT_FOR_COMPANY_GROUP_BY_KEYWORD = '_api_/company-groups/name/keywords={keywords}_get_collection';
+    const ENDPOINT_FOR_COMPANY_GROUP_COUNT = '_api_/count-company-groups_get';
+
     public function __construct(private CompanyGroupRepository $companyGroupRepository)
     {
     }
 
     public function __invoke(Request $request): int|array|null
     {
-        $operationName = $request->attributes->get('_api_item_operation_name');
+        $endpoint = $request->attributes->get('_route');
 
-        if (!$operationName) {
-            $operationName = $request->attributes->get('_api_collection_operation_name');
+        if ($endpoint === self::ENDPOINT_FOR_COMPANY_GROUP_BY_KEYWORD) {
+            $keywords = strtolower($request->get('keywords'));
+            $keywords = trim($keywords);
+
+            return $this->companyGroupRepository->findNameByPartialSlug($keywords);
         }
-
-        if ($operationName === CompanyGroup::OPERATION_NAME_COUNT_COMPANY_GROUPS) {
+        
+        if ($endpoint === self::ENDPOINT_FOR_COMPANY_GROUP_COUNT) {
             $count = count($this->companyGroupRepository->findAll());
 
             if (!$count) {
@@ -29,13 +35,6 @@ class CompanyGroupController extends AbstractController
             }
 
             return $count;
-        }
-
-        if ($operationName === CompanyGroup::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS) {
-            $keywords = strtolower($request->get('keywords'));
-            $keywords = trim($keywords);
-
-            return $this->companyGroupRepository->findNameByPartialSlug($keywords);
         }
 
         return null;

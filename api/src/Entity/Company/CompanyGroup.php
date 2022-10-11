@@ -41,9 +41,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
         paginationEnabled: false,
         read: false,
         filters: [],
+        uriVariables: [],
         openapiContext: [
             'summary' => 'Count all company groups',
-            'description' => 'Count all company groups. #withoutIdentifier',
+            'description' => 'Count all company groups',
             'parameters' => [],
             'responses' => [
                 [
@@ -133,20 +134,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'groups' => ['companyGroupsNameByKeywords']
         ],
         controller: CompanyGroupController::class,
-        filters: [],
+        uriVariables: ['keywords' => 'string'],
         openapiContext: [
             'summary' => 'Retrieves list of CompanyGroups names by keywords',
             'description' => 'Retrieves list of CompanyGroups names by keywords',
-            'parameters' => [
-                [
-                    'name' => 'keywords',
-                    'in' => 'path',
-                    'required' => true,
-                    'schema' => [
-                        'type' => 'string'
-                    ]
-                ]
-            ]
         ]
     )
 ])]
