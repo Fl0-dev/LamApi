@@ -1,7 +1,6 @@
 api_platform:
     title: LamAPI
     version: 1.0.0
-    allow_plain_identifiers: true
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     # ajout des formats de données supportés
@@ -36,4 +35,3 @@ api_platform:
         pagination:
             items_per_page_parameter_name: itemsPerPage # Default value
     # Utilisation du metadata system
-    metadata_backward_compatibility_layer: false
