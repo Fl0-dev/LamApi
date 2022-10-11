@@ -2,22 +2,17 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+#[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "admin" => UserAdmin::class,
-    "applicant" => Applicant::class,
-    "employer" => Employer::class,
-])]
+#[ORM\DiscriminatorMap(["admin" => UserAdmin::class, "applicant" => Applicant::class, "employer" => Employer::class])]
 #[ORM\Entity]
 #[ORM\Table(name: "physical_user")]
-#[ApiResource()]
 class UserPhysical extends User
 {
     const TYPE_ADMIN = "admin";
@@ -40,7 +35,7 @@ class UserPhysical extends User
         parent::__construct();
     }
 
-    public function getType(): string
+    public function getType() : string
     {
         return self::TYPE_PHYSICAL;
     }
@@ -61,7 +56,7 @@ class UserPhysical extends User
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-
+        
         return $this;
     }
 
@@ -85,12 +80,12 @@ class UserPhysical extends User
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeInterface
+    public function getBirthdate() : ?\DateTimeInterface
     {
         return $this->birthdate;
     }
 
-    public function setBirthdate(?\DateTimeInterface $birthdate): self
+    public function setBirthdate(?\DateTimeInterface $birthdate) : self
     {
         $this->birthdate = $birthdate;
 

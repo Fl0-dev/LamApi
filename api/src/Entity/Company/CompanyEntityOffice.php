@@ -2,7 +2,8 @@
 
 namespace App\Entity\Company;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Application\Application;
 use App\Entity\JobBoard;
 use App\Entity\Location\Address;
@@ -18,8 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: CompanyEntityOfficeRepository::class)]
-#[ApiResource()]
 class CompanyEntityOffice
 {
     use Uuid;
@@ -32,7 +33,7 @@ class CompanyEntityOffice
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private ?string $name = null;
 
@@ -77,6 +78,7 @@ class CompanyEntityOffice
         $this->offers = new ArrayCollection();
         $this->applications = new ArrayCollection();
     }
+
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
@@ -95,7 +97,6 @@ class CompanyEntityOffice
     public function setName(?string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -107,7 +108,6 @@ class CompanyEntityOffice
     public function setAddress(Address $address): self
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -119,7 +119,6 @@ class CompanyEntityOffice
     public function setCompanyEntity(?CompanyEntity $companyEntity): self
     {
         $this->companyEntity = $companyEntity;
-
         return $this;
     }
 
@@ -131,7 +130,6 @@ class CompanyEntityOffice
     public function setHrMailAddress(string $hrMailAddress): self
     {
         $this->hrMailAddress = $hrMailAddress;
-
         return $this;
     }
 
@@ -149,7 +147,6 @@ class CompanyEntityOffice
             $this->offers->add($offer);
             $offer->setCompanyEntityOffice($this);
         }
-
         return $this;
     }
 
@@ -161,7 +158,6 @@ class CompanyEntityOffice
                 $offer->setCompanyEntityOffice(null);
             }
         }
-
         return $this;
     }
 

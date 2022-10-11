@@ -50,4 +50,28 @@ class AddressRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function localisationByKeyWords($keyWords)
+    {
+        $cityQuery = $this->createQueryBuilder('a')
+            ->select('c.id as cityId, c.name as cityName')
+            ->join('a.city', 'c')
+            ->Where('c.slug LIKE :keyWords')
+            ->groupBy('c.id')
+            ->setParameter('keyWords', '%' . strtolower($keyWords) . '%')
+            ->getQuery();
+            $cityResult = $cityQuery->getResult();
+
+        $departmentQuery = $this->createQueryBuilder('a')
+            ->select('d.id as departmentId, d.name as departmentName')
+            ->join('a.city', 'c')
+            ->join('c.department', 'd')
+            ->Where('d.slug LIKE :keyWords')
+            ->groupBy('d.id')
+            ->setParameter('keyWords', '%' . strtolower($keyWords) . '%')
+            ->getQuery();
+            $departmentResult = $departmentQuery->getResult();
+
+        return array_merge($cityResult, $departmentResult);
+    }
 }

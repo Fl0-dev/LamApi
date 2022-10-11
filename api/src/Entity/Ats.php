@@ -2,7 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Media\MediaImage;
 use App\Entity\User\UserAbstract;
 use App\Repository\AtsRepository;
@@ -10,13 +18,12 @@ use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: AtsRepository::class)]
-#[ApiResource()]
 class Ats
 {
     use Uuid;
     use Slug;
-
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $name;
 
@@ -88,7 +95,7 @@ class Ats
     public function setAbstractUser(?UserAbstract $abstractUser): self
     {
         $this->abstractUser = $abstractUser;
-
+        
         return $this;
     }
 }

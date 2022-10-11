@@ -2,18 +2,14 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-
+#[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "api" => UserApi::class,
-])]
+#[ORM\DiscriminatorMap(["api" => UserApi::class])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
-#[ApiResource()]
 abstract class UserAbstract extends User
 {
     const TYPE_API = "api";
@@ -30,7 +26,7 @@ abstract class UserAbstract extends User
     #[ORM\Column(type: "string", length: 180)]
     private $contact_phone;
 
-    public function getType(): string
+    public function getType() : string
     {
         return self::TYPE_ABSTRACT;
     }
@@ -111,7 +107,7 @@ abstract class UserAbstract extends User
     public function setContact_phone($contact_phone)
     {
         $this->contact_phone = $contact_phone;
-
+        
         return $this;
     }
 }

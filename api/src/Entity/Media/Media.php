@@ -2,9 +2,14 @@
 
 namespace App\Entity\Media;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Company\CompanyEntity;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\JobBoard;
 use App\Entity\Offer\Offer;
@@ -13,38 +18,32 @@ use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @Vich\Uploadable()
  */
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(
+            uriTemplate: '/media',
+            normalizationContext: ['groups' => ['getMedia']]
+        ),
+        new Post(
+            uriTemplate: '/media',
+            normalizationContext: ['groups' => ['getMedia']]
+        )
+    ],
+    normalizationContext: ['getMedia']
+)]
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "image" => MediaImage::class,
-    "video" => MediaVideo::class,
-])]
-#[ApiResource(
-    normalizationContext: [self::OPERATION_NAME_GET_MEDIA],
-    collectionOperations: [
-        "get" => [
-            "method" => "GET",
-            "path" => "/media",
-            "normalization_context" => [
-                "groups" => [self::OPERATION_NAME_GET_MEDIA]
-            ]
-        ],
-        "post" => [
-            "method" => "POST",
-            "path" => "/media",
-            "normalization_context" => [
-                "groups" => [self::OPERATION_NAME_GET_MEDIA]
-            ]
-        ]
-    ]
-)]
+#[ORM\DiscriminatorMap(["image" => MediaImage::class, "video" => MediaVideo::class])]
 abstract class Media
 {
     use TechnicalProperties;
@@ -53,18 +52,18 @@ abstract class Media
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
 
+    #[ApiProperty(iris: ['https://schema.org/contentUrl'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[ApiProperty(iri: 'https://schema.org/contentUrl')]
     #[Groups([self::OPERATION_NAME_GET_MEDIA])]
     private $contentUrl;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        self::OPERATION_NAME_GET_MEDIA,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_GET_MEDIA, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     private $filePath;
 
     /**
@@ -72,7 +71,9 @@ abstract class Media
      */
     private ?File $file = null;
 
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     public function getContentUrl(): ?string
     {
@@ -118,11 +119,10 @@ abstract class Media
     {
         return $this->file;
     }
-
+    
     public function setFile(?File $file): self
     {
         $this->file = $file;
-
         return $this;
     }
 }

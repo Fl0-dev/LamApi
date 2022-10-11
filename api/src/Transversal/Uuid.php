@@ -2,7 +2,7 @@
 
 namespace App\Transversal;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Metadata\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 

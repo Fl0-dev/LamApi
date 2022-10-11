@@ -2,8 +2,8 @@
 
 namespace App\Entity\Applicant;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Offer\Offer;
@@ -18,8 +18,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable()
  */
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ApplicantCvRepository::class)]
-#[ApiResource()]
 class ApplicantCv
 {
     use Uuid;
@@ -33,7 +33,7 @@ class ApplicantCv
     ])]
     private $filePath;
 
-    #[ApiProperty(iri: 'https://schema.org/contentUrl')]
+    #[ApiProperty(iris: ['https://schema.org/contentUrl'])]
     #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
     public ?string $contentUrl = null;
 
@@ -41,7 +41,6 @@ class ApplicantCv
      * @Vich\UploadableField(mapping="cv_object", fileNameProperty="filePath")
      */
     private ?File $file = null;
-
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applicantCvs')]
     private $applicant;
 
@@ -81,23 +80,15 @@ class ApplicantCv
         return $this;
     }
 
-    /**
-     * Get the value of contentUrl
-     */
-    public function getContentUrl()
+    public function getContentUrl(): ?string
     {
         return $this->contentUrl;
     }
 
-    /**
-     * Set the value of contentUrl
-     *
-     * @return  self
-     */
-    public function setContentUrl($contentUrl)
+    public function setContentUrl($contentUrl): self
     {
         $this->contentUrl = $contentUrl;
-
+        
         return $this;
     }
 }

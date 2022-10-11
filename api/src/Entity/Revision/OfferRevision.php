@@ -2,7 +2,7 @@
 
 namespace App\Entity\Revision;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Offer\Offer;
 use App\Repository\RevisionRepositories\OfferRevisionRepository;
 use App\Transversal\CreatedDate;
@@ -10,9 +10,8 @@ use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 class OfferRevision
 {
     use Uuid;
@@ -24,15 +23,15 @@ class OfferRevision
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
 
-    public function getOffer(): ?Offer
+    public function getOffer() : ?Offer
     {
         return $this->offer;
     }
 
-    public function setOffer(?Offer $offer): self
+    public function setOffer(?Offer $offer) : self
     {
         $this->offer = $offer;
-
+        
         return $this;
     }
 }

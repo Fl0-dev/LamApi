@@ -2,7 +2,7 @@
 
 namespace App\Entity\Research;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
 use App\Entity\Company\CompanyGroup;
@@ -17,9 +17,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: CompanyResearchRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: CompanyResearchRepository::class)]
 class CompanyResearch
 {
     use Uuid;
@@ -48,7 +47,6 @@ class CompanyResearch
 
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
-
     #[ORM\ManyToMany(targetEntity: CompanyGroup::class)]
     private Collection $companyResults;
 
@@ -62,29 +60,28 @@ class CompanyResearch
         $this->companyResults = new ArrayCollection();
     }
 
-    public function getCompanyName(): ?string
+    public function getCompanyName() : ?string
     {
         return $this->companyName;
     }
 
-    public function setCompanyName(?string $companyName): self
+    public function setCompanyName(?string $companyName) : self
     {
         $this->companyName = $companyName;
 
         return $this;
     }
 
-    public function getWorkforces(): array
+    public function getWorkforces() : array
     {
         return $this->workforces;
     }
 
-    public function addWorkforce(?string $workforce): self
+    public function addWorkforce(?string $workforce) : self
     {
         if (!is_array($this->workforces)) {
             $this->workforces = [];
         }
-        
         if (!in_array($workforce, $this->workforces)) {
             $this->workforces[] = $workforce;
         }
@@ -92,11 +89,11 @@ class CompanyResearch
         return $this;
     }
 
-    public function removeWorkforce(?string $workforce): self
+    public function removeWorkforce(?string $workforce) : self
     {
         if (in_array($workforce, $this->workforces)) {
             unset($workforce, $this->workforces);
-        } 
+        }
 
         return $this;
     }
@@ -104,12 +101,12 @@ class CompanyResearch
     /**
      * @return Collection<int, City>
      */
-    public function getCities(): Collection
+    public function getCities() : Collection
     {
         return $this->cities;
     }
 
-    public function addCity(City $city): self
+    public function addCity(City $city) : self
     {
         if (!$this->cities->contains($city)) {
             $this->cities->add($city);
@@ -118,7 +115,7 @@ class CompanyResearch
         return $this;
     }
 
-    public function removeCity(City $city): self
+    public function removeCity(City $city) : self
     {
         $this->cities->removeElement($city);
 
@@ -128,12 +125,12 @@ class CompanyResearch
     /**
      * @return Collection<int, Department>
      */
-    public function getDepartments(): Collection
+    public function getDepartments() : Collection
     {
         return $this->departments;
     }
 
-    public function addDepartment(Department $department): self
+    public function addDepartment(Department $department) : self
     {
         if (!$this->departments->contains($department)) {
             $this->departments->add($department);
@@ -142,7 +139,7 @@ class CompanyResearch
         return $this;
     }
 
-    public function removeDepartment(Department $department): self
+    public function removeDepartment(Department $department) : self
     {
         $this->departments->removeElement($department);
 
@@ -152,12 +149,12 @@ class CompanyResearch
     /**
      * @return Collection<int, JobType>
      */
-    public function getJobTypes(): Collection
+    public function getJobTypes() : Collection
     {
         return $this->jobTypes;
     }
 
-    public function addJobType(JobType $jobType): self
+    public function addJobType(JobType $jobType) : self
     {
         if (!$this->jobTypes->contains($jobType)) {
             $this->jobTypes->add($jobType);
@@ -166,7 +163,7 @@ class CompanyResearch
         return $this;
     }
 
-    public function removeJobType(JobType $jobType): self
+    public function removeJobType(JobType $jobType) : self
     {
         $this->jobTypes->removeElement($jobType);
 
@@ -176,12 +173,12 @@ class CompanyResearch
     /**
      * @return Collection<int, Tool>
      */
-    public function getTools(): Collection
+    public function getTools() : Collection
     {
         return $this->tools;
     }
 
-    public function addTool(Tool $tool): self
+    public function addTool(Tool $tool) : self
     {
         if (!$this->tools->contains($tool)) {
             $this->tools->add($tool);
@@ -190,7 +187,7 @@ class CompanyResearch
         return $this;
     }
 
-    public function removeTool(Tool $tool): self
+    public function removeTool(Tool $tool) : self
     {
         $this->tools->removeElement($tool);
 
@@ -200,12 +197,12 @@ class CompanyResearch
     /**
      * @return Collection<int, Badge>
      */
-    public function getBadges(): Collection
+    public function getBadges() : Collection
     {
         return $this->badges;
     }
 
-    public function addBadge(Badge $badge): self
+    public function addBadge(Badge $badge) : self
     {
         if (!$this->badges->contains($badge)) {
             $this->badges->add($badge);
@@ -213,20 +210,19 @@ class CompanyResearch
 
         return $this;
     }
-
-    public function removeBadge(Badge $badge): self
+    public function removeBadge(Badge $badge) : self
     {
         $this->badges->removeElement($badge);
 
         return $this;
     }
 
-    public function getApplicant(): ?Applicant
+    public function getApplicant() : ?Applicant
     {
         return $this->applicant;
     }
 
-    public function setApplicant(?Applicant $applicant): self
+    public function setApplicant(?Applicant $applicant) : self
     {
         $this->applicant = $applicant;
 
@@ -236,12 +232,12 @@ class CompanyResearch
     /**
      * @return Collection<int, CompanyGroup>
      */
-    public function getCompanyResults(): Collection
+    public function getCompanyResults() : Collection
     {
         return $this->companyResults;
     }
 
-    public function addCompanyResult(CompanyGroup $companyResult): self
+    public function addCompanyResult(CompanyGroup $companyResult) : self
     {
         if (!$this->companyResults->contains($companyResult)) {
             $this->companyResults->add($companyResult);
@@ -250,10 +246,10 @@ class CompanyResearch
         return $this;
     }
 
-    public function removeCompanyResult(CompanyGroup $companyResult): self
+    public function removeCompanyResult(CompanyGroup $companyResult) : self
     {
         $this->companyResults->removeElement($companyResult);
-
+        
         return $this;
     }
 }

@@ -2,28 +2,27 @@
 
 namespace App\Entity\Media;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use GdImage;
-
+#[ApiResource]
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "media_image")]
-#[ApiResource()]
 class MediaImage extends Media
 {
     const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
     const DEFAULT_MAX_IMAGE_WIDTH = 1200;
     const DEFAULT_MIN_IMAGE_QUALITY = 40;
     const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
-    const MAX_IMAGE_FILE_SIZE = 307200; // 307 200 octets = 300 Kio (for Windows)
+    const MAX_IMAGE_FILE_SIZE = 307200;
+    // 307 200 octets = 300 Kio (for Windows)
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function getType(): string
+    public function getType() : string
     {
         return self::TYPE_IMAGE;
     }
@@ -60,15 +59,12 @@ class MediaImage extends Media
     public function setDimensions()
     {
         // $fileLocation = ($this->hasPath() ? $this->getPath() : $this->getSrc());
-
         // if ($fileLocation) {
         //     list($width, $height, $type, $attr) = getimagesize($fileLocation);
-
         //     $this->setWidth($width);
         //     $this->setHeight($height);
         //     $this->setFileType($type);
         // }
-
         return $this;
     }
 
@@ -230,30 +226,23 @@ class MediaImage extends Media
         // if (!$this->isFileExists()) {
         //     return false;
         // }
-
         // $this->setEditor();
-
         // if ($this->hasEditor()) {
         //     $editor = $this->getEditor();
-
         //     // If given width is the same as default WP Editor MediaImage width (1200px), don't resize because
         //     // WP MediaImage Editor resize automatically on this width and cause $result error (stupid...)
         //     if (self::DEFAULT_WP_IMAGE_EDITOR_WIDTH !== $width) {
         //         $result = $editor->resize($width, $height, false);
-
         //         if (!is_wp_error($result)) {
         //             $filePath = $this->getPath();
-
         //             if ($keepOriginal) {
         //                 $filePath = $editor->generate_filename();
         //             }
-
         //             $editor->save($filePath);
         //         } else {
         //             // Handle the problem however you deem necessary.
         //         }
         //     }
-
         //     $this->setPath($filePath);
         //     $this->setDimensions();
         // }
@@ -273,18 +262,14 @@ class MediaImage extends Media
         // if (!$this->isFileExists()) {
         //     return false;
         // }
-
         // $this->setEditor();
-
         // if ($this->hasEditor()) {
         //     $editor = $this->getEditor();
         //     $result = $editor->set_quality($quality);
-
         //     if (!is_wp_error($result)) {
         //         $result = $editor->save($editor->generate_filename());
         //     } else {
         //         // Handle the problem however you deem necessary.
-
         //     }
         // }
 
@@ -301,10 +286,8 @@ class MediaImage extends Media
         // if (!$this->isFileExists()) {
         //     return false;
         // }
-
         // $image = $this->imageCreateFromAny($this->getSrc());
         // $uploadsPath = Utils::getArrayValue('path', wp_upload_dir());
-
         // if (false !== $image && is_string($uploadsPath) && strlen($uploadsPath) > 0) {
         //     $newFileName = Utils::replaceExtension($this->getSrc(), 'webp');
         //     $filePath = $uploadsPath . '/' . $newFileName;
@@ -325,27 +308,19 @@ class MediaImage extends Media
      *
      * @return self
      */
-    public function optimize(
-        $width = self::DEFAULT_MAX_IMAGE_WIDTH,
-        $maxFileSize = self::MAX_IMAGE_FILE_SIZE,
-        $minQuality = self::DEFAULT_MIN_IMAGE_QUALITY
-    ) {
+    public function optimize($width = self::DEFAULT_MAX_IMAGE_WIDTH, $maxFileSize = self::MAX_IMAGE_FILE_SIZE, $minQuality = self::DEFAULT_MIN_IMAGE_QUALITY)
+    {
         // $this->setFileSize(true);
         // $quality = 80;
         // $last = false;
-
         // $this->resize($width);
-
         // while ($this->getFileSize() > $maxFileSize) {
         //     $this->compress($quality);
         //     $this->setFileSize(true);
-
         //     if ($last) {
         //         break;
         //     }
-
         //     $quality = $quality - 10;
-
         //     if ($quality <= $minQuality) {
         //         $quality = $minQuality;
         //         $last = true;
@@ -354,7 +329,7 @@ class MediaImage extends Media
 
         return $this;
     }
-
+    
     /**
      * Get image resoure from GIF, JP(E)G, PNG or BMP image file
      *
@@ -362,41 +337,37 @@ class MediaImage extends Media
      *
      * @return resource
      */
-    function imageCreateFromAny($filepath): false|GdImage
+    function imageCreateFromAny($filepath)
     {
         $type = exif_imagetype($filepath);
-
         $allowedTypes = array(
-            1,  // [] gif
-            2,  // [] jpg
-            3,  // [] png
-            6   // [] bmp
+            1,
+            // [] gif
+            2,
+            // [] jpg
+            3,
+            // [] png
+            6,
         );
-
         if (!in_array($type, $allowedTypes)) {
             return false;
         }
-
         $im = false;
-
         switch ($type) {
             case 1:
                 $im = imageCreateFromGif($filepath);
                 break;
-
             case 2:
                 $im = imageCreateFromJpeg($filepath);
                 break;
-
             case 3:
                 $im = imageCreateFromPng($filepath);
                 break;
-
             case 6:
                 $im = imageCreateFromBmp($filepath);
                 break;
         }
-
+        
         return $im;
     }
 }

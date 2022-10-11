@@ -2,9 +2,11 @@
 
 namespace App\Entity\Location;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\DepartmentController;
-use App\Entity\JobBoard;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\Controller\DepartmentAction;
 use App\Repository\LocationRepositories\DepartmentRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -13,37 +15,36 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(operations: [
+    new Get(),
+    new Get(
+        uriTemplate: '/departments-count',
+        uriVariables: [],
+        controller: DepartmentAction::class,
+        paginationEnabled: false,
+        read: false,
+        filters: [],
+        openapiContext: [
+            'summary' => 'Count all departments',
+            'description' => 'Count all departments',
+            'responses' => [
+                [
+                    'description' => 'Count all company groups',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'integer',
+                                'example' => 91
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new GetCollection()
+])]
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
-#[ApiResource(
-    itemOperations: [
-        'get',
-        self::OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY => [
-            'method' => 'GET',
-            'path' => '/departments-count',
-            'controller' => DepartmentController::class,
-            'pagination_enabled' => false,
-            'read' => false,
-            'filters' => [],
-            'openapi_context' => [
-                'summary' => 'Count all departments',
-                'description' => 'Count all departments. #withoutIdentifier',
-                'responses' => [
-                    '200' => [
-                        'description' => 'Count all company groups',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'integer',
-                                    'example' => 91,
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ],
-    ]
-)]
 class Department
 {
     const OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY = 'countAllDepartmentsWithCompany';
@@ -52,9 +53,7 @@ class Department
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
-    #[Groups([
-        City::OPERATION_NAME_GET_ALL_CITIES,
-    ])]
+    #[Groups([City::OPERATION_NAME_GET_ALL_CITIES])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 7)]
@@ -134,7 +133,7 @@ class Department
                 $city->setDepartment(null);
             }
         }
-
+        
         return $this;
     }
 }

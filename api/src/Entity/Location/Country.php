@@ -2,19 +2,19 @@
 
 namespace App\Entity\Location;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\LocationRepositories\CountryRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+#[ApiResource]
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
-#[ApiResource()]
 class Country
 {
     use Uuid;
+
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]
@@ -28,12 +28,12 @@ class Country
         $this->regions = new ArrayCollection();
     }
 
-    public function getName(): ?string
+    public function getName() : ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name) : self
     {
         $this->name = $name;
 
@@ -43,12 +43,12 @@ class Country
     /**
      * @return Collection<int, Region>
      */
-    public function getRegions(): Collection
+    public function getRegions() : Collection
     {
         return $this->regions;
     }
 
-    public function addRegion(Region $region): self
+    public function addRegion(Region $region) : self
     {
         if (!$this->regions->contains($region)) {
             $this->regions[] = $region;
@@ -58,7 +58,7 @@ class Country
         return $this;
     }
 
-    public function removeRegion(Region $region): self
+    public function removeRegion(Region $region) : self
     {
         if ($this->regions->removeElement($region)) {
             // set the owning side to null (unless already changed)
@@ -66,7 +66,7 @@ class Country
                 $region->setCountry(null);
             }
         }
-
+        
         return $this;
     }
 }

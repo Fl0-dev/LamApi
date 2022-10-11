@@ -2,14 +2,17 @@
 
 namespace App\Entity\Offer;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Revision\OfferRevision;
 use App\Validator;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\OfferController;
+use App\Controller\OfferAction;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
@@ -40,102 +43,76 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 
-#[ORM\Entity(repositoryClass: OfferRepository::class)]
-#[ApiResource(
-    collectionOperations: [
-        self::OPERATION_NAME_GET_ALL_OFFERS => [
-            'method' => 'GET',
-            'path' => '/offers/all',
-            'normalization_context' => [
-                'groups' => [
-                    self::OPERATION_NAME_GET_ALL_OFFERS
-                ]
-            ],
-            'formats' => [
-                'json' => ['application/json'],
-            ],
-        ],
-        self::OPERATION_NAME_GET_OFFER_TEASERS => [
-            'method' => 'GET',
-            'path' => '/offers/teasers',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFER_TEASERS],
-            ],
-        ],
-        ############################## SAVE OR UPDATE OFFER ##############################
-        self::OPERATION_NAME_POST_OFFER => [
-            'method' => 'POST',
-            'path' => '/offers',
-            'controller' => OfferController::class,
-            'denormalization_context' => [
-                'groups' => [self::OPERATION_NAME_POST_OFFER],
-            ],
-            'input_formats' => [
-                'json' => ['application/json'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        ############################## GET DETAILS OF ONE OFFER ##############################
-        self::OPERATION_NAME_GET_OFFER_DETAILS => [
-            'method' => 'GET',
-            'path' => '/offers/{id}',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFER_DETAILS],
-            ],
-        ],
-        ############################## GET ALL APPLICATIONS BY OFFER ID ##############################
-        self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID => [
-            'method' => 'GET',
-            'path' => '/offers/{id}/applications',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID],
-            ],
-            'openapi_context' => [
-                'summary' => 'Retrieves all applications by offer id',
-                'description' => 'Retrieves all applications by offer id',
-            ],
-        ],
-        ############################## GET TOTAL NUMBER OF OFFERS ##############################
-        self::OPERATION_NAME_COUNT_OFFERS => [
-            'method' => 'GET',
-            'path' => '/offers-count',
-            'controller' => OfferController::class,
-            'pagination_enabled' => false,
-            'read' => false,
-            'filters' => [],
-            'openapi_context' => [
-                'summary' => 'Retrieves list of applications by company group id',
-                'description' => 'Retrieves list of applications by company group id',
-                'parameters' => [
-                    [
-                        'name' => 'id',
-                        'in' => 'body',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
-                ],
-            ],
-        ],
-    ]
-)]
-#[ApiFilter(OrderFilter::class, properties: ['publishedAt' => 'desc'])]
-#[ApiFilter(BooleanFilter::class, properties: ['provided' => false])]
-#[
-    ApiFilter(
-        SearchFilter::class,
-        properties: [
-            'contractType',
-            'jobTitle',
-            'experience',
-            'companyEntityOffice.companyEntity.companyGroup.id' => 'exact',
-            'companyEntityOffice.address.city',
-            'companyEntityOffice.address.city.department',
+#[ApiResource(operations: [
+    new Get(
+        uriTemplate: '/offers/{id}',
+        normalizationContext: [
+            'groups' => ['getOfferDetails']
         ]
+    ),
+    new Get(
+        uriTemplate: '/offers/{id}/applications',
+        normalizationContext: [
+            'groups' => ['getOfferApplications']
+        ],
+        openapiContext: [
+            'summary' => 'Retrieves all applications by offer id',
+            'description' => 'Retrieves all applications by offer id'
+        ]
+    ),
+    new Get(
+        uriTemplate: '/offers-count',
+        controller: OfferAction::class,
+        paginationEnabled: false,
+        read: false,
+        filters: [],
+        uriVariables: [],
+        openapiContext: [
+            'summary' => 'Count all offers',
+            'description' => 'Count all offers',
+            'parameters' => [],
+            'responses' => [
+                [
+                    'description' => 'Count all offers',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'integer',
+                                'example' => 1024
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new GetCollection(
+        uriTemplate: '/offers/all',
+        normalizationContext: ['groups' => ['getAllOffers']],
+        formats: ['json' => ['application/json']]
+    ),
+    new GetCollection(
+        uriTemplate: '/offers-teasers',
+        normalizationContext: ['groups' => ['getOfferTeasers']]
+    ),
+    new Post(
+        uriTemplate: '/offers',
+        controller: OfferAction::class,
+        denormalizationContext: ['groups' => ['postOffer']],
+        inputFormats: ['json' => ['application/json']]
     )
-]
+])]
+#[ORM\Entity(repositoryClass: OfferRepository::class)]
+#[ApiFilter(filterClass: OrderFilter::class, properties: ['publishedAt' => 'desc'])]
+#[ApiFilter(filterClass: BooleanFilter::class, properties: ['provided' => false])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: [
+    'contractType',
+    'jobTitle',
+    'experience',
+    'companyEntityOffice.companyEntity.companyGroup.id' => 'exact',
+    'companyEntityOffice.address.city',
+    'companyEntityOffice.address.city.department'
+])]
 class Offer
 {
     const OPERATION_NAME_GET_ALL_OFFERS = 'getAllOffers';
@@ -153,7 +130,7 @@ class Offer
     #[ORM\Column(type: 'boolean')]
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS,
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
     ])]
     private $provided;
 
@@ -295,7 +272,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         self::OPERATION_NAME_GET_ALL_OFFERS,
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
     ])]
     private $publishedAt;
 
@@ -306,7 +283,7 @@ class Offer
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class)]
     #[Groups([
         self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
-        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
     ])]
     #[ORM\JoinColumn(nullable: true)]
     private $applications;
@@ -319,11 +296,11 @@ class Offer
     #[ORM\JoinColumn(nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS,
-        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS
     ])]
     private $headerMedia;
 
-    #[Validator\IsInRepository()]
+    #[Validator\IsInRepository]
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFERS,
@@ -342,7 +319,7 @@ class Offer
     ])]
     private $jobTitle;
 
-    #[Validator\IsInRepository()]
+    #[Validator\IsInRepository]
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFERS,
@@ -352,7 +329,7 @@ class Offer
     ])]
     private $experience;
 
-    #[Validator\IsInRepository()]
+    #[Validator\IsInRepository]
     #[ORM\Column(type: 'string', nullable: false)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFERS,
@@ -376,7 +353,7 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_POST_OFFER,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private Collection $tools;
 
@@ -406,48 +383,48 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
-        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_TEASERS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getCreatedDate(): ?\DateTime
     {
         return $this->createdDate;
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getJobTitleLabel(): string
     {
         return $this->getJobTitleObject()->getLabel();
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
-        self::OPERATION_NAME_GET_OFFER_DETAILS,
-        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_GET_OFFER_TEASERS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getContractType(): ?string
     {
         $contractTypeRepository = new ContractTypeRepository();
@@ -457,10 +434,10 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
-        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getExperience(): ?string
     {
         $experienceRepository = new ExperienceRepository();
@@ -470,8 +447,8 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
-        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     public function getLevelOfStudy(): ?string
@@ -491,36 +468,34 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
-        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_OFFER_DETAILS, 
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-    ])]
+        ])]
     public function getUrl(): ?string
     {
         $url = "";
-
         if ($this->companyEntityOffice instanceof CompanyEntityOffice) {
             $companyGroupSlug = $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getSlug();
-
             $offerSlug = $this->getSlug();
-            $url = Constants::HOST_URL . '/' . Constants::COMPANY_TAG_SLUG . "/$companyGroupSlug/" . Constants::OFFER_TAG_SLUG . "/$offerSlug";
+            $url = Constants::HOST_URL . '/' . Constants::COMPANY_TAG_SLUG . "/{$companyGroupSlug}/" . Constants::OFFER_TAG_SLUG . "/{$offerSlug}";
         }
 
         return $url;
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     public function getCompany(): ?array
     {
         $arrayCompanyInfos = [
-            'id' => $this->companyEntityOffice->getCompanyEntity()->getId(),
-            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(),
-            'address'=> $this->companyEntityOffice->getAddress(),
+            'id' => $this->companyEntityOffice->getCompanyEntity()->getId(), 
+            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(), 
+            'address' => $this->companyEntityOffice->getAddress()
         ];
-            
+
         return $arrayCompanyInfos;
     }
 
@@ -894,7 +869,7 @@ class Offer
     public function removeOfferRevision(OfferRevision $offerRevision): self
     {
         $this->offerRevisions->removeElement($offerRevision);
-
+        
         return $this;
     }
 }

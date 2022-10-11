@@ -2,7 +2,7 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Application\Application;
 use App\Repository\UserRepositories\UserRepository;
 use App\Transversal\CreatedDate;
@@ -12,16 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+#[ApiResource]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'app_user')]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "physical" => UserPhysical::class,
-    "abstract" => UserAbstract::class,
-])]
-#[ApiResource()]
+#[ORM\DiscriminatorMap(["physical" => UserPhysical::class, "abstract" => UserAbstract::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     const TYPE_PHYSICAL = 'physical';
@@ -53,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getUserIdentifier(): string
+    public function getUserIdentifier() : string
     {
         return (string) $this->email;
     }
@@ -61,16 +57,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles() : array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
+        
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles) : self
     {
         $this->roles = $roles;
 
@@ -80,12 +76,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword() : string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password) : self
     {
         $this->password = $password;
 
@@ -101,12 +97,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getToken(): ?string
+    public function getToken() : ?string
     {
         return $this->token;
     }
 
-    public function setToken(string $token): self
+    public function setToken(string $token) : self
     {
         $this->token = $token;
 
