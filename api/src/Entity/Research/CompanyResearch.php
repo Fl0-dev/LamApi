@@ -2,15 +2,7 @@
 
 namespace App\Entity\Research;
 
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
 use App\Entity\Company\CompanyGroup;
@@ -31,24 +23,33 @@ class CompanyResearch
 {
     use Uuid;
     use CreatedDate;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $companyName = null;
+
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private $workforces;
+
     #[ORM\ManyToMany(targetEntity: City::class)]
     private Collection $cities;
+
     #[ORM\ManyToMany(targetEntity: Department::class)]
     private Collection $departments;
+
     #[ORM\ManyToMany(targetEntity: JobType::class)]
     private Collection $jobTypes;
+
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     private Collection $tools;
+
     #[ORM\ManyToMany(targetEntity: Badge::class)]
     private Collection $badges;
+
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
     #[ORM\ManyToMany(targetEntity: CompanyGroup::class)]
     private Collection $companyResults;
+
     public function __construct()
     {
         $this->cities = new ArrayCollection();
@@ -58,19 +59,24 @@ class CompanyResearch
         $this->badges = new ArrayCollection();
         $this->companyResults = new ArrayCollection();
     }
+
     public function getCompanyName() : ?string
     {
         return $this->companyName;
     }
+
     public function setCompanyName(?string $companyName) : self
     {
         $this->companyName = $companyName;
+
         return $this;
     }
+
     public function getWorkforces() : array
     {
         return $this->workforces;
     }
+
     public function addWorkforce(?string $workforce) : self
     {
         if (!is_array($this->workforces)) {
@@ -79,15 +85,19 @@ class CompanyResearch
         if (!in_array($workforce, $this->workforces)) {
             $this->workforces[] = $workforce;
         }
+
         return $this;
     }
+
     public function removeWorkforce(?string $workforce) : self
     {
         if (in_array($workforce, $this->workforces)) {
             unset($workforce, $this->workforces);
         }
+
         return $this;
     }
+
     /**
      * @return Collection<int, City>
      */
@@ -95,18 +105,23 @@ class CompanyResearch
     {
         return $this->cities;
     }
+
     public function addCity(City $city) : self
     {
         if (!$this->cities->contains($city)) {
             $this->cities->add($city);
         }
+
         return $this;
     }
+
     public function removeCity(City $city) : self
     {
         $this->cities->removeElement($city);
+
         return $this;
     }
+
     /**
      * @return Collection<int, Department>
      */
@@ -114,18 +129,23 @@ class CompanyResearch
     {
         return $this->departments;
     }
+
     public function addDepartment(Department $department) : self
     {
         if (!$this->departments->contains($department)) {
             $this->departments->add($department);
         }
+
         return $this;
     }
+
     public function removeDepartment(Department $department) : self
     {
         $this->departments->removeElement($department);
+
         return $this;
     }
+
     /**
      * @return Collection<int, JobType>
      */
@@ -133,18 +153,23 @@ class CompanyResearch
     {
         return $this->jobTypes;
     }
+
     public function addJobType(JobType $jobType) : self
     {
         if (!$this->jobTypes->contains($jobType)) {
             $this->jobTypes->add($jobType);
         }
+
         return $this;
     }
+
     public function removeJobType(JobType $jobType) : self
     {
         $this->jobTypes->removeElement($jobType);
+
         return $this;
     }
+
     /**
      * @return Collection<int, Tool>
      */
@@ -152,18 +177,23 @@ class CompanyResearch
     {
         return $this->tools;
     }
+
     public function addTool(Tool $tool) : self
     {
         if (!$this->tools->contains($tool)) {
             $this->tools->add($tool);
         }
+
         return $this;
     }
+
     public function removeTool(Tool $tool) : self
     {
         $this->tools->removeElement($tool);
+
         return $this;
     }
+
     /**
      * @return Collection<int, Badge>
      */
@@ -171,27 +201,34 @@ class CompanyResearch
     {
         return $this->badges;
     }
+
     public function addBadge(Badge $badge) : self
     {
         if (!$this->badges->contains($badge)) {
             $this->badges->add($badge);
         }
+
         return $this;
     }
     public function removeBadge(Badge $badge) : self
     {
         $this->badges->removeElement($badge);
+
         return $this;
     }
+
     public function getApplicant() : ?Applicant
     {
         return $this->applicant;
     }
+
     public function setApplicant(?Applicant $applicant) : self
     {
         $this->applicant = $applicant;
+
         return $this;
     }
+
     /**
      * @return Collection<int, CompanyGroup>
      */
@@ -199,16 +236,20 @@ class CompanyResearch
     {
         return $this->companyResults;
     }
+
     public function addCompanyResult(CompanyGroup $companyResult) : self
     {
         if (!$this->companyResults->contains($companyResult)) {
             $this->companyResults->add($companyResult);
         }
+
         return $this;
     }
+
     public function removeCompanyResult(CompanyGroup $companyResult) : self
     {
         $this->companyResults->removeElement($companyResult);
+        
         return $this;
     }
 }

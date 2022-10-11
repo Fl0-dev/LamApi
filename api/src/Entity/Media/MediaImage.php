@@ -2,18 +2,9 @@
 
 namespace App\Entity\Media;
 
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Metadata\ApiFilter;
 use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use GdImage;
 #[ApiResource]
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "media_image")]
@@ -25,34 +16,41 @@ class MediaImage extends Media
     const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
     const MAX_IMAGE_FILE_SIZE = 307200;
     // 307 200 octets = 300 Kio (for Windows)
+
     public function __construct()
     {
         parent::__construct();
     }
+
     public function getType() : string
     {
         return self::TYPE_IMAGE;
     }
+
     /**
      * MediaImage Width in pixels
      *
      */
     #[ORM\Column(type: "integer", nullable: true)]
     private ?int $width = null;
+
     /**
      * MediaImage Height in pixels
      *
      */
     #[ORM\Column(type: "integer", nullable: true)]
     private ?int $height = null;
+
     /**
      * Contains  title to display under image zoomed
      *
      */
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $title = null;
+
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $alt = null;
+
     /**
      * Set MediaImage Dimensions informations (width and height)
      *
@@ -69,6 +67,7 @@ class MediaImage extends Media
         // }
         return $this;
     }
+
     /**
      * Get image width
      *
@@ -78,6 +77,7 @@ class MediaImage extends Media
     {
         return $this->width;
     }
+
     /**
      * Set image width
      *
@@ -88,8 +88,10 @@ class MediaImage extends Media
     public function setWidth($width)
     {
         $this->width = $width;
+
         return $this;
     }
+
     /**
      * Check if MediaImage has width
      *
@@ -98,8 +100,10 @@ class MediaImage extends Media
     public function hasWidth()
     {
         $width = $this->getWidth();
+
         return is_int($width) && $width > 0;
     }
+
     /**
      * Get image height
      *
@@ -109,6 +113,7 @@ class MediaImage extends Media
     {
         return $this->height;
     }
+
     /**
      * Set image height
      *
@@ -119,8 +124,10 @@ class MediaImage extends Media
     public function setHeight($height)
     {
         $this->height = $height;
+
         return $this;
     }
+
     /**
      * Check if MediaImage has height
      *
@@ -129,8 +136,10 @@ class MediaImage extends Media
     public function hasHeight()
     {
         $height = $this->getHeight();
+
         return is_int($height) && $height > 0;
     }
+
     /**
      * Get image alt attribute
      *
@@ -140,6 +149,7 @@ class MediaImage extends Media
     {
         return $this->alt;
     }
+
     /**
      * Set image alt attribute
      *
@@ -150,8 +160,10 @@ class MediaImage extends Media
     public function setAlt($alt)
     {
         $this->alt = $alt;
+
         return $this;
     }
+
     /**
      * Check if MediaImage has alt attribute
      *
@@ -160,8 +172,10 @@ class MediaImage extends Media
     public function hasAlt()
     {
         $alt = $this->getAlt();
+
         return is_string($alt) && strlen($alt) > 0;
     }
+
     /**
      * Get Title
      *
@@ -171,6 +185,7 @@ class MediaImage extends Media
     {
         return $this->title;
     }
+
     /**
      * Set the value of Title
      *
@@ -181,8 +196,10 @@ class MediaImage extends Media
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
+
     /**
      * Check if MediaImage has a valid title
      *
@@ -191,8 +208,10 @@ class MediaImage extends Media
     public function hasTitle()
     {
         $title = $this->getTitle();
+
         return is_string($title) && strlen($title) > 0;
     }
+
     /**
      * Resize MediaImage
      *
@@ -227,8 +246,10 @@ class MediaImage extends Media
         //     $this->setPath($filePath);
         //     $this->setDimensions();
         // }
+
         return $this;
     }
+
     /**
      * Compress MediaImage
      *
@@ -251,8 +272,10 @@ class MediaImage extends Media
         //         // Handle the problem however you deem necessary.
         //     }
         // }
+
         return $this;
     }
+
     /**
      * Convert file to Webp
      *
@@ -272,8 +295,10 @@ class MediaImage extends Media
         //     $this->setSrc($filePath);
         //     imagedestroy($image);
         // }
+
         return $this;
     }
+
     /**
      * Optimize image with resizing and compressing
      *
@@ -301,8 +326,10 @@ class MediaImage extends Media
         //         $last = true;
         //     }
         // }
+
         return $this;
     }
+    
     /**
      * Get image resoure from GIF, JP(E)G, PNG or BMP image file
      *
@@ -340,6 +367,7 @@ class MediaImage extends Media
                 $im = imageCreateFromBmp($filepath);
                 break;
         }
+        
         return $im;
     }
 }

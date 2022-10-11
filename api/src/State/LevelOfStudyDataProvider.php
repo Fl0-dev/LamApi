@@ -15,7 +15,7 @@ class LevelOfStudyDataProvider implements ProviderInterface
     {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): iterable|object|null
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {
         if ($operation instanceof CollectionOperationInterface) {
             return $this->levelOfStudyRepository->findAll();

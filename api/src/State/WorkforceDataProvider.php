@@ -16,7 +16,7 @@ class WorkforceDataProvider implements ProviderInterface
     {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): iterable|object|null
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {
         if ($operation instanceof CollectionOperationInterface) {
             $filters = Utils::getArrayValue('filters', $context);

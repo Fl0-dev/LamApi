@@ -56,6 +56,7 @@ class Badge
         if ($badges instanceof ArrayCollection) {
             $badges = $badges->toArray();
         }
+
         if (is_array($badges)) {
             $isOk = true;
             foreach ($badges as $badge) {
@@ -64,6 +65,7 @@ class Badge
                 }
             }
         }
+        
         return $isOk;
     }
     public function getImageUri() : ?string
@@ -73,6 +75,7 @@ class Badge
     public function setImageUri(?string $imageUri) : self
     {
         $this->imageUri = $imageUri;
+
         return $this;
     }
     public function getDescription() : ?string
@@ -82,6 +85,7 @@ class Badge
     public function setDescription(?string $description) : self
     {
         $this->description = $description;
+
         return $this;
     }
     public function getBadgePath() : ?string
@@ -91,6 +95,7 @@ class Badge
     public function setBadgePath(?string $badgePath) : self
     {
         $this->badgePath = $badgePath;
+
         return $this;
     }
 }

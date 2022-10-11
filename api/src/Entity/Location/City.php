@@ -75,6 +75,7 @@ class City
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -86,6 +87,7 @@ class City
     public function setDepartment(?Department $department): self
     {
         $this->department = $department;
+        
         return $this;
     }
 }

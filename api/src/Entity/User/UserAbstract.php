@@ -2,16 +2,7 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Metadata\ApiFilter;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 #[ORM\InheritanceType("JOINED")]
@@ -22,18 +13,24 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class UserAbstract extends User
 {
     const TYPE_API = "api";
+
     #[ORM\Column(type: "string", length: 180)]
     private $name;
+
     #[ORM\Column(type: "string", length: 180)]
     private $slug;
+
     #[ORM\Column(type: "string", length: 180)]
     private $contact_email;
+
     #[ORM\Column(type: "string", length: 180)]
     private $contact_phone;
+
     public function getType() : string
     {
         return self::TYPE_ABSTRACT;
     }
+
     /**
      * Get the value of name
      */
@@ -41,6 +38,7 @@ abstract class UserAbstract extends User
     {
         return $this->name;
     }
+
     /**
      * Set the value of name
      *
@@ -49,8 +47,10 @@ abstract class UserAbstract extends User
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
+
     /**
      * Get the value of slug
      */
@@ -58,6 +58,7 @@ abstract class UserAbstract extends User
     {
         return $this->slug;
     }
+
     /**
      * Set the value of slug
      *
@@ -66,8 +67,10 @@ abstract class UserAbstract extends User
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
         return $this;
     }
+
     /**
      * Get the value of contact_email
      */
@@ -75,6 +78,7 @@ abstract class UserAbstract extends User
     {
         return $this->contact_email;
     }
+
     /**
      * Set the value of contact_email
      *
@@ -83,8 +87,10 @@ abstract class UserAbstract extends User
     public function setContact_email($contact_email)
     {
         $this->contact_email = $contact_email;
+
         return $this;
     }
+
     /**
      * Get the value of contact_phone
      */
@@ -92,6 +98,7 @@ abstract class UserAbstract extends User
     {
         return $this->contact_phone;
     }
+
     /**
      * Set the value of contact_phone
      *
@@ -100,6 +107,7 @@ abstract class UserAbstract extends User
     public function setContact_phone($contact_phone)
     {
         $this->contact_phone = $contact_phone;
+        
         return $this;
     }
 }
