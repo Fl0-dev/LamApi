@@ -8,8 +8,6 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Metadata\ApiFilter;
 use App\Controller\ApplicationAction;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Applicant\ApplicantCv;
@@ -35,6 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/applications/{offerId}',
             controller: ApplicationAction::class,
             deserialize: false,
+            uriVariables: [],
             denormalizationContext: [
                 'groups' => ['postApplicationByOfferId']
             ],
@@ -73,6 +72,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new Post(
             uriTemplate: '/applications/spontaneaous/{companyEntityOfficeId}',
+            uriVariables: [],
             controller: ApplicationAction::class,
             deserialize: false,
             denormalizationContext: [

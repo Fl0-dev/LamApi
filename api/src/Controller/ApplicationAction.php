@@ -19,6 +19,8 @@ class ApplicationAction extends AbstractController
     const APPLICATION_PROPERTY_FILE = 'file';
     const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
     const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId';
+    const ENDPOINT_FOR_POST_APPLICATION_BY_OFFER_ID = '_api_/applications/{offerId}_post';
+    const ENDPOINT_FOR_POST_APPLICATION_SPONTANEOUS = '_api_/applications/spontaneaous/{companyEntityOfficeId}_post';
 
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
@@ -28,13 +30,9 @@ class ApplicationAction extends AbstractController
 
     public function __invoke(Request $request): ?Application
     {
-        $operationName = $request->attributes->get('_api_item_operation_name');
+        $endpoint = $request->attributes->get('_route');
 
-        if (!$operationName) {
-            $operationName = $request->attributes->get('_api_collection_operation_name');
-        }
-
-        if ($operationName === Application::OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID) {
+        if ($endpoint === self::ENDPOINT_FOR_POST_APPLICATION_SPONTANEOUS) {
             $companyEntityOfficeId = $request->attributes->get(self::POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
@@ -66,7 +64,7 @@ class ApplicationAction extends AbstractController
             return $application;
         }
 
-        if ($operationName === Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID) {
+        if ($endpoint === self::ENDPOINT_FOR_POST_APPLICATION_BY_OFFER_ID) {
             $offerId = $request->attributes->get(self::POST_APPLICATION_OFFER_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
