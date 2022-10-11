@@ -18,10 +18,14 @@ class ExperienceDataProvider implements ProviderInterface
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): iterable|object|null
     {
         if ($operation instanceof CollectionOperationInterface) {
-            $list = Utils::getArrayValue(ExperienceFilter::EXPERIENCE_CONTEXT, $context);
+            $filters = Utils::getArrayValue('filters', $context);
 
-            if (is_array($list)) {
-                return $list;
+            if (is_array($filters)) {
+                $keyWords = Utils::getArrayValue(ExperienceFilter::EXPERIENCE_QUERY_PARAMETER, $filters);
+
+                if (is_string($keyWords)) {
+                    return $this->experienceRepository->findByKeyWords($keyWords);
+                }
             }
     
             return $this->experienceRepository->findAll();

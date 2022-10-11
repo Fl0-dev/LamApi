@@ -22,7 +22,7 @@ use App\State\WorkforceDataProvider;
         )
     ])
 ]
-#[ApiFilter(filterClass: WorkforceFilter::class)]
+#[ApiFilter(WorkforceFilter::class)]
 class Workforce extends Reference
 {
     const LEVEL_1 = '1-a-9-salaries';
