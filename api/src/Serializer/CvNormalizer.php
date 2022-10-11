@@ -3,12 +3,11 @@
 namespace App\Serializer;
 
 use App\Entity\Applicant\ApplicantCv;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
-final class CvNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+final class CvNormalizer implements NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
