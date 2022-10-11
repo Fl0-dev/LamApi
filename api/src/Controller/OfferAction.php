@@ -10,19 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OfferAction extends AbstractController
 {
+    const ENDPOINT_FOR_OFFER_COUNT= '_api_/offers-count_get';
+    const ENDPOINT_FOR_POST_OFFER = '_api_/offers_post';
+
     public function __construct(private OfferRepository $offerRepository)
     {
     }
 
     public function __invoke(Request $request): null|int|Offer
     {
-        $operationName = $request->attributes->get('_api_item_operation_name');
+        $endpoint = $request->attributes->get('_route');
 
-        if (!$operationName) {
-            $operationName = $request->attributes->get('_api_collection_operation_name');
-        }
-
-        if ($operationName === Offer::OPERATION_NAME_COUNT_OFFERS) {
+        if ($endpoint === self::ENDPOINT_FOR_OFFER_COUNT) {
             $count = count($this->offerRepository->findAll());
 
             if (!$count) {
@@ -32,7 +31,7 @@ class OfferAction extends AbstractController
             return $count;
         }
 
-        if ($operationName === Offer::OPERATION_NAME_POST_OFFER) {
+        if ($endpoint === self::ENDPOINT_FOR_POST_OFFER) {
             $offer = $request->get('data');
             //TODO: récupération du user pour employer
             //TODO; récupération de l'ats

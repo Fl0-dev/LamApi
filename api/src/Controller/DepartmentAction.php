@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Location\Department;
 use App\Repository\LocationRepositories\AddressRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

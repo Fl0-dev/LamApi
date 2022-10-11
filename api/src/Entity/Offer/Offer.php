@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -44,7 +43,65 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 
-#[ApiResource(operations: [new Get(uriTemplate: '/offers/{id}', normalizationContext: ['groups' => ['getOfferDetails']]), new Get(uriTemplate: '/offers/{id}/applications', normalizationContext: ['groups' => ['getOfferApplications']], openapiContext: ['summary' => 'Retrieves all applications by offer id', 'description' => 'Retrieves all applications by offer id']), new Get(uriTemplate: '/offers-count', controller: OfferAction::class, paginationEnabled: false, read: false, filters: [], openapiContext: ['summary' => 'Retrieves list of applications by company group id', 'description' => 'Retrieves list of applications by company group id', 'parameters' => [['name' => 'id', 'in' => 'body', 'required' => true, 'schema' => ['type' => 'string']]]]), new GetCollection(uriTemplate: '/offers/all', normalizationContext: ['groups' => ['getAllOffers']], formats: ['json' => ['application/json']]), new GetCollection(uriTemplate: '/offers/teasers', normalizationContext: ['groups' => ['getOfferTeasers']]), new Post(uriTemplate: '/offers', controller: OfferAction::class, denormalizationContext: ['groups' => ['postOffer']], inputFormats: ['json' => ['application/json']])])]
+#[ApiResource(operations: [
+    new Get(
+        uriTemplate: '/offers/{id}',
+        normalizationContext: [
+            'groups' => ['getOfferDetails']
+        ]
+    ),
+    new Get(
+        uriTemplate: '/offers/{id}/applications',
+        normalizationContext: [
+            'groups' => ['getOfferApplications']
+        ],
+        openapiContext: [
+            'summary' => 'Retrieves all applications by offer id',
+            'description' => 'Retrieves all applications by offer id'
+        ]
+    ),
+    new Get(
+        uriTemplate: '/offers-count',
+        controller: OfferAction::class,
+        paginationEnabled: false,
+        read: false,
+        filters: [],
+        uriVariables: [],
+        openapiContext: [
+            'summary' => 'Count all offers',
+            'description' => 'Count all offers',
+            'parameters' => [],
+            'responses' => [
+                [
+                    'description' => 'Count all offers',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'integer',
+                                'example' => 1024
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new GetCollection(
+        uriTemplate: '/offers/all',
+        normalizationContext: ['groups' => ['getAllOffers']],
+        formats: ['json' => ['application/json']]
+    ),
+    new GetCollection(
+        uriTemplate: '/offers/teasers',
+        normalizationContext: ['groups' => ['getOfferTeasers']]
+    ),
+    new Post(
+        uriTemplate: '/offers',
+        controller: OfferAction::class,
+        denormalizationContext: ['groups' => ['postOffer']],
+        inputFormats: ['json' => ['application/json']]
+    )
+])]
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['publishedAt' => 'desc'])]
 #[ApiFilter(filterClass: BooleanFilter::class, properties: ['provided' => false])]
