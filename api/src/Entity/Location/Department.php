@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiFilter;
-use App\Controller\DepartmentController;
+use App\Controller\DepartmentAction;
 use App\Entity\JobBoard;
 use App\Repository\LocationRepositories\DepartmentRepository;
 use App\Transversal\Slug;
@@ -17,7 +17,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-#[ApiResource(operations: [new Get(), new Get(uriTemplate: '/departments-count', controller: DepartmentController::class, paginationEnabled: false, read: false, filters: [], openapiContext: ['summary' => 'Count all departments', 'description' => 'Count all departments. #withoutIdentifier', 'responses' => [['description' => 'Count all company groups', 'content' => ['application/json' => ['schema' => ['type' => 'integer', 'example' => 91]]]]]]), new Post(), new GetCollection()])]
+
+#[ApiResource(operations: [new Get(), new Get(uriTemplate: '/departments-count', controller: DepartmentAction::class, paginationEnabled: false, read: false, filters: [], openapiContext: ['summary' => 'Count all departments', 'description' => 'Count all departments. #withoutIdentifier', 'responses' => [['description' => 'Count all company groups', 'content' => ['application/json' => ['schema' => ['type' => 'integer', 'example' => 91]]]]]]), new Post(), new GetCollection()])]
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
@@ -38,29 +39,29 @@ class Department
     {
         $this->cities = new ArrayCollection();
     }
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
-    public function getCode() : ?string
+    public function getCode(): ?string
     {
         return $this->code;
     }
-    public function setCode(string $code) : self
+    public function setCode(string $code): self
     {
         $this->code = $code;
         return $this;
     }
-    public function getRegion() : ?Region
+    public function getRegion(): ?Region
     {
         return $this->region;
     }
-    public function setRegion(?Region $region) : self
+    public function setRegion(?Region $region): self
     {
         $this->region = $region;
         return $this;
@@ -68,11 +69,11 @@ class Department
     /**
      * @return Collection<int, City>
      */
-    public function getCities() : Collection
+    public function getCities(): Collection
     {
         return $this->cities;
     }
-    public function addCity(City $city) : self
+    public function addCity(City $city): self
     {
         if (!$this->cities->contains($city)) {
             $this->cities[] = $city;
@@ -80,7 +81,7 @@ class Department
         }
         return $this;
     }
-    public function removeCity(City $city) : self
+    public function removeCity(City $city): self
     {
         if ($this->cities->removeElement($city)) {
             // set the owning side to null (unless already changed)

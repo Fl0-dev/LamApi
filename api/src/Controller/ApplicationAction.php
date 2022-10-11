@@ -13,17 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApplicationController extends AbstractController
+class ApplicationAction extends AbstractController
 {
     const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
     const APPLICATION_PROPERTY_FILE = 'file';
     const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
-    const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId'; 
+    const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId';
 
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
         private OfferRepository $offerRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(Request $request): ?Application
     {
@@ -83,7 +84,7 @@ class ApplicationController extends AbstractController
             $application = new Application();
             $application->setMotivationText((string) $motivation);
             $application->setOffer($offer);
-            
+
             $applicantCV = new ApplicantCv();
             $applicantCV->setFile($file);
             $applicantCV->setCreatedDate(new \DateTime());

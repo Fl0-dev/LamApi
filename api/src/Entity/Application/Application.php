@@ -10,7 +10,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiFilter;
-use App\Controller\ApplicationController;
+use App\Controller\ApplicationAction;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Applicant\ApplicantCv;
 use App\Entity\Company\CompanyEntityOffice;
@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(),
         new Post(
             uriTemplate: '/applications/{offerId}',
-            controller: ApplicationController::class,
+            controller: ApplicationAction::class,
             deserialize: false,
             denormalizationContext: [
                 'groups' => ['postApplicationByOfferId']
@@ -73,7 +73,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new Post(
             uriTemplate: '/applications/spontaneaous/{companyEntityOfficeId}',
-            controller: ApplicationController::class,
+            controller: ApplicationAction::class,
             deserialize: false,
             denormalizationContext: [
                 'groups' => [
@@ -266,7 +266,7 @@ class Application
             $this->applicantionExchanges[] = $applicantionExchange;
             $applicantionExchange->setApplication($this);
         }
-        
+
         return $this;
     }
 
@@ -302,7 +302,7 @@ class Application
     public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice): self
     {
         $this->companyEntityOffice = $companyEntityOffice;
-        
+
         return $this;
     }
 }

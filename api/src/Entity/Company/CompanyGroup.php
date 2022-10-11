@@ -7,7 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use App\Controller\CompanyGroupController;
+use App\Controller\CompanyGroupAction;
 use App\Entity\Ats;
 use App\Entity\Badge;
 use App\Entity\Revision\CompanyGroupRevision;
@@ -37,7 +37,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ]
     ), new Get(
         uriTemplate: '/count-company-groups',
-        controller: CompanyGroupController::class,
+        controller: CompanyGroupAction::class,
         paginationEnabled: false,
         read: false,
         filters: [],
@@ -123,7 +123,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ),
     new GetCollection(
         uriTemplate: '/company-groups/teasers',
-        openapiContext: [],
         normalizationContext: [
             'groups' => ['getCompanyGroupTeaser']
         ]
@@ -133,7 +132,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         normalizationContext: [
             'groups' => ['companyGroupsNameByKeywords']
         ],
-        controller: CompanyGroupController::class,
+        controller: CompanyGroupAction::class,
         uriVariables: ['keywords' => 'string'],
         openapiContext: [
             'summary' => 'Retrieves list of CompanyGroups names by keywords',
@@ -615,7 +614,7 @@ class CompanyGroup
     public function setProfile(?CompanyProfile $profile): self
     {
         $this->profile = $profile;
-        
+
         return $this;
     }
 

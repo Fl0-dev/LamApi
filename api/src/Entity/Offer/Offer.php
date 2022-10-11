@@ -13,7 +13,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Revision\OfferRevision;
 use App\Validator;
-use App\Controller\OfferController;
+use App\Controller\OfferAction;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
@@ -43,7 +43,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Length;
-#[ApiResource(operations: [new Get(uriTemplate: '/offers/{id}', normalizationContext: ['groups' => ['getOfferDetails']]), new Get(uriTemplate: '/offers/{id}/applications', normalizationContext: ['groups' => ['getOfferApplications']], openapiContext: ['summary' => 'Retrieves all applications by offer id', 'description' => 'Retrieves all applications by offer id']), new Get(uriTemplate: '/offers-count', controller: OfferController::class, paginationEnabled: false, read: false, filters: [], openapiContext: ['summary' => 'Retrieves list of applications by company group id', 'description' => 'Retrieves list of applications by company group id', 'parameters' => [['name' => 'id', 'in' => 'body', 'required' => true, 'schema' => ['type' => 'string']]]]), new GetCollection(uriTemplate: '/offers/all', normalizationContext: ['groups' => ['getAllOffers']], formats: ['json' => ['application/json']]), new GetCollection(uriTemplate: '/offers/teasers', normalizationContext: ['groups' => ['getOfferTeasers']]), new Post(uriTemplate: '/offers', controller: OfferController::class, denormalizationContext: ['groups' => ['postOffer']], inputFormats: ['json' => ['application/json']])])]
+
+#[ApiResource(operations: [new Get(uriTemplate: '/offers/{id}', normalizationContext: ['groups' => ['getOfferDetails']]), new Get(uriTemplate: '/offers/{id}/applications', normalizationContext: ['groups' => ['getOfferApplications']], openapiContext: ['summary' => 'Retrieves all applications by offer id', 'description' => 'Retrieves all applications by offer id']), new Get(uriTemplate: '/offers-count', controller: OfferAction::class, paginationEnabled: false, read: false, filters: [], openapiContext: ['summary' => 'Retrieves list of applications by company group id', 'description' => 'Retrieves list of applications by company group id', 'parameters' => [['name' => 'id', 'in' => 'body', 'required' => true, 'schema' => ['type' => 'string']]]]), new GetCollection(uriTemplate: '/offers/all', normalizationContext: ['groups' => ['getAllOffers']], formats: ['json' => ['application/json']]), new GetCollection(uriTemplate: '/offers/teasers', normalizationContext: ['groups' => ['getOfferTeasers']]), new Post(uriTemplate: '/offers', controller: OfferAction::class, denormalizationContext: ['groups' => ['postOffer']], inputFormats: ['json' => ['application/json']])])]
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['publishedAt' => 'desc'])]
 #[ApiFilter(filterClass: BooleanFilter::class, properties: ['provided' => false])]
@@ -157,54 +158,54 @@ class Offer
         $this->offerRevisions = new ArrayCollection();
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getId() : ?BaseUuid
+    public function getId(): ?BaseUuid
     {
         return $this->id;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getCreatedDate() : ?\DateTime
+    public function getCreatedDate(): ?\DateTime
     {
         return $this->createdDate;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getSlug() : ?string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getJobTitleLabel() : string
+    public function getJobTitleLabel(): string
     {
         return $this->getJobTitleObject()->getLabel();
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, self::OPERATION_NAME_GET_OFFER_DETAILS, self::OPERATION_NAME_GET_OFFER_TEASERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getContractType() : ?string
+    public function getContractType(): ?string
     {
         $contractTypeRepository = new ContractTypeRepository();
         $contractType = $contractTypeRepository->find($this->contractType);
         return $contractType instanceof ContractType ? $contractType->getLabel() : null;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, self::OPERATION_NAME_GET_OFFER_DETAILS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getExperience() : ?string
+    public function getExperience(): ?string
     {
         $experienceRepository = new ExperienceRepository();
         $experience = $experienceRepository->find($this->experience);
         return $experience instanceof Experience ? $experience->getDuration() : null;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, self::OPERATION_NAME_GET_OFFER_DETAILS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getLevelOfStudy() : ?string
+    public function getLevelOfStudy(): ?string
     {
         $levelOfStudyRepository = new LevelOfStudyRepository();
         $levelOfStudy = $levelOfStudyRepository->find($this->levelOfStudy);
         return $levelOfStudy instanceof LevelOfStudy ? $levelOfStudy->getLabel() : null;
     }
-    public function getStatus() : ?string
+    public function getStatus(): ?string
     {
         $OfferStatusRepository = new OfferStatusRepository();
         $offerStatus = $OfferStatusRepository->find($this->status);
         return $offerStatus instanceof OfferStatus ? $offerStatus->getLabel() : null;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, self::OPERATION_NAME_GET_OFFER_DETAILS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getUrl() : ?string
+    public function getUrl(): ?string
     {
         $url = "";
         if ($this->companyEntityOffice instanceof CompanyEntityOffice) {
@@ -215,133 +216,133 @@ class Offer
         return $url;
     }
     #[Groups([self::OPERATION_NAME_GET_ALL_OFFERS, JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
-    public function getCompany() : ?array
+    public function getCompany(): ?array
     {
         $arrayCompanyInfos = ['id' => $this->companyEntityOffice->getCompanyEntity()->getId(), 'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(), 'address' => $this->companyEntityOffice->getAddress()];
         return $arrayCompanyInfos;
     }
-    public function isProvided() : ?bool
+    public function isProvided(): ?bool
     {
         return $this->provided;
     }
-    public function setProvided(bool $provided) : self
+    public function setProvided(bool $provided): self
     {
         $this->provided = $provided;
         return $this;
     }
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
-    public function setTitle(string $title) : self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
         return $this;
     }
-    public function isFullyTelework() : ?bool
+    public function isFullyTelework(): ?bool
     {
         return $this->fullyTelework;
     }
-    public function setFullyTelework(bool $fullyTelework) : self
+    public function setFullyTelework(bool $fullyTelework): self
     {
         $this->fullyTelework = $fullyTelework;
         return $this;
     }
-    public function getMissions() : ?string
+    public function getMissions(): ?string
     {
         return $this->missions;
     }
-    public function setMissions(string $missions) : self
+    public function setMissions(string $missions): self
     {
         $this->missions = $missions;
         return $this;
     }
-    public function getNeeds() : ?string
+    public function getNeeds(): ?string
     {
         return $this->needs;
     }
-    public function setNeeds(string $needs) : self
+    public function setNeeds(string $needs): self
     {
         $this->needs = $needs;
         return $this;
     }
-    public function getProspectWithUs() : ?string
+    public function getProspectWithUs(): ?string
     {
         return $this->prospectWithUs;
     }
-    public function setProspectWithUs(string $prospectWithUs) : self
+    public function setProspectWithUs(string $prospectWithUs): self
     {
         $this->prospectWithUs = $prospectWithUs;
         return $this;
     }
-    public function getRecruitmentProcess() : ?string
+    public function getRecruitmentProcess(): ?string
     {
         return $this->recruitmentProcess;
     }
-    public function setRecruitmentProcess(string $recruitmentProcess) : self
+    public function setRecruitmentProcess(string $recruitmentProcess): self
     {
         $this->recruitmentProcess = $recruitmentProcess;
         return $this;
     }
-    public function getWorkWithUs() : ?string
+    public function getWorkWithUs(): ?string
     {
         return $this->workWithUs;
     }
-    public function setWorkWithUs(string $workWithUs) : self
+    public function setWorkWithUs(string $workWithUs): self
     {
         $this->workWithUs = $workWithUs;
         return $this;
     }
-    public function getWeeklyHours() : ?float
+    public function getWeeklyHours(): ?float
     {
         return $this->weeklyHours;
     }
-    public function setWeeklyHours(float $weeklyHours) : self
+    public function setWeeklyHours(float $weeklyHours): self
     {
         $this->weeklyHours = $weeklyHours;
         return $this;
     }
-    public function isStartASAP() : ?bool
+    public function isStartASAP(): ?bool
     {
         return $this->startASAP;
     }
-    public function setStartASAP(bool $startASAP) : self
+    public function setStartASAP(bool $startASAP): self
     {
         $this->startASAP = $startASAP;
         return $this;
     }
-    public function getSalaryMin() : ?float
+    public function getSalaryMin(): ?float
     {
         return $this->salaryMin;
     }
-    public function setSalaryMin(?float $salaryMin) : self
+    public function setSalaryMin(?float $salaryMin): self
     {
         $this->salaryMin = $salaryMin;
         return $this;
     }
-    public function getSalaryMax() : ?float
+    public function getSalaryMax(): ?float
     {
         return $this->salaryMax;
     }
-    public function setSalaryMax(?float $salaryMax) : self
+    public function setSalaryMax(?float $salaryMax): self
     {
         $this->salaryMax = $salaryMax;
         return $this;
     }
-    public function getStartDate() : ?\DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
-    public function setStartDate(?\DateTimeInterface $startDate) : self
+    public function setStartDate(?\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
         return $this;
     }
-    public function getPublishedAt() : ?\DateTimeInterface
+    public function getPublishedAt(): ?\DateTimeInterface
     {
         return $this->publishedAt;
     }
-    public function setPublishedAt(?\DateTimeInterface $publishedAt) : self
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
         return $this;
@@ -349,18 +350,18 @@ class Offer
     /**
      * @return Collection<int, JobBoard>
      */
-    public function getJobBoards() : Collection
+    public function getJobBoards(): Collection
     {
         return $this->jobBoards;
     }
-    public function addJobBoard(JobBoard $jobBoard) : self
+    public function addJobBoard(JobBoard $jobBoard): self
     {
         if (!$this->jobBoards->contains($jobBoard)) {
             $this->jobBoards[] = $jobBoard;
         }
         return $this;
     }
-    public function removeJobBoard(JobBoard $jobBoard) : self
+    public function removeJobBoard(JobBoard $jobBoard): self
     {
         $this->jobBoards->removeElement($jobBoard);
         return $this;
@@ -368,18 +369,18 @@ class Offer
     /**
      * @return Collection<int, Application>
      */
-    public function getApplications() : Collection
+    public function getApplications(): Collection
     {
         return $this->applications;
     }
-    public function addApplication(Application $application) : self
+    public function addApplication(Application $application): self
     {
         if (!$this->applications->contains($application)) {
             $this->applications[] = $application;
         }
         return $this;
     }
-    public function removeApplication(Application $application) : self
+    public function removeApplication(Application $application): self
     {
         if ($this->applications->removeElement($application)) {
             // set the owning side to null (unless already changed)
@@ -389,16 +390,16 @@ class Offer
         }
         return $this;
     }
-    public function getAuthor() : ?Employer
+    public function getAuthor(): ?Employer
     {
         return $this->author;
     }
-    public function setAuthor(?Employer $author) : self
+    public function setAuthor(?Employer $author): self
     {
         $this->author = $author;
         return $this;
     }
-    public function getHeaderMedia() : ?Media
+    public function getHeaderMedia(): ?Media
     {
         if ($this->headerMedia) {
             return $this->headerMedia;
@@ -406,7 +407,7 @@ class Offer
             return $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getHeaderMedia();
         }
     }
-    public function setHeaderMedia(?Media $headerMedia) : self
+    public function setHeaderMedia(?Media $headerMedia): self
     {
         if ($this->headerMedia) {
             $this->headerMedia = $headerMedia;
@@ -415,47 +416,47 @@ class Offer
         }
         return $this;
     }
-    public function getLevelOfStudyId() : ?string
+    public function getLevelOfStudyId(): ?string
     {
         return $this->levelOfStudy;
     }
-    public function setLevelOfStudy(?string $levelOfStudy) : self
+    public function setLevelOfStudy(?string $levelOfStudy): self
     {
         $this->levelOfStudy = $levelOfStudy;
         return $this;
     }
-    public function getJobTitleObject() : ?JobTitle
+    public function getJobTitleObject(): ?JobTitle
     {
         return $this->jobTitle;
     }
-    public function setJobTitle(?JobTitle $jobTitle) : self
+    public function setJobTitle(?JobTitle $jobTitle): self
     {
         $this->jobTitle = $jobTitle;
         return $this;
     }
-    public function getExperienceId() : ?string
+    public function getExperienceId(): ?string
     {
         return $this->experience;
     }
-    public function setExperience(?string $experience) : self
+    public function setExperience(?string $experience): self
     {
         $this->experience = $experience;
         return $this;
     }
-    public function getContractTypeId() : ?string
+    public function getContractTypeId(): ?string
     {
         return $this->contractType;
     }
-    public function setContractType(string $contractType) : self
+    public function setContractType(string $contractType): self
     {
         $this->contractType = $contractType;
         return $this;
     }
-    public function getStatusId() : ?string
+    public function getStatusId(): ?string
     {
         return $this->status;
     }
-    public function setStatus(string $status) : self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
         return $this;
@@ -463,27 +464,27 @@ class Offer
     /**
      * @return Collection<int, Tool>
      */
-    public function getTools() : Collection
+    public function getTools(): Collection
     {
         return $this->tools;
     }
-    public function addTool(Tool $tool) : self
+    public function addTool(Tool $tool): self
     {
         if (!$this->tools->contains($tool)) {
             $this->tools->add($tool);
         }
         return $this;
     }
-    public function removeTool(Tool $tool) : self
+    public function removeTool(Tool $tool): self
     {
         $this->tools->removeElement($tool);
         return $this;
     }
-    public function getCompanyEntityOffice() : ?CompanyEntityOffice
+    public function getCompanyEntityOffice(): ?CompanyEntityOffice
     {
         return $this->companyEntityOffice;
     }
-    public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice) : self
+    public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice): self
     {
         $this->companyEntityOffice = $companyEntityOffice;
         return $this;
@@ -491,11 +492,11 @@ class Offer
     /**
      * @return Collection<int, OfferRevision>
      */
-    public function getOfferRevisions() : Collection
+    public function getOfferRevisions(): Collection
     {
         return $this->offerRevisions;
     }
-    public function addOfferRevision(OfferRevision $offerRevision) : self
+    public function addOfferRevision(OfferRevision $offerRevision): self
     {
         if (!$this->offerRevisions->contains($offerRevision)) {
             $this->offerRevisions->add($offerRevision);
@@ -503,7 +504,7 @@ class Offer
         }
         return $this;
     }
-    public function removeOfferRevision(OfferRevision $offerRevision) : self
+    public function removeOfferRevision(OfferRevision $offerRevision): self
     {
         $this->offerRevisions->removeElement($offerRevision);
         return $this;

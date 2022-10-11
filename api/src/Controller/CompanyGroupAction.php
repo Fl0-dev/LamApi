@@ -6,7 +6,7 @@ use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-class CompanyGroupController extends AbstractController
+class CompanyGroupAction extends AbstractController
 {
 
     const ENDPOINT_FOR_COMPANY_GROUP_BY_KEYWORD = '_api_/company-groups/name/keywords={keywords}_get_collection';
@@ -26,7 +26,7 @@ class CompanyGroupController extends AbstractController
 
             return $this->companyGroupRepository->findNameByPartialSlug($keywords);
         }
-        
+
         if ($endpoint === self::ENDPOINT_FOR_COMPANY_GROUP_COUNT) {
             $count = count($this->companyGroupRepository->findAll());
 

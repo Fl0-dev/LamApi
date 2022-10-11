@@ -8,7 +8,7 @@ use App\Repository\OfferRepositories\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-class OfferController extends AbstractController
+class OfferAction extends AbstractController
 {
     public function __construct(private OfferRepository $offerRepository)
     {
@@ -17,7 +17,7 @@ class OfferController extends AbstractController
     public function __invoke(Request $request): null|int|Offer
     {
         $operationName = $request->attributes->get('_api_item_operation_name');
-        
+
         if (!$operationName) {
             $operationName = $request->attributes->get('_api_collection_operation_name');
         }
@@ -32,7 +32,7 @@ class OfferController extends AbstractController
             return $count;
         }
 
-        if ($operationName === Offer::OPERATION_NAME_POST_OFFER) {           
+        if ($operationName === Offer::OPERATION_NAME_POST_OFFER) {
             $offer = $request->get('data');
             //TODO: récupération du user pour employer
             //TODO; récupération de l'ats
