@@ -310,7 +310,7 @@ class MediaImage extends Media
      *
      * @return resource
      */
-    function imageCreateFromAny($filepath) : false|GdImage
+    function imageCreateFromAny($filepath)
     {
         $type = exif_imagetype($filepath);
         $allowedTypes = array(

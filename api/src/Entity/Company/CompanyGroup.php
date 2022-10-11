@@ -122,7 +122,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ]
     ),
     new GetCollection(
-        uriTemplate: '/company-groups/teasers',
+        uriTemplate: '/company-group-teasers',
         normalizationContext: [
             'groups' => ['getCompanyGroupTeaser']
         ]
@@ -138,7 +138,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'summary' => 'Retrieves list of CompanyGroups names by keywords',
             'description' => 'Retrieves list of CompanyGroups names by keywords',
         ]
-    )
+    ),
 ])]
 #[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiFilter(

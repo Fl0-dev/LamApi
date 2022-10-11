@@ -18,7 +18,36 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(operations: [new Get(), new Get(uriTemplate: '/departments-count', controller: DepartmentAction::class, paginationEnabled: false, read: false, filters: [], openapiContext: ['summary' => 'Count all departments', 'description' => 'Count all departments. #withoutIdentifier', 'responses' => [['description' => 'Count all company groups', 'content' => ['application/json' => ['schema' => ['type' => 'integer', 'example' => 91]]]]]]), new Post(), new GetCollection()])]
+#[ApiResource(operations: [
+    new Get(),
+    new Get(
+        uriTemplate: '/departments-count',
+        uriVariables: [],
+        controller: DepartmentAction::class,
+        paginationEnabled: false,
+        read: false,
+        filters: [],
+        openapiContext: [
+            'summary' => 'Count all departments',
+            'description' => 'Count all departments',
+            'responses' => [
+                [
+                    'description' => 'Count all company groups',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'integer',
+                                'example' => 91
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new Post(),
+    new GetCollection()
+])]
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {

@@ -9,19 +9,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DepartmentAction extends AbstractController
 {
+    const ENDPOINT_FOR_DEPARTMENT_COUNT_WITH_OFFICE = '_api_/departments-count_get';
+
     public function __construct(private AddressRepository $addressRepository)
     {
     }
 
     public function __invoke(Request $request): ?int
     {
-        $operationName = $request->attributes->get('_api_item_operation_name');
+        $endpoint = $request->attributes->get('_route');
 
-        if (!$operationName) {
-            $operationName = $request->attributes->get('_api_collection_operation_name');
-        }
-
-        if ($operationName === Department::OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY) {
+        if ($endpoint === self::ENDPOINT_FOR_DEPARTMENT_COUNT_WITH_OFFICE) {
             return count($this->addressRepository->findAllCodeWithAddress());
         }
 
