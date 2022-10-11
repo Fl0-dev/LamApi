@@ -92,7 +92,7 @@ use Symfony\Component\Validator\Constraints\Length;
         formats: ['json' => ['application/json']]
     ),
     new GetCollection(
-        uriTemplate: '/offers/teasers',
+        uriTemplate: '/offers-teasers',
         normalizationContext: ['groups' => ['getOfferTeasers']]
     ),
     new Post(
