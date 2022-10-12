@@ -28,7 +28,6 @@ phpcs:
   allow_failure: true
 
 phpunit:
-    image: php:8.1-apache
     stage: phpunit
     services:
         - name: postgres
@@ -44,8 +43,10 @@ phpunit:
         - apt-get install -y libpq-dev
         - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
         - docker-php-ext-install pdo_pgsql zip
-        # - php bin/console doctrine:schema:update --force --env=test 
-        # - php bin/console doctrine:fixture:load --no-interaction --env=test
+        - php bin/console doctrine:database:drop --force --env=test
+        - php bin/console doctrine:database:create --env=test
+        - php bin/console doctrine:schema:update --force --env=test 
+        - php bin/console doctrine:fixture:load --no-interaction --env=test
     script:
         - php bin/phpunit --configuration phpunit_pgsql.xml --coverage-text
     allow_failure: true
