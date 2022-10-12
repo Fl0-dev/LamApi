@@ -28,7 +28,7 @@ stages:
 
 phpunit:
     image: php:latest
-    stage: UnitTests
+    stage: phpunit
     services:
         - name: mysql:5.7
           alias: mysql
