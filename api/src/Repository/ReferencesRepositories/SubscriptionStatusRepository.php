@@ -14,7 +14,6 @@ class SubscriptionStatusRepository
     {
         $statuses = [];
         $arrayStatuses = SubscriptionStatus::STATUSES;
-
         if (is_array($arrayStatuses)) {
 
             foreach ($arrayStatuses as $value => $status) {

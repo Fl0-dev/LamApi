@@ -46,5 +46,5 @@ phpunit:
         # - php bin/console doctrine:schema:update --force --env=test 
         # - php bin/console doctrine:fixture:load --no-interaction --env=test
     script:
-        - vendor/bin/phpunit --configuration phpunit_pgsql.xml --coverage-text
+        - /bin/phpunit --configuration phpunit_pgsql.xml --coverage-text
     allow_failure: true
