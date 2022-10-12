@@ -27,7 +27,7 @@ php-cs-fixer:
       - ci/php-cs-fixer.sh
   artifacts:
       paths:
-          - var/patch.diff
+          - var/log/test.log
       expire_in: 24 hrs
       when: on_failure
   allow_failure: true
