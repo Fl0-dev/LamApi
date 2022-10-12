@@ -14,6 +14,31 @@ stages:
   # - phpcs
   - phpunit
 
+phpunit:
+  image: php:7.4-cli
+
+  before_script:
+    - apt-get update && apt-get install -y git libzip-dev npm wget
+    - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
+    - docker-php-ext-install zip
+    - wget https://get.symfony.com/cli/installer -O - | bash
+    - mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+    - npm install -g newman
+    - composer install
+    - mv ./config/jwt/private_test.pem ./config/jwt/private.pem && mv ./config/jwt/public_test.pem ./config/jwt/public.pem 
+    - symfony server:ca:install && symfony serve -d
+    - php bin/console doctrine:database:create --env=test
+    - php bin/console doctrine:schema:update --force --env=test
+    - php bin/console doctrine:fixture:load --no-interaction --env=test 
+
+  cache:
+    paths:
+        - vendor/
+  script:
+    - php bin/phpunit
+
+  allow_failure: true
+
 # phpstan:
 #   stage: phpstan
 #   script:
@@ -26,29 +51,29 @@ stages:
 #       - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
 #   allow_failure: true
 
-phpunit:
-  image: php:latest
-  stage: phpunit
-  services:
-      - name: postgres
-        alias: postgres
-  variables:
-    POSTGRES_DB: api
-    POSTGRES_USER: api-platform
-    POSTGRES_PASSWORD: password
-    DATABASE_URL: 'postgresql://api-platform:password@localhost:3306/api?serverVersion=13&charset=utf8'
-  before_script:
-      - apt-get update && apt-get install -y git libzip-dev
-      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
-      - apt-get install -y libpq-dev
-      - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
-      - docker-php-ext-install pdo_pgsql zip
-      - php composer.phar install
-      - cd api
-      - php bin/console doctrine:database:drop --force --env=test
-      - php bin/console doctrine:database:create --env=test
-      - php bin/console doctrine:schema:update --force --env=test 
-      - php bin/console doctrine:fixture:load --no-interaction --env=test
-  script:
-      - php bin/phpunit
-  allow_failure: true
+# phpunit:
+#   image: php:latest
+#   stage: phpunit
+#   services:
+#       - name: postgres
+#         alias: postgres
+#   variables:
+#     POSTGRES_DB: api
+#     POSTGRES_USER: api-platform
+#     POSTGRES_PASSWORD: password
+#     DATABASE_URL: 'postgresql://api-platform:password@localhost:3306/api?serverVersion=13&charset=utf8'
+#   before_script:
+#       - apt-get update && apt-get install -y git libzip-dev
+#       - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
+#       - apt-get install -y libpq-dev
+#       - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+#       - docker-php-ext-install pdo_pgsql zip
+#       - php composer.phar install
+#       - cd api
+#       - php bin/console doctrine:database:drop --force --env=test
+#       - php bin/console doctrine:database:create --env=test
+#       - php bin/console doctrine:schema:update --force --env=test 
+#       - php bin/console doctrine:fixture:load --no-interaction --env=test
+#   script:
+#       - php bin/phpunit
+#   allow_failure: true
