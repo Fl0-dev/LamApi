@@ -5,7 +5,7 @@ namespace App\Transversal;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-trait FieldContent 
+trait FieldContent
 {
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $fieldContent = null;

@@ -95,7 +95,7 @@ class Ats
     public function setAbstractUser(?UserAbstract $abstractUser): self
     {
         $this->abstractUser = $abstractUser;
-        
+
         return $this;
     }
 }

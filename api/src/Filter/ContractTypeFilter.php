@@ -8,8 +8,8 @@ use Symfony\Component\PropertyInfo\Type;
 class ContractTypeFilter implements FilterInterface
 {
     public const CONTRACT_TYPE_CONTEXT = 'contract_type_context';
-    const CONTRACT_TYPE_QUERY_PARAMETER = 'contract_type';
-    
+    public const CONTRACT_TYPE_QUERY_PARAMETER = 'contract_type';
+
     public function getDescription(string $resourceClass): array
     {
         return [
@@ -21,7 +21,7 @@ class ContractTypeFilter implements FilterInterface
                 'openapi' => [
                     'example' => 'cdd',
                 ],
-    
+
             ]
         ];
     }

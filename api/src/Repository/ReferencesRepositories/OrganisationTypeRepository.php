@@ -16,7 +16,6 @@ class OrganisationTypeRepository
         $arrayOrganisationTypes = OrganisationType::ORGANISATION_TYPES;
 
         if (is_array($arrayOrganisationTypes)) {
-
             foreach ($arrayOrganisationTypes as $organisationType) {
                 $organisationTypes[] = new OrganisationType(
                     Utils::getArrayValue('slug', $organisationType),

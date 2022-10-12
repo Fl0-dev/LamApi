@@ -8,7 +8,7 @@ use Symfony\Component\PropertyInfo\Type;
 class WorkforceFilter implements FilterInterface
 {
     public const WORKFORCE_CONTEXT = 'workforce_context';
-    const WORKFORCE_QUERY_PARAMETER = 'workforce';
+    public const WORKFORCE_QUERY_PARAMETER = 'workforce';
 
     public function getDescription(string $resourceClass): array
     {

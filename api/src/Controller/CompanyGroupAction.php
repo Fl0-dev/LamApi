@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CompanyGroupAction extends AbstractController
 {
-    const ENDPOINT_FOR_COMPANY_GROUP_BY_KEYWORD = '_api_/company-groups/name/keywords={keywords}_get_collection';
-    const ENDPOINT_FOR_COMPANY_GROUP_COUNT = '_api_/count-company-groups_get';
+    public const ENDPOINT_FOR_COMPANY_GROUP_BY_KEYWORD = '_api_/company-groups/name/keywords={keywords}_get_collection';
+    public const ENDPOINT_FOR_COMPANY_GROUP_COUNT = '_api_/count-company-groups_get';
 
     public function __construct(private CompanyGroupRepository $companyGroupRepository)
     {

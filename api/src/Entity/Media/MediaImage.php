@@ -5,16 +5,17 @@ namespace App\Entity\Media;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MediaRepositories\MediaImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
 #[ORM\Table(name: "media_image")]
 class MediaImage extends Media
 {
-    const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
-    const DEFAULT_MAX_IMAGE_WIDTH = 1200;
-    const DEFAULT_MIN_IMAGE_QUALITY = 40;
-    const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
-    const MAX_IMAGE_FILE_SIZE = 307200;
+    public const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
+    public const DEFAULT_MAX_IMAGE_WIDTH = 1200;
+    public const DEFAULT_MIN_IMAGE_QUALITY = 40;
+    public const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
+    public const MAX_IMAGE_FILE_SIZE = 307200;
     // 307 200 octets = 300 Kio (for Windows)
 
     public function __construct()
@@ -22,7 +23,7 @@ class MediaImage extends Media
         parent::__construct();
     }
 
-    public function getType() : string
+    public function getType(): string
     {
         return self::TYPE_IMAGE;
     }
@@ -329,7 +330,7 @@ class MediaImage extends Media
 
         return $this;
     }
-    
+
     /**
      * Get image resoure from GIF, JP(E)G, PNG or BMP image file
      *
@@ -337,7 +338,7 @@ class MediaImage extends Media
      *
      * @return resource
      */
-    function imageCreateFromAny($filepath)
+    public function imageCreateFromAny($filepath)
     {
         $type = exif_imagetype($filepath);
         $allowedTypes = array(
@@ -367,7 +368,7 @@ class MediaImage extends Media
                 $im = imageCreateFromBmp($filepath);
                 break;
         }
-        
+
         return $im;
     }
 }

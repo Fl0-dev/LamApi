@@ -21,10 +21,10 @@ use App\State\OrganisationTypeDataProvider;
 ]
 class OrganisationType extends Reference
 {
-    const GROUP = 'group';
-    const EDITOR = 'editeur';
-    const LABEL = 'label';
-    const ORGANISATION_TYPES = [
+    public const GROUP = 'group';
+    public const EDITOR = 'editeur';
+    public const LABEL = 'label';
+    public const ORGANISATION_TYPES = [
         [
             'slug' => self::GROUP,
             'label' => 'Groupement'
@@ -38,7 +38,7 @@ class OrganisationType extends Reference
             'label' => 'Label'
         ]
     ];
-    
+
     public static function isOrganisationType(array $typeSlugs): bool
     {
         return !empty(array_intersect($typeSlugs, array_column(self::ORGANISATION_TYPES, 'slug')));

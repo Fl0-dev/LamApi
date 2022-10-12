@@ -2,7 +2,6 @@
 
 namespace App\State;
 
-
 use App\Repository\ReferencesRepositories\OfferStatusRepository;
 use App\Utils\Utils;
 use ApiPlatform\Metadata\CollectionOperationInterface;

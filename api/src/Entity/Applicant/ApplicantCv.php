@@ -88,7 +88,7 @@ class ApplicantCv
     public function setContentUrl($contentUrl): self
     {
         $this->contentUrl = $contentUrl;
-        
+
         return $this;
     }
 }

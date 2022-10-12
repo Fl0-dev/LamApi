@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DepartmentAction extends AbstractController
 {
-    const ENDPOINT_FOR_DEPARTMENT_COUNT_WITH_OFFICE = '_api_/departments-count_get';
+    public const ENDPOINT_FOR_DEPARTMENT_COUNT_WITH_OFFICE = '_api_/departments-count_get';
 
     public function __construct(private AddressRepository $addressRepository)
     {

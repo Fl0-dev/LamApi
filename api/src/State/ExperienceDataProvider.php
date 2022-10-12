@@ -27,7 +27,7 @@ class ExperienceDataProvider implements ProviderInterface
                     return $this->experienceRepository->findByKeyWords($keyWords);
                 }
             }
-    
+
             return $this->experienceRepository->findAll();
         }
 

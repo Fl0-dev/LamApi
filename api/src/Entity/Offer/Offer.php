@@ -115,17 +115,16 @@ use Symfony\Component\Validator\Constraints\Length;
 ])]
 class Offer
 {
-    const OPERATION_NAME_GET_ALL_OFFERS = 'getAllOffers';
-    const OPERATION_NAME_GET_OFFER_TEASERS = 'getOfferTeasers';
-    const OPERATION_NAME_POST_OFFER = 'postOffer';
-    const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
-    const OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID = 'getOfferApplications';
-    const OPERATION_NAME_GET_OFFER_DETAILS = 'getOfferDetails';
-
     use Uuid;
     use Slug;
     use LastModifiedDate;
     use CreatedDate;
+    public const OPERATION_NAME_GET_ALL_OFFERS = 'getAllOffers';
+    public const OPERATION_NAME_GET_OFFER_TEASERS = 'getOfferTeasers';
+    public const OPERATION_NAME_POST_OFFER = 'postOffer';
+    public const OPERATION_NAME_COUNT_OFFERS = 'countOffers';
+    public const OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID = 'getOfferApplications';
+    public const OPERATION_NAME_GET_OFFER_DETAILS = 'getOfferDetails';
 
     #[ORM\Column(type: 'boolean')]
     #[Groups([
@@ -383,8 +382,8 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getId(): ?BaseUuid
@@ -393,7 +392,7 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getCreatedDate(): ?\DateTime
@@ -402,7 +401,7 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getSlug(): ?string
@@ -411,7 +410,7 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getJobTitleLabel(): string
@@ -420,9 +419,9 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_OFFER_TEASERS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getContractType(): ?string
@@ -434,8 +433,8 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getExperience(): ?string
@@ -447,8 +446,8 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     public function getLevelOfStudy(): ?string
@@ -468,8 +467,8 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
-        self::OPERATION_NAME_GET_OFFER_DETAILS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
+        self::OPERATION_NAME_GET_OFFER_DETAILS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getUrl(): ?string
@@ -485,14 +484,14 @@ class Offer
     }
 
     #[Groups([
-        self::OPERATION_NAME_GET_ALL_OFFERS, 
+        self::OPERATION_NAME_GET_ALL_OFFERS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     public function getCompany(): ?array
     {
         $arrayCompanyInfos = [
-            'id' => $this->companyEntityOffice->getCompanyEntity()->getId(), 
-            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(), 
+            'id' => $this->companyEntityOffice->getCompanyEntity()->getId(),
+            'entity' => $this->companyEntityOffice->getCompanyEntity()->getName(),
             'address' => $this->companyEntityOffice->getAddress()
         ];
 
@@ -869,7 +868,7 @@ class Offer
     public function removeOfferRevision(OfferRevision $offerRevision): self
     {
         $this->offerRevisions->removeElement($offerRevision);
-        
+
         return $this;
     }
 }

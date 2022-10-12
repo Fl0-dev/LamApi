@@ -10,6 +10,7 @@ use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: CompanyEntityRevisionRepository::class)]
 class CompanyEntityRevision
@@ -23,15 +24,15 @@ class CompanyEntityRevision
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyEntity $companyEntity = null;
 
-    public function getCompanyEntity() : ?CompanyEntity
+    public function getCompanyEntity(): ?CompanyEntity
     {
         return $this->companyEntity;
     }
 
-    public function setCompanyEntity(?CompanyEntity $companyEntity) : self
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
     {
         $this->companyEntity = $companyEntity;
-        
+
         return $this;
     }
 }

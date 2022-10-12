@@ -7,7 +7,6 @@ use App\Utils\Utils;
 
 class AbstractUserTypeRepository
 {
-
     /**
      * @return AbstractUserType[]
      */
@@ -17,7 +16,6 @@ class AbstractUserTypeRepository
         $arrayAbstractUserTypes = AbstractUserType::USER_TYPES;
 
         if (is_array($arrayAbstractUserTypes)) {
-
             foreach ($arrayAbstractUserTypes as $abstractUserType) {
                 $abstractUserTypes[] = new AbstractUserType(
                     Utils::getArrayValue('slug', $abstractUserType),

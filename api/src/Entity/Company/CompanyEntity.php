@@ -191,7 +191,7 @@ class CompanyEntity
                 $companyEntityOffice->setCompanyEntity(null);
             }
         }
-        
+
         return $this;
     }
 
@@ -252,7 +252,7 @@ class CompanyEntity
     public function removeCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
     {
         $this->companyEntityRevisions->removeElement($companyEntityRevision);
-        
+
         return $this;
     }
 }

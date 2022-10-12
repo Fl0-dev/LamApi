@@ -30,10 +30,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CityRepository::class)]
 class City
 {
-    const OPERATION_NAME_GET_ALL_CITIES = 'getAllCities';
-
     use Uuid;
     use Slug;
+    public const OPERATION_NAME_GET_ALL_CITIES = 'getAllCities';
 
     #[ORM\Column(type: 'string', length: 75)]
     #[Groups([
@@ -87,7 +86,7 @@ class City
     public function setDepartment(?Department $department): self
     {
         $this->department = $department;
-        
+
         return $this;
     }
 }

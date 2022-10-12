@@ -21,5 +21,5 @@ class CompanySubscriptionTypeDataProvider implements ProviderInterface
         }
 
         return $this->companySubscriptionTypeRepository->find(Utils::getArrayValue('id', $uriVariables));
-    } 
+    }
 }

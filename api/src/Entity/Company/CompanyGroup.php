@@ -154,18 +154,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class CompanyGroup
 {
-    const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
-    const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
-    const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
-    const OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffices';
-    const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
-    const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
-    const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
-
     use Uuid;
     use Slug;
     use CreatedDate;
     use LastModifiedDate;
+    public const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
+    public const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
+    public const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
+    public const OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffices';
+    public const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
+    public const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
+    public const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([

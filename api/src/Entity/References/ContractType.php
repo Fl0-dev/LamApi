@@ -24,12 +24,12 @@ use App\State\ContractTypeDataProvider;
 #[ApiFilter(filterClass: ContractTypeFilter::class)]
 class ContractType extends Reference
 {
-    const CDD = 'cdd';
-    const CDI = 'cdi';
-    const ALTERNANCE = 'alternance';
-    const INTERNSHIP = 'internship';
-    const FREELANCE = 'freelance';
-    const CONTRACT_TYPES = [
+    public const CDD = 'cdd';
+    public const CDI = 'cdi';
+    public const ALTERNANCE = 'alternance';
+    public const INTERNSHIP = 'internship';
+    public const FREELANCE = 'freelance';
+    public const CONTRACT_TYPES = [
         [
             'slug' => self::CDD,
             'label' => 'CDD'

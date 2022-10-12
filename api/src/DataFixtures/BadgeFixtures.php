@@ -19,12 +19,12 @@ class BadgeFixtures extends Fixture
     public const BADGE_REFERENCE_9 = 'badge9';
     public const BADGE_REFERENCE_10 = 'badge10';
 
-    const ID_LABEL = 'label';
-    const ID_FILENAME = 'image-uri';
-    const ID_DESCRIPTION = 'description';
-    const BADGE_IMAGE_ROOT_PATH = '/assets/images/badges/';
+    public const ID_LABEL = 'label';
+    public const ID_FILENAME = 'image-uri';
+    public const ID_DESCRIPTION = 'description';
+    public const BADGE_IMAGE_ROOT_PATH = '/assets/images/badges/';
 
-    const BADGES = [
+    public const BADGES = [
         'impact-plus' => [
             self::ID_LABEL => 'Cabinet à impact +',
             self::ID_FILENAME => 'impact-plus.svg',

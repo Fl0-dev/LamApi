@@ -21,7 +21,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience((new Experience('lamasenior', 'Lamasenior', 3, 'Lamasenior (2 à 5 ans)', "de 2 à 5 ans d'expérience",24))->getId());
+            $offer->setExperience((new Experience('lamasenior', 'Lamasenior', 3, 'Lamasenior (2 à 5 ans)', "de 2 à 5 ans d'expérience", 24))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -67,7 +67,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_2));
             $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
-            $offer->setExperience((new Experience('lamajunior', 'Lamajunior', 1, 'Lamajunior (- 1 an)', "< 1 an d'expérience",0))->getId());
+            $offer->setExperience((new Experience('lamajunior', 'Lamajunior', 1, 'Lamajunior (- 1 an)', "< 1 an d'expérience", 0))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -123,7 +123,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience((new Experience('lamasenior', 'Lamasenior', 3, 'Lamasenior (2 à 5 ans)', "de 2 à 5 ans d'expérience",24))->getId());
+            $offer->setExperience((new Experience('lamasenior', 'Lamasenior', 3, 'Lamasenior (2 à 5 ans)', "de 2 à 5 ans d'expérience", 24))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -175,7 +175,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3));
             $offer->setContractType((new ContractType(ContractType::INTERNSHIP, 'Stage'))->getId());
-            $offer->setExperience((new Experience('non-precise', 'Non précisé', 0, 'Non précisé', "Non précisé",0))->getId());
+            $offer->setExperience((new Experience('non-precise', 'Non précisé', 0, 'Non précisé', "Non précisé", 0))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'Non précisé'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -238,7 +238,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience((new Experience('non-precise', 'Non précisé', 0, 'Non précisé', "Non précisé",0))->getId());
+            $offer->setExperience((new Experience('non-precise', 'Non précisé', 0, 'Non précisé', "Non précisé", 0))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -305,7 +305,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4));
             $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
-            $offer->setExperience((new Experience('non-precise', 'Non précisé', 0, 'Non précisé', "Non précisé",0))->getId());
+            $offer->setExperience((new Experience('non-precise', 'Non précisé', 0, 'Non précisé', "Non précisé", 0))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -362,7 +362,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_5));
             $offer->setContractType((new ContractType(ContractType::CDI, 'CDI'))->getId());
-            $offer->setExperience((new Experience('lamexpert', 'Lamexpert ', 4, 'Lamexpert (+ 5 ans)', "+ de 5 ans d'expérience",60))->getId());
+            $offer->setExperience((new Experience('lamexpert', 'Lamexpert ', 4, 'Lamexpert (+ 5 ans)', "+ de 5 ans d'expérience", 60))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_8, 'BAC + 8'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());
@@ -416,7 +416,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setCompanyEntityOffice($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_6));
             $offer->setContractType((new ContractType(ContractType::ALTERNANCE, 'Alternance'))->getId());
-            $offer->setExperience((new Experience('lamajunior', 'Lamajunior', 1, 'Lamajunior (- 1 an)', "< 1 an d'expérience",0))->getId());
+            $offer->setExperience((new Experience('lamajunior', 'Lamajunior', 1, 'Lamajunior (- 1 an)', "< 1 an d'expérience", 0))->getId());
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'BAC'))->getId());
             $offer->setCreatedDate(new \DateTime());
             $offer->setLastModifiedDate(new \DateTime());

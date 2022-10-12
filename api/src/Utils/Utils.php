@@ -262,8 +262,7 @@ class Utils
     public static function generateRandomString(
         int $length = 64,
         string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    ): string
-    {
+    ): string {
         if ($length < 1) {
             throw new \RangeException("Length must be a positive integer");
         }

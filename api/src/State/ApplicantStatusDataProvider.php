@@ -10,7 +10,6 @@ use App\Utils\Utils;
 
 class ApplicantStatusDataProvider implements ProviderInterface
 {
-
     public function __construct(private ApplicantStatusRepository $applicantStatusRepository)
     {
     }

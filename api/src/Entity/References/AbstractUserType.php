@@ -21,10 +21,10 @@ use App\State\AbstractUserTypeDataProvider;
 ]
 class AbstractUserType extends Reference
 {
-    const JOB_BOARD = 'job-board';
-    const ATS = 'ats';
-    const PARTNER = 'partner';
-    const USER_TYPES = [
+    public const JOB_BOARD = 'job-board';
+    public const ATS = 'ats';
+    public const PARTNER = 'partner';
+    public const USER_TYPES = [
         [
             'slug' => self::JOB_BOARD,
             'label' => 'Job Board'

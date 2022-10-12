@@ -6,10 +6,10 @@ use App\Entity\References\Reference;
 
 class SubscriptionStatus extends Reference
 {
-    const ACTIVE = 'active';
-    const UNSUBSCRIBED = 'unsubscribed';
+    public const ACTIVE = 'active';
+    public const UNSUBSCRIBED = 'unsubscribed';
 
-    const STATUSES = [
+    public const STATUSES = [
         [
             'slug' => self::ACTIVE,
             'label' => 'Actif',

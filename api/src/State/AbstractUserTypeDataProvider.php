@@ -10,7 +10,6 @@ use App\Utils\Utils;
 
 class AbstractUserTypeDataProvider implements ProviderInterface
 {
-
     public function __construct(private AbstractUserTypeRepository $abstractUserTypeRepository)
     {
     }
@@ -23,5 +22,4 @@ class AbstractUserTypeDataProvider implements ProviderInterface
 
         return $this->abstractUserTypeRepository->find(Utils::getArrayValue('id', $uriVariables));
     }
-
 }

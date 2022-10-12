@@ -48,9 +48,9 @@ abstract class Media
 {
     use TechnicalProperties;
 
-    const OPERATION_NAME_GET_MEDIA = "getMedia";
-    const TYPE_IMAGE = 'image';
-    const TYPE_VIDEO = 'video';
+    public const OPERATION_NAME_GET_MEDIA = "getMedia";
+    public const TYPE_IMAGE = 'image';
+    public const TYPE_VIDEO = 'video';
 
     #[ApiProperty(iris: ['https://schema.org/contentUrl'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -59,9 +59,9 @@ abstract class Media
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS, 
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS, 
-        self::OPERATION_NAME_GET_MEDIA, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        self::OPERATION_NAME_GET_MEDIA,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
         ])]
     private $filePath;
@@ -119,7 +119,7 @@ abstract class Media
     {
         return $this->file;
     }
-    
+
     public function setFile(?File $file): self
     {
         $this->file = $file;
