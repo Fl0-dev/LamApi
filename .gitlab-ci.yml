@@ -11,9 +11,41 @@ cache:
 
 stages:
   - phpstan
+  - php-cs-fixer
+  - phpunit
 
 phpstan:
   stage: phpstan
   script:
     - phpstan analyse --level=1 src
   allow_failure: true
+
+php-cs-fixer:
+      image: jakzal/phpqa
+      stage: tests
+      script:
+          - ci/php-cs-fixer.sh
+      artifacts:
+          paths:
+              - var/patch.diff
+          expire_in: 24 hrs
+          when: on_failure
+      allow_failure: true
+
+phpunit:
+      stage: tests
+      dependencies:
+        - install
+      variables:
+          SYMFONY__DATABASE_TEST_DRIVER: pdo_mysql
+      script:
+        - cp -v app/config/parameters.yml.dist app/config/parameters.yml
+        - service mysql start
+        - mysql -u root -e "CREATE DATABASE db"
+        - bin/console --env=test doctrine:schema:create
+        - php -d memory_limit=2048M bin/console --env=test cache:warmup --no-debug
+        - php -d memory_limit=2048M bin/phpunit -c app/ --testdox-html var/logs/phpunit/report.html
+      artifacts:
+        paths:
+          - var/logs/phpunit/
+        expire_in: 24 hrs
