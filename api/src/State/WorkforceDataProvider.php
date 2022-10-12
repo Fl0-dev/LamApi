@@ -2,7 +2,6 @@
 
 namespace App\State;
 
-
 use App\Filter\WorkforceFilter;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Utils\Utils;
@@ -28,10 +27,10 @@ class WorkforceDataProvider implements ProviderInterface
                     return $this->workforceRepository->findByKeyWords($keyWords);
                 }
             }
-    
+
             return $this->workforceRepository->findAll();
         }
-            
+
         return $this->workforceRepository->find(Utils::getArrayValue('id', $uriVariables));
     }
 }

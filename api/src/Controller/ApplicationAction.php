@@ -15,12 +15,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationAction extends AbstractController
 {
-    const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
-    const APPLICATION_PROPERTY_FILE = 'file';
-    const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
-    const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId';
-    const ENDPOINT_FOR_POST_APPLICATION_BY_OFFER_ID = '_api_/applications/{offerId}_post';
-    const ENDPOINT_FOR_POST_APPLICATION_SPONTANEOUS = '_api_/applications/spontaneaous/{companyEntityOfficeId}_post';
+    public const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
+    public const APPLICATION_PROPERTY_FILE = 'file';
+    public const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
+    public const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId';
+    public const ENDPOINT_POST_APPLICATION_BY_OFFER_ID = '_api_/applications/{offerId}_post';
+    public const ENDPOINT_POST_APPLICATION_SPONTANEOUS = '_api_/applications/spontaneous/{companyEntityOfficeId}_post';
 
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,
@@ -32,7 +32,7 @@ class ApplicationAction extends AbstractController
     {
         $endpoint = $request->attributes->get('_route');
 
-        if ($endpoint === self::ENDPOINT_FOR_POST_APPLICATION_SPONTANEOUS) {
+        if ($endpoint === self::ENDPOINT_POST_APPLICATION_SPONTANEOUS) {
             $companyEntityOfficeId = $request->attributes->get(self::POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 
@@ -64,7 +64,7 @@ class ApplicationAction extends AbstractController
             return $application;
         }
 
-        if ($endpoint === self::ENDPOINT_FOR_POST_APPLICATION_BY_OFFER_ID) {
+        if ($endpoint === self::ENDPOINT_POST_APPLICATION_BY_OFFER_ID) {
             $offerId = $request->attributes->get(self::POST_APPLICATION_OFFER_IDENTIFIER_NAME);
             $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
 

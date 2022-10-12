@@ -2,7 +2,6 @@
 
 namespace App\Entity\Company;
 
-
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Application\Application;
 use App\Entity\JobBoard;

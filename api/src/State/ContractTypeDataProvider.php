@@ -27,7 +27,7 @@ class ContractTypeDataProvider implements ProviderInterface
                     return $this->contractTypeRepository->findByKeyWords($keyWords);
                 }
             }
-    
+
             return $this->contractTypeRepository->findAll();
         }
 

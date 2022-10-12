@@ -16,7 +16,6 @@ class LevelOfStudyRepository
         $arrayLevelOfStudies = LevelOfStudy::LEVEL_OF_STUDIES;
 
         if (is_array($arrayLevelOfStudies)) {
-
             foreach ($arrayLevelOfStudies as $levelOfStudy) {
                 $levelOfStudies[] = new LevelOfStudy(
                     Utils::getArrayValue('slug', $levelOfStudy),

@@ -10,6 +10,7 @@ use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 class OfferRevision
@@ -23,15 +24,15 @@ class OfferRevision
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
 
-    public function getOffer() : ?Offer
+    public function getOffer(): ?Offer
     {
         return $this->offer;
     }
 
-    public function setOffer(?Offer $offer) : self
+    public function setOffer(?Offer $offer): self
     {
         $this->offer = $offer;
-        
+
         return $this;
     }
 }

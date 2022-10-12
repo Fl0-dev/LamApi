@@ -10,6 +10,7 @@ use App\Transversal\FieldContent;
 use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: CompanyGroupRevisionRepository::class)]
 class CompanyGroupRevision
@@ -23,15 +24,15 @@ class CompanyGroupRevision
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyGroup $companyGroup = null;
 
-    public function getCompanyGroup() : ?CompanyGroup
+    public function getCompanyGroup(): ?CompanyGroup
     {
         return $this->companyGroup;
     }
 
-    public function setCompanyGroup(?CompanyGroup $companyGroup) : self
+    public function setCompanyGroup(?CompanyGroup $companyGroup): self
     {
         $this->companyGroup = $companyGroup;
-        
+
         return $this;
     }
 }

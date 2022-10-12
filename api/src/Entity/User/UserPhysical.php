@@ -7,6 +7,7 @@ use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
@@ -15,9 +16,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: "physical_user")]
 class UserPhysical extends User
 {
-    const TYPE_ADMIN = "admin";
-    const TYPE_APPLICANT = "applicant";
-    const TYPE_EMPLOYER = "employer";
+    public const TYPE_ADMIN = "admin";
+    public const TYPE_APPLICANT = "applicant";
+    public const TYPE_EMPLOYER = "employer";
 
     #[ORM\Column(type: "string", length: 180)]
     #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
@@ -35,7 +36,7 @@ class UserPhysical extends User
         parent::__construct();
     }
 
-    public function getType() : string
+    public function getType(): string
     {
         return self::TYPE_PHYSICAL;
     }
@@ -56,7 +57,7 @@ class UserPhysical extends User
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-        
+
         return $this;
     }
 
@@ -80,12 +81,12 @@ class UserPhysical extends User
         return $this;
     }
 
-    public function getBirthdate() : ?\DateTimeInterface
+    public function getBirthdate(): ?\DateTimeInterface
     {
         return $this->birthdate;
     }
 
-    public function setBirthdate(?\DateTimeInterface $birthdate) : self
+    public function setBirthdate(?\DateTimeInterface $birthdate): self
     {
         $this->birthdate = $birthdate;
 

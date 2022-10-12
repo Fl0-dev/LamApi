@@ -14,21 +14,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ApiResource(operations: [
     new Get(
-        uriTemplate: '/job-boards/{id}/offers', 
+        uriTemplate: '/job-boards/{id}/offers',
         normalizationContext: ['groups' => ['getJobBoardOffers']],
         formats: ['json' => ['application/json']]
-    ), 
-    new Post(), 
+    ),
+    new Post(),
     new GetCollection()])]
 #[ORM\Entity(repositoryClass: JobBoardRepository::class)]
 class JobBoard
 {
-    const OPERATION_NAME_GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
-
     use Uuid;
     use Slug;
+
+    public const OPERATION_NAME_GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
+
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
@@ -46,36 +48,36 @@ class JobBoard
         $this->offers = new ArrayCollection();
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function isFree() : ?bool
+    public function isFree(): ?bool
     {
         return $this->free;
     }
 
-    public function setFree(bool $free) : self
+    public function setFree(bool $free): self
     {
         $this->free = $free;
         return $this;
@@ -84,12 +86,12 @@ class JobBoard
     /**
      * @return Collection<int, Offer>
      */
-    public function getOffers() : Collection
+    public function getOffers(): Collection
     {
         return $this->offers;
     }
 
-    public function addOffer(Offer $offer) : self
+    public function addOffer(Offer $offer): self
     {
         if (!$this->offers->contains($offer)) {
             $this->offers[] = $offer;
@@ -99,12 +101,12 @@ class JobBoard
         return $this;
     }
 
-    public function removeOffer(Offer $offer) : self
+    public function removeOffer(Offer $offer): self
     {
         if ($this->offers->removeElement($offer)) {
             $offer->removeJobBoard($this);
         }
-        
+
         return $this;
     }
 }

@@ -21,12 +21,12 @@ use App\State\ApplicationStatusDataProvider;
 ]
 class ApplicationStatus extends Reference
 {
-    const NEW = 'new';
-    const IN_PROGRESS = 'in_progress';
-    const APPROVED = 'approved';
-    const REJECTED = 'rejected';
-    const ARCHIVED = 'archived';
-    const APPLICATION_STATUSES = [
+    public const NEW = 'new';
+    public const IN_PROGRESS = 'in_progress';
+    public const APPROVED = 'approved';
+    public const REJECTED = 'rejected';
+    public const ARCHIVED = 'archived';
+    public const APPLICATION_STATUSES = [
         [
             'slug' => self::NEW,
             'label' => 'Nouvelle candidature'

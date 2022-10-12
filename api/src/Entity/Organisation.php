@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
@@ -12,6 +11,7 @@ use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: OrganisationRepository::class)]
 class Organisation
@@ -34,48 +34,48 @@ class Organisation
     #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?MediaImage $logo = null;
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
-    
-    public function setName(string $name) : self
+
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getWebsite() : ?string
+    public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    public function setWebsite(?string $website) : self
+    public function setWebsite(?string $website): self
     {
         $this->website = $website;
 
         return $this;
     }
 
-    public function getType() : ?string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(?string $type) : self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getLogo() : ?MediaImage
+    public function getLogo(): ?MediaImage
     {
         return $this->logo;
     }
 
-    public function setLogo(?MediaImage $logo) : self
+    public function setLogo(?MediaImage $logo): self
     {
         $this->logo = $logo;
 

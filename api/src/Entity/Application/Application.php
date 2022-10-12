@@ -71,7 +71,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ]
         ),
         new Post(
-            uriTemplate: '/applications/spontaneaous/{companyEntityOfficeId}',
+            uriTemplate: '/applications/spontaneous/{companyEntityOfficeId}',
             uriVariables: [],
             controller: ApplicationAction::class,
             deserialize: false,
@@ -118,12 +118,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 class Application
 {
-    const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
-    const OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID = 'postSpontaneaousApplicationByCompanyEntityOfficeId';
-
     use Uuid;
     use LastModifiedDate;
     use CreatedDate;
+
+    public const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
+    public const OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID =
+    'postSpontaneaousApplicationByCompanyEntityOfficeId';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([

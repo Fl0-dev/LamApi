@@ -21,9 +21,9 @@ use App\State\CompanySubscriptionTypeDataProvider;
 ]
 class CompanySubscriptionType extends Reference
 {
-    const FREE = 'free';
-    const PREMIUM = 'premium';
-    const COMPANY_SUBSCRIPTION_TYPES = [
+    public const FREE = 'free';
+    public const PREMIUM = 'premium';
+    public const COMPANY_SUBSCRIPTION_TYPES = [
         [
             'slug' => self::FREE,
             'label' => 'Free'
@@ -33,7 +33,7 @@ class CompanySubscriptionType extends Reference
             'label' => 'Premium'
         ]
     ];
-    
+
     public static function isCompanySubscriptionType(array $typeSlugs): bool
     {
         return !empty(array_intersect($typeSlugs, array_column(self::COMPANY_SUBSCRIPTION_TYPES, 'slug')));

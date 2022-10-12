@@ -5,6 +5,7 @@ namespace App\Entity\Media;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MediaRepositories\MediaVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: MediaVideoRepository::class)]
 class MediaVideo extends Media
@@ -17,7 +18,7 @@ class MediaVideo extends Media
         parent::__construct();
     }
 
-    public function getType() : string
+    public function getType(): string
     {
         return self::TYPE_VIDEO;
     }
@@ -32,7 +33,7 @@ class MediaVideo extends Media
         if (is_bool($autoplay)) {
             $this->autoplay = $autoplay;
         }
-        
+
         return $this;
     }
 }

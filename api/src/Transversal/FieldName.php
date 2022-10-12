@@ -4,7 +4,7 @@ namespace App\Transversal;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait FieldName 
+trait FieldName
 {
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $fieldName = null;

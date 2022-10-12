@@ -14,11 +14,8 @@ class ExperienceRepository
     {
         $experiences = [];
         $arrayExperiences = Experience::EXPERIENCES;
-
         if (is_array($arrayExperiences)) {
-
             foreach ($arrayExperiences as $value => $experience) {
-
                 $experiences[] = new Experience(
                     Utils::getArrayValue('slug', $experience),
                     Utils::getArrayValue('label', $experience),
@@ -40,7 +37,6 @@ class ExperienceRepository
         $results = [];
 
         if (is_array($experiences) && !empty($experiences)) {
-
             foreach ($experiences as $experience) {
                 if (strpos(strtolower($experience->getDuration()), $keywords) !== false) {
                     $results[] = $experience;
@@ -57,7 +53,6 @@ class ExperienceRepository
 
         foreach ($experiences as $experience) {
             if ($experience->getId() === $id) {
-                
                 return $experience;
             }
         }

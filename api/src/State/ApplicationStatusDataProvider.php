@@ -10,7 +10,6 @@ use ApiPlatform\State\ProviderInterface;
 
 class ApplicationStatusDataProvider implements ProviderInterface
 {
-
     public function __construct(private ApplicationStatusRepository $applicationStatusRepository)
     {
     }
@@ -23,5 +22,4 @@ class ApplicationStatusDataProvider implements ProviderInterface
 
         return $this->applicationStatusRepository->find(Utils::getArrayValue('id', $uriVariables));
     }
-
 }

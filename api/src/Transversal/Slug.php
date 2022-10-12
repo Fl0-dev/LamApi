@@ -86,7 +86,7 @@ trait Slug
      *
      * @return string
      */
-    static public function getSlugifyString(string $str): string
+    public static function getSlugifyString(string $str): string
     {
         return strtolower(
             trim(

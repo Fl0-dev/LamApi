@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class LocalisationAction extends AbstractController
 {
-    const ENDPOINT_FOR_LOCALISATION_BY_KEYWORDS = '_api_/localisations_get_collection';
+    public const ENDPOINT_FOR_LOCALISATION_BY_KEYWORDS = '_api_/localisations_get_collection';
 
     public function __construct(private AddressRepository $addressRepository)
     {

@@ -24,12 +24,12 @@ use App\State\ExperienceDataProvider;
 #[ApiFilter(filterClass: ExperienceFilter::class)]
 class Experience extends Reference
 {
-    const UNSPECIFIED = 0;
-    const JUNIOR = 1;
-    const CONFIRMED = 2;
-    const SENIOR = 3;
-    const EXPERT = 4;
-    const EXPERIENCES = [
+    public const UNSPECIFIED = 0;
+    public const JUNIOR = 1;
+    public const CONFIRMED = 2;
+    public const SENIOR = 3;
+    public const EXPERT = 4;
+    public const EXPERIENCES = [
         0 => [
             'slug' => 'non-precise',
             'label' => 'Non précisé',
@@ -72,60 +72,66 @@ class Experience extends Reference
     private ?string $duration = null;
     private ?int $minNbMonths = null;
 
-    public function __construct(string $slug, string $label, int $value, string $full, string $duration, int $minNbMonths)
-    {
+    public function __construct(
+        string $slug,
+        string $label,
+        int $value,
+        string $full,
+        string $duration,
+        int $minNbMonths
+    ) {
         parent::__construct($slug, $label);
         $this->value = $value;
         $this->full = $full;
         $this->duration = $duration;
         $this->minNbMonths = $minNbMonths;
     }
-   
+
     public function getValue(): ?int
     {
         return $this->value;
     }
-    
+
     public function setValue(int $value): self
     {
         $this->value = $value;
-        
+
         return $this;
     }
-   
+
     public function getFull(): ?string
     {
         return $this->full;
     }
-    
+
     public function setFull(string $full): self
     {
         $this->full = $full;
 
         return $this;
     }
-    
+
     public function getDuration(): ?string
     {
         return $this->duration;
     }
-    
+
     public function setDuration(string $duration): self
     {
         $this->duration = $duration;
 
         return $this;
     }
-    
+
     public function getMinNbMonths(): ?int
     {
         return $this->minNbMonths;
     }
-    
+
     public function setMinNbMonths(int $minNbMonths): self
     {
         $this->minNbMonths = $minNbMonths;
-        
+
         return $this;
     }
 

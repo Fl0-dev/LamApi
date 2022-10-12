@@ -54,7 +54,11 @@ class CompanyEntity
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(
+        mappedBy: 'companyEntity',
+        targetEntity: CompanyEntityOffice::class,
+        cascade: ['persist', 'remove']
+    )]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
@@ -191,7 +195,7 @@ class CompanyEntity
                 $companyEntityOffice->setCompanyEntity(null);
             }
         }
-        
+
         return $this;
     }
 
@@ -252,7 +256,7 @@ class CompanyEntity
     public function removeCompanyEntityRevision(CompanyEntityRevision $companyEntityRevision): self
     {
         $this->companyEntityRevisions->removeElement($companyEntityRevision);
-        
+
         return $this;
     }
 }

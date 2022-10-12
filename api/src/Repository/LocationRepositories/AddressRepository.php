@@ -60,7 +60,7 @@ class AddressRepository extends ServiceEntityRepository
             ->groupBy('c.id')
             ->setParameter('keyWords', '%' . strtolower($keyWords) . '%')
             ->getQuery();
-            $cityResult = $cityQuery->getResult();
+        $cityResult = $cityQuery->getResult();
 
         $departmentQuery = $this->createQueryBuilder('a')
             ->select('d.id as departmentId, d.name as departmentName')
@@ -70,7 +70,7 @@ class AddressRepository extends ServiceEntityRepository
             ->groupBy('d.id')
             ->setParameter('keyWords', '%' . strtolower($keyWords) . '%')
             ->getQuery();
-            $departmentResult = $departmentQuery->getResult();
+        $departmentResult = $departmentQuery->getResult();
 
         return array_merge($cityResult, $departmentResult);
     }

@@ -25,7 +25,7 @@ class JobTypeFixtures extends Fixture
     public const JOB_TYPE_REFERENCE_14 = 'job_type_14';
     public const JOB_TYPE_REFERENCE_15 = 'job_type_15';
 
-    const JOB_TYPES = [
+    public const JOB_TYPES = [
         'expertise-comptable'       => 'Expertise comptable',
         'audit-commissariat'        => 'Audit / Commissariat aux comptes',
         'juridique'                 => 'Juridique',

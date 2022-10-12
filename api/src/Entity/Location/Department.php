@@ -47,10 +47,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
-    const OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY = 'countAllDepartmentsWithCompany';
-
     use Uuid;
     use Slug;
+
+    public const OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY = 'countAllDepartmentsWithCompany';
 
     #[ORM\Column(type: 'string', length: 75)]
     #[Groups([City::OPERATION_NAME_GET_ALL_CITIES])]
@@ -133,7 +133,7 @@ class Department
                 $city->setDepartment(null);
             }
         }
-        
+
         return $this;
     }
 }

@@ -21,11 +21,11 @@ use App\State\ApplicantStatusDataProvider;
 ]
 class ApplicantStatus extends Reference
 {
-    const ACTIVE = 'active';
-    const IN_RESEARCH = 'in_research';
-    const NOT_LOOKING = 'not_looking';
-    const ARCHIVED = 'archived';
-    const APPLICANT_STATUSES = [
+    public const ACTIVE = 'active';
+    public const IN_RESEARCH = 'in_research';
+    public const NOT_LOOKING = 'not_looking';
+    public const ARCHIVED = 'archived';
+    public const APPLICANT_STATUSES = [
         [
             'slug' => self::ACTIVE,
             'label' => 'active'

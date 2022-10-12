@@ -8,7 +8,7 @@ use Symfony\Component\PropertyInfo\Type;
 class ExperienceFilter implements FilterInterface
 {
     public const EXPERIENCE_CONTEXT = 'experience_context';
-    const EXPERIENCE_QUERY_PARAMETER = 'experience';
+    public const EXPERIENCE_QUERY_PARAMETER = 'experience';
 
     public function getDescription(string $resourceClass): array
     {
@@ -20,7 +20,7 @@ class ExperienceFilter implements FilterInterface
                 'description' => 'Search experiences with keywords',
                 'openapi' => [
                 ],
-    
+
             ]
         ];
     }

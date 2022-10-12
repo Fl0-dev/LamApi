@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class JobTitleFixtures extends Fixture
 {
-    const JOB_TITLES = [
+    public const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',
         'assistant-comptable'      => 'Assistant comptable',
         'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',

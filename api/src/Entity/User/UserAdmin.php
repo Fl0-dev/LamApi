@@ -13,7 +13,7 @@ class UserAdmin extends UserPhysical
 
     /**
      * Get the value of level
-     */ 
+     */
     public function getLevel()
     {
         return $this->level;
@@ -23,7 +23,7 @@ class UserAdmin extends UserPhysical
      * Set the value of level
      *
      * @return  self
-     */ 
+     */
     public function setLevel($level)
     {
         $this->level = $level;
@@ -36,4 +36,3 @@ class UserAdmin extends UserPhysical
         return self::TYPE_ADMIN;
     }
 }
-

@@ -24,6 +24,7 @@ class Ats
 {
     use Uuid;
     use Slug;
+
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $name;
 
@@ -95,7 +96,7 @@ class Ats
     public function setAbstractUser(?UserAbstract $abstractUser): self
     {
         $this->abstractUser = $abstractUser;
-        
+
         return $this;
     }
 }

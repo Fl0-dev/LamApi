@@ -11,6 +11,7 @@ use App\Repository\ApplicantRepositories\ApplicantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
 #[ORM\Table(name: "applicant")]
@@ -64,41 +65,41 @@ class Applicant extends UserPhysical
         $this->applications = new ArrayCollection();
     }
 
-    public function getType() : string
+    public function getType(): string
     {
         return self::TYPE_APPLICANT;
     }
 
-    public function getDefaultMotivationText() : ?string
+    public function getDefaultMotivationText(): ?string
     {
         return $this->defaultMotivationText;
     }
 
-    public function setDefaultMotivationText(?string $defaultMotivationText) : self
+    public function setDefaultMotivationText(?string $defaultMotivationText): self
     {
         $this->defaultMotivationText = $defaultMotivationText;
 
         return $this;
     }
 
-    public function getLinkedin() : ?string
+    public function getLinkedin(): ?string
     {
         return $this->linkedin;
     }
 
-    public function setLinkedin(?string $linkedin) : self
+    public function setLinkedin(?string $linkedin): self
     {
         $this->linkedin = $linkedin;
 
         return $this;
     }
 
-    public function getProvidedFrom() : ?string
+    public function getProvidedFrom(): ?string
     {
         return $this->providedFrom;
     }
 
-    public function setProvidedFrom(?string $providedFrom) : self
+    public function setProvidedFrom(?string $providedFrom): self
     {
         $this->providedFrom = $providedFrom;
 
@@ -108,12 +109,12 @@ class Applicant extends UserPhysical
     /**
      * @return Collection<int, ApplicantCv>
      */
-    public function getApplicantCvs() : Collection
+    public function getApplicantCvs(): Collection
     {
         return $this->applicantCvs;
     }
 
-    public function addApplicantCv(ApplicantCv $applicantCv) : self
+    public function addApplicantCv(ApplicantCv $applicantCv): self
     {
         if (!$this->applicantCvs->contains($applicantCv)) {
             $this->applicantCvs[] = $applicantCv;
@@ -123,7 +124,7 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function removeApplicantCv(ApplicantCv $applicantCv) : self
+    public function removeApplicantCv(ApplicantCv $applicantCv): self
     {
         if ($this->applicantCvs->removeElement($applicantCv)) {
             // set the owning side to null (unless already changed)
@@ -138,12 +139,12 @@ class Applicant extends UserPhysical
     /**
      * @return Collection<int, Application>
      */
-    public function getApplications() : Collection
+    public function getApplications(): Collection
     {
         return $this->applications;
     }
 
-    public function addApplication(Application $application) : self
+    public function addApplication(Application $application): self
     {
         if (!$this->applications->contains($application)) {
             $this->applications[] = $application;
@@ -153,7 +154,7 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function removeApplication(Application $application) : self
+    public function removeApplication(Application $application): self
     {
         if ($this->applications->removeElement($application)) {
             // set the owning side to null (unless already changed)
@@ -165,87 +166,87 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function getLevelOfStudy() : ?string
+    public function getLevelOfStudy(): ?string
     {
         return $this->levelOfStudy;
     }
 
-    public function setLevelOfStudy(?string $levelOfStudy) : self
+    public function setLevelOfStudy(?string $levelOfStudy): self
     {
         $this->levelOfStudy = $levelOfStudy;
 
         return $this;
     }
 
-    public function getJobTitle() : ?JobTitle
+    public function getJobTitle(): ?JobTitle
     {
         return $this->jobTitle;
     }
 
-    public function setJobTitle(?JobTitle $jobTitle) : self
+    public function setJobTitle(?JobTitle $jobTitle): self
     {
         $this->jobTitle = $jobTitle;
 
         return $this;
     }
 
-    public function getExperience() : ?int
+    public function getExperience(): ?int
     {
         return $this->experience;
     }
 
-    public function setExperience(?int $experience) : self
+    public function setExperience(?int $experience): self
     {
         $this->experience = $experience;
 
         return $this;
     }
 
-    public function getCity() : ?City
+    public function getCity(): ?City
     {
         return $this->city;
     }
 
-    public function setCity(?City $city) : self
+    public function setCity(?City $city): self
     {
         $this->city = $city;
 
         return $this;
     }
 
-    public function getContractType() : ?string
+    public function getContractType(): ?string
     {
         return $this->contractType;
     }
 
-    public function setContractType(?string $contractType) : self
+    public function setContractType(?string $contractType): self
     {
         $this->contractType = $contractType;
 
         return $this;
     }
 
-    public function getStatus() : ?string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(string $status) : self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getOptin() : ?bool
+    public function getOptin(): ?bool
     {
         return $this->optin;
     }
 
-    public function setOptin(?bool $optin) : self
+    public function setOptin(?bool $optin): self
     {
         $this->optin = $optin;
-        
+
         return $this;
     }
 }

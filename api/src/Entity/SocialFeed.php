@@ -9,6 +9,7 @@ use App\Transversal\Uuid;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ApiResource]
 #[ORM\Entity(repositoryClass: SocialFeedRepository::class)]
 class SocialFeed
@@ -42,7 +43,7 @@ class SocialFeed
     {
     }
 
-    public function getLinkedin() : ?string
+    public function getLinkedin(): ?string
     {
         return $this->linkedin;
     }
@@ -50,7 +51,7 @@ class SocialFeed
     /**
      * Set the LinkedIn URL
      */
-    public function setLinkedin(?string $linkedin) : self
+    public function setLinkedin(?string $linkedin): self
     {
         $linkedin = self::cleanSocialUrl($linkedin);
         if (Utils::isUrl($linkedin) || is_null($linkedin)) {
@@ -63,12 +64,12 @@ class SocialFeed
     /**
      * Check if has a valid Linkedin URL
      */
-    public function hasLinkedin() : bool
+    public function hasLinkedin(): bool
     {
         return Utils::isUrl($this->getLinkedin());
     }
 
-    public function getTwitter() : ?string
+    public function getTwitter(): ?string
     {
         return $this->twitter;
     }
@@ -76,7 +77,7 @@ class SocialFeed
     /**
      * Set the Twitter URL
      */
-    public function setTwitter(?string $twitter) : self
+    public function setTwitter(?string $twitter): self
     {
         $twitter = self::cleanSocialUrl($twitter);
         if (Utils::isUrl($twitter) || is_null($twitter)) {
@@ -89,12 +90,12 @@ class SocialFeed
     /**
      * Check if has a valid Twitter URL
      */
-    public function hasTwitter() : bool
+    public function hasTwitter(): bool
     {
         return Utils::isUrl($this->getTwitter());
     }
 
-    public function getFacebook() : ?string
+    public function getFacebook(): ?string
     {
         return $this->facebook;
     }
@@ -102,14 +103,14 @@ class SocialFeed
     /**
      * Set the Facebook URL
      */
-    public function setFacebook(?string $facebook) : self
+    public function setFacebook(?string $facebook): self
     {
         $this->facebook = $facebook;
 
         return $this;
     }
 
-    public function getInstagram() : ?string
+    public function getInstagram(): ?string
     {
         return $this->instagram;
     }
@@ -117,7 +118,7 @@ class SocialFeed
     /**
      * Set the Instagram URL
      */
-    public function setInstagram(?string $instagram) : self
+    public function setInstagram(?string $instagram): self
     {
         $instagram = self::cleanSocialUrl($instagram);
         if (Utils::isUrl($instagram) || is_null($instagram)) {
@@ -130,12 +131,12 @@ class SocialFeed
     /**
      * Check if has a valid Instagram URL
      */
-    public function hasInstagram() : bool
+    public function hasInstagram(): bool
     {
         return Utils::isUrl($this->getInstagram());
     }
 
-    public function getYoutube() : ?string
+    public function getYoutube(): ?string
     {
         return $this->youtube;
     }
@@ -143,7 +144,7 @@ class SocialFeed
     /**
      * Set the Youtube URL
      */
-    public function setYoutube(?string $youtube) : self
+    public function setYoutube(?string $youtube): self
     {
         $youtube = self::cleanSocialUrl($youtube);
         if (Utils::isUrl($youtube) || is_null($youtube)) {
@@ -166,12 +167,12 @@ class SocialFeed
     /**
      * Clean Social URL
      */
-    public static function cleanSocialUrl(?string $url) : string
+    public static function cleanSocialUrl(?string $url): string
     {
         if (!is_string($url)) {
             return null;
         }
-        
+
         $url = rtrim($url, '/');
         // Remove trailing slashes
         return $url;
