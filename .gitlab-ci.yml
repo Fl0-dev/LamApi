@@ -26,7 +26,7 @@ phpcs:
   script:
       - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
   after_script:
-    - phpcbf -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+      - phpcbf -v --standard=PSR12 --ignore=./src/Kernel.php ./src
   allow_failure: true
 
 phpunit:
@@ -48,5 +48,5 @@ phpunit:
         # - php bin/console doctrine:schema:update --force --env=test 
         # - php bin/console doctrine:fixture:load --no-interaction --env=test
     script:
-        - api/bin/phpunit --configuration phpunit_pgsql.xml --coverage-text
+        - api/vendor/bin/phpunit --configuration phpunit_pgsql.xml --coverage-text
     allow_failure: true

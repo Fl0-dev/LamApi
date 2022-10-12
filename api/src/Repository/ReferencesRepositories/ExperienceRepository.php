@@ -53,7 +53,6 @@ class ExperienceRepository
 
         foreach ($experiences as $experience) {
             if ($experience->getId() === $id) {
-
                 return $experience;
             }
         }
