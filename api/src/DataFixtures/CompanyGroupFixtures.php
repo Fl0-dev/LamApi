@@ -44,7 +44,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->setCreationYear(2018);
         $profile->setSocialFeed($socialFeed);
         $profile->setMiddleAge(35);
-        $profile->setUsText('TGS France est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés partout en France.');
+        $profile->setUsText(
+            'TGS France est un cabinet comptable spécialisé 
+            dans la gestion des entreprises. Nous sommes situés partout en France.'
+        );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
@@ -53,7 +56,9 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('TGS France');
-        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
+        $companyGroup->setSubscriptionType(
+            (new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId()
+        );
         $companyGroup->setSlug('tgs-france');
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff0000');
@@ -203,7 +208,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->setSocialFeed($socialFeed);
         $profile->setCreationYear(2015);
         $profile->setMiddleAge(41);
-        $profile->setUsText('Eolis est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à Nantes');
+        $profile->setUsText(
+            'Eolis est un cabinet comptable spécialisé 
+            dans la gestion des entreprises. Nous sommes situés à Nantes'
+        );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
 
         $companyGroup = new CompanyGroup();
@@ -211,7 +219,9 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Eolis');
-        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
+        $companyGroup->setSubscriptionType(
+            (new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId()
+        );
         $companyGroup->setSlug('eolis');
         $companyGroup->setCareerWebsite(false);
         $companyGroup->setColor('#ff1111');
@@ -331,7 +341,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->setWorkforce((new Workforce(Workforce::LEVEL_2, '10 à 19 salariés'))->getId());
         $profile->setCreationYear(2019);
         $profile->setMiddleAge(26);
-        $profile->setUsText('Livli est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés à St Nazaire');
+        $profile->setUsText(
+            'Livli est un cabinet comptable spécialisé 
+            dans la gestion des entreprises. Nous sommes situés à St Nazaire'
+        );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
@@ -340,7 +353,9 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Livli');
-        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
+        $companyGroup->setSubscriptionType(
+            (new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId()
+        );
         $companyGroup->setSlug('livli');
         $companyGroup->setCareerWebsite(true);
         $companyGroup->setColor('#ff2222');
@@ -469,7 +484,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->setWorkforce((new Workforce(Workforce::LEVEL_6, '200 à 499 salariés'))->getId());
         $profile->setCreationYear(2000);
         $profile->setMiddleAge(38);
-        $profile->setUsText('In Extenso est un cabinet comptable spécialisé dans la gestion des entreprises. Nous sommes situés dans l\'Ouest');
+        $profile->setUsText(
+            'In Extenso est un cabinet comptable spécialisé 
+            dans la gestion des entreprises. Nous sommes situés dans l\'Ouest'
+        );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
         $companyGroup = new CompanyGroup();
@@ -477,7 +495,9 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('In Extenso');
-        $companyGroup->setSubscriptionType((new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId());
+        $companyGroup->setSubscriptionType(
+            (new CompanySubscriptionType(CompanySubscriptionType::PREMIUM, 'Premium'))->getId()
+        );
         $companyGroup->setSlug('in-extenso');
         $companyGroup->setCareerWebsite(true);
         $companyGroup->setColor('#ff3333');

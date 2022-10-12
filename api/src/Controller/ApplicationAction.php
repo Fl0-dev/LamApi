@@ -20,7 +20,7 @@ class ApplicationAction extends AbstractController
     public const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
     public const POST_APPLICATION_OFFER_IDENTIFIER_NAME = 'offerId';
     public const ENDPOINT_FOR_POST_APPLICATION_BY_OFFER_ID = '_api_/applications/{offerId}_post';
-    public const ENDPOINT_FOR_POST_APPLICATION_SPONTANEOUS = '_api_/applications/spontaneaous/{companyEntityOfficeId}_post';
+    public const ENDPOINT_FOR_POST_APPLICATION_SPONTANEOUS = '_api_/applications/spontaneous/{companyEntityOfficeId}_post';
 
     public function __construct(
         private CompanyEntityOfficeRepository $companyEntityOfficeRepository,

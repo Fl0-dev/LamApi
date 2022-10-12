@@ -22,10 +22,10 @@ abstract class UserAbstract extends User
     private $slug;
 
     #[ORM\Column(type: "string", length: 180)]
-    private $contact_email;
+    private $contactEmail;
 
     #[ORM\Column(type: "string", length: 180)]
-    private $contact_phone;
+    private $contactPhone;
 
     public function getType(): string
     {
@@ -73,41 +73,41 @@ abstract class UserAbstract extends User
     }
 
     /**
-     * Get the value of contact_email
+     * Get the value of contactEmail
      */
-    public function getContact_email()
+    public function getContactEmail()
     {
-        return $this->contact_email;
+        return $this->contactEmail;
     }
 
     /**
-     * Set the value of contact_email
+     * Set the value of contactEmail
      *
      * @return  self
      */
-    public function setContact_email($contact_email)
+    public function setContactEmail($contactEmail)
     {
-        $this->contact_email = $contact_email;
+        $this->contactEmail = $contactEmail;
 
         return $this;
     }
 
     /**
-     * Get the value of contact_phone
+     * Get the value of contactPhone
      */
-    public function getContact_phone()
+    public function getContactPhone()
     {
-        return $this->contact_phone;
+        return $this->contactPhone;
     }
 
     /**
-     * Set the value of contact_phone
+     * Set the value of contactPhone
      *
      * @return  self
      */
-    public function setContact_phone($contact_phone)
+    public function setContactPhone($contactPhone)
     {
-        $this->contact_phone = $contact_phone;
+        $this->contactPhone = $contactPhone;
 
         return $this;
     }

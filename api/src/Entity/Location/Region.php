@@ -3,7 +3,6 @@
 namespace App\Entity\Location;
 
 use ApiPlatform\Metadata\ApiResource;
-
 use App\Repository\LocationRepositories\RegionRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;

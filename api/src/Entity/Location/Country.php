@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Country
 {
     use Uuid;
-
     use Slug;
 
     #[ORM\Column(type: 'string', length: 75)]

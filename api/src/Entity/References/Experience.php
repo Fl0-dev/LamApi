@@ -72,8 +72,14 @@ class Experience extends Reference
     private ?string $duration = null;
     private ?int $minNbMonths = null;
 
-    public function __construct(string $slug, string $label, int $value, string $full, string $duration, int $minNbMonths)
-    {
+    public function __construct(
+        string $slug,
+        string $label,
+        int $value,
+        string $full,
+        string $duration,
+        int $minNbMonths
+    ) {
         parent::__construct($slug, $label);
         $this->value = $value;
         $this->full = $full;

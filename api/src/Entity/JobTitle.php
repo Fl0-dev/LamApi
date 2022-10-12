@@ -23,6 +23,7 @@ class JobTitle
     use Uuid;
     use Slug;
     use Label;
+
     public const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',
         'assistant-comptable' => 'Assistant comptable',

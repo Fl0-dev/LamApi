@@ -24,6 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
+
     public const TYPE_PHYSICAL = 'physical';
     public const TYPE_ABSTRACT = 'abstract';
 

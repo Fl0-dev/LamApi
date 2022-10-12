@@ -24,8 +24,7 @@ class IsInRepositoryValidator extends ConstraintValidator
         private ExperienceRepository $experienceRepository,
         private LevelOfStudyRepository $levelOfStudyRepository,
         private WorkforceRepository $workforceRepository
-    )
-    {
+    ) {
     }
 
     public function validate($id, Constraint $constraint)

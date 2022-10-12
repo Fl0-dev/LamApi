@@ -78,7 +78,10 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             }
 
             //department
-            $departments = Utils::getArrayValue('companyEntities_companyEntityOffices_address_city_department', $filters);
+            $departments = Utils::getArrayValue(
+                'companyEntities_companyEntityOffices_address_city_department',
+                $filters
+            );
 
             if ($departments !== null && is_array($departments)) {
                 foreach ($departments as $key => $value) {

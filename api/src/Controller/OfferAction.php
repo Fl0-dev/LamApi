@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OfferAction extends AbstractController
 {
-    public const ENDPOINT_FOR_OFFER_COUNT= '_api_/offers-count_get';
+    public const ENDPOINT_FOR_OFFER_COUNT = '_api_/offers-count_get';
     public const ENDPOINT_FOR_POST_OFFER = '_api_/offers_post';
 
     public function __construct(private OfferRepository $offerRepository)
@@ -37,7 +37,13 @@ class OfferAction extends AbstractController
             //TODO; récupération de l'ats
 
             if ($offer instanceof Offer) {
-                $offer->setHeaderMedia($offer->getCompanyEntityOffice()->getCompanyEntity()->getCompanyGroup()->getHeaderMedia());
+                $offer->setHeaderMedia(
+                    $offer
+                        ->getCompanyEntityOffice()
+                        ->getCompanyEntity()
+                        ->getCompanyGroup()
+                        ->getHeaderMedia()
+                );
                 $offer->setSlug(Slug::getSlugifyString($offer->getTitle()));
             }
 

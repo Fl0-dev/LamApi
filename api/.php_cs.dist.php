@@ -5,9 +5,11 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('var')
 ;
 
-return PhpCsFixer\Config::create()
-    ->setRules([
-        '@Symfony' => true,
+$config = new PhpCsFixer\Config();
+return $config->setRules([
+        '@PSR12' => true,
+        'strict_param' => true,
+        'array_syntax' => ['syntax' => 'short'],
     ])
     ->setFinder($finder)
 ;

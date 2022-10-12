@@ -119,6 +119,7 @@ class Offer
     use Slug;
     use LastModifiedDate;
     use CreatedDate;
+
     public const OPERATION_NAME_GET_ALL_OFFERS = 'getAllOffers';
     public const OPERATION_NAME_GET_OFFER_TEASERS = 'getOfferTeasers';
     public const OPERATION_NAME_POST_OFFER = 'postOffer';
@@ -477,7 +478,8 @@ class Offer
         if ($this->companyEntityOffice instanceof CompanyEntityOffice) {
             $companyGroupSlug = $this->companyEntityOffice->getCompanyEntity()->getCompanyGroup()->getSlug();
             $offerSlug = $this->getSlug();
-            $url = Constants::HOST_URL . '/' . Constants::COMPANY_TAG_SLUG . "/{$companyGroupSlug}/" . Constants::OFFER_TAG_SLUG . "/{$offerSlug}";
+            $url = Constants::HOST_URL . '/'
+            . Constants::COMPANY_TAG_SLUG . "/{$companyGroupSlug}/" . Constants::OFFER_TAG_SLUG . "/{$offerSlug}";
         }
 
         return $url;

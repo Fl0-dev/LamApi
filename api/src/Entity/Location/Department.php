@@ -49,6 +49,7 @@ class Department
 {
     use Uuid;
     use Slug;
+    
     public const OPERATION_NAME_COUNT_ALL_DEPARTMENTS_WITH_COMPANY = 'countAllDepartmentsWithCompany';
 
     #[ORM\Column(type: 'string', length: 75)]

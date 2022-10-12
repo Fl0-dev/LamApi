@@ -11,6 +11,7 @@ abstract class Reference
 {
     use Slug;
     use Label;
+
     #[ApiProperty(identifier: true)]
     private $id;
 

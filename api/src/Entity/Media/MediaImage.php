@@ -309,8 +309,11 @@ class MediaImage extends Media
      *
      * @return self
      */
-    public function optimize($width = self::DEFAULT_MAX_IMAGE_WIDTH, $maxFileSize = self::MAX_IMAGE_FILE_SIZE, $minQuality = self::DEFAULT_MIN_IMAGE_QUALITY)
-    {
+    public function optimize(
+        $width = self::DEFAULT_MAX_IMAGE_WIDTH,
+        $maxFileSize = self::MAX_IMAGE_FILE_SIZE,
+        $minQuality = self::DEFAULT_MIN_IMAGE_QUALITY
+    ) {
         // $this->setFileSize(true);
         // $quality = 80;
         // $last = false;

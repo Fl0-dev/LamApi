@@ -158,6 +158,7 @@ class CompanyGroup
     use Slug;
     use CreatedDate;
     use LastModifiedDate;
+
     public const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
     public const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
     public const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
@@ -235,7 +236,12 @@ class CompanyGroup
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $jobTypes;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
+    #[ORM\OneToMany(
+        mappedBy: 'companyGroup',
+        targetEntity: CompanyEntity::class,
+        cascade: ['persist', 'remove'],
+        fetch: 'EAGER'
+    )]
     #[Groups([
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,

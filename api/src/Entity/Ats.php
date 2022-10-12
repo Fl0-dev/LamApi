@@ -24,6 +24,7 @@ class Ats
 {
     use Uuid;
     use Slug;
+
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $name;
 

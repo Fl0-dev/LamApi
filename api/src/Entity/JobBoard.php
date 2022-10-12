@@ -28,7 +28,9 @@ class JobBoard
 {
     use Uuid;
     use Slug;
+
     public const OPERATION_NAME_GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
+
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
