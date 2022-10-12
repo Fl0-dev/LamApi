@@ -14,7 +14,6 @@ class ExperienceRepository
     {
         $experiences = [];
         $arrayExperiences = Experience::EXPERIENCES;
-        
         if (is_array($arrayExperiences)) {
             foreach ($arrayExperiences as $value => $experience) {
                 $experiences[] = new Experience(
@@ -54,7 +53,7 @@ class ExperienceRepository
 
         foreach ($experiences as $experience) {
             if ($experience->getId() === $id) {
-                
+
                 return $experience;
             }
         }
