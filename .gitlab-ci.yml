@@ -11,7 +11,8 @@ cache:
 
 stages:
   - phpstan
-  - php-cs-fixer
+  - phpcs
+  - build
   - phpunit
 
 phpstan:
@@ -20,19 +21,38 @@ phpstan:
     - phpstan analyse --level=1 src
   allow_failure: true
 
-php-cs-fixer:
-  stage: php-cs-fixer
+phpcs:
+  stage: phpcs
   script:
-      - ci/php-cs-fixer.sh
-  artifacts:
-      paths:
-          - diff.log
-      expire_in: 24 hrs
-      when: on_failure
+      - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
   allow_failure: true
 
-phpunit:
-  stage: phpunit
+build:
+  stage: build
   script:
-    - php bin/phpunit
-  allow_failure: true
+    - composer dump-autoload --optimize
+    - composer install --no-dev --optimize-autoloader
+    - php bin/console doctrine:schema:update --force --env=test 
+    - php bin/console doctrine:fixture:load --no-interaction --env=test
+  dependencies:
+        - build
+
+phpunit:
+    image: php:8.1-apache
+    stage: phpunit
+    services:
+        - postgres
+    variables:
+      POSTGRES_DB: api
+      POSTGRES_USER: api-platform
+      POSTGRES_PASSWORD: password
+      DATABASE_URL: 'postgresql://api-platform:password@localhost:5432/api?serverVersion=13&charset=utf8'
+    before_script:
+        - apt-get update && apt-get install -y git libzip-dev
+        - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
+        - docker-php-ext-install pdo_mysql pdo_pgsql zip
+        - php bin/console doctrine:schema:update --force --env=test 
+        - php bin/console doctrine:fixture:load --no-interaction --env=test
+    script:
+        - vendor/bin/phpunit --configuration phpunit_pgsql.xml --coverage-text
+    allow_failure: true
