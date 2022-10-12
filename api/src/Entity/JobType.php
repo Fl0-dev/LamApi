@@ -31,6 +31,7 @@ class JobType
     use Uuid;
     use Slug;
     use Label;
+
     public const JOB_TYPES = [
         'expertise-comptable' => 'Expertise comptable',
         'audit-commissariat' => 'Audit / Commissariat aux comptes',

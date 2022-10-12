@@ -32,7 +32,7 @@ class City
 {
     use Uuid;
     use Slug;
-    
+
     public const OPERATION_NAME_GET_ALL_CITIES = 'getAllCities';
 
     #[ORM\Column(type: 'string', length: 75)]

@@ -83,13 +83,13 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setContractType((new ContractType(ContractType::CDD, 'CDD'))->getId());
             $offer->setExperience(
                 (new Experience(
-                'lamajunior',
-                'Lamajunior',
-                1,
-                'Lamajunior (- 1 an)',
-                "< 1 an d'expérience",
-                0
-            ))->getId()
+                    'lamajunior',
+                    'Lamajunior',
+                    1,
+                    'Lamajunior (- 1 an)',
+                    "< 1 an d'expérience",
+                    0
+                ))->getId()
             );
             $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
             $offer->setCreatedDate(new \DateTime());
