@@ -27,16 +27,6 @@ phpcs:
       - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
   allow_failure: true
 
-build:
-  stage: build
-  script:
-    - composer dump-autoload --optimize
-    - composer install --no-dev --optimize-autoloader
-    - php bin/console doctrine:schema:update --force --env=test 
-    - php bin/console doctrine:fixture:load --no-interaction --env=test
-  dependencies:
-        - build
-
 phpunit:
     image: php:8.1-apache
     stage: phpunit
