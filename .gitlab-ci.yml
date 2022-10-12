@@ -10,22 +10,21 @@ cache:
     - vendor/
 
 stages:
-  - phpstan
-  - phpcs
-  - build
+  # - phpstan
+  # - phpcs
   - phpunit
 
-phpstan:
-  stage: phpstan
-  script:
-    - phpstan analyse --level=1 src
-  allow_failure: true
+# phpstan:
+#   stage: phpstan
+#   script:
+#     - phpstan analyse --level=1 src
+#   allow_failure: true
 
-phpcs:
-  stage: phpcs
-  script:
-      - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
-  allow_failure: true
+# phpcs:
+#   stage: phpcs
+#   script:
+#       - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+#   allow_failure: true
 
 phpunit:
   image: php:latest
@@ -44,6 +43,7 @@ phpunit:
       - apt-get install -y libpq-dev
       - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
       - docker-php-ext-install pdo_pgsql zip
+      - php composer.phar install
       - php bin/console doctrine:database:drop --force --env=test
       - php bin/console doctrine:database:create --env=test
       - php bin/console doctrine:schema:update --force --env=test 
