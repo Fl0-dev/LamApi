@@ -16,7 +16,7 @@ stages:
 
 phpunit:
   image: php:7.4-cli
-
+  stage: phpunit
   before_script:
     - apt-get update && apt-get install -y git libzip-dev npm wget
     - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
@@ -30,13 +30,11 @@ phpunit:
     - php bin/console doctrine:database:create --env=test
     - php bin/console doctrine:schema:update --force --env=test
     - php bin/console doctrine:fixture:load --no-interaction --env=test 
-
   cache:
     paths:
         - vendor/
   script:
     - php bin/phpunit
-
   allow_failure: true
 
 # phpstan:
