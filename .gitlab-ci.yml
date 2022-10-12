@@ -34,5 +34,5 @@ php-cs-fixer:
 phpunit:
   stage: phpunit
   script:
-    - php bin/phpunit
+    - php bin/phpunit-9-0
   allow_failure: true
