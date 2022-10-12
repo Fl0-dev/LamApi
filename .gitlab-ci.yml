@@ -27,51 +27,28 @@ stages:
 #   allow_failure: true
 
 phpunit:
-    image: php:latest
-    stage: phpunit
-    services:
-        - name: mysql:5.7
-          alias: mysql
-    variables:
-      MYSQL_ROOT_PASSWORD: pass_test
-      MYSQL_DATABASE: myapptest
-      MYSQL_USER: myapptest
-      MYSQL_PASSWORD: myapptest
-      DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
-    before_script:
-        - apt-get update && apt-get install -y git libzip-dev
-        - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
-        - docker-php-ext-install mysqli pdo pdo_mysql zip
-        - cd api
-        - php bin/console doctrine:database:drop --force --env=test
-        - php bin/console doctrine:database:create --env=test
-        - php bin/console doctrine:migration:migrate --env=test --no-interaction
-    script:
-        - php bin/phpunit
-    allow_failure: false
-
-# phpunit:
-#   image: php:latest
-#   stage: phpunit
-#   services:
-#       - name: postgres
-#         alias: postgres
-#   variables:
-#     POSTGRES_DB: api
-#     POSTGRES_USER: api-platform
-#     POSTGRES_PASSWORD: password
-#     DATABASE_URL: 'postgresql://api-platform:password@localhost:3306/api?serverVersion=13&charset=utf8'
-#   before_script:
-#       - apt-get update && apt-get install -y git libzip-dev
-#       - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
-#       - apt-get install -y libpq-dev
-#       - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
-#       - docker-php-ext-install pdo_pgsql zip
-#       - php composer.phar install
-#       - php bin/console doctrine:database:drop --force --env=test
-#       - php bin/console doctrine:database:create --env=test
-#       - php bin/console doctrine:schema:update --force --env=test 
-#       - php bin/console doctrine:fixture:load --no-interaction --env=test
-#   script:
-#       - php bin/phpunit
-#   allow_failure: true
+  image: php:latest
+  stage: phpunit
+  services:
+      - name: postgres
+        alias: postgres
+  variables:
+    POSTGRES_DB: api
+    POSTGRES_USER: api-platform
+    POSTGRES_PASSWORD: password
+    DATABASE_URL: 'postgresql://api-platform:password@localhost:3306/api?serverVersion=13&charset=utf8'
+  before_script:
+      - apt-get update && apt-get install -y git libzip-dev
+      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
+      - apt-get install -y libpq-dev
+      - docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+      - docker-php-ext-install pdo_pgsql zip
+      - php composer.phar install
+      - cd api
+      - php bin/console doctrine:database:drop --force --env=test
+      - php bin/console doctrine:database:create --env=test
+      - php bin/console doctrine:schema:update --force --env=test 
+      - php bin/console doctrine:fixture:load --no-interaction --env=test
+  script:
+      - php bin/phpunit
+  allow_failure: true
