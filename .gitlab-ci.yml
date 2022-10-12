@@ -22,7 +22,7 @@ phpstan:
 
 php-cs-fixer:
       image: jakzal/phpqa
-      stage: tests
+      stage: php-cs-fixer
       script:
           - ci/php-cs-fixer.sh
       artifacts:
@@ -33,7 +33,7 @@ php-cs-fixer:
       allow_failure: true
 
 phpunit:
-      stage: tests
+      stage: phpunit
       dependencies:
         - install
       variables:
