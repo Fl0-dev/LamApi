@@ -8,6 +8,8 @@ use App\Repository\JobTitleRepository;
 
 class JobTitleTest extends ApiTestCase
 {
+    // use RefreshDatabaseTrait;
+    
     public function testGetCollectionOfJobTitles(): void
     {
         $response = static::createClient()->request('GET', '/job_titles');
@@ -35,14 +37,14 @@ class JobTitleTest extends ApiTestCase
 
     public function testGetJobTitle(): void
     {
-        $response = static::createClient()->request('GET', '/job_titles/1ed39a64-e30b-6fc0-9d6c-63bb3c9a0400');
+        $response = static::createClient()->request('GET', '/job_titles/1ed4abfe-cdfc-6eca-9edc-1dae6ea42471');
 
         $this->assertJsonContains([
           "@context" => "/contexts/JobTitle",
-          "@id" => "/job_titles/1ed39a64-e30b-6fc0-9d6c-63bb3c9a0400",
+          "@id" => "/job_titles/1ed4abfe-cdfc-6eca-9edc-1dae6ea42471",
           "@type" => "JobTitle",
           "jobTypes" => [],
-          "id" => "1ed39a64-e30b-6fc0-9d6c-63bb3c9a0400",
+          "id" => "1ed4abfe-cdfc-6eca-9edc-1dae6ea42471",
           "slug" => "assistant-administratif",
           "label" => "Assistant administratif"
         ]);
@@ -76,7 +78,7 @@ class JobTitleTest extends ApiTestCase
 
     public function testIsJobTitle(): void
     {
-        $response = static::createClient()->request('GET', '/job_titles/1ed342cd-a3db-6e3e-b837-bf1b38a66a96');
+        $response = static::createClient()->request('GET', '/job_titles/1ed4abfe-cdfc-6eca-9edc-1dae6ea42471');
 
         $this->assertMatchesResourceItemJsonSchema(JobTitle::class);
     }

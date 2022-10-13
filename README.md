@@ -27,3 +27,10 @@ docker-compose up -d
 ```bash
 php bin/console doctrine:fixtures:load
 ```
+
+## Tests local
+
+```bash
+php bin/phpunit --testdox
+php ./vendor/bin/php-cs-fixer fix ./src
+```
