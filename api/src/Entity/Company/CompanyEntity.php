@@ -2,7 +2,7 @@
 
 namespace App\Entity\Company;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Revision\CompanyEntityRevision;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
@@ -20,8 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: CompanyEntityRepository::class)]
-#[ApiResource()]
 class CompanyEntity
 {
     use Uuid;
@@ -48,19 +48,23 @@ class CompanyEntity
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
-    #[Groups(JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,)]
+    #[Groups(JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS)]
     private $companyGroup;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
-    #[ORM\OneToMany(mappedBy: 'companyEntity', targetEntity: CompanyEntityOffice::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(
+        mappedBy: 'companyEntity',
+        targetEntity: CompanyEntityOffice::class,
+        cascade: ['persist', 'remove']
+    )]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
-        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID
     ])]
     private Collection $companyEntityOffices;
 
@@ -86,7 +90,7 @@ class CompanyEntity
 
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     public function getId(): ?BaseUuid
     {

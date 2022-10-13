@@ -2,10 +2,10 @@
 
 namespace App\Entity\Company;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
-use App\Repository\CompanyProfileRepository;
+use App\Repository\CompanyRepositories\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
 use Doctrine\DBAL\Types\Types;
@@ -16,8 +16,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use App\Validator;
 use Doctrine\Common\Collections\ArrayCollection;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: CompanyProfileRepository::class)]
-#[ApiResource()]
 class CompanyProfile
 {
     use Uuid;
@@ -54,7 +54,7 @@ class CompanyProfile
     #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private ?SocialFeed $socialFeed = null;
 
-    #[Validator\IsInRepository()]
+    #[Validator\IsInRepository]
     #[ORM\Column(nullable: true)]
     private ?string $workforce = null;
 
@@ -204,9 +204,9 @@ class CompanyProfile
     }
 
     #[Groups([
-        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, 
+        CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
-    ])]
+        ])]
     public function getWorkforceLabel(): ?string
     {
         $workforceRepository = new WorkforceRepository();

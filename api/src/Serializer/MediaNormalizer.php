@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
-final class MediaNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+final class MediaNormalizer implements NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -18,8 +18,11 @@ final class MediaNormalizer implements ContextAwareNormalizerInterface, Normaliz
     {
     }
 
-    public function normalize($object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-    {
+    public function normalize(
+        $object,
+        ?string $format = null,
+        array $context = []
+    ): array|string|int|float|bool|\ArrayObject|null {
         $context[self::ALREADY_CALLED] = true;
 
         $object->contentUrl = $this->storage->resolveUri($object, 'file');

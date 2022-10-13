@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class OfferResearchSubscriber implements EventSubscriberInterface
 {
-    const OPERATION_NAME = "api_offers_getOfferTeasers_collection";
+    public const OPERATION_NAME = "api_offers_getOfferTeasers_collection";
 
     public function __construct(
         private OfferRepository $offerRepository,
@@ -31,8 +31,9 @@ class OfferResearchSubscriber implements EventSubscriberInterface
         private OfferResearchRepository $offerResearchRepository,
         private ExperienceRepository $experienceRepository,
         private ContractTypeRepository $contractTypeRepository,
-        ) {}
-    
+    ) {
+    }
+
 
     public function saveOfferResearch(ResponseEvent $event): void
     {
@@ -52,7 +53,6 @@ class OfferResearchSubscriber implements EventSubscriberInterface
 
             if ($jobTitles !== null && is_array($jobTitles)) {
                 foreach ($jobTitles as $key => $value) {
-
                     $jobTitle = $this->jobTitleRepository->findOneBy(['id' => $value]);
 
                     if ($jobTitle instanceof JobTitle) {
@@ -60,7 +60,7 @@ class OfferResearchSubscriber implements EventSubscriberInterface
                     }
                 }
             }
-            
+
             //city
             $cities = Utils::getArrayValue('companyEntityOffice_address_city', $filters);
 
@@ -76,12 +76,11 @@ class OfferResearchSubscriber implements EventSubscriberInterface
 
             //department
             $departments = Utils::getArrayValue('companyEntityOffice_address_city_department', $filters);
-            
-            if ($departments !== null && is_array($departments)) {
 
+            if ($departments !== null && is_array($departments)) {
                 foreach ($departments as $key => $value) {
                     $department = $this->departmentRepository->findOneBy(['id' => $value]);
-                    
+
                     if ($department instanceof Department) {
                         $offerResearch->addDepartment($department);
                     }
@@ -92,7 +91,6 @@ class OfferResearchSubscriber implements EventSubscriberInterface
             $experiences = Utils::getArrayValue('experience', $filters);
 
             if ($experiences !== null && is_array($experiences)) {
-
                 foreach ($experiences as $key => $value) {
                     if ($this->experienceRepository->find($value) !== null) {
                         $offerResearch->addExperience($value);
@@ -104,7 +102,6 @@ class OfferResearchSubscriber implements EventSubscriberInterface
             $contractTypes = Utils::getArrayValue('contractType', $filters);
 
             if ($contractTypes !== null && is_array($contractTypes)) {
-
                 foreach ($contractTypes as $key => $value) {
                     if ($this->contractTypeRepository->find($value) !== null) {
                         $offerResearch->addContractType($value);
@@ -116,20 +113,19 @@ class OfferResearchSubscriber implements EventSubscriberInterface
             $response = $event->getResponse()->getContent();
 
             if ($response) {
-                
                 $offers = json_decode($response, true);
-                
+
                 foreach (Utils::getArrayValue('hydra:member', $offers) as $offerTeaser) {
                     $offer = $this->offerRepository->findOneBy(['id' => Utils::getArrayValue('id', $offerTeaser)]);
-                    
+
                     if ($offer instanceof Offer) {
                         $offerResearch->addOfferResult($offer);
                     }
-                    
+
                     $offerResearch->setCreatedDate(new \DateTime());
                 }
             }
-            
+
             $this->offerResearchRepository->add($offerResearch, true);
         }
     }

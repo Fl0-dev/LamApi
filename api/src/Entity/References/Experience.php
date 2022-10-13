@@ -2,89 +2,84 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Offer\Offer;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Filter\ExperienceFilter;
-use Symfony\Component\Serializer\Annotation\Groups;
+use App\State\ExperienceDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
-
-#[ApiFilter(ExperienceFilter::class)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: ExperienceDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: ExperienceDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
+#[ApiFilter(filterClass: ExperienceFilter::class)]
 class Experience extends Reference
 {
-    const UNSPECIFIED = 0;
-    const JUNIOR = 1;
-    const CONFIRMED = 2;
-    const SENIOR = 3;
-    const EXPERT = 4;
-
-    const EXPERIENCES = [
+    public const UNSPECIFIED = 0;
+    public const JUNIOR = 1;
+    public const CONFIRMED = 2;
+    public const SENIOR = 3;
+    public const EXPERT = 4;
+    public const EXPERIENCES = [
         0 => [
-            'slug'          => 'non-precise',
-            'label'         => 'Non précisé',
-            'full'          => 'Non précisé',
-            'duration'      => 'Non précisé',
-            'minNbMonths'   => 0
+            'slug' => 'non-precise',
+            'label' => 'Non précisé',
+            'full' => 'Non précisé',
+            'duration' => 'Non précisé',
+            'minNbMonths' => 0
         ],
         1 => [
-            'slug'          => 'lamajunior',
-            'label'         => 'Lamajunior',
-            'full'          => 'Lamajunior (- 1 an)',
-            'duration'      => "< 1 an d'expérience",
-            'minNbMonths'   => 0
+            'slug' => 'lamajunior',
+            'label' => 'Lamajunior',
+            'full' => 'Lamajunior (- 1 an)',
+            'duration' => "< 1 an d'expérience",
+            'minNbMonths' => 0
         ],
         2 => [
-            'slug'          => 'lamaffirmé',
-            'label'         => 'Lamaffirmé',
-            'full'          => 'Lamaffirmé (1 à 2 ans)',
-            'duration'      => "de 1 à 2 ans d'expérience",
-            'minNbMonths'   => 12
+            'slug' => 'lamaffirmé',
+            'label' => 'Lamaffirmé',
+            'full' => 'Lamaffirmé (1 à 2 ans)',
+            'duration' => "de 1 à 2 ans d'expérience",
+            'minNbMonths' => 12
         ],
         3 => [
-            'slug'          => 'lamasenior',
-            'label'         => 'Lamasenior',
-            'full'          => 'Lamasenior (2 à 5 ans)',
-            'duration'      => "de 2 à 5 ans d'expérience",
-            'minNbMonths'   => 24
+            'slug' => 'lamasenior',
+            'label' => 'Lamasenior',
+            'full' => 'Lamasenior (2 à 5 ans)',
+            'duration' => "de 2 à 5 ans d'expérience",
+            'minNbMonths' => 24
         ],
         4 => [
-            'slug'          => 'lamexpert',
-            'label'         => 'Lamexpert',
-            'full'          => 'Lamexpert (+ 5 ans)',
-            'duration'      => "+ de 5 ans d'expérience",
-            'minNbMonths'   => 60
+            'slug' => 'lamexpert',
+            'label' => 'Lamexpert',
+            'full' => 'Lamexpert (+ 5 ans)',
+            'duration' => "+ de 5 ans d'expérience",
+            'minNbMonths' => 60
         ]
     ];
 
     private ?int $value = null;
-
     private ?string $full = null;
-
     private ?string $duration = null;
-
     private ?int $minNbMonths = null;
 
-
-    public function __construct(string $slug, string $label ,int $value, string $full, string $duration, int $minNbMonths)
-    {
+    public function __construct(
+        string $slug,
+        string $label,
+        int $value,
+        string $full,
+        string $duration,
+        int $minNbMonths
+    ) {
         parent::__construct($slug, $label);
         $this->value = $value;
         $this->full = $full;
@@ -92,80 +87,48 @@ class Experience extends Reference
         $this->minNbMonths = $minNbMonths;
     }
 
-    /**
-     * Get the value of value
-     */
-    public function getValue()
+    public function getValue(): ?int
     {
         return $this->value;
     }
 
-    /**
-     * Set the value of value
-     *
-     * @return  self
-     */
-    public function setValue($value)
+    public function setValue(int $value): self
     {
         $this->value = $value;
 
         return $this;
     }
 
-    /**
-     * Get the value of full
-     */
-    public function getFull()
+    public function getFull(): ?string
     {
         return $this->full;
     }
 
-    /**
-     * Set the value of full
-     *
-     * @return  self
-     */
-    public function setFull($full)
+    public function setFull(string $full): self
     {
         $this->full = $full;
 
         return $this;
     }
 
-    /**
-     * Get the value of duration
-     */
-    public function getDuration()
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    /**
-     * Set the value of duration
-     *
-     * @return  self
-     */
-    public function setDuration($duration)
+    public function setDuration(string $duration): self
     {
         $this->duration = $duration;
 
         return $this;
     }
 
-    /**
-     * Get the value of minNbMonths
-     */
-    public function getMinNbMonths()
+    public function getMinNbMonths(): ?int
     {
         return $this->minNbMonths;
     }
 
-    /**
-     * Set the value of minNbMonths
-     *
-     * @return  self
-     */
-    public function setMinNbMonths($minNbMonths)
+    public function setMinNbMonths(int $minNbMonths): self
     {
         $this->minNbMonths = $minNbMonths;
 

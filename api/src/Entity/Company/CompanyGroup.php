@@ -2,10 +2,12 @@
 
 namespace App\Entity\Company;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\CompanyGroupController;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use App\Controller\CompanyGroupAction;
 use App\Entity\Ats;
 use App\Entity\Badge;
 use App\Entity\Revision\CompanyGroupRevision;
@@ -27,178 +29,150 @@ use Symfony\Component\Uid\Uuid as BaseUuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
-#[ApiResource(
-    collectionOperations: [
-        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS => [
-            'method' => 'GET',
-            'path' => '/company-groups/teasers',
-            'openapi_context' => [],
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS],
-            ],
-        ],
-        self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS => [
-            'method' => 'GET',
-            'path' => '/company-groups/name/keywords={keywords}',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS],
-            ],
-            'controller' => CompanyGroupController::class,
-            'filters' => [],
-            'openapi_context' => [
-                'summary' => 'Retrieves list of CompanyGroups names by keywords',
-                'description' => 'Retrieves list of CompanyGroups names by keywords',
-                'parameters' => [
-                    [
-                        'name' => 'keywords',
-                        'in' => 'path',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
-                ],
-            ],
-        ],
-    ],
-    itemOperations: [
-        ############################## GET DETAILS OF ONE COMPANYGROUP ##############################
-        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS => [
-            'method' => 'GET',
-            'path' => '/company-groups/{id}',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS],
-            ],
-        ],
-        ############################## GET NUMBER OF COMPANYGROUPS ##############################
-        self::OPERATION_NAME_COUNT_COMPANY_GROUPS => [
-            'method' => 'GET',
-            'path' => '/count-company-groups',
-            'controller' => CompanyGroupController::class,
-            'pagination_enabled' => false,
-            'read' => false,
-            'filters' => [],
-            'openapi_context' => [
-                'summary' => 'Count all company groups',
-                'description' => 'Count all company groups. #withoutIdentifier',
-                'parameters' => [],
-                'responses' => [
-                    '200' => [
-                        'description' => 'Count all company groups',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'integer',
-                                    'example' => 91,
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
+#[ApiResource(operations: [
+    new Get(
+        uriTemplate: '/company-groups/{id}',
+        normalizationContext: [
+            'groups' => ['getCompanyGroupDetails']
+        ]
+    ), new Get(
+        uriTemplate: '/count-company-groups',
+        controller: CompanyGroupAction::class,
+        paginationEnabled: false,
+        read: false,
+        filters: [],
+        uriVariables: [],
+        openapiContext: [
+            'summary' => 'Count all company groups',
+            'description' => 'Count all company groups',
+            'parameters' => [],
+            'responses' => [
+                [
+                    'description' => 'Count all company groups',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'integer',
+                                'example' => 91
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new Get(
+        uriTemplate: '/company-groups/{id}/offers',
+        normalizationContext: [
+            'groups' => [
+                'getCompanyGroupOffers'
             ]
         ],
-        ############################## GET ALL OFFERS BY COMPANYGROUP ID ##############################
-        self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID => [
-            'method' => 'GET',
-            'path' => '/company-groups/{id}/offers',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID, ],
-            ],
-            'openapi_context' => [
-                'summary' => 'Retrieves list of offers by company group id',
-                'description' => 'Retrieves list of offers by company group id',
-                'parameters' => [
-                    [
-                        'name' => 'id',
-                        'in' => 'path',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
-                ],
-            ],
+        openapiContext: [
+            'summary' => 'Retrieves list of offers by company group id',
+            'description' => 'Retrieves list of offers by company group id',
+            'parameters' => [
+                [
+                    'name' => 'id',
+                    'in' => 'path',
+                    'required' => true,
+                    'schema' => ['type' => 'string']
+                ]
+            ]
+        ]
+    ),
+    new Get(
+        uriTemplate: '/company-groups/{id}/offices',
+        normalizationContext: [
+            'groups' => ['getCompanyGroupOffices']
         ],
-        ############################## GET ALL OFFICES BY COMPANYGROUP ID ##############################
-        self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID => [
-            'method' => 'GET',
-            'path' => '/company-groups/{id}/offices',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID],
-            ],
-            'openapi_context' => [
-                'summary' => 'Retrieves list of offices by company group id',
-                'description' => 'Retrieves list of offices by company group id',
-                'parameters' => [
-                    [
-                        'name' => 'id',
-                        'in' => 'path',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
-                ],
-            ],
+        openapiContext: [
+            'summary' => 'Retrieves list of offices by company group id',
+            'description' => 'Retrieves list of offices by company group id',
+            'parameters' => [
+                [
+                    'name' => 'id',
+                    'in' => 'path',
+                    'required' => true,
+                    'schema' => [
+                        'type' => 'string'
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new Get(
+        uriTemplate: '/company-groups/{id}/applications',
+        normalizationContext: [
+            'groups' => ['getCompanyGroupApplications']
         ],
-        ############################## GET ALL APPLICATIONS BY COMPANYGROUP ID ##############################
-        self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID => [
-            'method' => 'GET',
-            'path' => '/company-groups/{id}/applications',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID],
-            ],
-            'openapi_context' => [
-                'summary' => 'Retrieves list of applications by company group id',
-                'description' => 'Retrieves list of applications by company group id',
-                'parameters' => [
-                    [
-                        'name' => 'id',
-                        'in' => 'path',
-                        'required' => true,
-                        'schema' => [
-                            'type' => 'string',
-                        ],
-                    ],
-                ],
-            ],
+        openapiContext: [
+            'summary' => 'Retrieves list of applications by company group id',
+            'description' => 'Retrieves list of applications by company group id',
+            'parameters' => [
+                [
+                    'name' => 'id',
+                    'in' => 'path',
+                    'required' => true,
+                    'schema' => [
+                        'type' => 'string'
+                    ]
+                ]
+            ]
+        ]
+    ),
+    new GetCollection(
+        uriTemplate: '/company-group-teasers',
+        normalizationContext: [
+            'groups' => ['getCompanyGroupTeaser']
+        ]
+    ),
+    new GetCollection(
+        uriTemplate: '/company-groups/name/keywords={keywords}',
+        normalizationContext: [
+            'groups' => ['companyGroupsNameByKeywords']
         ],
-    ]
-)]
+        controller: CompanyGroupAction::class,
+        uriVariables: ['keywords' => 'string'],
+        openapiContext: [
+            'summary' => 'Retrieves list of CompanyGroups names by keywords',
+            'description' => 'Retrieves list of CompanyGroups names by keywords',
+        ]
+    ),
+])]
+#[ORM\Entity(repositoryClass: CompanyGroupRepository::class)]
 #[ApiFilter(
-    SearchFilter::class,
+    filterClass: SearchFilter::class,
     properties: [
         'jobTypes',
         'name' => 'ipartial',
-        'badges',
-        'profile.tools',
-        'profile.workforce', //slug exact match
-        'companyEntities.companyEntityOffices.address.city', //uuid exact match
-        'companyEntities.companyEntityOffices.address.city.department', //uuid exact match
+        'badges', 'profile.tools',
+        'profile.workforce',
+        'companyEntities.companyEntityOffices.address.city',
+        'companyEntities.companyEntityOffices.address.city.department'
     ]
 )]
 class CompanyGroup
 {
-    const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
-    const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
-    const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
-    const OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffices';
-    const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
-    const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
-    const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
-
     use Uuid;
     use Slug;
     use CreatedDate;
     use LastModifiedDate;
+
+    public const OPERATION_NAME_COUNT_COMPANY_GROUPS = 'countCompanyGroups';
+    public const OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS = 'companyGroupsNameByKeywords';
+    public const OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID = 'getCompanyGroupApplications';
+    public const OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffices';
+    public const OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID = 'getCompanyGroupOffers';
+    public const OPERATION_NAME_GET_COMPANY_GROUP_DETAILS = 'getCompanyGroupDetails';
+    public const OPERATION_NAME_GET_COMPANY_GROUP_TEASERS = 'getCompanyGroupTeaser';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $name;
 
@@ -262,7 +236,12 @@ class CompanyGroup
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $jobTypes;
 
-    #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyEntity::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
+    #[ORM\OneToMany(
+        mappedBy: 'companyGroup',
+        targetEntity: CompanyEntity::class,
+        cascade: ['persist', 'remove'],
+        fetch: 'EAGER'
+    )]
     #[Groups([
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
@@ -301,7 +280,6 @@ class CompanyGroup
 
     #[ORM\OneToMany(mappedBy: 'companyGroup', targetEntity: CompanyGroupRevision::class, orphanRemoval: true)]
     private Collection $companyGroupRevisions;
-
     #[ORM\ManyToMany(targetEntity: Badge::class)]
     private Collection $badges;
 
@@ -335,7 +313,6 @@ class CompanyGroup
     public function setName(?string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -347,10 +324,8 @@ class CompanyGroup
     public function setPublishDate(?\DateTimeInterface $publishDate): self
     {
         $this->publishDate = $publishDate;
-
         return $this;
     }
-
     public function getStatus(): ?string
     {
         return $this->status;
@@ -359,7 +334,6 @@ class CompanyGroup
     public function setStatus(?string $status): self
     {
         $this->status = $status;
-
         return $this;
     }
 
@@ -371,7 +345,6 @@ class CompanyGroup
     public function setGlobalHrMail(?string $globalHrMail): self
     {
         $this->globalHrMail = $globalHrMail;
-
         return $this;
     }
 
@@ -383,7 +356,6 @@ class CompanyGroup
     public function setReferralCode(?string $referralCode): self
     {
         $this->referralCode = $referralCode;
-
         return $this;
     }
 
@@ -395,7 +367,6 @@ class CompanyGroup
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
-
         return $this;
     }
 
@@ -407,7 +378,6 @@ class CompanyGroup
     public function setCareerWebsite(bool $careerWebsite): self
     {
         $this->careerWebsite = $careerWebsite;
-
         return $this;
     }
 
@@ -419,7 +389,6 @@ class CompanyGroup
     public function setOpenToRecruitment(bool $openToRecruitment): self
     {
         $this->openToRecruitment = $openToRecruitment;
-
         return $this;
     }
 
@@ -431,7 +400,6 @@ class CompanyGroup
     public function setColor(string $color): self
     {
         $this->color = $color;
-
         return $this;
     }
 
@@ -448,14 +416,12 @@ class CompanyGroup
         if (!$this->pools->contains($pool)) {
             $this->pools[] = $pool;
         }
-
         return $this;
     }
 
     public function removePool(Organisation $pool): self
     {
         $this->pools->removeElement($pool);
-
         return $this;
     }
 
@@ -472,14 +438,12 @@ class CompanyGroup
         if (!$this->partners->contains($partner)) {
             $this->partners[] = $partner;
         }
-
         return $this;
     }
 
     public function removePartner(Organisation $partner): self
     {
         $this->partners->removeElement($partner);
-
         return $this;
     }
 
@@ -491,7 +455,6 @@ class CompanyGroup
     public function setLogo(?Media $logo): self
     {
         $this->logo = $logo;
-
         return $this;
     }
 
@@ -503,7 +466,6 @@ class CompanyGroup
     public function setHeaderMedia(?Media $headerMedia): self
     {
         $this->headerMedia = $headerMedia;
-
         return $this;
     }
 
@@ -515,7 +477,6 @@ class CompanyGroup
     public function setMainMedia(?Media $mainMedia): self
     {
         $this->mainMedia = $mainMedia;
-
         return $this;
     }
 
@@ -532,14 +493,12 @@ class CompanyGroup
         if (!$this->jobTypes->contains($jobType)) {
             $this->jobTypes[] = $jobType;
         }
-
         return $this;
     }
 
     public function removeJobType(JobType $jobType): self
     {
         $this->jobTypes->removeElement($jobType);
-
         return $this;
     }
 
@@ -557,7 +516,6 @@ class CompanyGroup
             $this->companyEntities[] = $companyEntity;
             $companyEntity->setCompanyGroup($this);
         }
-
         return $this;
     }
 
@@ -569,7 +527,6 @@ class CompanyGroup
                 $companyEntity->setCompanyGroup(null);
             }
         }
-
         return $this;
     }
 
@@ -586,14 +543,12 @@ class CompanyGroup
         if (!$this->admins->contains($admin)) {
             $this->admins[] = $admin;
         }
-
         return $this;
     }
 
     public function removeAdmin(Employer $admin): self
     {
         $this->admins->removeElement($admin);
-
         return $this;
     }
 
@@ -604,31 +559,33 @@ class CompanyGroup
         return $nbBadges;
     }
 
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     public function getNbOffers(): ?int
     {
         $companyEntities = $this->getCompanyEntities();
         $nbOffers = 0;
-
         foreach ($companyEntities as $companyEntity) {
             foreach ($companyEntity->getCompanyEntityOffices() as $office) {
                 $nbOffers += count($office->getOffers());
             }
         }
-
         return $nbOffers;
     }
 
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS, self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
+        self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
+    ])]
     public function getNbCompanyEntityOffices(): ?int
     {
         $companyEntities = $this->getCompanyEntities();
         $nbOffices = 0;
-
         foreach ($companyEntities as $companyEntity) {
             $nbOffices += count($companyEntity->getCompanyEntityOffices());
         }
-
         return $nbOffices;
     }
 
@@ -645,14 +602,12 @@ class CompanyGroup
         if (!$this->ats->contains($ats)) {
             $this->ats->add($ats);
         }
-
         return $this;
     }
 
     public function removeAts(Ats $ats): self
     {
         $this->ats->removeElement($ats);
-
         return $this;
     }
 

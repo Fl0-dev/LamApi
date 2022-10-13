@@ -2,32 +2,28 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\State\CompanySubscriptionTypeDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: CompanySubscriptionTypeDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: CompanySubscriptionTypeDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
 class CompanySubscriptionType extends Reference
 {
-    const FREE = 'free';
-    const PREMIUM = 'premium';
-
-    const COMPANY_SUBSCRIPTION_TYPES = [
+    public const FREE = 'free';
+    public const PREMIUM = 'premium';
+    public const COMPANY_SUBSCRIPTION_TYPES = [
         [
             'slug' => self::FREE,
             'label' => 'Free'
@@ -35,7 +31,7 @@ class CompanySubscriptionType extends Reference
         [
             'slug' => self::PREMIUM,
             'label' => 'Premium'
-        ],
+        ]
     ];
 
     public static function isCompanySubscriptionType(array $typeSlugs): bool

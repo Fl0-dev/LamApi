@@ -2,7 +2,7 @@
 
 namespace App\Entity\Applicant;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
@@ -12,9 +12,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
 #[ORM\Table(name: "applicant")]
-#[ApiResource()]
 class Applicant extends UserPhysical
 {
     #[ORM\Column(type: 'text', nullable: true)]
@@ -63,6 +63,11 @@ class Applicant extends UserPhysical
         parent::__construct();
         $this->applicantCvs = new ArrayCollection();
         $this->applications = new ArrayCollection();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_APPLICANT;
     }
 
     public function getDefaultMotivationText(): ?string

@@ -2,7 +2,7 @@
 
 namespace App\Entity\Revision;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Offer\Offer;
 use App\Repository\RevisionRepositories\OfferRevisionRepository;
 use App\Transversal\CreatedDate;
@@ -11,8 +11,8 @@ use App\Transversal\FieldName;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: OfferRevisionRepository::class)]
 class OfferRevision
 {
     use Uuid;

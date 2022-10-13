@@ -14,11 +14,13 @@ class OfferStatusRepository
     {
         $statuses = [];
         $arrayStatuses = OfferStatus::STATUSES;
-        
-        if (is_array($arrayStatuses) && !empty($arrayStatuses)) {
 
+        if (is_array($arrayStatuses)) {
             foreach ($arrayStatuses as $status) {
-                $statuses[] = new OfferStatus(Utils::getArrayValue('slug', $status), Utils::getArrayValue('label', $status));
+                $statuses[] = new OfferStatus(
+                    Utils::getArrayValue('slug', $status),
+                    Utils::getArrayValue('label', $status)
+                );
             }
         }
 

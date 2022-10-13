@@ -18,7 +18,7 @@ class OfferHistoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, OfferStatusHistory::class);
+        parent::__construct($registry, OfferHistory::class);
     }
 
     public function add(OfferHistory $entity, bool $flush = false): void

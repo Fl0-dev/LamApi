@@ -5,11 +5,9 @@ namespace App\Repository\ReferencesRepositories;
 use App\Entity\References\CompanySubscriptionType;
 use App\Utils\Utils;
 
-class CompanySubscriptionTypeRepository 
+class CompanySubscriptionTypeRepository
 {
     /**
-     * Undocumented function
-     *
      * @return CompanySubscriptionType[]
      */
     public function findAll(): array
@@ -17,8 +15,13 @@ class CompanySubscriptionTypeRepository
         $companySubscriptionTypes = [];
         $arrayCompanySubscriptionTypes = CompanySubscriptionType::COMPANY_SUBSCRIPTION_TYPES;
 
-        foreach ($arrayCompanySubscriptionTypes as $companySubscriptionType) {
-            $companySubscriptionTypes[] = new CompanySubscriptionType(Utils::getArrayValue('slug', $companySubscriptionType), Utils::getArrayValue('label', $companySubscriptionType));
+        if (is_array($arrayCompanySubscriptionTypes)) {
+            foreach ($arrayCompanySubscriptionTypes as $companySubscriptionType) {
+                $companySubscriptionTypes[] = new CompanySubscriptionType(
+                    Utils::getArrayValue('slug', $companySubscriptionType),
+                    Utils::getArrayValue('label', $companySubscriptionType)
+                );
+            }
         }
 
         return $companySubscriptionTypes;

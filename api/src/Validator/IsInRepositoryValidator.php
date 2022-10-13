@@ -14,17 +14,17 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class IsInRepositoryValidator extends ConstraintValidator
 {
-    const PROPERTY_CONTRACT_TYPE = 'contractType';
-    const PROPERTY_EXPERIENCE = 'experience';
-    const PROPERTY_LEVEL_OF_STUDY = 'levelOfStudy';
-    const PROPERTY_WORKFORCE = 'workforce';
+    public const PROPERTY_CONTRACT_TYPE = 'contractType';
+    public const PROPERTY_EXPERIENCE = 'experience';
+    public const PROPERTY_LEVEL_OF_STUDY = 'levelOfStudy';
+    public const PROPERTY_WORKFORCE = 'workforce';
 
     public function __construct(
-        private ContractTypeRepository $contractTypeRepository, 
-        private ExperienceRepository $experienceRepository, 
+        private ContractTypeRepository $contractTypeRepository,
+        private ExperienceRepository $experienceRepository,
         private LevelOfStudyRepository $levelOfStudyRepository,
-        private WorkforceRepository $workforceRepository)
-    {
+        private WorkforceRepository $workforceRepository
+    ) {
     }
 
     public function validate($id, Constraint $constraint)

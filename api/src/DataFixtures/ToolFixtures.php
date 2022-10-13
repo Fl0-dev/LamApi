@@ -13,7 +13,7 @@ class ToolFixtures extends Fixture
     public const TOOL_REFERENCE_2 = 'tool2';
     public const TOOL_REFERENCE_3 = 'tool3';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $tool = new Tool();
         $tool->setLabel('Teams');

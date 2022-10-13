@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Repository\OrganisationRepository;
@@ -12,8 +12,8 @@ use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: OrganisationRepository::class)]
-#[ApiResource()]
 class Organisation
 {
     use Uuid;

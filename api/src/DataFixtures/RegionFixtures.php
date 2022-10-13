@@ -11,7 +11,7 @@ class RegionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const REGION_REFERENCE = 'region';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $region = new Region();
         $region->setName('Pays de la Loire');

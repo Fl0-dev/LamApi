@@ -2,20 +2,19 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\InheritanceType("JOINED")]
-#[ORM\DiscriminatorColumn(name: "typeOfAbstractUser", type: "string")]
-#[ORM\DiscriminatorMap([
-    "api" => "UserApi"
-])]
+#[ORM\DiscriminatorColumn(name: "type", type: "string")]
+#[ORM\DiscriminatorMap(["api" => UserApi::class])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
-#[ApiResource()]
 abstract class UserAbstract extends User
 {
+    public const TYPE_API = "api";
+
     #[ORM\Column(type: "string", length: 180)]
     private $name;
 
@@ -23,13 +22,15 @@ abstract class UserAbstract extends User
     private $slug;
 
     #[ORM\Column(type: "string", length: 180)]
-    private $contact_email;
+    private $contactEmail;
 
     #[ORM\Column(type: "string", length: 180)]
-    private $contact_phone;
+    private $contactPhone;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $type = [];
+    public function getType(): string
+    {
+        return self::TYPE_ABSTRACT;
+    }
 
     /**
      * Get the value of name
@@ -72,61 +73,41 @@ abstract class UserAbstract extends User
     }
 
     /**
-     * Get the value of contact_email
+     * Get the value of contactEmail
      */
-    public function getContact_email()
+    public function getContactEmail()
     {
-        return $this->contact_email;
+        return $this->contactEmail;
     }
 
     /**
-     * Set the value of contact_email
+     * Set the value of contactEmail
      *
      * @return  self
      */
-    public function setContact_email($contact_email)
+    public function setContactEmail($contactEmail)
     {
-        $this->contact_email = $contact_email;
+        $this->contactEmail = $contactEmail;
 
         return $this;
     }
 
     /**
-     * Get the value of contact_phone
+     * Get the value of contactPhone
      */
-    public function getContact_phone()
+    public function getContactPhone()
     {
-        return $this->contact_phone;
+        return $this->contactPhone;
     }
 
     /**
-     * Set the value of contact_phone
+     * Set the value of contactPhone
      *
      * @return  self
      */
-    public function setContact_phone($contact_phone)
+    public function setContactPhone($contactPhone)
     {
-        $this->contact_phone = $contact_phone;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of type
-     */
-    public function getTypeOfAbstractUser()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @return  self
-     */
-    public function setTypeOfAbstractUser($type)
-    {
-        $this->type = $type;
+        $this->contactPhone = $contactPhone;
 
         return $this;
     }

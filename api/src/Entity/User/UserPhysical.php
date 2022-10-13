@@ -2,24 +2,24 @@
 
 namespace App\Entity\User;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "admin" => "UserAdmin",
-    "applicant" => Applicant::class,
-    "employer" => "Employer",
-])]
+#[ORM\DiscriminatorMap(["admin" => UserAdmin::class, "applicant" => Applicant::class, "employer" => Employer::class])]
 #[ORM\Entity]
 #[ORM\Table(name: "physical_user")]
-#[ApiResource()]
 class UserPhysical extends User
 {
+    public const TYPE_ADMIN = "admin";
+    public const TYPE_APPLICANT = "applicant";
+    public const TYPE_EMPLOYER = "employer";
+
     #[ORM\Column(type: "string", length: 180)]
     #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
     private $firstname;
@@ -34,6 +34,11 @@ class UserPhysical extends User
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_PHYSICAL;
     }
 
     /**
@@ -72,26 +77,6 @@ class UserPhysical extends User
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @return  self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }

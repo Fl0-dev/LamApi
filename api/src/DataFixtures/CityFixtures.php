@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Location\City;
+use App\Entity\Location\Department;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -14,7 +15,7 @@ class CityFixtures extends Fixture implements DependentFixtureInterface
     public const CITY_REFERENCE_3 = 'city3';
     public const CITY_REFERENCE_4 = 'city4';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $city = new City();
         $city->setName('Nantes');
