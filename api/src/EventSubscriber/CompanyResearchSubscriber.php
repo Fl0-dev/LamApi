@@ -24,9 +24,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class CompanyResearchSubscriber implements EventSubscriberInterface
 {
-    const OPERATION_NAME = "api_company_groups_getCompanyGroupTeaser_collection";   
+    public const OPERATION_NAME = "api_company_groups_getCompanyGroupTeaser_collection";
 
-    public function  __construct(
+    public function __construct(
         private CityRepository $cityRepository,
         private DepartmentRepository $departmentRepository,
         private JobTypeRepository $jobTypeRepository,
@@ -35,8 +35,9 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
         private CompanyGroupRepository $companyGroupRepository,
         private WorkforceRepository $workforceRepository,
         private CompanyResearchRepository $companyResearchRepository,
-        ) {}
-        
+    ) {
+    }
+
     public function saveCompanyResearch(ResponseEvent $event): void
     {
         //récupère l'opération en cours
@@ -54,7 +55,6 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             $jobTypes = Utils::getArrayValue('jobTypes', $filters);
 
             if ($jobTypes !== null && is_array($jobTypes)) {
-
                 foreach ($jobTypes as $key => $value) {
                     $jobType = $this->jobTypeRepository->findOneBy(['id' => $value]);
 
@@ -68,7 +68,6 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             $cities = Utils::getArrayValue('companyEntities_companyEntityOffices_address_city', $filters);
 
             if ($cities !== null && is_array($cities)) {
-
                 foreach ($cities as $key => $value) {
                     $city = $this->cityRepository->findOneBy(['id' => $value]);
 
@@ -79,10 +78,12 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             }
 
             //department
-            $departments = Utils::getArrayValue('companyEntities_companyEntityOffices_address_city_department', $filters);
+            $departments = Utils::getArrayValue(
+                'companyEntities_companyEntityOffices_address_city_department',
+                $filters
+            );
 
             if ($departments !== null && is_array($departments)) {
-
                 foreach ($departments as $key => $value) {
                     $department = $this->departmentRepository->findOneBy(['id' => $value]);
 
@@ -96,7 +97,6 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             $tools = Utils::getArrayValue('profile_tools', $filters);
 
             if ($tools !== null && is_array($tools)) {
-
                 foreach ($tools as $key => $value) {
                     $tool = $this->toolRepository->findOneBy(['id' => $value]);
 
@@ -110,7 +110,6 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             $badges = Utils::getArrayValue('badges', $filters);
 
             if ($badges !== null && is_array($badges)) {
-
                 foreach ($badges as $key => $value) {
                     $badge = $this->badgeRepository->findOneBy(['id' => $value]);
 
@@ -124,7 +123,6 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
             $workforces = Utils::getArrayValue('profile_workforce', $filters);
 
             if ($workforces !== null && is_array($workforces)) {
-
                 foreach ($workforces as $key => $value) {
                     if ($this->workforceRepository->find($value) !== null) {
                         $companyResearch->addWorkforce($value);
@@ -151,14 +149,13 @@ class CompanyResearchSubscriber implements EventSubscriberInterface
                     if ($companyGroup instanceof CompanyGroup) {
                         $companyResearch->addCompanyResult($companyGroup);
                     }
-                    
+
                     $companyResearch->setCreatedDate(new \DateTime());
                 }
             }
-            
+
             $this->companyResearchRepository->add($companyResearch, true);
         }
-        
     }
 
     public static function getSubscribedEvents(): array

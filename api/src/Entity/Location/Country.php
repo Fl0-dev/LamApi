@@ -2,7 +2,7 @@
 
 namespace App\Entity\Location;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\LocationRepositories\CountryRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -10,8 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
-#[ApiResource()]
 class Country
 {
     use Uuid;

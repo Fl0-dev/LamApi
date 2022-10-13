@@ -2,35 +2,31 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\State\OfferStatusDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: OfferStatusDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: OfferStatusDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
 class OfferStatus extends Reference
 {
-    const DRAFT = 'draft';
-    const PUBLISHED = 'published';
-    const PROVIDED = 'provided';
-    const DISABLED = 'disabled';
-    const ARCHIVED = 'archived';
-
-    const STATUSES = [
+    public const DRAFT = 'draft';
+    public const PUBLISHED = 'published';
+    public const PROVIDED = 'provided';
+    public const DISABLED = 'disabled';
+    public const ARCHIVED = 'archived';
+    public const STATUSES = [
         [
             'slug' => self::DRAFT,
             'label' => 'Draft'
@@ -50,7 +46,7 @@ class OfferStatus extends Reference
         [
             'slug' => self::ARCHIVED,
             'label' => 'Archived'
-        ],
+        ]
     ];
 
     public static function isStatus($statusSlug)

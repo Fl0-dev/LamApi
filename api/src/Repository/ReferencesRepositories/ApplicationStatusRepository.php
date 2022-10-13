@@ -7,7 +7,6 @@ use App\Utils\Utils;
 
 class ApplicationStatusRepository
 {
-
     /**
      * @return ApplicantStatus[]
      */
@@ -16,8 +15,13 @@ class ApplicationStatusRepository
         $applicantStatuses = [];
         $arrayApplicantStatuses = ApplicationStatus::APPLICATION_STATUSES;
 
-        foreach ($arrayApplicantStatuses as $applicantStatus) {
-            $applicantStatuses[] = new ApplicationStatus(Utils::getArrayValue('slug', $applicantStatus), Utils::getArrayValue('label', $applicantStatus));
+        if (is_array($arrayApplicantStatuses)) {
+            foreach ($arrayApplicantStatuses as $applicantStatus) {
+                $applicantStatuses[] = new ApplicationStatus(
+                    Utils::getArrayValue('slug', $applicantStatus),
+                    Utils::getArrayValue('label', $applicantStatus)
+                );
+            }
         }
 
         return $applicantStatuses;

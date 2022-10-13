@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Offer\Offer;
 use App\Repository\JobTitleRepository;
 use App\Transversal\Label;
@@ -15,12 +15,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: JobTitleRepository::class)]
-#[ApiResource()]
-#[ApiFilter(SearchFilter::class, properties: ['slug' => 'ipartial'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['slug' => 'ipartial'])]
 class JobTitle
 {
-    const JOB_TITLES = [
+    use Uuid;
+    use Slug;
+    use Label;
+
+    public const JOB_TITLES = [
         'assistant-administratif' => 'Assistant administratif',
         'assistant-comptable' => 'Assistant comptable',
         'assistant-juridique-droit-des-societes' => 'Assistant juridique - Droit des Sociétés',
@@ -34,9 +38,8 @@ class JobTitle
         'collaborateur-comptable' => 'Collaborateur Comptable',
         'collaborateur-comptable-et-audit' => 'Collaborateur Comptable et Audit',
         'communication-marketing' => 'Communication / Marketing',
-        'consultant-junior' => 'Consultant Junior',
-        'consultant-manager' => 'Consultant Manager',
-        'consultant-senior' => 'Consultant Senior',
+        'consultant-junior' => 'Consultant Junior', 'consultant-manager' =>
+        'consultant Manager', 'consultant-senior' => 'Consultant Senior',
         'controleur-de-gestion' => 'Contrôleur de Gestion',
         'directeur-audit' => 'Directeur Audit',
         'expert-comptable' => 'Expert-Comptable',
@@ -56,9 +59,6 @@ class JobTitle
         'senior-manager-audit' => 'Senior Manager Audit',
         'transmission-cession' => 'Transmission / Cession'
     ];
-    use Uuid;
-    use Slug;
-    use Label;
 
     #[ORM\ManyToMany(targetEntity: JobType::class)]
     private $jobTypes;
@@ -68,9 +68,7 @@ class JobTitle
         $this->jobTypes = new ArrayCollection();
     }
 
-    #[Groups([
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-    ])]
+    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS])]
     public function getLabel(): ?string
     {
         return $this->label;

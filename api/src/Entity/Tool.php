@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\Media;
 use App\Entity\Offer\Offer;
@@ -17,9 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid as BaseUuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ToolRepository::class)]
-#[ApiResource()]
-#[ApiFilter(SearchFilter::class, properties: ['slug' => 'ipartial'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['slug' => 'ipartial'])]
 class Tool
 {
     use Uuid;
@@ -29,14 +29,14 @@ class Tool
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-    ])]
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS
+        ])]
     private ?Media $logo = null;
 
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-    ])]
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS
+        ])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
@@ -46,6 +46,7 @@ class Tool
     {
         return $this->logo;
     }
+
 
     public function setLogo(?Media $logo): self
     {
@@ -58,16 +59,14 @@ class Tool
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-        Offer::OPERATION_NAME_GET_ALL_OFFERS,
-    ])]
+        Offer::OPERATION_NAME_GET_ALL_OFFERS
+        ])]
     public function getTool(): array
     {
-        $logoPath= $this->getLogo()->getFilePath();
+        $logoPath = $this->getLogo()->getFilePath();
         $arrayToolInfos = [
             'id' => $this->getId(),
-            'label' => $this->getLabel(),
-            'url' => Constants::HOST_URL . "/$logoPath",
-        ];
+            'label' => $this->getLabel(), 'url' => Constants::HOST_URL . "/{$logoPath}"];
 
         return $arrayToolInfos;
     }

@@ -2,46 +2,34 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
 use App\Filter\ContractTypeFilter;
+use App\State\ContractTypeDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-        'post' => [
-            'controller' => NotFoundAction::class,
-            'read' => false, // pour supprimer la lecture
-            'output' => false, // pour supprimer la sortie
-            'openapi_context' => [
-                'summary' => 'hidden', //Indique le summary à supprimer avec openapiFactory  
-            ]
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
-#[ApiFilter(ContractTypeFilter::class)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: ContractTypeDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: ContractTypeDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
+#[ApiFilter(filterClass: ContractTypeFilter::class)]
 class ContractType extends Reference
 {
-    const CDD = 'cdd';
-    const CDI = 'cdi';
-    const ALTERNANCE = 'alternance';
-    const INTERNSHIP = 'internship';
-    const FREELANCE = 'freelance';
-
-    const CONTRACT_TYPES = [
+    public const CDD = 'cdd';
+    public const CDI = 'cdi';
+    public const ALTERNANCE = 'alternance';
+    public const INTERNSHIP = 'internship';
+    public const FREELANCE = 'freelance';
+    public const CONTRACT_TYPES = [
         [
             'slug' => self::CDD,
             'label' => 'CDD'
@@ -61,7 +49,7 @@ class ContractType extends Reference
         [
             'slug' => self::FREELANCE,
             'label' => 'Indépendant'
-        ],
+        ]
     ];
 
     public static function isContractType(string $contractTypeSlug): ?bool

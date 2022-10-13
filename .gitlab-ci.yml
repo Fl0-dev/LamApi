@@ -1,0 +1,26 @@
+image:
+  jakzal/phpqa
+
+before_script:
+    - cd api
+    - composer install
+
+cache:
+  paths:
+    - vendor/
+
+stages:
+  - phpstan
+  - phpcs
+
+phpstan:
+  stage: phpstan
+  script:
+    - phpstan analyse --level=1 src
+  allow_failure: true
+
+phpcs:
+  stage: phpcs
+  script:
+      - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+  allow_failure: true

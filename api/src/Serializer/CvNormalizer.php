@@ -3,12 +3,11 @@
 namespace App\Serializer;
 
 use App\Entity\Applicant\ApplicantCv;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
-final class CvNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+final class CvNormalizer implements NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -18,8 +17,11 @@ final class CvNormalizer implements ContextAwareNormalizerInterface, NormalizerA
     {
     }
 
-    public function normalize($object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-    {
+    public function normalize(
+        $object,
+        ?string $format = null,
+        array $context = []
+    ): array|string|int|float|bool|\ArrayObject|null {
         $context[self::ALREADY_CALLED] = true;
 
         $object->contentUrl = $this->storage->resolveUri($object, 'file');

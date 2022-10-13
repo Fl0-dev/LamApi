@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Offer\Offer;
 use App\Repository\JobBoardRepository;
 use App\Transversal\Slug;
@@ -12,27 +15,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(operations: [
+    new Get(
+        uriTemplate: '/job-boards/{id}/offers',
+        normalizationContext: ['groups' => ['getJobBoardOffers']],
+        formats: ['json' => ['application/json']]
+    ),
+    new Post(),
+    new GetCollection()])]
 #[ORM\Entity(repositoryClass: JobBoardRepository::class)]
-#[ApiResource(
-    itemOperations: [
-        self::OPERATION_NAME_GET_JOB_BOARD_OFFERS => [
-            'method' => 'GET',
-            'path' => '/job-boards/{id}/offers',
-            'normalization_context' => [
-                'groups' => [self::OPERATION_NAME_GET_JOB_BOARD_OFFERS]
-            ],
-            'formats' => [
-                'json' => ['application/json'],
-            ],
-        ],
-    ],
-)]
 class JobBoard
 {
-    const OPERATION_NAME_GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
-
     use Uuid;
     use Slug;
+
+    public const OPERATION_NAME_GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
@@ -42,7 +39,6 @@ class JobBoard
 
     #[ORM\Column(type: 'boolean')]
     private $free;
-
     #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'jobBoards')]
     #[Groups([JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
     private $offers;
@@ -84,7 +80,6 @@ class JobBoard
     public function setFree(bool $free): self
     {
         $this->free = $free;
-
         return $this;
     }
 

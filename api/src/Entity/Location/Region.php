@@ -2,16 +2,14 @@
 
 namespace App\Entity\Location;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\JobBoard;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\LocationRepositories\RegionRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: RegionRepository::class)]
-#[ApiResource()]
 class Region
 {
     use Uuid;

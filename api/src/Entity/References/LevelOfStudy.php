@@ -2,41 +2,37 @@
 
 namespace App\Entity\References;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\State\LevelOfStudyDataProvider;
 
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References'],
-            ],
-        ],
-    ],
-    itemOperations: [
-        'get' => [
-            'method' => 'GET',
-            'openapi_context' => [
-                'tags' => ['References by id'],
-            ],
-        ], 
-    ]
-)]
+#[
+    ApiResource(operations: [
+        new Get(
+            provider: LevelOfStudyDataProvider::class,
+            openapiContext: ['tags' => ['References by id']]
+        ),
+        new GetCollection(
+            provider: LevelOfStudyDataProvider::class,
+            openapiContext: ['tags' => ['References']]
+        )
+    ])
+]
 class LevelOfStudy extends Reference
 {
-    const UNSPECIFIED = 'non-precise';
-    const CAP_BEP = 'cap-bep';
-    const BAC = 'bac';
-    const BAC_1 = 'bac+1';
-    const BAC_2 = 'bac+2';
-    const BAC_3 = 'bac+3';
-    const BAC_4 = 'bac+4';
-    const BAC_5 = 'bac+5';
-    const BAC_6 = 'bac+6';
-    const BAC_7 = 'bac+7';
-    const BAC_8 = 'bac+8';
-
-    const LEVEL_OF_STUDIES = [
+    public const UNSPECIFIED = 'non-precise';
+    public const CAP_BEP = 'cap-bep';
+    public const BAC = 'bac';
+    public const BAC_1 = 'bac+1';
+    public const BAC_2 = 'bac+2';
+    public const BAC_3 = 'bac+3';
+    public const BAC_4 = 'bac+4';
+    public const BAC_5 = 'bac+5';
+    public const BAC_6 = 'bac+6';
+    public const BAC_7 = 'bac+7';
+    public const BAC_8 = 'bac+8';
+    public const LEVEL_OF_STUDIES = [
         [
             'slug' => self::UNSPECIFIED,
             'label' => 'Non précisé'
@@ -80,7 +76,7 @@ class LevelOfStudy extends Reference
         [
             'slug' => self::BAC_8,
             'label' => 'BAC + 8'
-        ],
+        ]
     ];
 
     public static function isLevelOfStudy($levelOfStudySlug)

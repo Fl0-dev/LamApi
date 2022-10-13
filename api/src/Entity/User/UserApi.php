@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "api_user")]
 class UserApi extends UserAbstract
 {
-
     #[ORM\Column(type: "string", length: 255)]
     private $tokenLocal;
 
@@ -20,7 +19,7 @@ class UserApi extends UserAbstract
 
     /**
      * Get the value of tokenLocal
-     */ 
+     */
     public function getTokenLocal()
     {
         return $this->tokenLocal;
@@ -30,7 +29,7 @@ class UserApi extends UserAbstract
      * Set the value of tokenLocal
      *
      * @return  self
-     */ 
+     */
     public function setTokenLocal($tokenLocal)
     {
         $this->tokenLocal = $tokenLocal;
@@ -40,7 +39,7 @@ class UserApi extends UserAbstract
 
     /**
      * Get the value of tokenQualification
-     */ 
+     */
     public function getTokenQualification()
     {
         return $this->tokenQualification;
@@ -50,7 +49,7 @@ class UserApi extends UserAbstract
      * Set the value of tokenQualification
      *
      * @return  self
-     */ 
+     */
     public function setTokenQualification($tokenQualification)
     {
         $this->tokenQualification = $tokenQualification;
@@ -60,7 +59,7 @@ class UserApi extends UserAbstract
 
     /**
      * Get the value of tokenProduction
-     */ 
+     */
     public function getTokenProduction()
     {
         return $this->tokenProduction;
@@ -70,11 +69,16 @@ class UserApi extends UserAbstract
      * Set the value of tokenProduction
      *
      * @return  self
-     */ 
+     */
     public function setTokenProduction($tokenProduction)
     {
         $this->tokenProduction = $tokenProduction;
 
         return $this;
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_API;
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Entity\Location;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use App\Controller\LocalisationAction;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\JobBoard;
 use App\Entity\Offer\Offer;
@@ -11,8 +14,30 @@ use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(operations: [
+    new Get(),
+    new GetCollection(
+        uriTemplate: '/localisations',
+        uriVariables: [],
+        controller: LocalisationAction::class,
+        openapiContext: [
+            'tags' => ['Localisation'],
+            'summary' => 'Get all localisations with keywords',
+            'parameters' => [
+                [
+                    'name' => 'keywords',
+                    'in' => 'query',
+                    'description' => 'Keywords to search',
+                    'required' => true,
+                    'schema' => [
+                        'type' => 'string'
+                    ]
+                ]
+            ]
+        ],
+    )
+])]
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-#[ApiResource()]
 class Address
 {
     use Uuid;
@@ -20,8 +45,8 @@ class Address
     #[ORM\Column(type: 'string', length: 50)]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -30,8 +55,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
@@ -40,8 +65,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
@@ -50,8 +75,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     private $latitude;
 
     #[ORM\Column(type: 'float')]
@@ -60,8 +85,7 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
     private $longitude;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
@@ -71,8 +95,8 @@ class Address
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-    ])]
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        ])]
     private $city;
 
     public function getName(): ?string
@@ -149,8 +173,8 @@ class Address
 
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
-    ])]
+        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        ])]
     public function getCityInfos(): ?array
     {
         $arrayCityInfos = [
@@ -158,8 +182,9 @@ class Address
             'name' => $this->city->getName(),
             'fullName' => $this->city->getCityNameAndDepartmentCode(),
             'department' => $this->city->getDepartment()->getName(),
-            'region' => $this->city->getDepartment()->getRegion()->getName(),
+            'region' => $this->city->getDepartment()->getRegion()->getName()
         ];
+
         return $arrayCityInfos;
     }
 }

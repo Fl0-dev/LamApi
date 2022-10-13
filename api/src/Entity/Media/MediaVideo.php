@@ -2,16 +2,26 @@
 
 namespace App\Entity\Media;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MediaRepositories\MediaVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: MediaVideoRepository::class)]
-#[ApiResource()]
 class MediaVideo extends Media
 {
     #[ORM\Column(type: 'boolean')]
     private bool $autoplay = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_VIDEO;
+    }
 
     public function isAutoplay()
     {

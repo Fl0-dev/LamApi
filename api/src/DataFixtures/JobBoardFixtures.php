@@ -15,7 +15,7 @@ class JobBoardFixtures extends Fixture
     public const JOB_BOARD_REFERENCE_5 = 'jobBoard5';
     public const JOB_BOARD_REFERENCE_6 = 'jobBoard6';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $jobBoard = new JobBoard();
         $jobBoard->setName('Linkedin');

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Company\CompanyGroup;
 use App\Repository\SocialRepository;
 use App\Transversal\Uuid;
@@ -10,8 +10,8 @@ use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: SocialRepository::class)]
-#[ApiResource()]
 class Social
 {
     use Uuid;
@@ -54,7 +54,6 @@ class Social
     public function setLinkedin(?string $linkedin): self
     {
         $linkedin = self::cleanSocialUrl($linkedin);
-
         if (Utils::isUrl($linkedin) || is_null($linkedin)) {
             $this->linkedin = $linkedin;
         }
@@ -70,7 +69,6 @@ class Social
         return Utils::isUrl($this->getLinkedin());
     }
 
-
     public function getTwitter(): ?string
     {
         return $this->twitter;
@@ -82,7 +80,6 @@ class Social
     public function setTwitter(?string $twitter): self
     {
         $twitter = self::cleanSocialUrl($twitter);
-
         if (Utils::isUrl($twitter) || is_null($twitter)) {
             $this->twitter = $twitter;
         }
@@ -124,7 +121,6 @@ class Social
     public function setInstagram(?string $instagram): self
     {
         $instagram = self::cleanSocialUrl($instagram);
-
         if (Utils::isUrl($instagram) || is_null($instagram)) {
             $this->instagram = $instagram;
         }
@@ -151,7 +147,6 @@ class Social
     public function setYoutube(?string $youtube): self
     {
         $youtube = self::cleanSocialUrl($youtube);
-
         if (Utils::isUrl($youtube) || is_null($youtube)) {
             $this->youtube = $youtube;
         }
@@ -174,10 +169,12 @@ class Social
      */
     public static function cleanSocialUrl(?string $url): string
     {
-        if (!is_string($url)) return null;
+        if (!is_string($url)) {
+            return null;
+        }
 
-        $url = rtrim($url, '/'); // Remove trailing slashes
-
+        $url = rtrim($url, '/');
+        // Remove trailing slashes
         return $url;
     }
 }

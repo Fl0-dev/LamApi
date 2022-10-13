@@ -2,7 +2,7 @@
 
 namespace App\Entity\Research;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\JobTitle;
 use App\Entity\Location\City;
@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource()]
+#[ApiResource]
 #[ORM\Entity(repositoryClass: OfferResearchRepository::class)]
 class OfferResearch
 {
@@ -96,7 +96,6 @@ class OfferResearch
     public function removeDepartment(Department $department): self
     {
         $this->departments->removeElement($department);
-
         return $this;
     }
 
@@ -134,7 +133,6 @@ class OfferResearch
         if (!is_array($this->experiences)) {
             $this->experiences = [];
         }
-
         if (!in_array($experience, $this->experiences)) {
             $this->experiences[] = $experience;
         }
@@ -146,7 +144,7 @@ class OfferResearch
     {
         if (in_array($experience, $this->experiences)) {
             unset($experience, $this->experiences);
-        } 
+        }
 
         return $this;
     }
@@ -161,7 +159,6 @@ class OfferResearch
         if (!is_array($this->contractTypes)) {
             $this->contractTypes = [];
         }
-
         if (!in_array($contractType, $this->contractTypes)) {
             $this->contractTypes[] = $contractType;
         }
@@ -173,7 +170,7 @@ class OfferResearch
     {
         if (in_array($contractType, $this->contractTypes)) {
             unset($contractType, $this->contractTypes);
-        } 
+        }
 
         return $this;
     }
@@ -186,7 +183,6 @@ class OfferResearch
     public function setApplicant(?Applicant $applicant): self
     {
         $this->applicant = $applicant;
-
         return $this;
     }
 

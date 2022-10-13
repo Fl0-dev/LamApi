@@ -2,7 +2,7 @@
 
 namespace App\Entity\Research;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
 use App\Entity\Company\CompanyGroup;
@@ -18,8 +18,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CompanyResearchRepository::class)]
 #[ApiResource]
+#[ORM\Entity(repositoryClass: CompanyResearchRepository::class)]
 class CompanyResearch
 {
     use Uuid;
@@ -48,7 +48,6 @@ class CompanyResearch
 
     #[ORM\ManyToOne]
     private ?Applicant $applicant = null;
-
     #[ORM\ManyToMany(targetEntity: CompanyGroup::class)]
     private Collection $companyResults;
 
@@ -84,7 +83,6 @@ class CompanyResearch
         if (!is_array($this->workforces)) {
             $this->workforces = [];
         }
-        
         if (!in_array($workforce, $this->workforces)) {
             $this->workforces[] = $workforce;
         }
@@ -96,7 +94,7 @@ class CompanyResearch
     {
         if (in_array($workforce, $this->workforces)) {
             unset($workforce, $this->workforces);
-        } 
+        }
 
         return $this;
     }
@@ -213,7 +211,6 @@ class CompanyResearch
 
         return $this;
     }
-
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);

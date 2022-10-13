@@ -7,7 +7,6 @@ use App\Utils\Utils;
 
 class WorkforceRepository
 {
-
     /**
      * @return Workforce[]
      */
@@ -16,8 +15,7 @@ class WorkforceRepository
         $workforces = [];
         $arrayWorkforces = Workforce::WORKFORCES;
 
-        if (is_array($arrayWorkforces) && !empty($arrayWorkforces)) {
-
+        if (is_array($arrayWorkforces)) {
             foreach ($arrayWorkforces as $workforce) {
                 $workforces[] = new Workforce(
                     Utils::getArrayValue('slug', $workforce),
@@ -35,7 +33,6 @@ class WorkforceRepository
         $results = [];
 
         if (is_array($workforces) && !empty($workforces)) {
-
             foreach ($workforces as $workforce) {
                 if (strpos($workforce->getSlug(), $keywords) !== false) {
                     $results[] = $workforce;
@@ -51,7 +48,6 @@ class WorkforceRepository
         $workforces = $this->findAll();
 
         foreach ($workforces as $workforce) {
-            
             if ($workforce->getId() === $id) {
                 return $workforce;
             }

@@ -15,7 +15,7 @@ class OrganisationFixtures extends Fixture
     public const ORGANISATION_REFERENCE_4 = 'organisation4';
     public const ORGANISATION_REFERENCE_5 = 'organisation5';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $organisation = new Organisation();
         $organisation->setCreatedDate(new \DateTime());
