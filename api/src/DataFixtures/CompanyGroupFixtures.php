@@ -77,6 +77,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
 
+        $companyGroup->addAdmin($this->getReference(UserFixtures::EMPLOYER_REFERENCE_1));
+
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/logo.png');
         $media->setCreatedDate(new \DateTime());
@@ -133,6 +135,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('tgs-france-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(UserFixtures::EMPLOYER_REFERENCE_2));
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
@@ -296,6 +299,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('eolis-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(UserFixtures::EMPLOYER_REFERENCE_3));
 
 
         $companyEntityOffice = new CompanyEntityOffice();
@@ -440,6 +444,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('livli-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(UserFixtures::EMPLOYER_REFERENCE_4));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli-ouest.com/assets/images/media1.png');
@@ -632,6 +637,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            UserFixtures::class,
             OrganisationFixtures::class,
             CityFixtures::class,
             JobTypeFixtures::class,

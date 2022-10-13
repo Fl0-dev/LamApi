@@ -190,12 +190,12 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function getExperience(): ?int
+    public function getExperience(): ?string
     {
         return $this->experience;
     }
 
-    public function setExperience(?int $experience): self
+    public function setExperience(?string $experience): self
     {
         $this->experience = $experience;
 

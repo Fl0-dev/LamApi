@@ -65,6 +65,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_1));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1)
             );
@@ -124,6 +125,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_2));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1)
             );
@@ -137,6 +139,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_3));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_1)
             );
@@ -189,6 +192,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_3));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3)
             );
@@ -202,6 +206,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_4));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_4));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3)
             );
@@ -254,6 +259,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_1));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_1));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3)
             );
@@ -267,6 +273,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_2));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3)
             );
@@ -280,6 +287,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_3));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_3));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_3)
             );
@@ -336,6 +344,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $application->setScore(10);
             $application->setStatus((new ApplicationStatus(ApplicationStatus::NEW, 'New'))->getId());
             $application->setCv($this->getReference(ApplicantCvFixtures::APPLICANT_CV_REFERENCE_2));
+            $application->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_2));
             $application->setCompanyEntityOffice(
                 $this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_OFFICE_REFERENCE_4)
             );
@@ -595,6 +604,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ToolFixtures::class,
+            ApplicantFixtures::class,
             ApplicantCvFixtures::class,
             AtsFixtures::class,
             JobBoardFixtures::class,

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorMap(["api" => UserApi::class])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
-abstract class UserAbstract extends User
+class UserAbstract extends User
 {
     public const TYPE_API = "api";
 

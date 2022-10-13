@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Ats;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class AtsFixtures extends Fixture
+class AtsFixtures extends Fixture implements DependentFixtureInterface
 {
     public const ATS_REFERENCE_1 = 'ats1';
     public const ATS_REFERENCE_2 = 'ats2';
@@ -24,6 +25,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('digital-recruiters');
         $ats->setDescription('description de Digital Recruiters');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_1));
         $this->addReference(self::ATS_REFERENCE_1, $ats);
         $manager->persist($ats);
 
@@ -32,6 +34,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('flatchr');
         $ats->setDescription('description de Flatchr');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_2));
         $this->addReference(self::ATS_REFERENCE_2, $ats);
         $manager->persist($ats);
 
@@ -40,6 +43,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('rhprofiler');
         $ats->setDescription('description de RhProfiler');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_3));
         $this->addReference(self::ATS_REFERENCE_3, $ats);
         $manager->persist($ats);
 
@@ -48,6 +52,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('taleez');
         $ats->setDescription('description de Taleez');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_4));
         $this->addReference(self::ATS_REFERENCE_4, $ats);
         $manager->persist($ats);
 
@@ -56,6 +61,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('talentdetection');
         $ats->setDescription('description de TalentDetection');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_5));
         $this->addReference(self::ATS_REFERENCE_5, $ats);
         $manager->persist($ats);
 
@@ -64,6 +70,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('talentplug');
         $ats->setDescription('description de TalentPlug');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_6));
         $this->addReference(self::ATS_REFERENCE_6, $ats);
         $manager->persist($ats);
 
@@ -72,6 +79,7 @@ class AtsFixtures extends Fixture
         $ats->setSlug('teamtailor');
         $ats->setDescription('description de Teamtailor');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_7));
         $this->addReference(self::ATS_REFERENCE_7, $ats);
         $manager->persist($ats);
 
@@ -80,9 +88,17 @@ class AtsFixtures extends Fixture
         $ats->setSlug('werecruit');
         $ats->setDescription('description de WeRecruit');
         $ats->setFree(true);
+        $ats->setAbstractUser($this->getReference(UserFixtures::USER_ABSTRACT_REFERENCE_8));
         $this->addReference(self::ATS_REFERENCE_8, $ats);
         $manager->persist($ats);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 }
