@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Offer\Offer;
+use App\Entity\User\UserApi;
 use App\Repository\JobBoardRepository;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
@@ -42,6 +43,9 @@ class JobBoard
     #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'jobBoards')]
     #[Groups([JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
     private $offers;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?UserApi $userApi = null;
 
     public function __construct()
     {
@@ -106,6 +110,18 @@ class JobBoard
         if ($this->offers->removeElement($offer)) {
             $offer->removeJobBoard($this);
         }
+
+        return $this;
+    }
+
+    public function getUserApi(): ?UserApi
+    {
+        return $this->userApi;
+    }
+
+    public function setUserApi(?UserApi $userApi): self
+    {
+        $this->userApi = $userApi;
 
         return $this;
     }
