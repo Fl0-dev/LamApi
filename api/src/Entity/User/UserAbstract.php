@@ -3,23 +3,19 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Ats;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "api" => UserApi::class,
-    "ats" => Ats::class,
+    "jobBoard" => UserJobBoard::class,
+    "ats" => UserAts::class,
 ])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
 abstract class UserAbstract extends User
 {
-    public const TYPE_API = "api";
-
     #[ORM\Column(type: "string", length: 180)]
     private $name;
 
@@ -32,12 +28,20 @@ abstract class UserAbstract extends User
     #[ORM\Column(type: "string", length: 180)]
     private $contactPhone;
 
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tokenLocal;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tokenQualification;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tokenProduction;
+
     public function __construct()
     {
         parent::__construct();
     }
 
-    #[Groups([self::OPERATION_NAME_GET_USERS])]
     public function getType(): string
     {
         return self::TYPE_ABSTRACT;
@@ -119,6 +123,42 @@ abstract class UserAbstract extends User
     public function setContactPhone($contactPhone)
     {
         $this->contactPhone = $contactPhone;
+
+        return $this;
+    }
+
+    public function getTokenLocal()
+    {
+        return $this->tokenLocal;
+    }
+
+    public function setTokenLocal($tokenLocal)
+    {
+        $this->tokenLocal = $tokenLocal;
+
+        return $this;
+    }
+
+    public function getTokenQualification()
+    {
+        return $this->tokenQualification;
+    }
+
+    public function setTokenQualification($tokenQualification)
+    {
+        $this->tokenQualification = $tokenQualification;
+
+        return $this;
+    }
+
+    public function getTokenProduction()
+    {
+        return $this->tokenProduction;
+    }
+
+    public function setTokenProduction($tokenProduction)
+    {
+        $this->tokenProduction = $tokenProduction;
 
         return $this;
     }

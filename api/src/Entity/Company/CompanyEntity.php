@@ -7,7 +7,7 @@ use App\Entity\Revision\CompanyEntityRevision;
 use App\Entity\User\Employer;
 use App\Entity\Media\Media;
 use App\Entity\Company\CompanyProfile;
-use App\Entity\JobBoard;
+use App\Entity\User\UserJobBoard;
 use App\Entity\Offer\Offer;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
 use App\Transversal\CreatedDate;
@@ -43,12 +43,12 @@ class CompanyEntity
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: CompanyGroup::class, inversedBy: 'companyEntities', cascade: ['persist'])]
-    #[Groups(JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS)]
+    #[Groups(UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS)]
     private $companyGroup;
 
     #[ORM\ManyToMany(targetEntity: Employer::class)]
@@ -90,7 +90,7 @@ class CompanyEntity
 
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     public function getId(): ?BaseUuid
     {

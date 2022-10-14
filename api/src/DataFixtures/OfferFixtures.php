@@ -49,12 +49,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-1 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
@@ -109,12 +109,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-1 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
@@ -180,8 +180,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-2 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
@@ -247,8 +247,8 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-2 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
@@ -328,12 +328,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-3 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
@@ -411,12 +411,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-3 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_3));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_5));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
 
@@ -481,10 +481,10 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-5 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 
@@ -548,10 +548,10 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setWeeklyHours(35.5);
             $offer->setStartASAP(true);
             $offer->setPublishedAt(new \DateTime('-5 day'));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
-            $offer->addJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_1));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_2));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_4));
+            $offer->addUserJobBoard($this->getReference(JobBoardFixtures::JOB_BOARD_REFERENCE_6));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
             $offer->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
 

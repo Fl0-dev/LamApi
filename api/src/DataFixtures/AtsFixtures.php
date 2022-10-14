@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Ats;
+use App\Entity\User\UserAts;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -24,7 +24,7 @@ class AtsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('digital-recruiters@gmail.com');
@@ -38,7 +38,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_1, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('flatchr@gmail.com');
@@ -52,7 +52,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_2, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('rhprofiler@gmail.com');
@@ -66,7 +66,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_3, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('taleez@gmail.com');
@@ -80,7 +80,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_4, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('talentdetection@gmail.com');
@@ -94,7 +94,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_5, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('talentplug@gmail.com');
@@ -108,7 +108,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_6, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('teamtailor@gmail.com');
@@ -122,7 +122,7 @@ class AtsFixtures extends Fixture
         $this->addReference(self::ATS_REFERENCE_7, $ats);
         $manager->persist($ats);
 
-        $ats = new Ats();
+        $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
         $ats->setEmail('werecruit@gmail.com');

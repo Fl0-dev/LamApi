@@ -11,7 +11,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Company\CompanyGroup;
-use App\Entity\JobBoard;
+use App\Entity\User\UserJobBoard;
 use App\Entity\Offer\Offer;
 use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
@@ -62,8 +62,8 @@ abstract class Media
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_MEDIA,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $filePath;
 
     /**

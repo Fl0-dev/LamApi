@@ -4,7 +4,7 @@ namespace App\Entity\Company;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Application\Application;
-use App\Entity\JobBoard;
+use App\Entity\User\UserJobBoard;
 use App\Entity\Location\Address;
 use App\Entity\Offer\Offer;
 use App\Repository\CompanyRepositories\CompanyEntityOfficeRepository;
@@ -32,7 +32,7 @@ class CompanyEntityOffice
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private ?string $name = null;
 
@@ -44,14 +44,14 @@ class CompanyEntityOffice
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private ?Address $address = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $hrMailAddress;
 
@@ -60,7 +60,7 @@ class CompanyEntityOffice
     #[Groups([
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private ?CompanyEntity $companyEntity = null;
 
@@ -81,7 +81,7 @@ class CompanyEntityOffice
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     public function getId(): ?BaseUuid
     {

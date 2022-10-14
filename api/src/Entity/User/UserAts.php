@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Media\MediaImage;
 use App\Entity\User\UserAbstract;
-use App\Repository\AtsRepository;
-use App\Transversal\Slug;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
-#[ORM\Entity(repositoryClass: AtsRepository::class)]
-class Ats extends UserAbstract
+#[ORM\Entity()]
+class UserAts extends UserAbstract
 {
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
@@ -21,9 +19,6 @@ class Ats extends UserAbstract
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?MediaImage $logo = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?UserAbstract $abstractUser = null;
 
     public function getDescription(): ?string
     {
@@ -57,18 +52,6 @@ class Ats extends UserAbstract
     public function setLogo(?MediaImage $logo): self
     {
         $this->logo = $logo;
-
-        return $this;
-    }
-
-    public function getAbstractUser(): ?UserAbstract
-    {
-        return $this->abstractUser;
-    }
-
-    public function setAbstractUser(?UserAbstract $abstractUser): self
-    {
-        $this->abstractUser = $abstractUser;
 
         return $this;
     }
