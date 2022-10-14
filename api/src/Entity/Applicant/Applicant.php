@@ -65,7 +65,7 @@ class Applicant extends UserPhysical
         $this->applications = new ArrayCollection();
     }
 
-    public function getType(): string
+    public function getPhysicalType(): string
     {
         return self::TYPE_APPLICANT;
     }

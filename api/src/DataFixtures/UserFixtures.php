@@ -20,15 +20,6 @@ class UserFixtures extends Fixture
     public const ADMIN_REFERENCE_1 = 'admin_1';
     public const ADMIN_REFERENCE_LAMADASH = 'admin_lamadash';
 
-    public const USER_ABSTRACT_REFERENCE_1 = 'user_abstract_1';
-    public const USER_ABSTRACT_REFERENCE_2 = 'user_abstract_2';
-    public const USER_ABSTRACT_REFERENCE_3 = 'user_abstract_3';
-    public const USER_ABSTRACT_REFERENCE_4 = 'user_abstract_4';
-    public const USER_ABSTRACT_REFERENCE_5 = 'user_abstract_5';
-    public const USER_ABSTRACT_REFERENCE_6 = 'user_abstract_6';
-    public const USER_ABSTRACT_REFERENCE_7 = 'user_abstract_7';
-    public const USER_ABSTRACT_REFERENCE_8 = 'user_abstract_8';
-
     public const USER_API_REFERENCE_1 = 'user_api_1';
     public const USER_API_REFERENCE_2 = 'user_api_2';
     public const USER_API_REFERENCE_3 = 'user_api_3';
@@ -122,118 +113,6 @@ class UserFixtures extends Fixture
         $this->addReference(self::ADMIN_REFERENCE_LAMADASH, $userAdmin);
 
         $manager->persist($userAdmin);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('digital-recruiters@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('Digital Recruiters');
-        $userAbstract->setSlug('digital-recruiters');
-        $userAbstract->setcontactEmail('contact@digital-recruiters.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_1, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('flatchr@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('Flatchr');
-        $userAbstract->setSlug('flatchr');
-        $userAbstract->setcontactEmail('contact@flatchr.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_2, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('rhprofiler@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('RhProfiler');
-        $userAbstract->setSlug('rhprofiler');
-        $userAbstract->setcontactEmail('contact@rhprofiler.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_3, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('taleez@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('Taleez');
-        $userAbstract->setSlug('taleez');
-        $userAbstract->setcontactEmail('contact@taleez.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_4, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('talentdetection@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('TalentDetection');
-        $userAbstract->setSlug('talentdetection');
-        $userAbstract->setcontactEmail('contact@talentdetection.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_5, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('talentplug@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('TalentPlug');
-        $userAbstract->setSlug('talentplug');
-        $userAbstract->setcontactEmail('contact@talentplug.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_6, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('teamtailor@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('Teamtailor');
-        $userAbstract->setSlug('teamtailor');
-        $userAbstract->setcontactEmail('contact@teamtailor.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_7, $userAbstract);
-
-        $manager->persist($userAbstract);
-        $manager->flush();
-
-        $userAbstract = new UserAbstract();
-        $userAbstract->setCreatedDate(new \DateTime());
-        $userAbstract->setLastModifiedDate(new \DateTime());
-        $userAbstract->setEmail('werecruit@gmail.com');
-        $userAbstract->setPassword($this->hasher->hashPassword($userAbstract, 'password'));
-        $userAbstract->setName('WeRecruit');
-        $userAbstract->setSlug('werecruit');
-        $userAbstract->setcontactEmail('contact@werecruit.com');
-        $userAbstract->setcontactPhone('0123456789');
-        $this->addReference(self::USER_ABSTRACT_REFERENCE_8, $userAbstract);
-
-        $manager->persist($userAbstract);
         $manager->flush();
 
         $userApi = new UserApi();

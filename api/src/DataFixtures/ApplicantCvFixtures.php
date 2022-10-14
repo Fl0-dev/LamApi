@@ -86,7 +86,7 @@ class ApplicantCvFixtures extends Fixture implements DependentFixtureInterface
         $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_9));
         $this->addReference(self::APPLICANT_CV_REFERENCE_9, $cv);
         $manager->persist($cv);
-        
+
         $manager->flush();
     }
 

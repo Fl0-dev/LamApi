@@ -3,8 +3,10 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Application\Application;
 use App\Repository\UserRepositories\UserRepository;
+use App\State\UserDataProvider;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
@@ -12,18 +14,30 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 
-#[ApiResource]
+#[ApiResource(operations: [
+    new GetCollection(
+        uriTemplate: '/users',
+        // normalizationContext: ['getUsers'],
+        provider: UserDataProvider::class,
+    ),
+])]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'app_user')]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap(["physical" => UserPhysical::class, "abstract" => UserAbstract::class])]
+#[ORM\DiscriminatorMap([
+    "physical" => UserPhysical::class,
+    "abstract" => UserAbstract::class
+])]
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
+
+    public const OPERATION_NAME_GET_USERS = 'getUsers';
 
     public const TYPE_PHYSICAL = 'physical';
     public const TYPE_ABSTRACT = 'abstract';
@@ -38,11 +52,21 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $token;
 
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+    ])]
     private $email;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $mainType;
 
     public function __construct()
     {
+        if ($this instanceof UserPhysical) {
+            $this->mainType = self::TYPE_PHYSICAL;
+        } elseif ($this instanceof UserAbstract) {
+            $this->mainType = self::TYPE_ABSTRACT;
+        }
     }
 
     /**
@@ -110,20 +134,12 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Get the value of email
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 

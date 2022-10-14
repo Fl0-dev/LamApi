@@ -2,32 +2,17 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Media\MediaImage;
 use App\Entity\User\UserAbstract;
 use App\Repository\AtsRepository;
 use App\Transversal\Slug;
-use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: AtsRepository::class)]
-class Ats
+class Ats extends UserAbstract
 {
-    use Uuid;
-    use Slug;
-
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    private $name;
-
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
@@ -39,18 +24,6 @@ class Ats
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?UserAbstract $abstractUser = null;
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {

@@ -31,7 +31,7 @@ class UserAdmin extends UserPhysical
         return $this;
     }
 
-    public function getType(): string
+    public function getPhysicalType(): string
     {
         return self::TYPE_ADMIN;
     }

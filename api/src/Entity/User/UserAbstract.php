@@ -3,15 +3,20 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Ats;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap(["api" => UserApi::class])]
+#[ORM\DiscriminatorMap([
+    "api" => UserApi::class,
+    "ats" => Ats::class,
+])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
-class UserAbstract extends User
+abstract class UserAbstract extends User
 {
     public const TYPE_API = "api";
 
@@ -27,6 +32,12 @@ class UserAbstract extends User
     #[ORM\Column(type: "string", length: 180)]
     private $contactPhone;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    #[Groups([self::OPERATION_NAME_GET_USERS])]
     public function getType(): string
     {
         return self::TYPE_ABSTRACT;

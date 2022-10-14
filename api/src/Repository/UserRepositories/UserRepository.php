@@ -55,4 +55,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->add($user, true);
     }
+
+    public function findAllUsers(): mixed
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT u.id, u.created_date, u.email, u.main_type FROM app_user u';
+        $stmt = $conn->prepare($sql);
+        $users = $stmt->executeQuery();
+
+        return $users->fetchAllAssociative();
+    }
 }

@@ -11,10 +11,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap(["admin" => UserAdmin::class, "applicant" => Applicant::class, "employer" => Employer::class])]
+#[ORM\DiscriminatorMap([
+    "admin" => UserAdmin::class,
+    "applicant" => Applicant::class,
+    "employer" => Employer::class
+])]
 #[ORM\Entity]
 #[ORM\Table(name: "physical_user")]
-class UserPhysical extends User
+abstract class UserPhysical extends User
 {
     public const TYPE_ADMIN = "admin";
     public const TYPE_APPLICANT = "applicant";
@@ -36,6 +40,7 @@ class UserPhysical extends User
         parent::__construct();
     }
 
+    #[Groups([self::OPERATION_NAME_GET_USERS])]
     public function getType(): string
     {
         return self::TYPE_PHYSICAL;

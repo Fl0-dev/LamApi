@@ -77,7 +77,7 @@ class UserApi extends UserAbstract
         return $this;
     }
 
-    public function getType(): string
+    public function getAbtractType(): string
     {
         return self::TYPE_API;
     }
