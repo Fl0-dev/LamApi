@@ -3,7 +3,6 @@
 namespace App\Entity\Location;
 
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use App\Controller\LocalisationAction;
 use App\Entity\Company\CompanyGroup;
@@ -15,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(operations: [
-    new Get(),
     new GetCollection(
         uriTemplate: '/localisations',
         uriVariables: [],

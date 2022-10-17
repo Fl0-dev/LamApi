@@ -4,6 +4,7 @@ namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use App\Controller\UserInfoAction;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use App\Repository\UserRepositories\UserRepository;
@@ -16,12 +17,24 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid as BaseUuid;
 
 #[ApiResource(operations: [
     new GetCollection(
         uriTemplate: '/users',
         provider: UserDataProvider::class,
     ),
+    new GetCollection(
+        uriTemplate: '/user-info',
+        controller: UserInfoAction::class,
+        paginationEnabled: false,
+        read: false,
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_USER_INFO]],
+        openapiContext: [
+            'tags' => ['User'],
+            'summary' => 'Get user info',
+        ],
+    )
 ])]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'app_user')]
@@ -29,7 +42,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
     self::TYPE_PHYSICAL => UserPhysical::class,
-    self::TYPE_ABSTRACT => UserAbstract::class
+    self::TYPE_ABSTRACT => UserAbstract::class,
+    Employer::TYPE_EMPLOYER => Employer::class,
+    Applicant::TYPE_APPLICANT => Applicant::class,
+    UserAts::TYPE_ATS => UserAts::class,
+    UserAdmin::TYPE_ADMIN => UserAdmin::class,
+    UserJobBoard::TYPE_JOB_BOARD => UserJobBoard::class,
 ])]
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -38,11 +56,16 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     use LastModifiedDate;
 
     public const OPERATION_NAME_GET_USERS = 'getUsers';
+    public const OPERATION_NAME_GET_USER_INFO = 'getUserInfo';
 
     public const TYPE_PHYSICAL = 'physical';
     public const TYPE_ABSTRACT = 'abstract';
 
     #[ORM\Column(type: 'json')]
+    #[Groups([
+        self::OPERATION_NAME_GET_USERS,
+        self::OPERATION_NAME_GET_USER_INFO,
+    ])]
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 180, nullable: true)]
@@ -55,10 +78,14 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+        self::OPERATION_NAME_GET_USER_INFO,
     ])]
     private $email;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups([
+        self::OPERATION_NAME_GET_USER_INFO,
+    ])]
     private $mainType;
 
     public function __construct()
@@ -73,10 +100,20 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         self::OPERATION_NAME_GET_USERS,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+        self::OPERATION_NAME_GET_USER_INFO,
     ])]
     public function getCreatedDate(): ?DateTime
     {
         return $this->createdDate;
+    }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_USERS,
+        self::OPERATION_NAME_GET_USER_INFO,
+    ])]
+    public function getId(): ?BaseUuid
+    {
+        return $this->id;
     }
 
     /**
