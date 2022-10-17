@@ -28,8 +28,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "physical" => UserPhysical::class,
-    "abstract" => UserAbstract::class
+    self::TYPE_PHYSICAL => UserPhysical::class,
+    self::TYPE_ABSTRACT => UserAbstract::class
 ])]
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

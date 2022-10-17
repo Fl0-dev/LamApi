@@ -12,9 +12,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
-    "admin" => UserAdmin::class,
-    "applicant" => Applicant::class,
-    "employer" => Employer::class
+    self::TYPE_ADMIN => UserAdmin::class,
+    self::TYPE_APPLICANT => Applicant::class,
+    self::TYPE_EMPLOYER => Employer::class
 ])]
 #[ORM\Entity]
 #[ORM\Table(name: "physical_user")]
