@@ -11,7 +11,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Company\CompanyGroup;
-use App\Entity\JobBoard;
+use App\Entity\User\UserJobBoard;
 use App\Entity\Offer\Offer;
 use App\Repository\MediaRepositories\MediaRepository;
 use App\Transversal\TechnicalProperties;
@@ -31,11 +31,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         new Delete(),
         new GetCollection(
             uriTemplate: '/media',
-            normalizationContext: ['groups' => ['getMedia']]
+            normalizationContext: ['groups' => [self::OPERATION_NAME_GET_MEDIA]]
         ),
         new Post(
             uriTemplate: '/media',
-            normalizationContext: ['groups' => ['getMedia']]
+            normalizationContext: ['groups' => [self::OPERATION_NAME_POST_MEDIA]]
         )
     ],
     normalizationContext: ['getMedia']
@@ -49,12 +49,16 @@ abstract class Media
     use TechnicalProperties;
 
     public const OPERATION_NAME_GET_MEDIA = "getMedia";
+    public const OPERATION_NAME_POST_MEDIA = "postMedia";
     public const TYPE_IMAGE = 'image';
     public const TYPE_VIDEO = 'video';
 
     #[ApiProperty(iris: ['https://schema.org/contentUrl'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([self::OPERATION_NAME_GET_MEDIA])]
+    #[Groups([
+        self::OPERATION_NAME_GET_MEDIA,
+        self::OPERATION_NAME_POST_MEDIA,
+    ])]
     private $contentUrl;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -62,8 +66,9 @@ abstract class Media
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_MEDIA,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        self::OPERATION_NAME_POST_MEDIA,
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $filePath;
 
     /**

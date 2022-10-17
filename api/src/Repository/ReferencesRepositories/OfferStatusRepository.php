@@ -27,7 +27,7 @@ class OfferStatusRepository
         return $statuses;
     }
 
-    public function find(string $id): ?OfferStatus
+    public function find(?string $id): ?OfferStatus
     {
         $statuses = $this->findAll();
 

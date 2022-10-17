@@ -8,12 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap(["api" => UserApi::class])]
+#[ORM\DiscriminatorMap([
+    self::TYPE_JOB_BOARD => UserJobBoard::class,
+    self::TYPE_ATS => UserAts::class,
+])]
 #[ORM\Entity]
 #[ORM\Table(name: "abstract_user")]
 abstract class UserAbstract extends User
 {
-    public const TYPE_API = "api";
+    const TYPE_JOB_BOARD = "jobBoard";
+    const TYPE_ATS = "ats";
 
     #[ORM\Column(type: "string", length: 180)]
     private $name;
@@ -26,6 +30,20 @@ abstract class UserAbstract extends User
 
     #[ORM\Column(type: "string", length: 180)]
     private $contactPhone;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tokenLocal;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tokenQualification;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tokenProduction;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function getType(): string
     {
@@ -108,6 +126,42 @@ abstract class UserAbstract extends User
     public function setContactPhone($contactPhone)
     {
         $this->contactPhone = $contactPhone;
+
+        return $this;
+    }
+
+    public function getTokenLocal()
+    {
+        return $this->tokenLocal;
+    }
+
+    public function setTokenLocal($tokenLocal)
+    {
+        $this->tokenLocal = $tokenLocal;
+
+        return $this;
+    }
+
+    public function getTokenQualification()
+    {
+        return $this->tokenQualification;
+    }
+
+    public function setTokenQualification($tokenQualification)
+    {
+        $this->tokenQualification = $tokenQualification;
+
+        return $this;
+    }
+
+    public function getTokenProduction()
+    {
+        return $this->tokenProduction;
+    }
+
+    public function setTokenProduction($tokenProduction)
+    {
+        $this->tokenProduction = $tokenProduction;
 
         return $this;
     }

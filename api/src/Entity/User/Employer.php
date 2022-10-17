@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "employer")]
 class Employer extends UserPhysical
 {
-    public function getType(): string
+    public function getPhysicalType(): string
     {
         return self::TYPE_EMPLOYER;
     }

@@ -27,7 +27,7 @@ class AbstractUserTypeRepository
         return $abstractUserTypes;
     }
 
-    public function find(string $id): ?AbstractUserType
+    public function find(?string $id): ?AbstractUserType
     {
         $abstractUserTypes = $this->findAll();
 

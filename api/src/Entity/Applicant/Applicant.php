@@ -3,24 +3,43 @@
 namespace App\Entity\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
+use App\Entity\References\ContractType;
+use App\Entity\References\Experience;
+use App\Entity\References\LevelOfStudy;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicantRepositories\ApplicantRepository;
+use App\Repository\ReferencesRepositories\ContractTypeRepository;
+use App\Repository\ReferencesRepositories\ExperienceRepository;
+use App\Repository\ReferencesRepositories\LevelOfStudyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(operations: [
+    new GetCollection(
+        uriTemplate: '/applicants',
+        normalizationContext: [
+            'groups' => [self::OPERATION_NAME_GET_ALL_APPLICANTS]
+        ],
+    ),
+])]
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
 #[ORM\Table(name: "applicant")]
 class Applicant extends UserPhysical
 {
+    public const OPERATION_NAME_GET_ALL_APPLICANTS = 'getApplicants';
+
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $defaultMotivationText;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $linkedin;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -33,21 +52,27 @@ class Applicant extends UserPhysical
     private $applications;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $levelOfStudy;
 
     #[ORM\ManyToOne(targetEntity: JobTitle::class)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $jobTitle;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $experience;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $city;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $contractType;
 
     #[ORM\Column(type: 'string')]
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
     private $status;
 
     /**
@@ -65,7 +90,34 @@ class Applicant extends UserPhysical
         $this->applications = new ArrayCollection();
     }
 
-    public function getType(): string
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
+    public function getContractType(): ?string
+    {
+        $contractTypeRepository = new ContractTypeRepository();
+        $contractType = $contractTypeRepository->find($this->contractType);
+
+        return $contractType instanceof ContractType ? $contractType->getLabel() : null;
+    }
+
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
+    public function getExperience(): ?string
+    {
+        $experienceRepository = new ExperienceRepository();
+        $experience = $experienceRepository->find($this->experience);
+
+        return $experience instanceof Experience ? $experience->getDuration() : null;
+    }
+
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
+    public function getLevelOfStudy(): ?string
+    {
+        $levelOfStudyRepository = new LevelOfStudyRepository();
+        $levelOfStudy = $levelOfStudyRepository->find($this->levelOfStudy);
+
+        return $levelOfStudy instanceof LevelOfStudy ? $levelOfStudy->getLabel() : null;
+    }
+
+    public function getPhysicalType(): string
     {
         return self::TYPE_APPLICANT;
     }
@@ -166,7 +218,8 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function getLevelOfStudy(): ?string
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
+    public function getLevelOfStudyId(): ?string
     {
         return $this->levelOfStudy;
     }
@@ -190,12 +243,13 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function getExperience(): ?int
+    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
+    public function getExperienceId(): ?string
     {
         return $this->experience;
     }
 
-    public function setExperience(?int $experience): self
+    public function setExperience(?string $experience): self
     {
         $this->experience = $experience;
 
@@ -214,7 +268,7 @@ class Applicant extends UserPhysical
         return $this;
     }
 
-    public function getContractType(): ?string
+    public function getContractTypeId(): ?string
     {
         return $this->contractType;
     }

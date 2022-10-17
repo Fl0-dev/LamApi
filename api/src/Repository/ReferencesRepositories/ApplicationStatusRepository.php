@@ -27,7 +27,7 @@ class ApplicationStatusRepository
         return $applicantStatuses;
     }
 
-    public function find(string $id): ?ApplicationStatus
+    public function find(?string $id): ?ApplicationStatus
     {
         $applicantStatuses = $this->findAll();
 

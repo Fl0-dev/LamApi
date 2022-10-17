@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\Media;
 use App\Entity\Offer\Offer;
+use App\Entity\User\UserJobBoard;
 use App\Repository\ToolRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
@@ -30,13 +31,13 @@ class Tool
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS
-        ])]
+    ])]
     private ?Media $logo = null;
 
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS
-        ])]
+    ])]
     public function getId(): ?BaseUuid
     {
         return $this->id;
@@ -58,15 +59,16 @@ class Tool
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
         Offer::OPERATION_NAME_GET_ALL_OFFERS
-        ])]
+    ])]
     public function getTool(): array
     {
         $logoPath = $this->getLogo()->getFilePath();
         $arrayToolInfos = [
             'id' => $this->getId(),
-            'label' => $this->getLabel(), 'url' => Constants::HOST_URL . "/{$logoPath}"];
+            'label' => $this->getLabel(), 'url' => Constants::HOST_URL . "/{$logoPath}"
+        ];
 
         return $arrayToolInfos;
     }

@@ -7,7 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use App\Controller\LocalisationAction;
 use App\Entity\Company\CompanyGroup;
-use App\Entity\JobBoard;
+use App\Entity\User\UserJobBoard;
 use App\Entity\Offer\Offer;
 use App\Repository\LocationRepositories\AddressRepository;
 use App\Transversal\Uuid;
@@ -45,8 +45,8 @@ class Address
     #[ORM\Column(type: 'string', length: 50)]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -55,8 +55,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $street;
 
     #[ORM\Column(type: 'string', length: 10)]
@@ -65,8 +65,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $postalCode;
 
     #[ORM\Column(type: 'float')]
@@ -75,8 +75,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $latitude;
 
     #[ORM\Column(type: 'float')]
@@ -85,7 +85,8 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     private $longitude;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
@@ -96,7 +97,7 @@ class Address
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
-        ])]
+    ])]
     private $city;
 
     public function getName(): ?string
@@ -173,8 +174,8 @@ class Address
 
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
-        ])]
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+    ])]
     public function getCityInfos(): ?array
     {
         $arrayCityInfos = [

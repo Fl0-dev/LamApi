@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Controller\CompanyGroupAction;
-use App\Entity\Ats;
+use App\Entity\User\UserAts;
 use App\Entity\Badge;
 use App\Entity\Revision\CompanyGroupRevision;
 use App\Entity\User\Employer;
@@ -16,7 +16,7 @@ use App\Entity\JobType;
 use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
-use App\Entity\JobBoard;
+use App\Entity\User\UserJobBoard;
 use App\Entity\Social;
 use App\Repository\CompanyRepositories\CompanyGroupRepository;
 use App\Transversal\CreatedDate;
@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         uriTemplate: '/company-groups/{id}',
         normalizationContext: [
-            'groups' => ['getCompanyGroupDetails']
+            'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS]
         ]
     ), new Get(
         uriTemplate: '/count-company-groups',
@@ -65,7 +65,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         uriTemplate: '/company-groups/{id}/offers',
         normalizationContext: [
             'groups' => [
-                'getCompanyGroupOffers'
+                self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
             ]
         ],
         openapiContext: [
@@ -84,7 +84,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         uriTemplate: '/company-groups/{id}/offices',
         normalizationContext: [
-            'groups' => ['getCompanyGroupOffices']
+            'groups' => [self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID]
         ],
         openapiContext: [
             'summary' => 'Retrieves list of offices by company group id',
@@ -104,7 +104,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         uriTemplate: '/company-groups/{id}/applications',
         normalizationContext: [
-            'groups' => ['getCompanyGroupApplications']
+            'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID]
         ],
         openapiContext: [
             'summary' => 'Retrieves list of applications by company group id',
@@ -124,13 +124,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new GetCollection(
         uriTemplate: '/company-group-teasers',
         normalizationContext: [
-            'groups' => ['getCompanyGroupTeaser']
+            'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS]
         ]
     ),
     new GetCollection(
         uriTemplate: '/company-groups/name/keywords={keywords}',
         normalizationContext: [
-            'groups' => ['companyGroupsNameByKeywords']
+            'groups' => [self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS]
         ],
         controller: CompanyGroupAction::class,
         uriVariables: ['keywords' => 'string'],
@@ -172,7 +172,7 @@ class CompanyGroup
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS,
         self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     private $name;
 
@@ -254,7 +254,7 @@ class CompanyGroup
     #[ORM\ManyToMany(targetEntity: Employer::class)]
     private $admins;
 
-    #[ORM\ManyToMany(targetEntity: Ats::class)]
+    #[ORM\ManyToMany(targetEntity: UserAts::class)]
     private Collection $ats;
 
     #[ORM\OneToOne(targetEntity: CompanyProfile::class, cascade: ['persist', 'remove'])]
@@ -298,7 +298,7 @@ class CompanyGroup
 
     #[Groups([
         self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        JobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
     ])]
     public function getId(): ?BaseUuid
     {
@@ -590,14 +590,14 @@ class CompanyGroup
     }
 
     /**
-     * @return Collection<int, Ats>
+     * @return Collection<int, UserAts>
      */
     public function getAts(): Collection
     {
         return $this->ats;
     }
 
-    public function addAts(Ats $ats): self
+    public function addAts(UserAts $ats): self
     {
         if (!$this->ats->contains($ats)) {
             $this->ats->add($ats);
@@ -605,7 +605,7 @@ class CompanyGroup
         return $this;
     }
 
-    public function removeAts(Ats $ats): self
+    public function removeAts(UserAts $ats): self
     {
         $this->ats->removeElement($ats);
         return $this;

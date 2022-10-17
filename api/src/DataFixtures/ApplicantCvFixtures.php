@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Applicant\ApplicantCv;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ApplicantCvFixtures extends Fixture
+class ApplicantCvFixtures extends Fixture implements DependentFixtureInterface
 {
     public const APPLICANT_CV_REFERENCE_1 = 'application_cv_1';
     public const APPLICANT_CV_REFERENCE_2 = 'application_cv_2';
@@ -26,63 +27,73 @@ class ApplicantCvFixtures extends Fixture
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv1.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_1));
         $this->addReference(self::APPLICANT_CV_REFERENCE_1, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv2.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_2));
         $this->addReference(self::APPLICANT_CV_REFERENCE_2, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv3.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_3));
         $this->addReference(self::APPLICANT_CV_REFERENCE_3, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv4.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_4));
         $this->addReference(self::APPLICANT_CV_REFERENCE_4, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv5.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_5));
         $this->addReference(self::APPLICANT_CV_REFERENCE_5, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv6.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_6));
         $this->addReference(self::APPLICANT_CV_REFERENCE_6, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv7.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_7));
         $this->addReference(self::APPLICANT_CV_REFERENCE_7, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv8.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_8));
         $this->addReference(self::APPLICANT_CV_REFERENCE_8, $cv);
         $manager->persist($cv);
 
         $cv = new ApplicantCv();
         $cv->setCreatedDate(new \DateTime('now'));
         $cv->setFilePath('cv9.pdf');
+        $cv->setApplicant($this->getReference(ApplicantFixtures::APPLICANT_REFERENCE_9));
         $this->addReference(self::APPLICANT_CV_REFERENCE_9, $cv);
         $manager->persist($cv);
 
-        $cv = new ApplicantCv();
-        $cv->setCreatedDate(new \DateTime('now'));
-        $cv->setFilePath('cv10.pdf');
-        $this->addReference(self::APPLICANT_CV_REFERENCE_10, $cv);
-        $manager->persist($cv);
-
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            ApplicantFixtures::class,
+        ];
     }
 }

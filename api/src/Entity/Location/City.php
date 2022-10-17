@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Applicant\Applicant;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Offer\Offer;
 use App\Repository\LocationRepositories\CityRepository;
@@ -24,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Delete(),
     new GetCollection(
         uriTemplate: '/cities',
-        normalizationContext: ['groups' => ['getAllCities']]
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_ALL_CITIES]]
     )
 ])]
 #[ORM\Entity(repositoryClass: CityRepository::class)]
@@ -39,7 +40,8 @@ class City
     #[Groups([
         self::OPERATION_NAME_GET_ALL_CITIES,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
-        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID
+        CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
+        Applicant::OPERATION_NAME_GET_ALL_APPLICANTS
     ])]
     private $name;
 

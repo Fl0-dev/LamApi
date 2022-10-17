@@ -9,10 +9,8 @@ use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
 use App\Entity\Company\CompanyProfile;
-use App\Entity\Organisation;
 use App\Entity\References\CompanySubscriptionType;
 use App\Entity\References\Workforce;
-use App\Entity\Social;
 use App\Entity\SocialFeed;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -77,6 +75,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
         $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
 
+        $companyGroup->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_1));
+
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/logo.png');
         $media->setCreatedDate(new \DateTime());
@@ -133,6 +133,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('tgs-france-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_2));
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
@@ -296,6 +297,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('eolis-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_3));
 
 
         $companyEntityOffice = new CompanyEntityOffice();
@@ -440,6 +442,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('livli-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_4));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli-ouest.com/assets/images/media1.png');
@@ -632,6 +635,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            EmployerFixtures::class,
             OrganisationFixtures::class,
             CityFixtures::class,
             JobTypeFixtures::class,
