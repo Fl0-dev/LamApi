@@ -47,13 +47,13 @@ use Symfony\Component\Validator\Constraints\Length;
     new Get(
         uriTemplate: '/offers/{id}',
         normalizationContext: [
-            'groups' => ['getOfferDetails']
+            'groups' => [self::OPERATION_NAME_GET_OFFER_DETAILS]
         ]
     ),
     new Get(
         uriTemplate: '/offers/{id}/applications',
         normalizationContext: [
-            'groups' => ['getOfferApplications']
+            'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID]
         ],
         openapiContext: [
             'summary' => 'Retrieves all applications by offer id',
@@ -87,18 +87,18 @@ use Symfony\Component\Validator\Constraints\Length;
         ]
     ),
     new GetCollection(
-        uriTemplate: '/offers/all',
-        normalizationContext: ['groups' => ['getAllOffers']],
+        uriTemplate: '/offers',
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_ALL_OFFERS]],
         formats: ['json' => ['application/json']]
     ),
     new GetCollection(
         uriTemplate: '/offers-teasers',
-        normalizationContext: ['groups' => ['getOfferTeasers']]
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_OFFER_TEASERS]]
     ),
     new Post(
         uriTemplate: '/offers',
         controller: OfferAction::class,
-        denormalizationContext: ['groups' => ['postOffer']],
+        denormalizationContext: ['groups' => [self::OPERATION_NAME_POST_OFFER]],
         inputFormats: ['json' => ['application/json']]
     )
 ])]

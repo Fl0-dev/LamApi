@@ -27,7 +27,7 @@ class LevelOfStudyRepository
         return $levelOfStudies;
     }
 
-    public function find(string $id): ?LevelOfStudy
+    public function find(?string $id): ?LevelOfStudy
     {
         $levelOfStudies = $this->findAll();
 

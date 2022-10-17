@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         uriTemplate: '/company-groups/{id}',
         normalizationContext: [
-            'groups' => ['getCompanyGroupDetails']
+            'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS]
         ]
     ), new Get(
         uriTemplate: '/count-company-groups',
@@ -65,7 +65,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         uriTemplate: '/company-groups/{id}/offers',
         normalizationContext: [
             'groups' => [
-                'getCompanyGroupOffers'
+                self::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID
             ]
         ],
         openapiContext: [
@@ -84,7 +84,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         uriTemplate: '/company-groups/{id}/offices',
         normalizationContext: [
-            'groups' => ['getCompanyGroupOffices']
+            'groups' => [self::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID]
         ],
         openapiContext: [
             'summary' => 'Retrieves list of offices by company group id',
@@ -104,7 +104,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         uriTemplate: '/company-groups/{id}/applications',
         normalizationContext: [
-            'groups' => ['getCompanyGroupApplications']
+            'groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID]
         ],
         openapiContext: [
             'summary' => 'Retrieves list of applications by company group id',
@@ -124,13 +124,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new GetCollection(
         uriTemplate: '/company-group-teasers',
         normalizationContext: [
-            'groups' => ['getCompanyGroupTeaser']
+            'groups' => [self::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS]
         ]
     ),
     new GetCollection(
         uriTemplate: '/company-groups/name/keywords={keywords}',
         normalizationContext: [
-            'groups' => ['companyGroupsNameByKeywords']
+            'groups' => [self::OPERATION_NAME_GET_COMPANY_NAME_BY_KEYWORDS]
         ],
         controller: CompanyGroupAction::class,
         uriVariables: ['keywords' => 'string'],

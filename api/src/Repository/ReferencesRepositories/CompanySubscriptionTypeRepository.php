@@ -27,7 +27,7 @@ class CompanySubscriptionTypeRepository
         return $companySubscriptionTypes;
     }
 
-    public function find(string $id): ?CompanySubscriptionType
+    public function find(?string $id): ?CompanySubscriptionType
     {
         $companySubscriptionTypes = $this->findAll();
 

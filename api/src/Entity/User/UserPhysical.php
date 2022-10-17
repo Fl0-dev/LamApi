@@ -25,11 +25,17 @@ abstract class UserPhysical extends User
     public const TYPE_EMPLOYER = "employer";
 
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+    ])]
     private $firstname;
 
     #[ORM\Column(type: "string", length: 180)]
-    #[Groups([Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID])]
+    #[Groups([
+        Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+    ])]
     private $lastname;
 
     #[ORM\Column(type: "date", nullable: true)]

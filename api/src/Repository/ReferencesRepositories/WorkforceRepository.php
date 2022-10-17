@@ -43,7 +43,7 @@ class WorkforceRepository
         return $results;
     }
 
-    public function find(string $id): ?Workforce
+    public function find(?string $id): ?Workforce
     {
         $workforces = $this->findAll();
 

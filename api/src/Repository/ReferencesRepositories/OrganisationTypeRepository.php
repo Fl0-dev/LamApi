@@ -27,7 +27,7 @@ class OrganisationTypeRepository
         return $organisationTypes;
     }
 
-    public function find(string $id): ?OrganisationType
+    public function find(?string $id): ?OrganisationType
     {
         $organisationTypes = $this->findAll();
 

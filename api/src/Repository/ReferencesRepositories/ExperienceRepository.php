@@ -47,7 +47,7 @@ class ExperienceRepository
         return $results;
     }
 
-    public function find(string $id): ?Experience
+    public function find(?string $id): ?Experience
     {
         $experiences = $this->findAll();
 

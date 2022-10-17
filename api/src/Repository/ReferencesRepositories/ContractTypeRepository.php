@@ -43,7 +43,7 @@ class ContractTypeRepository
         return $results;
     }
 
-    public function find(string $id): ?ContractType
+    public function find(?string $id): ?ContractType
     {
         $contractTypes = $this->findAll();
 

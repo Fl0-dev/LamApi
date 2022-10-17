@@ -4,22 +4,22 @@ namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use App\Repository\UserRepositories\UserRepository;
 use App\State\UserDataProvider;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Uid\Uuid as BaseUuid;
 
 #[ApiResource(operations: [
     new GetCollection(
         uriTemplate: '/users',
-        // normalizationContext: ['getUsers'],
         provider: UserDataProvider::class,
     ),
 ])]
@@ -54,6 +54,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "string", length: 180)]
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
     ])]
     private $email;
 
@@ -67,6 +68,15 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         } elseif ($this instanceof UserAbstract) {
             $this->mainType = self::TYPE_ABSTRACT;
         }
+    }
+
+    #[Groups([
+        self::OPERATION_NAME_GET_USERS,
+        Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+    ])]
+    public function getCreatedDate(): ?DateTime
+    {
+        return $this->createdDate;
     }
 
     /**

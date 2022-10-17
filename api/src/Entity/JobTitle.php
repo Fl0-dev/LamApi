@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use App\Entity\Applicant\Applicant;
 use App\Entity\Offer\Offer;
 use App\Repository\JobTitleRepository;
 use App\Transversal\Label;
@@ -68,7 +69,10 @@ class JobTitle
         $this->jobTypes = new ArrayCollection();
     }
 
-    #[Groups([Offer::OPERATION_NAME_GET_OFFER_DETAILS])]
+    #[Groups([
+        Offer::OPERATION_NAME_GET_OFFER_DETAILS,
+        Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+    ])]
     public function getLabel(): ?string
     {
         return $this->label;
