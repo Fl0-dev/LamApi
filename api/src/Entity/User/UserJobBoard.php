@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ),
     new Post(),
     new GetCollection()])]
-#[ORM\Entity(repositoryClass: JobBoardRepository::class)]
+#[ORM\Entity()]
 class UserJobBoard extends UserAbstract
 {
     public const OPERATION_NAME_GET_JOB_BOARD_OFFERS = 'getJobBoardOffers';
