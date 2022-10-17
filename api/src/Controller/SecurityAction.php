@@ -21,4 +21,12 @@ class SecurityAction extends AbstractController
             'roles' => $user->getRoles(),
         ]);
     }
+
+    #[Route(path: '/api/logout', name: 'app_logout', methods: ['POST'])]
+    public function logout()
+    {
+        return $this->json([
+            'message' => 'Logout successful'
+        ]);
+    }
 }
