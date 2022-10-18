@@ -22,11 +22,11 @@ class SecurityAction extends AbstractController
         ]);
     }
 
-    #[Route(path: '/api/logout', name: 'app_logout', methods: ['POST'])]
+    #[Route(path: '/api/logout', name: 'app_logout')]
     public function logout()
     {
         return $this->json([
-            'message' => 'Logout successful'
+            'message' => 'Logout'
         ]);
     }
 }

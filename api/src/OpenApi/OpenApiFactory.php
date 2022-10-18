@@ -125,7 +125,7 @@ class OpenApiFactory implements OpenApiFactoryInterface
 
         $openApi->getPaths()->addPath('/api/login', $pathItem);//ajout du path au OpenApi
 
-        $pathItem= new PathItem(
+        $pathItem= new PathItem(     
             post: new Operation(
                 operationId: 'postApiLogout',//nom de l'opération qui doit être unique (ID)
                 tags: ['User'],//nom de la category où doit apparaitre l'opération
