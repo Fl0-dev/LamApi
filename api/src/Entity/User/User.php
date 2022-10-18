@@ -21,6 +21,7 @@ use Symfony\Component\Uid\Uuid as BaseUuid;
 
 #[ApiResource(operations: [
     new GetCollection(
+        security: 'is_granted("ROLE_ADMIN")',
         uriTemplate: '/users',
         provider: UserDataProvider::class,
     ),
