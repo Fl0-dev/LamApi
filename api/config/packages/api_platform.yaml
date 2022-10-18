@@ -17,7 +17,7 @@ api_platform:
     mercure: ~
     # Good defaults value for REST APIs
     defaults:
-        stateless: true
+        stateless: false
         pagination_client_items_per_page: true
         pagination_maximum_items_per_page: 51
         pagination_items_per_page: 51

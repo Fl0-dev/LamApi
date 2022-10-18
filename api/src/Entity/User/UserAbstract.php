@@ -16,8 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "abstract_user")]
 abstract class UserAbstract extends User
 {
-    const TYPE_JOB_BOARD = "jobBoard";
-    const TYPE_ATS = "ats";
+    public const TYPE_JOB_BOARD = "jobBoard";
+    public const TYPE_ATS = "ats";
 
     #[ORM\Column(type: "string", length: 180)]
     private $name;
