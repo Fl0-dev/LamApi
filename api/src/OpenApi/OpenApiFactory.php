@@ -26,7 +26,6 @@ class OpenApiFactory implements OpenApiFactoryInterface
         ]);
         $openApi = $openApi->withSecurity([['coockieAuth' => []]]);
 
-        // //Autentification avec JWT
         // $schemas = $openApi->getComponents()->getSecuritySchemes();
         // $schemas['bearerAuth'] = new \ArrayObject([
         //     'type' => 'http',
@@ -34,8 +33,6 @@ class OpenApiFactory implements OpenApiFactoryInterface
         //     'bearerFormat' => 'JWT',
         // ]);
 
-
-        // //Route pour récupérer le JWT
         // $schemas['Token'] = new \ArrayObject([
         //     'type' => 'object',
         //     'properties' => [
@@ -78,7 +75,7 @@ class OpenApiFactory implements OpenApiFactoryInterface
         // );
         // $openApi->getPaths()->addPath('/api/authentication_token', $pathItem);
 
-        //création d'un schéma pour autentification
+
         $schemas = $openApi->getComponents()->getSchemas();
         $schemas['Credentials'] = new \ArrayObject([
             'type' => 'object',

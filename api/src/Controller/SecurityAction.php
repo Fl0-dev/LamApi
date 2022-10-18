@@ -11,11 +11,13 @@ class SecurityAction extends AbstractController
     public function login()
     {
         $user = $this->getUser();
+
         if (null === $user) {
             return $this->json([
                 'message' => 'Invalid credentials'
             ], 401);
         }
+
         return $this->json([
             'username' => $user->getUserIdentifier(),
             'roles' => $user->getRoles(),

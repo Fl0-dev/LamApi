@@ -14,6 +14,7 @@ class UserInfoAction extends AbstractController
     public function __invoke()
     {
         $user = $this->security->getUser();
+
         return $user;
     }
 }
