@@ -16,15 +16,15 @@ class OpenApiFactory implements OpenApiFactoryInterface
 
     public function __invoke(array $context = []): OpenApi
     {
-        $openApi = $this->decorated->__invoke($context);//permet de récupérer l'OpenApi décoré
-        // Autentification avec cookie
-        $schemas = $openApi->getComponents()->getSecuritySchemes();//récupération des schémas de sécurité
-        $schemas['coockieAuth'] = new \ArrayObject([ //création d'un schéma de sécurité
+        $openApi = $this->decorated->__invoke($context);
+
+        $schemas = $openApi->getComponents()->getSecuritySchemes();
+        $schemas['coockieAuth'] = new \ArrayObject([
             'type' => 'apiKey',
             'in' => 'cookie',
             'name' => 'PHPSESSID',
         ]);
-        $openApi = $openApi->withSecurity([['coockieAuth' => []]]);//ajout du schéma de sécurité sur toutes les routes
+        $openApi = $openApi->withSecurity([['coockieAuth' => []]]);
 
         // //Autentification avec JWT
         // $schemas = $openApi->getComponents()->getSecuritySchemes();
@@ -94,16 +94,15 @@ class OpenApiFactory implements OpenApiFactoryInterface
             ],
         ]);
 
-        //nouveau endpoint pour pouvoir s'autentifier
         $pathItem = new PathItem(
             post: new Operation(
-                operationId: 'postApiLogin',//nom de l'opération qui doit être unique (ID)
-                tags: ['User'],//nom de la category où doit apparaitre l'opération
+                operationId: 'postApiLogin',
+                tags: ['User'],
                 requestBody: new RequestBody(
                     content: new \ArrayObject([
                         'application/json' => [
                             'schema' => [
-                                '$ref' => '#/components/schemas/Credentials',//utilisation du schéma d'autentification
+                                '$ref' => '#/components/schemas/Credentials',
                             ],
                         ]
                     ])
@@ -114,7 +113,7 @@ class OpenApiFactory implements OpenApiFactoryInterface
                         'content' => [
                             'application/json' => [
                                 'schema' => [
-                                    '$ref' => '#/components/schemas/User-getUserInfo',// le chemin qui demande une autentitfication
+                                    '$ref' => '#/components/schemas/User-getUserInfo',
                                 ],
                             ],
                         ],
@@ -123,12 +122,12 @@ class OpenApiFactory implements OpenApiFactoryInterface
             )
         );
 
-        $openApi->getPaths()->addPath('/api/login', $pathItem);//ajout du path au OpenApi
+        $openApi->getPaths()->addPath('/api/login', $pathItem);
 
-        $pathItem= new PathItem(     
+        $pathItem = new PathItem(
             post: new Operation(
-                operationId: 'postApiLogout',//nom de l'opération qui doit être unique (ID)
-                tags: ['User'],//nom de la category où doit apparaitre l'opération
+                operationId: 'postApiLogout',
+                tags: ['User'],
                 responses: [
                     '204' => [],
                 ]
