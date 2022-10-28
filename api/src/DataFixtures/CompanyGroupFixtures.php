@@ -566,6 +566,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('in-extenso-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_5));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_6));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
