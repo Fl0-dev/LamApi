@@ -21,6 +21,7 @@ class AdminFixtures extends Fixture
         $userAdmin = new UserAdmin();
         $userAdmin->setCreatedDate(new \DateTime());
         $userAdmin->setLastModifiedDate(new \DateTime());
+        $userAdmin->setActive(true);
         $userAdmin->setEmail('admin@gmail.com');
         $userAdmin->setPassword($this->hasher->hashPassword($userAdmin, 'password'));
         $userAdmin->setFirstName('Admin');
@@ -36,6 +37,7 @@ class AdminFixtures extends Fixture
         $userAdmin = new UserAdmin();
         $userAdmin->setCreatedDate(new \DateTime());
         $userAdmin->setLastModifiedDate(new \DateTime());
+        $userAdmin->setActive(true);
         $userAdmin->setEmail('lamadash@gmail.com');
         $userAdmin->setPassword($this->hasher->hashPassword($userAdmin, 'password'));
         $userAdmin->setFirstName('Lamadash');

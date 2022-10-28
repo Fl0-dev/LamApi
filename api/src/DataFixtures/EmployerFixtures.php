@@ -15,7 +15,7 @@ class EmployerFixtures extends Fixture
     public const EMPLOYER_REFERENCE_4 = 'employer_4';
     public const EMPLOYER_REFERENCE_5 = 'employer_5';
     public const EMPLOYER_REFERENCE_6 = 'employer_6';
-    
+
     public function __construct(private UserPasswordHasherInterface $hasher)
     {
     }
@@ -27,6 +27,7 @@ class EmployerFixtures extends Fixture
         $employer->setLastModifiedDate(new \DateTime());
         $employer->setEmail('jp@gmail.com');
         $employer->setToken('jpToken');
+        $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
         $employer->setFirstName('Jean-Pierre');
         $employer->setLastName('Dupont');
@@ -41,6 +42,7 @@ class EmployerFixtures extends Fixture
         $employer->setLastModifiedDate(new \DateTime());
         $employer->setEmail('marie@gmail.com');
         $employer->setToken('marieToken');
+        $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
         $employer->setFirstName('Marie');
         $employer->setLastName('Duval');
@@ -55,6 +57,7 @@ class EmployerFixtures extends Fixture
         $employer->setLastModifiedDate(new \DateTime());
         $employer->setEmail('Lea@gmail.com');
         $employer->setToken('leaToken');
+        $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
         $employer->setFirstName('Lea');
         $employer->setLastName('Rivali');
@@ -69,6 +72,7 @@ class EmployerFixtures extends Fixture
         $employer->setLastModifiedDate(new \DateTime());
         $employer->setEmail('Pierre@gmail.com');
         $employer->setToken('pierreToken');
+        $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
         $employer->setFirstName('Pierre');
         $employer->setLastName('Curé');
@@ -83,6 +87,7 @@ class EmployerFixtures extends Fixture
         $employer->setLastModifiedDate(new \DateTime());
         $employer->setEmail('Katia@gmail.com');
         $employer->setToken('katiaToken');
+        $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
         $employer->setFirstName('Katia');
         $employer->setLastName('Sueur');
@@ -97,6 +102,7 @@ class EmployerFixtures extends Fixture
         $employer->setLastModifiedDate(new \DateTime());
         $employer->setEmail('Julien@gmail.com');
         $employer->setToken('julienToken');
+        $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
         $employer->setFirstName('Julien');
         $employer->setLastName('Quandt');
@@ -107,4 +113,3 @@ class EmployerFixtures extends Fixture
         $manager->flush();
     }
 }
-

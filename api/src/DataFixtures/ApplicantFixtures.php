@@ -32,6 +32,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('j-e@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Jean-Eudes');
@@ -61,6 +62,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('estelle@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Estelle');
@@ -90,6 +92,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('esteban@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Esteban');
@@ -118,6 +121,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('yann@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Yann');
@@ -146,6 +150,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('gisele@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Gisele');
@@ -174,6 +179,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('anna@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Anna');
@@ -202,6 +208,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('anna@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('David');
@@ -230,6 +237,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('anna@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Mohamed');
@@ -258,6 +266,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant = new Applicant();
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
+        $applicant->setActive(true);
         $applicant->setEmail('lucie@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Lucie');

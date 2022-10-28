@@ -89,6 +89,9 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     ])]
     private $mainType;
 
+    #[ORM\Column]
+    private ?bool $active = null;
+
     public function __construct()
     {
         if ($this instanceof UserPhysical) {
@@ -190,6 +193,18 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }
