@@ -30,6 +30,15 @@ php bin/console doctrine:fixtures:load
 
 ## Tests local
 
+Installation de la database de test
+
+```bash
+php bin/console --env=test d:s:u -f
+php bin/console --env=test d:f:l -n
+```
+
+Lancement des tests
+
 ```bash
 php bin/phpunit --testdox
 php ./vendor/bin/php-cs-fixer fix ./src
