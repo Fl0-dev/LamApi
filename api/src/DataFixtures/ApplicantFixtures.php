@@ -40,8 +40,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1980-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/jean-eudes-gally-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
             3,
@@ -50,8 +50,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             24
         )
         )->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -70,8 +70,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1990-01-01'));
         $applicant->setDefaultMotivationText('Je suis une candidat hyper motivée');
         $applicant->setLinkedin('https://www.linkedin.com/in/estelle-fran%C3%A7ois-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
             3,
@@ -80,8 +80,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             24
         )
         )->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -100,8 +100,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1970-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/esteban-carlos-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'BAC + 5'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'BAC + 5'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamexpert',
             'Lamexpert ',
             4,
@@ -109,8 +109,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "+ de 5 ans d'expérience",
             60
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_19));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_19));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -129,8 +129,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1988-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/yann-sigaud-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamajunior',
             'Lamajunior',
             1,
@@ -138,8 +138,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "< 1 an d'expérience",
             0
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -158,8 +158,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1988-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/gisele-bundchen-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamajunior',
             'Lamajunior',
             1,
@@ -167,8 +167,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "< 1 an d'expérience",
             0
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -187,8 +187,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1985-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/anna-kournikova-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'non-precise',
             'Non précisé',
             0,
@@ -196,8 +196,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "Non précisé",
             0
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -216,8 +216,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1992-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/david-beckhim-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
             3,
@@ -225,8 +225,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "de 2 à 5 ans d'expérience",
             24
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_2));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -245,8 +245,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1999-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/mohamed-salah-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
             3,
@@ -254,8 +254,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "de 2 à 5 ans d'expérience",
             24
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_3));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
@@ -274,8 +274,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1999-01-01'));
         $applicant->setDefaultMotivationText('Je suis une candidate moyennement motivée');
         $applicant->setLinkedin('https://www.linkedin.com/in/lucie-bourdeau-2b1b4b1/');
-        $applicant->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
-        $applicant->setExperience((new Experience(
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
             3,
@@ -283,8 +283,8 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
             "de 2 à 5 ans d'expérience",
             24
         ))->getId());
-        $applicant->setCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
-        $applicant->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
+        $applicant->setCurrentCity($this->getReference(CityFixtures::CITY_REFERENCE_1));
+        $applicant->setCurrentJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
         $applicant->setStatus((new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId());
         $applicant->setOptin(false);
 
