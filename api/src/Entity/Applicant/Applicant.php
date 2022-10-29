@@ -4,6 +4,7 @@ namespace App\Entity\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use App\Entity\Applicant\Subscriptions\ApplicantSubscription;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
@@ -82,6 +83,9 @@ class Applicant extends UserPhysical
      */
     #[ORM\Column(type: "boolean", nullable: true)]
     private $optin;
+
+    #[ORM\OneToOne(mappedBy: 'applicant', cascade: ['persist', 'remove'])]
+    private ?ApplicantSubscription $applicantSubscription = null;
 
     public function __construct()
     {
@@ -300,6 +304,23 @@ class Applicant extends UserPhysical
     public function setOptin(?bool $optin): self
     {
         $this->optin = $optin;
+
+        return $this;
+    }
+
+    public function getApplicantSubscription(): ?ApplicantSubscription
+    {
+        return $this->applicantSubscription;
+    }
+
+    public function setApplicantSubscription(ApplicantSubscription $applicantSubscription): self
+    {
+        // set the owning side of the relation if necessary
+        if ($applicantSubscription->getApplicant() !== $this) {
+            $applicantSubscription->setApplicant($this);
+        }
+
+        $this->applicantSubscription = $applicantSubscription;
 
         return $this;
     }
