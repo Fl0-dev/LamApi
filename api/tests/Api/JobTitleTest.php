@@ -8,8 +8,6 @@ use App\Repository\JobTitleRepository;
 
 class JobTitleTest extends ApiTestCase
 {
-    // use RefreshDatabaseTrait;
-    
     public function testGetCollectionOfJobTitles(): void
     {
         $response = static::createClient()->request('GET', '/job_titles');
@@ -52,6 +50,13 @@ class JobTitleTest extends ApiTestCase
           "slug" => "assistant-administratif",
           "label" => "Assistant administratif"
         ]);
+    }
+
+    public function testGetErrorIfNotJobTitleId(): void
+    {
+        $response = static::createClient()->request('GET', "/job_titles/1s1g-fdf5-sdfsfs-2131");
+
+        $this->assertResponseStatusCodeSame(404);
     }
 
     public function testPostJobTitle(): void
