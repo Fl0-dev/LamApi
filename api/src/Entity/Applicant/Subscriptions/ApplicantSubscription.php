@@ -26,6 +26,9 @@ class ApplicantSubscription
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?ApplicantOfferSubscription $offerSubscription = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?ApplicantLamatchSubscription $lamatchSubscription = null;
+
     public function getApplicant(): ?Applicant
     {
         return $this->applicant;
@@ -58,6 +61,18 @@ class ApplicantSubscription
     public function setOfferSubscription(?ApplicantOfferSubscription $offerSubscription): self
     {
         $this->offerSubscription = $offerSubscription;
+
+        return $this;
+    }
+
+    public function getLamatchSubscription(): ?ApplicantLamatchSubscription
+    {
+        return $this->lamatchSubscription;
+    }
+
+    public function setLamatchSubscription(?ApplicantLamatchSubscription $lamatchSubscription): self
+    {
+        $this->lamatchSubscription = $lamatchSubscription;
 
         return $this;
     }
