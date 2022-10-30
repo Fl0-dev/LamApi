@@ -4,7 +4,6 @@ namespace App\Entity\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;

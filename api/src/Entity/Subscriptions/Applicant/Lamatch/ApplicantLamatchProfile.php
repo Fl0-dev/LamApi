@@ -7,6 +7,7 @@ use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
 use App\Entity\JobTitle;
 use App\Entity\Media\MediaImage;
+use App\Entity\Subscriptions\DISC\DISCQuality;
 use App\Entity\Tool;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchProfileRepository;
 use App\Transversal\CreatedDate;
@@ -53,10 +54,14 @@ class ApplicantLamatchProfile
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?DesiredLocation $desiredLocation = null;
 
+    #[ORM\ManyToMany(targetEntity: DISCQuality::class)]
+    private Collection $qualities;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
         $this->desiredBadges = new ArrayCollection();
+        $this->qualities = new ArrayCollection();
     }
 
     public function getIntroduction(): ?string
@@ -187,6 +192,30 @@ class ApplicantLamatchProfile
     public function setDesiredLocation(?DesiredLocation $desiredLocation): self
     {
         $this->desiredLocation = $desiredLocation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DISCQuality>
+     */
+    public function getQualities(): Collection
+    {
+        return $this->qualities;
+    }
+
+    public function addQuality(DISCQuality $quality): self
+    {
+        if (!$this->qualities->contains($quality)) {
+            $this->qualities->add($quality);
+        }
+
+        return $this;
+    }
+
+    public function removeQuality(DISCQuality $quality): self
+    {
+        $this->qualities->removeElement($quality);
 
         return $this;
     }
