@@ -7,7 +7,8 @@ use App\Entity\References\Reference;
 class SubscriptionStatus extends Reference
 {
     public const ACTIVE = 'active';
-    public const UNSUBSCRIBED = 'unsubscribed';
+    public const SUSPENDED = 'suspended';
+    public const CANCELED = 'canceled';
 
     public const STATUSES = [
         [
@@ -15,9 +16,13 @@ class SubscriptionStatus extends Reference
             'label' => 'Actif',
         ],
         [
-            'slug' => self::UNSUBSCRIBED,
-            'label' => 'Désinscrit',
+            'slug' => self::SUSPENDED,
+            'label' => 'Suspendu',
         ],
+        [
+            'slug' => self::CANCELED,
+            'label' => 'Annulé',
+        ],  
     ];
 
     public static function isSubscriptionStatus(array $statusSlugs): bool

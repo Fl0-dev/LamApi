@@ -5,16 +5,18 @@ namespace App\Entity\Applicant\Subscriptions;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Research\OfferResearch;
 use App\Repository\Applicant\Subscriptions\ApplicantOfferSubscriptionRepository;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantOfferSubscriptionRepository::class)]
 #[ApiResource]
 class ApplicantOfferSubscription
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Uuid;
+    use CreatedDate;
+    use LastModifiedDate;
 
     #[ORM\Column(length: 50)]
     private ?string $status = null;
@@ -22,11 +24,6 @@ class ApplicantOfferSubscription
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?OfferResearch $offerResearch = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getStatus(): ?string
     {
