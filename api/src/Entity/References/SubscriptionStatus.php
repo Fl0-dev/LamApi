@@ -22,7 +22,7 @@ class SubscriptionStatus extends Reference
         [
             'slug' => self::CANCELED,
             'label' => 'Annulé',
-        ],  
+        ],
     ];
 
     public static function isSubscriptionStatus(array $statusSlugs): bool

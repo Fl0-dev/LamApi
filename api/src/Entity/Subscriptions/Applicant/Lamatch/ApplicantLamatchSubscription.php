@@ -16,7 +16,7 @@ class ApplicantLamatchSubscription
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
-    
+
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 

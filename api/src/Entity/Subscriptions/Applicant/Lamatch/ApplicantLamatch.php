@@ -16,7 +16,7 @@ class ApplicantLamatch
 {
     use Uuid;
     use CreatedDate;
-    
+
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?ApplicantLamatchSubscription $lamatchSubscription = null;

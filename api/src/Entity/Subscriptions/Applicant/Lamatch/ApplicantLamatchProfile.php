@@ -50,6 +50,9 @@ class ApplicantLamatchProfile
     #[ORM\JoinColumn(nullable: false)]
     private ?Applicant $applicant = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?DesiredLocation $desiredLocation = null;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
@@ -172,6 +175,18 @@ class ApplicantLamatchProfile
     public function setApplicant(Applicant $applicant): self
     {
         $this->applicant = $applicant;
+
+        return $this;
+    }
+
+    public function getDesiredLocation(): ?DesiredLocation
+    {
+        return $this->desiredLocation;
+    }
+
+    public function setDesiredLocation(?DesiredLocation $desiredLocation): self
+    {
+        $this->desiredLocation = $desiredLocation;
 
         return $this;
     }

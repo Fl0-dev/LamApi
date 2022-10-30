@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CompanyGroupResult
 {
     use Uuid;
-    
+
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyGroup $companyGroup = null;
