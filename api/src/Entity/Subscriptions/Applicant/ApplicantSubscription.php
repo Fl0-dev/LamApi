@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Entity\Applicant\Subscriptions;
+namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
-use App\Repository\Applicant\Subscriptions\ApplicantSubscriptionRepository;
+use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
+use App\Repository\SubscriptionRepositories\Applicant\ApplicantSubscriptionRepository;
 use App\Transversal\Label;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\Applicant\Subscriptions;
+namespace App\Repository\SubscriptionRepositories\Applicant;
 
-use App\Entity\Applicant\Subscriptions\CompanyGroupResult;
+use App\Entity\Subscriptions\Applicant\Lamatch\CompanyGroupResult;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity\Applicant\Subscriptions;
+namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Company\CompanyGroup;
-use App\Repository\Applicant\Subscriptions\ApplicantCompanyRepository;
+use App\Repository\SubscriptionRepositories\Applicant\ApplicantCompanyRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;

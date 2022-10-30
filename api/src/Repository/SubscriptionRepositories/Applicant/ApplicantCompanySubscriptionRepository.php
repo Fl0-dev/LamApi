@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Repository\Applicant\Subscriptions;
+namespace App\Repository\SubscriptionRepositories\Applicant;
 
-use App\Entity\Applicant\Subscriptions\ApplicantSubscription;
+use App\Entity\Subscriptions\Applicant\ApplicantCompanySubscription;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ApplicantSubscription>
+ * @extends ServiceEntityRepository<ApplicantCompanySubscription>
  *
- * @method ApplicantSubscription|null find($id, $lockMode = null, $lockVersion = null)
- * @method ApplicantSubscription|null findOneBy(array $criteria, array $orderBy = null)
- * @method ApplicantSubscription[]    findAll()
- * @method ApplicantSubscription[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ApplicantCompanySubscription|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ApplicantCompanySubscription|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ApplicantCompanySubscription[] findAll()
+ * @method ApplicantCompanySubscription[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ApplicantSubscriptionRepository extends ServiceEntityRepository
+class ApplicantCompanySubscriptionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ApplicantSubscription::class);
+        parent::__construct($registry, ApplicantCompanySubscription::class);
     }
 
-    public function save(ApplicantSubscription $entity, bool $flush = false): void
+    public function save(ApplicantCompanySubscription $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ApplicantSubscriptionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(ApplicantSubscription $entity, bool $flush = false): void
+    public function remove(ApplicantCompanySubscription $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ApplicantSubscriptionRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return ApplicantSubscription[] Returns an array of ApplicantSubscription objects
+//     * @return ApplicantCompanySubscription[] Returns an array of ApplicantCompanySubscription objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ApplicantSubscriptionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ApplicantSubscription
+//    public function findOneBySomeField($value): ?ApplicantCompanySubscription
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

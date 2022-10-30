@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\Applicant\Subscriptions;
+namespace App\Repository\SubscriptionRepositories\Applicant;
 
-use App\Entity\Applicant\Subscriptions\ApplicantOfferSubscription;
+use App\Entity\Subscriptions\Applicant\ApplicantOfferSubscription;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

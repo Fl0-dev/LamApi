@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Entity\Applicant\Subscriptions;
+namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\Applicant\Subscriptions\ApplicantLamatchSubscriptionRepository;
+use App\Repository\SubscriptionRepositories\Applicant\ApplicantCompanySubscriptionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ApplicantLamatchSubscriptionRepository::class)]
+#[ORM\Entity(repositoryClass: ApplicantCompanySubscriptionRepository::class)]
 #[ApiResource]
-class ApplicantLamatchSubscription
+class ApplicantCompanySubscription
 {
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
-    
+
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 

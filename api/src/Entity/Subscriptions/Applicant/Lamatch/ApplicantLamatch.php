@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity\Applicant\Subscriptions;
+namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\Applicant\Subscriptions\ApplicantLamatchRepository;
+use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
