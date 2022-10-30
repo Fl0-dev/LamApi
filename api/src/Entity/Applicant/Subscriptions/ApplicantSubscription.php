@@ -20,6 +20,9 @@ class ApplicantSubscription
     #[ORM\JoinColumn(nullable: false)]
     private ?Applicant $applicant = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?ApplicantCompanySubscription $companySubscription = null;
+
     public function getApplicant(): ?Applicant
     {
         return $this->applicant;
@@ -28,6 +31,18 @@ class ApplicantSubscription
     public function setApplicant(Applicant $applicant): self
     {
         $this->applicant = $applicant;
+
+        return $this;
+    }
+
+    public function getCompanySubscription(): ?ApplicantCompanySubscription
+    {
+        return $this->companySubscription;
+    }
+
+    public function setCompanySubscription(?ApplicantCompanySubscription $companySubscription): self
+    {
+        $this->companySubscription = $companySubscription;
 
         return $this;
     }
