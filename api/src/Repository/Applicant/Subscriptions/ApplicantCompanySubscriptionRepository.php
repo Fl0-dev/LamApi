@@ -11,8 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method ApplicantCompanySubscription|null find($id, $lockMode = null, $lockVersion = null)
  * @method ApplicantCompanySubscription|null findOneBy(array $criteria, array $orderBy = null)
- * @method ApplicantCompanySubscription[]    findAll()
- * @method ApplicantCompanySubscription[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ApplicantCompanySubscription[] findAll()
+ * @method ApplicantCompanySubscription[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ApplicantCompanySubscriptionRepository extends ServiceEntityRepository
 {
