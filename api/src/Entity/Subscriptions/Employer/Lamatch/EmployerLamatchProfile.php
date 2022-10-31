@@ -11,7 +11,6 @@ use App\Entity\Subscriptions\MainValue;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
 use App\Transversal\Label;
 use App\Transversal\TechnicalProperties;
-
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployerLamatchProfileRepository::class)]
