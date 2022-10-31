@@ -9,18 +9,17 @@ use App\Entity\JobTitle;
 use App\Entity\Subscriptions\DISC\DISCPersonality;
 use App\Entity\Subscriptions\MainValue;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
-use App\Transversal\CreatedDate;
-use App\Transversal\LastModifiedDate;
-use App\Transversal\Uuid;
+use App\Transversal\Label;
+use App\Transversal\TechnicalProperties;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployerLamatchProfileRepository::class)]
 #[ApiResource]
 class EmployerLamatchProfile
 {
-    use Uuid;
-    use CreatedDate;
-    use LastModifiedDate;
+    use TechnicalProperties;
+    use Label;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $experience = null;
@@ -43,6 +42,10 @@ class EmployerLamatchProfile
 
     #[ORM\ManyToOne]
     private ?MainValue $mainValue = null;
+
+    #[ORM\ManyToOne(inversedBy: 'employerLamatchProfiles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?EmployerLamatchSubscription $employerLamatchSubscription = null;
 
     public function getExperience(): ?string
     {
@@ -124,6 +127,18 @@ class EmployerLamatchProfile
     public function setMainValue(?MainValue $mainValue): self
     {
         $this->mainValue = $mainValue;
+
+        return $this;
+    }
+
+    public function getEmployerLamatchSubscription(): ?EmployerLamatchSubscription
+    {
+        return $this->employerLamatchSubscription;
+    }
+
+    public function setEmployerLamatchSubscription(?EmployerLamatchSubscription $employerLamatchSubscription): self
+    {
+        $this->employerLamatchSubscription = $employerLamatchSubscription;
 
         return $this;
     }
