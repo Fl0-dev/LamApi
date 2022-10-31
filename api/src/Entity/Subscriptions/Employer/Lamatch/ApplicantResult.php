@@ -60,16 +60,4 @@ class ApplicantResult
 
         return $this;
     }
-
-    public function getEmployer(): ?Employer
-    {
-        return $this->employer;
-    }
-
-    public function setEmployer(?Employer $employer): self
-    {
-        $this->employer = $employer;
-
-        return $this;
-    }
 }
