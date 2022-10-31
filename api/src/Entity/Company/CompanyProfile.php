@@ -3,6 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Badge;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
 use App\Repository\CompanyRepositories\CompanyProfileRepository;
@@ -65,10 +66,15 @@ class CompanyProfile
     #[ORM\OneToMany(mappedBy: 'CompanyProfile', targetEntity: CompanyProfileRevision::class, orphanRemoval: true)]
     private Collection $companyProfileRevisions;
 
+    #[ORM\ManyToMany(targetEntity: Badge::class)]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    private Collection $badges;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
         $this->companyProfileRevisions = new ArrayCollection();
+        $this->badges = new ArrayCollection();
     }
 
     public function getCreationYear(): ?int
@@ -214,6 +220,14 @@ class CompanyProfile
         return $workforceRepository->find($this->workforce)->getLabel();
     }
 
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS])]
+    public function getNbBadges(): ?int
+    {
+        $nbBadges = count($this->getBadges());
+        return $nbBadges;
+    }
+
+
     /**
      * @return Collection<int, CompanyProfileRevision>
      */
@@ -235,6 +249,30 @@ class CompanyProfile
     public function removeCompanyProfileRevision(CompanyProfileRevision $companyProfileRevision): self
     {
         $this->companyProfileRevisions->removeElement($companyProfileRevision);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->badges;
+    }
+
+    public function addBadge(Badge $badge): self
+    {
+        if (!$this->badges->contains($badge)) {
+            $this->badges[] = $badge;
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): self
+    {
+        $this->badges->removeElement($badge);
 
         return $this;
     }

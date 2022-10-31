@@ -101,9 +101,9 @@ class BadgeFixtures extends Fixture
         $badge->setLabel('Cabinet à impact +');
         $badge->setImageUri('impact-plus.svg');
         $badge->setBadgePath('/assets/images/badges/' . 'impact-plus.svg');
-        $badge->setDescription("Un cabinet peut choisir ce badge s'il a mis en place des actions concrètes
-         pour avoir un impact positif sur l'environnement. Par exemple In Extenso Ouest Atlantique dispose de 
-         ruches installées sur le toit de leurs bureaux à Ancenis.");
+        $badge->setDescription("Un cabinet peut choisir ce badge s'il a mis en place des actions concrètes 
+        pour avoir un impact positif sur l'environnement. Par exemple In Extenso Ouest Atlantique dispose de 
+        ruches installées sur le toit de leurs bureaux à Ancenis.");
         $badge->setSlug('impact-plus');
         $manager->persist($badge);
         $this->addReference(self::BADGE_REFERENCE_1, $badge);

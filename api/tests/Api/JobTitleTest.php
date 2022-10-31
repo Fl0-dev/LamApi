@@ -8,8 +8,6 @@ use App\Repository\JobTitleRepository;
 
 class JobTitleTest extends ApiTestCase
 {
-    // use RefreshDatabaseTrait;
-    
     public function testGetCollectionOfJobTitles(): void
     {
         $response = static::createClient()->request('GET', '/job_titles');
@@ -37,17 +35,28 @@ class JobTitleTest extends ApiTestCase
 
     public function testGetJobTitle(): void
     {
-        $response = static::createClient()->request('GET', '/job_titles/1ed4abfe-cdfc-6eca-9edc-1dae6ea42471');
+        $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
+        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $id = $jobTitle->getId();
+        
+        $response = static::createClient()->request('GET', "/job_titles/$id");
 
         $this->assertJsonContains([
           "@context" => "/contexts/JobTitle",
-          "@id" => "/job_titles/1ed4abfe-cdfc-6eca-9edc-1dae6ea42471",
+          "@id" => "/job_titles/$id",
           "@type" => "JobTitle",
           "jobTypes" => [],
-          "id" => "1ed4abfe-cdfc-6eca-9edc-1dae6ea42471",
+          "id" => "$id",
           "slug" => "assistant-administratif",
           "label" => "Assistant administratif"
         ]);
+    }
+
+    public function testGetErrorIfNotJobTitleId(): void
+    {
+        $response = static::createClient()->request('GET', "/job_titles/1s1g-fdf5-sdfsfs-2131");
+
+        $this->assertResponseStatusCodeSame(404);
     }
 
     public function testPostJobTitle(): void
@@ -71,6 +80,7 @@ class JobTitleTest extends ApiTestCase
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
         $jobTitle = $jobTitleRepository->findBySlug('test-job-title');
+
         $response = static::createClient()->request('DELETE', '/job_titles/' . $jobTitle->getId());
 
         $this->assertResponseStatusCodeSame(204);
@@ -78,7 +88,11 @@ class JobTitleTest extends ApiTestCase
 
     public function testIsJobTitle(): void
     {
-        $response = static::createClient()->request('GET', '/job_titles/1ed4abfe-cdfc-6eca-9edc-1dae6ea42471');
+        $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
+        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $id = $jobTitle->getId();
+
+        $response = static::createClient()->request('GET', "/job_titles/$id");
 
         $this->assertMatchesResourceItemJsonSchema(JobTitle::class);
     }

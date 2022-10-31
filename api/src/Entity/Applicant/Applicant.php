@@ -10,6 +10,7 @@ use App\Entity\JobTitle;
 use App\Entity\References\ContractType;
 use App\Entity\References\Experience;
 use App\Entity\References\LevelOfStudy;
+use App\Entity\Subscriptions\Applicant\ApplicantSubscription;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicantRepositories\ApplicantRepository;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
@@ -53,23 +54,23 @@ class Applicant extends UserPhysical
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    private $levelOfStudy;
+    private $currentLevelOfStudy;
 
     #[ORM\ManyToOne(targetEntity: JobTitle::class)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    private $jobTitle;
+    private $currentJobTitle;
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    private $experience;
+    private $currentExperience;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    private $city;
+    private $currentCity;
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    private $contractType;
+    private $currentContractType;
 
     #[ORM\Column(type: 'string')]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
@@ -83,6 +84,9 @@ class Applicant extends UserPhysical
     #[ORM\Column(type: "boolean", nullable: true)]
     private $optin;
 
+    #[ORM\OneToOne(mappedBy: 'applicant', cascade: ['persist', 'remove'])]
+    private ?ApplicantSubscription $applicantSubscription = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -91,30 +95,30 @@ class Applicant extends UserPhysical
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    public function getContractType(): ?string
+    public function getCurrentContractType(): ?string
     {
         $contractTypeRepository = new ContractTypeRepository();
-        $contractType = $contractTypeRepository->find($this->contractType);
+        $currentContractType = $contractTypeRepository->find($this->currentContractType);
 
-        return $contractType instanceof ContractType ? $contractType->getLabel() : null;
+        return $currentContractType instanceof ContractType ? $currentContractType->getLabel() : null;
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    public function getExperience(): ?string
+    public function getCurrentExperience(): ?string
     {
         $experienceRepository = new ExperienceRepository();
-        $experience = $experienceRepository->find($this->experience);
+        $currentExperience = $experienceRepository->find($this->currentExperience);
 
-        return $experience instanceof Experience ? $experience->getDuration() : null;
+        return $currentExperience instanceof Experience ? $currentExperience->getDuration() : null;
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    public function getLevelOfStudy(): ?string
+    public function getCurrentLevelOfStudy(): ?string
     {
         $levelOfStudyRepository = new LevelOfStudyRepository();
-        $levelOfStudy = $levelOfStudyRepository->find($this->levelOfStudy);
+        $currentLevelOfStudy = $levelOfStudyRepository->find($this->currentLevelOfStudy);
 
-        return $levelOfStudy instanceof LevelOfStudy ? $levelOfStudy->getLabel() : null;
+        return $currentLevelOfStudy instanceof LevelOfStudy ? $currentLevelOfStudy->getLabel() : null;
     }
 
     public function getPhysicalType(): string
@@ -219,63 +223,63 @@ class Applicant extends UserPhysical
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    public function getLevelOfStudyId(): ?string
+    public function getCurrentLevelOfStudyId(): ?string
     {
-        return $this->levelOfStudy;
+        return $this->currentLevelOfStudy;
     }
 
-    public function setLevelOfStudy(?string $levelOfStudy): self
+    public function setCurrentLevelOfStudy(?string $currentLevelOfStudy): self
     {
-        $this->levelOfStudy = $levelOfStudy;
+        $this->currentLevelOfStudy = $currentLevelOfStudy;
 
         return $this;
     }
 
-    public function getJobTitle(): ?JobTitle
+    public function getCurrentJobTitle(): ?JobTitle
     {
-        return $this->jobTitle;
+        return $this->currentJobTitle;
     }
 
-    public function setJobTitle(?JobTitle $jobTitle): self
+    public function setCurrentJobTitle(?JobTitle $currentJobTitle): self
     {
-        $this->jobTitle = $jobTitle;
+        $this->currentJobTitle = $currentJobTitle;
 
         return $this;
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
-    public function getExperienceId(): ?string
+    public function getCurrentExperienceId(): ?string
     {
-        return $this->experience;
+        return $this->currentExperience;
     }
 
-    public function setExperience(?string $experience): self
+    public function setCurrentExperience(?string $currentExperience): self
     {
-        $this->experience = $experience;
+        $this->currentExperience = $currentExperience;
 
         return $this;
     }
 
-    public function getCity(): ?City
+    public function getCurrentCity(): ?City
     {
-        return $this->city;
+        return $this->currentCity;
     }
 
-    public function setCity(?City $city): self
+    public function setCurrentCity(?City $currentCity): self
     {
-        $this->city = $city;
+        $this->currentCity = $currentCity;
 
         return $this;
     }
 
-    public function getContractTypeId(): ?string
+    public function getCurrentContractTypeId(): ?string
     {
-        return $this->contractType;
+        return $this->currentContractType;
     }
 
-    public function setContractType(?string $contractType): self
+    public function setCurrentContractType(?string $currentContractType): self
     {
-        $this->contractType = $contractType;
+        $this->currentContractType = $currentContractType;
 
         return $this;
     }
@@ -300,6 +304,23 @@ class Applicant extends UserPhysical
     public function setOptin(?bool $optin): self
     {
         $this->optin = $optin;
+
+        return $this;
+    }
+
+    public function getApplicantSubscription(): ?ApplicantSubscription
+    {
+        return $this->applicantSubscription;
+    }
+
+    public function setApplicantSubscription(ApplicantSubscription $applicantSubscription): self
+    {
+        // set the owning side of the relation if necessary
+        if ($applicantSubscription->getApplicant() !== $this) {
+            $applicantSubscription->setApplicant($this);
+        }
+
+        $this->applicantSubscription = $applicantSubscription;
 
         return $this;
     }

@@ -48,6 +48,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -67,13 +73,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
         $companyGroup->addPool($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_1));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_1, $companyGroup);
-
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
 
         $companyGroup->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_1));
 
@@ -214,6 +213,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
             dans la gestion des entreprises. Nous sommes situés à Nantes'
         );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -235,11 +238,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_5));
         $companyGroup->addPool($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_2));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_2, $companyGroup);
-
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/logo.png');
@@ -349,6 +347,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -371,13 +375,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addPool($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_3));
         $companyGroup->addPartner($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_4));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_3, $companyGroup);
-
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/logo.png');
@@ -492,6 +489,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
             dans la gestion des entreprises. Nous sommes situés dans l\'Ouest'
         );
         $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
+        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -511,13 +514,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addAts($this->getReference(AtsFixtures::ATS_REFERENCE_2));
         $companyGroup->addPartner($this->getReference(OrganisationFixtures::ORGANISATION_REFERENCE_5));
         $this->addReference(self::COMPANY_GROUP_REFERENCE_4, $companyGroup);
-
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
-        $companyGroup->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/logo.png');

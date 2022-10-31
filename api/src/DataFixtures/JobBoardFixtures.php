@@ -26,6 +26,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setCreatedDate(new \DateTime());
         $jobBoard->setLastModifiedDate(new \DateTime());
         $jobBoard->setEmail('linkedin@gmail.com');
+        $jobBoard->setActive(true);
         $jobBoard->setPassword($this->hasher->hashPassword($jobBoard, 'password'));
         $jobBoard->setName('Linkedin');
         $jobBoard->setSlug('linkedin');
@@ -43,6 +44,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setCreatedDate(new \DateTime());
         $jobBoard->setLastModifiedDate(new \DateTime());
         $jobBoard->setEmail('hellowork@gmail.com');
+        $jobBoard->setActive(true);
         $jobBoard->setPassword($this->hasher->hashPassword($jobBoard, 'password'));
         $jobBoard->setName('HelloWork');
         $jobBoard->setSlug('hellowork');
@@ -60,6 +62,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setCreatedDate(new \DateTime());
         $jobBoard->setLastModifiedDate(new \DateTime());
         $jobBoard->setEmail('meteojob@gmail.com');
+        $jobBoard->setActive(true);
         $jobBoard->setPassword($this->hasher->hashPassword($jobBoard, 'password'));
         $jobBoard->setName('MeteoJob');
         $jobBoard->setSlug('meteojob');
@@ -77,6 +80,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setCreatedDate(new \DateTime());
         $jobBoard->setLastModifiedDate(new \DateTime());
         $jobBoard->setEmail('apec@gmail.com');
+        $jobBoard->setActive(true);
         $jobBoard->setPassword($this->hasher->hashPassword($jobBoard, 'password'));
         $jobBoard->setName('Apec');
         $jobBoard->setSlug('apec');
@@ -94,6 +98,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setCreatedDate(new \DateTime());
         $jobBoard->setLastModifiedDate(new \DateTime());
         $jobBoard->setEmail('pole-emploi@gmail.com');
+        $jobBoard->setActive(true);
         $jobBoard->setPassword($this->hasher->hashPassword($jobBoard, 'password'));
         $jobBoard->setName('Pôle Emploi');
         $jobBoard->setSlug('pole-emploi');
@@ -111,6 +116,7 @@ class JobBoardFixtures extends Fixture
         $jobBoard->setCreatedDate(new \DateTime());
         $jobBoard->setLastModifiedDate(new \DateTime());
         $jobBoard->setEmail('indeed@gmail.com');
+        $jobBoard->setActive(true);
         $jobBoard->setPassword($this->hasher->hashPassword($jobBoard, 'password'));
         $jobBoard->setName('Indeed');
         $jobBoard->setSlug('indeed');

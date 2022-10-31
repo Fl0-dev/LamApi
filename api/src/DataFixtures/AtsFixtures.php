@@ -27,6 +27,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('digital-recruiters@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('Digital Recruiters');
@@ -41,6 +42,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('flatchr@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('Flatchr');
@@ -55,6 +57,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('rhprofiler@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('RhProfiler');
@@ -69,6 +72,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('taleez@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('Taleez');
@@ -83,6 +87,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('talentdetection@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('TalentDetection');
@@ -97,6 +102,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('talentplug@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('TalentPlug');
@@ -111,6 +117,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('teamtailor@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('Teamtailor');
@@ -125,6 +132,7 @@ class AtsFixtures extends Fixture
         $ats = new UserAts();
         $ats->setCreatedDate(new \DateTime());
         $ats->setLastModifiedDate(new \DateTime());
+        $ats->setActive(true);
         $ats->setEmail('werecruit@gmail.com');
         $ats->setPassword($this->hasher->hashPassword($ats, 'password'));
         $ats->setName('WeRecruit');
