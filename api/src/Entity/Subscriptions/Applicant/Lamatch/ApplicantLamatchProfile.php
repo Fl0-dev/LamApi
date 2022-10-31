@@ -8,6 +8,7 @@ use App\Entity\Badge;
 use App\Entity\JobTitle;
 use App\Entity\Media\MediaImage;
 use App\Entity\Subscriptions\DISC\DISCQuality;
+use App\Entity\Subscriptions\MainValue;
 use App\Entity\Tool;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchProfileRepository;
 use App\Transversal\CreatedDate;
@@ -56,6 +57,15 @@ class ApplicantLamatchProfile
 
     #[ORM\ManyToMany(targetEntity: DISCQuality::class)]
     private Collection $qualities;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $desiredWorkforce = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $desiredMiddleAge = null;
+
+    #[ORM\ManyToOne]
+    private ?MainValue $mainValue = null;
 
     public function __construct()
     {
@@ -216,6 +226,42 @@ class ApplicantLamatchProfile
     public function removeQuality(DISCQuality $quality): self
     {
         $this->qualities->removeElement($quality);
+
+        return $this;
+    }
+
+    public function getDesiredWorkforce(): ?string
+    {
+        return $this->desiredWorkforce;
+    }
+
+    public function setDesiredWorkforce(?string $desiredWorkforce): self
+    {
+        $this->desiredWorkforce = $desiredWorkforce;
+
+        return $this;
+    }
+
+    public function getDesiredMiddleAge(): ?string
+    {
+        return $this->desiredMiddleAge;
+    }
+
+    public function setDesiredMiddleAge(?string $desiredMiddleAge): self
+    {
+        $this->desiredMiddleAge = $desiredMiddleAge;
+
+        return $this;
+    }
+
+    public function getMainValue(): ?MainValue
+    {
+        return $this->mainValue;
+    }
+
+    public function setMainValue(?MainValue $mainValue): self
+    {
+        $this->mainValue = $mainValue;
 
         return $this;
     }

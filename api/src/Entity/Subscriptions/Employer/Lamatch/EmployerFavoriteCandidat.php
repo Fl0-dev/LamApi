@@ -4,7 +4,7 @@ namespace App\Entity\Subscriptions\Employer\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\User\Employer;
-use App\Repository\Subscriptions\Employer\Lamatch\EmployerFavoriteCandidatRepository;
+use App\Repository\SubscriptionRepositories\Employer\EmployerFavoriteCandidatRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 

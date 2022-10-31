@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Subscriptions\Employer\Lamatch;
+namespace App\Repository\SubscriptionRepositories\Employer;
 
 use App\Entity\Subscriptions\Employer\Lamatch\EmployerFavoriteCandidat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
