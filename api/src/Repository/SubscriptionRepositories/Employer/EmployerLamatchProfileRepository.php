@@ -2,26 +2,26 @@
 
 namespace App\Repository\SubscriptionRepositories\Employer;
 
-use App\Entity\Subscriptions\Employer\Lamatch\EmployerLamatchSubscription;
+use App\Entity\Subscriptions\Employer\Lamatch\EmployerLamatchProfile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EmployerLamatchSubscription>
+ * @extends ServiceEntityRepository<EmployerLamatchProfile>
  *
- * @method EmployerLamatchSubscription|null find($id, $lockMode = null, $lockVersion = null)
- * @method EmployerLamatchSubscription|null findOneBy(array $criteria, array $orderBy = null)
- * @method EmployerLamatchSubscription[] findAll()
- * @method EmployerLamatchSubscription[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EmployerLamatchProfile|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EmployerLamatchProfile|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EmployerLamatchProfile[]    findAll()
+ * @method EmployerLamatchProfile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmployerLamatchSubscriptionRepository extends ServiceEntityRepository
+class EmployerLamatchProfileRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EmployerLamatchSubscription::class);
+        parent::__construct($registry, EmployerLamatchProfile::class);
     }
 
-    public function save(EmployerLamatchSubscription $entity, bool $flush = false): void
+    public function save(EmployerLamatchProfile $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EmployerLamatchSubscriptionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(EmployerLamatchSubscription $entity, bool $flush = false): void
+    public function remove(EmployerLamatchProfile $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class EmployerLamatchSubscriptionRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return EmployerLamatchSubscription[] Returns an array of EmployerLamatchSubscription objects
+//     * @return EmployerLamatchProfile[] Returns an array of EmployerLamatchProfile objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class EmployerLamatchSubscriptionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?EmployerLamatchSubscription
+//    public function findOneBySomeField($value): ?EmployerLamatchProfile
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')
