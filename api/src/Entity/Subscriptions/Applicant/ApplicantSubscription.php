@@ -6,16 +6,18 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantSubscriptionRepository;
-use App\Transversal\Label;
-use App\Transversal\TechnicalProperties;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
+use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantSubscriptionRepository::class)]
 #[ApiResource]
 class ApplicantSubscription
 {
-    use TechnicalProperties;
-    use Label;
+    use Uuid;
+    use CreatedDate;
+    use LastModifiedDate;
 
     #[ORM\OneToOne(inversedBy: 'applicantSubscription', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
