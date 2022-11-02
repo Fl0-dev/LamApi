@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Badge;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
+use App\Entity\Subscriptions\MainValue;
 use App\Repository\CompanyRepositories\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
@@ -69,6 +70,9 @@ class CompanyProfile
     #[ORM\ManyToMany(targetEntity: Badge::class)]
     #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private Collection $badges;
+
+    #[ORM\ManyToOne]
+    private ?MainValue $mainValue = null;
 
     public function __construct()
     {
@@ -273,6 +277,18 @@ class CompanyProfile
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
+
+        return $this;
+    }
+
+    public function getMainValue(): ?MainValue
+    {
+        return $this->mainValue;
+    }
+
+    public function setMainValue(?MainValue $mainValue): self
+    {
+        $this->mainValue = $mainValue;
 
         return $this;
     }

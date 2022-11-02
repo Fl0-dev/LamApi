@@ -7,7 +7,6 @@ use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\JobTitle;
 use App\Entity\Subscriptions\DISC\DISCPersonality;
-use App\Entity\Subscriptions\MainValue;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
 use App\Transversal\Label;
 use App\Transversal\TechnicalProperties;
@@ -38,9 +37,6 @@ class EmployerLamatchProfile
 
     #[ORM\ManyToOne]
     private ?DISCPersonality $personnality = null;
-
-    #[ORM\ManyToOne]
-    private ?MainValue $mainValue = null;
 
     #[ORM\ManyToOne(inversedBy: 'employerLamatchProfiles')]
     #[ORM\JoinColumn(nullable: false)]
@@ -114,18 +110,6 @@ class EmployerLamatchProfile
     public function setPersonnality(?DISCPersonality $personnality): self
     {
         $this->personnality = $personnality;
-
-        return $this;
-    }
-
-    public function getMainValue(): ?MainValue
-    {
-        return $this->mainValue;
-    }
-
-    public function setMainValue(?MainValue $mainValue): self
-    {
-        $this->mainValue = $mainValue;
 
         return $this;
     }
