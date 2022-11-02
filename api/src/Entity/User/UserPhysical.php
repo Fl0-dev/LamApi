@@ -24,14 +24,14 @@ abstract class UserPhysical extends User
     public const TYPE_APPLICANT = "applicant";
     public const TYPE_EMPLOYER = "employer";
 
-    #[ORM\Column(type: "string", length: 180)]
+    #[ORM\Column(type: "string", length: 180, nullable: true)]
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
     ])]
     private $firstname;
 
-    #[ORM\Column(type: "string", length: 180)]
+    #[ORM\Column(type: "string", length: 180, nullable: true)]
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
@@ -55,7 +55,7 @@ abstract class UserPhysical extends User
     /**
      * Get the value of firstname
      */
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -65,7 +65,7 @@ abstract class UserPhysical extends User
      *
      * @return  self
      */
-    public function setFirstname($firstname)
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 
@@ -75,7 +75,7 @@ abstract class UserPhysical extends User
     /**
      * Get the value of lastname
      */
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -85,7 +85,7 @@ abstract class UserPhysical extends User
      *
      * @return  self
      */
-    public function setLastname($lastname)
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
