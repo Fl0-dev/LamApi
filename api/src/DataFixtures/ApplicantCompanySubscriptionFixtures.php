@@ -27,7 +27,10 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompanySubscription = new ApplicantCompanySubscription();
         $applicantCompanySubscription->setCreatedDate(new \DateTime());
         $applicantCompanySubscription->setLastModifiedDate(new \DateTime());
-        $applicantCompanySubscription->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+        $applicantCompanySubscription->setStatus(
+            (
+            new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId()
+        );
         $this->addReference(self::APPLICANT_COMPANY_SUBSCRIPTION_REFERENCE_1, $applicantCompanySubscription);
 
         $manager->persist($applicantCompanySubscription);
@@ -67,7 +70,9 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompanySubscription = new ApplicantCompanySubscription();
         $applicantCompanySubscription->setCreatedDate(new \DateTime());
         $applicantCompanySubscription->setLastModifiedDate(new \DateTime());
-        $applicantCompanySubscription->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+        $applicantCompanySubscription->setStatus(
+            (new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId()
+        );
         $this->addReference(self::APPLICANT_COMPANY_SUBSCRIPTION_REFERENCE_2, $applicantCompanySubscription);
 
         $manager->persist($applicantCompanySubscription);
@@ -97,7 +102,9 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompanySubscription = new ApplicantCompanySubscription();
         $applicantCompanySubscription->setCreatedDate(new \DateTime());
         $applicantCompanySubscription->setLastModifiedDate(new \DateTime());
-        $applicantCompanySubscription->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+        $applicantCompanySubscription->setStatus(
+            (new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId()
+        );
         $this->addReference(self::APPLICANT_COMPANY_SUBSCRIPTION_REFERENCE_3, $applicantCompanySubscription);
 
         $manager->persist($applicantCompanySubscription);
@@ -117,7 +124,9 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompanySubscription = new ApplicantCompanySubscription();
         $applicantCompanySubscription->setCreatedDate(new \DateTime());
         $applicantCompanySubscription->setLastModifiedDate(new \DateTime());
-        $applicantCompanySubscription->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+        $applicantCompanySubscription->setStatus(
+            (new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId()
+        );
         $this->addReference(self::APPLICANT_COMPANY_SUBSCRIPTION_REFERENCE_4, $applicantCompanySubscription);
 
         $manager->persist($applicantCompanySubscription);
