@@ -42,6 +42,9 @@ class EmployerLamatchProfile
     #[ORM\JoinColumn(nullable: false)]
     private ?EmployerLamatchSubscription $employerLamatchSubscription = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
+
     public function getExperience(): ?string
     {
         return $this->experience;
@@ -122,6 +125,18 @@ class EmployerLamatchProfile
     public function setEmployerLamatchSubscription(?EmployerLamatchSubscription $employerLamatchSubscription): self
     {
         $this->employerLamatchSubscription = $employerLamatchSubscription;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
