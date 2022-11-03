@@ -17,9 +17,6 @@ class EmployerLamatch
     use Uuid;
     use CreatedDate;
 
-    #[ORM\Column(length: 50)]
-    private ?string $status = null;
-
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?EmployerLamatchProfile $EmployerLamatchProfile = null;
@@ -34,18 +31,6 @@ class EmployerLamatch
     public function __construct()
     {
         $this->applicantResults = new ArrayCollection();
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
     }
 
     public function getEmployerLamatchProfile(): ?EmployerLamatchProfile

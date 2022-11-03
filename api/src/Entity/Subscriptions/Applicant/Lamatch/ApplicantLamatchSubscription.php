@@ -20,6 +20,10 @@ class ApplicantLamatchSubscription
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ApplicantLamatchProfile $applicantLamatchProfile = null;
+
     public function getStatus(): ?string
     {
         return $this->status;
@@ -28,6 +32,18 @@ class ApplicantLamatchSubscription
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getApplicantLamatchProfile(): ?ApplicantLamatchProfile
+    {
+        return $this->applicantLamatchProfile;
+    }
+
+    public function setApplicantLamatchProfile(ApplicantLamatchProfile $applicantLamatchProfile): self
+    {
+        $this->applicantLamatchProfile = $applicantLamatchProfile;
 
         return $this;
     }

@@ -7,7 +7,6 @@ use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\JobTitle;
 use App\Entity\Subscriptions\DISC\DISCPersonality;
-use App\Entity\Subscriptions\MainValue;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
 use App\Transversal\Label;
 use App\Transversal\TechnicalProperties;
@@ -39,12 +38,12 @@ class EmployerLamatchProfile
     #[ORM\ManyToOne]
     private ?DISCPersonality $personnality = null;
 
-    #[ORM\ManyToOne]
-    private ?MainValue $mainValue = null;
-
     #[ORM\ManyToOne(inversedBy: 'employerLamatchProfiles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?EmployerLamatchSubscription $employerLamatchSubscription = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
 
     public function getExperience(): ?string
     {
@@ -118,18 +117,6 @@ class EmployerLamatchProfile
         return $this;
     }
 
-    public function getMainValue(): ?MainValue
-    {
-        return $this->mainValue;
-    }
-
-    public function setMainValue(?MainValue $mainValue): self
-    {
-        $this->mainValue = $mainValue;
-
-        return $this;
-    }
-
     public function getEmployerLamatchSubscription(): ?EmployerLamatchSubscription
     {
         return $this->employerLamatchSubscription;
@@ -138,6 +125,18 @@ class EmployerLamatchProfile
     public function setEmployerLamatchSubscription(?EmployerLamatchSubscription $employerLamatchSubscription): self
     {
         $this->employerLamatchSubscription = $employerLamatchSubscription;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
