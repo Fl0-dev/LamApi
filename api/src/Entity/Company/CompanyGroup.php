@@ -11,7 +11,6 @@ use App\Controller\CompanyGroupAction;
 use App\Entity\User\UserAts;
 use App\Entity\Revision\CompanyGroupRevision;
 use App\Entity\User\Employer;
-use App\Entity\JobType;
 use App\Entity\Media\Media;
 use App\Entity\Organisation;
 use App\Entity\Company\CompanyProfile;
@@ -280,7 +279,6 @@ class CompanyGroup
     {
         $this->pools = new ArrayCollection();
         $this->partners = new ArrayCollection();
-        $this->jobTypes = new ArrayCollection();
         $this->companyEntities = new ArrayCollection();
         $this->admins = new ArrayCollection();
         $this->ats = new ArrayCollection();

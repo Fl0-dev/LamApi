@@ -40,7 +40,7 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_1));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);
@@ -50,7 +50,7 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_2));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);
@@ -60,7 +60,7 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_3));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_3));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);
@@ -82,7 +82,7 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_1));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_1));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);
@@ -92,7 +92,7 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_2));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);
@@ -114,7 +114,7 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_2));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_2));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);
@@ -136,7 +136,17 @@ class ApplicantCompanySubscriptionFixtures extends Fixture implements DependentF
         $applicantCompany->setCreatedDate(new \DateTime());
         $applicantCompany->setLastModifiedDate(new \DateTime());
         $applicantCompany->setActiveSending(true);
-        $applicantCompany->setCompanyGroup($this->getReference(CompanyGroupFixtures::COMPANY_GROUP_REFERENCE_4));
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_4));
+        $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
+
+        $manager->persist($applicantCompany);
+        $manager->flush();
+
+        $applicantCompany = new ApplicantCompany();
+        $applicantCompany->setCreatedDate(new \DateTime());
+        $applicantCompany->setLastModifiedDate(new \DateTime());
+        $applicantCompany->setActiveSending(true);
+        $applicantCompany->setCompanyEntity($this->getReference(CompanyGroupFixtures::COMPANY_ENTITY_REFERENCE_7));
         $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
 
         $manager->persist($applicantCompany);

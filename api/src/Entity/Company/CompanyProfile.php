@@ -81,6 +81,7 @@ class CompanyProfile
 
     public function __construct()
     {
+        $this->jobTypes = new ArrayCollection();
         $this->tools = new ArrayCollection();
         $this->companyProfileRevisions = new ArrayCollection();
         $this->badges = new ArrayCollection();
