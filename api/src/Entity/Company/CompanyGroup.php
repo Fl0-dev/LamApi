@@ -9,7 +9,6 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Controller\CompanyGroupAction;
 use App\Entity\User\UserAts;
-use App\Entity\Badge;
 use App\Entity\Revision\CompanyGroupRevision;
 use App\Entity\User\Employer;
 use App\Entity\JobType;
@@ -231,10 +230,6 @@ class CompanyGroup
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private $mainMedia;
-
-    #[ORM\ManyToMany(targetEntity: JobType::class)]
-    #[Groups([self::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
-    private $jobTypes;
 
     #[ORM\OneToMany(
         mappedBy: 'companyGroup',
@@ -474,28 +469,6 @@ class CompanyGroup
     public function setMainMedia(?Media $mainMedia): self
     {
         $this->mainMedia = $mainMedia;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, JobType>
-     */
-    public function getJobTypes(): Collection
-    {
-        return $this->jobTypes;
-    }
-
-    public function addJobType(JobType $jobType): self
-    {
-        if (!$this->jobTypes->contains($jobType)) {
-            $this->jobTypes[] = $jobType;
-        }
-        return $this;
-    }
-
-    public function removeJobType(JobType $jobType): self
-    {
-        $this->jobTypes->removeElement($jobType);
         return $this;
     }
 

@@ -5,6 +5,7 @@ namespace App\Entity\Company;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Badge;
 use App\Entity\ExpertiseField;
+use App\Entity\JobType;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
 use App\Repository\CompanyRepositories\CompanyProfileRepository;
@@ -59,6 +60,10 @@ class CompanyProfile
     #[Validator\IsInRepository]
     #[ORM\Column(nullable: true)]
     private ?string $workforce = null;
+
+    #[ORM\ManyToMany(targetEntity: JobType::class)]
+    #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
+    private $jobTypes;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
@@ -217,7 +222,7 @@ class CompanyProfile
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS
-        ])]
+    ])]
     public function getWorkforceLabel(): ?string
     {
         $workforceRepository = new WorkforceRepository();
@@ -303,6 +308,28 @@ class CompanyProfile
     {
         $this->expertiseFields->removeElement($expertiseField);
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobType>
+     */
+    public function getJobTypes(): Collection
+    {
+        return $this->jobTypes;
+    }
+
+    public function addJobType(JobType $jobType): self
+    {
+        if (!$this->jobTypes->contains($jobType)) {
+            $this->jobTypes[] = $jobType;
+        }
+        return $this;
+    }
+
+    public function removeJobType(JobType $jobType): self
+    {
+        $this->jobTypes->removeElement($jobType);
         return $this;
     }
 }
