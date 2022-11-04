@@ -9,7 +9,6 @@ use App\Entity\ExpertiseField;
 use App\Entity\JobTitle;
 use App\Entity\Media\MediaImage;
 use App\Entity\Subscriptions\DISC\DISCQuality;
-use App\Entity\Subscriptions\MainValue;
 use App\Entity\Tool;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchProfileRepository;
 use App\Transversal\CreatedDate;

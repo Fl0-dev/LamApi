@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class ExpertiseField
 {
+    use Uuid;
+    use Slug;
+    use Label;
+
     public const EXPERTISE_FIELDS = [
         'agricole' => 'Agricole',
         'agroalimentaire' => 'Agroalimentaire',
@@ -42,8 +46,4 @@ class ExpertiseField
         'transport' => 'Transport',
         'autre' => 'Autre'
     ];
-
-    use Uuid;
-    use Slug;
-    use Label;
 }

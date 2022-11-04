@@ -7,7 +7,6 @@ use App\Entity\Badge;
 use App\Entity\ExpertiseField;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
-use App\Entity\Subscriptions\MainValue;
 use App\Repository\CompanyRepositories\CompanyProfileRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Transversal\Uuid;
