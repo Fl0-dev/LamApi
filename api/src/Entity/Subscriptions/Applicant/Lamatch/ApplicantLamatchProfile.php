@@ -62,7 +62,7 @@ class ApplicantLamatchProfile
     private ?string $desiredWorkforce = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $desiredMiddleAge = null;
+    private ?string $desiredCompanyAge = null;
 
     #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
     private Collection $desiredExpertiseFields;
@@ -243,14 +243,14 @@ class ApplicantLamatchProfile
         return $this;
     }
 
-    public function getDesiredMiddleAge(): ?string
+    public function getDesiredCompanyAge(): ?string
     {
-        return $this->desiredMiddleAge;
+        return $this->desiredCompanyAge;
     }
 
-    public function setDesiredMiddleAge(?string $desiredMiddleAge): self
+    public function setDesiredCompanyAge(?string $desiredCompanyAge): self
     {
-        $this->desiredMiddleAge = $desiredMiddleAge;
+        $this->desiredCompanyAge = $desiredCompanyAge;
 
         return $this;
     }
