@@ -4,6 +4,7 @@ namespace App\Entity\Company;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Badge;
+use App\Entity\ExpertiseField;
 use App\Entity\Revision\CompanyProfileRevision;
 use App\Entity\SocialFeed;
 use App\Entity\Subscriptions\MainValue;
@@ -71,14 +72,15 @@ class CompanyProfile
     #[Groups([CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS])]
     private Collection $badges;
 
-    #[ORM\ManyToOne]
-    private ?MainValue $mainValue = null;
+    #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
+    private Collection $expertiseFields;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
         $this->companyProfileRevisions = new ArrayCollection();
         $this->badges = new ArrayCollection();
+        $this->expertiseFields = new ArrayCollection();
     }
 
     public function getCreationYear(): ?int
@@ -281,14 +283,26 @@ class CompanyProfile
         return $this;
     }
 
-    public function getMainValue(): ?MainValue
+    /**
+     * @return Collection<int, ExpertiseField>
+     */
+    public function getExpertiseFields(): Collection
     {
-        return $this->mainValue;
+        return $this->expertiseFields;
     }
 
-    public function setMainValue(?MainValue $mainValue): self
+    public function addExpertiseField(ExpertiseField $expertiseField): self
     {
-        $this->mainValue = $mainValue;
+        if (!$this->expertiseFields->contains($expertiseField)) {
+            $this->expertiseFields->add($expertiseField);
+        }
+
+        return $this;
+    }
+
+    public function removeExpertiseField(ExpertiseField $expertiseField): self
+    {
+        $this->expertiseFields->removeElement($expertiseField);
 
         return $this;
     }

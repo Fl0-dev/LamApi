@@ -5,6 +5,7 @@ namespace App\Entity\Subscriptions\Applicant\Lamatch;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
+use App\Entity\ExpertiseField;
 use App\Entity\JobTitle;
 use App\Entity\Media\MediaImage;
 use App\Entity\Subscriptions\DISC\DISCQuality;
@@ -64,14 +65,15 @@ class ApplicantLamatchProfile
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $desiredMiddleAge = null;
 
-    #[ORM\ManyToOne]
-    private ?MainValue $mainValue = null;
+    #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
+    private Collection $desiredExpertiseFields;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
         $this->desiredBadges = new ArrayCollection();
         $this->qualities = new ArrayCollection();
+        $this->desiredExpertiseFields = new ArrayCollection();
     }
 
     public function getIntroduction(): ?string
@@ -254,14 +256,26 @@ class ApplicantLamatchProfile
         return $this;
     }
 
-    public function getMainValue(): ?MainValue
+    /**
+     * @return Collection<int, ExpertiseField>
+     */
+    public function getDesiredExpertiseFields(): Collection
     {
-        return $this->mainValue;
+        return $this->desiredExpertiseFields;
     }
 
-    public function setMainValue(?MainValue $mainValue): self
+    public function addDesiredExpertiseField(ExpertiseField $desiredExpertiseField): self
     {
-        $this->mainValue = $mainValue;
+        if (!$this->desiredExpertiseFields->contains($desiredExpertiseField)) {
+            $this->desiredExpertiseFields->add($desiredExpertiseField);
+        }
+
+        return $this;
+    }
+
+    public function removeDesiredExpertiseField(ExpertiseField $desiredExpertiseField): self
+    {
+        $this->desiredExpertiseFields->removeElement($desiredExpertiseField);
 
         return $this;
     }
