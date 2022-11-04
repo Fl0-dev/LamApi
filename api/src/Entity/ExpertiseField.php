@@ -34,6 +34,7 @@ class ExpertiseField
         'informatique' => 'Informatique',
         'immobilier' => 'Immobilier',
         'logistique' => 'Logistique',
+        'medias' => 'Médias',
         'médical' => 'Médical',
         'pharmaceutique' => 'Pharmaceutique',
         'prestations-de-services' => 'Prestations de services',

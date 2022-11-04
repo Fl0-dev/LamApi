@@ -54,6 +54,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_AGROALIMENTAIRE));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_BTP));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_DISTRIBUTION));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INDUSTRIE));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -217,6 +221,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PHARMACEUTIQUE));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_MEDICAL));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INFORMATIQUE));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_MEDIAS));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -353,6 +361,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_ENERGIE));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_BTP));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INDUSTRIE));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_LOGISTIQUE));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -495,6 +507,11 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
         $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_SOCIAL));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_SPORT));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_COMMUNICATION));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PUBLIC));
+        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PRESTATIONS_DE_SERVICES));
 
         $companyGroup = new CompanyGroup();
         $companyGroup->setProfile($profile);
@@ -633,6 +650,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            ExpertiseFieldFixtures::class,
             EmployerFixtures::class,
             OrganisationFixtures::class,
             CityFixtures::class,
