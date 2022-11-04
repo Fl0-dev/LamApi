@@ -6,6 +6,9 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Location\City;
 use App\Entity\Location\Department;
 use App\Repository\SubscriptionRepositories\Applicant\DesiredLocationRepository;
+use App\Transversal\CreatedDate;
+use App\Transversal\LastModifiedDate;
+use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,10 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class DesiredLocation
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Uuid;
+    use CreatedDate;
+    use LastModifiedDate;
 
     #[ORM\ManyToMany(targetEntity: City::class)]
     private Collection $desiredCities;
@@ -29,11 +31,6 @@ class DesiredLocation
     {
         $this->desiredCities = new ArrayCollection();
         $this->desiredDepartments = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
