@@ -209,7 +209,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
         $applicant->setActive(true);
-        $applicant->setEmail('anna@gmail.com');
+        $applicant->setEmail('david@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('David');
         $applicant->setLastName('Beckhim');
@@ -238,7 +238,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setCreatedDate(new \DateTime());
         $applicant->setLastModifiedDate(new \DateTime());
         $applicant->setActive(true);
-        $applicant->setEmail('anna@gmail.com');
+        $applicant->setEmail('mohamed@gmail.com');
         $applicant->setPassword($this->hasher->hashPassword($applicant, 'password'));
         $applicant->setFirstName('Mohamed');
         $applicant->setLastName('Salah');

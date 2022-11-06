@@ -21,12 +21,12 @@ class ApplicantLamatch
     #[ORM\JoinColumn(nullable: false)]
     private ?ApplicantLamatchSubscription $lamatchSubscription = null;
 
-    #[ORM\OneToMany(mappedBy: 'applicantLamatch', targetEntity: CompanyGroupResult::class)]
-    private Collection $companyGroupResults;
+    #[ORM\OneToMany(mappedBy: 'applicantLamatch', targetEntity: CompanyEntityResult::class)]
+    private Collection $companyEntityResults;
 
     public function __construct()
     {
-        $this->companyGroupResults = new ArrayCollection();
+        $this->companyEntityResults = new ArrayCollection();
     }
 
     public function getLamatchSubscription(): ?ApplicantLamatchSubscription
@@ -42,29 +42,29 @@ class ApplicantLamatch
     }
 
     /**
-     * @return Collection<int, CompanyGroupResult>
+     * @return Collection<int, CompanyEntityResult>
      */
-    public function getCompanyGroupResults(): Collection
+    public function getCompanyEntityResults(): Collection
     {
-        return $this->companyGroupResults;
+        return $this->companyEntityResults;
     }
 
-    public function addCompanyGroupResult(CompanyGroupResult $companyGroupResult): self
+    public function addCompanyEntityResult(CompanyEntityResult $companyEntityResult): self
     {
-        if (!$this->companyGroupResults->contains($companyGroupResult)) {
-            $this->companyGroupResults->add($companyGroupResult);
-            $companyGroupResult->setApplicantLamatch($this);
+        if (!$this->companyEntityResults->contains($companyEntityResult)) {
+            $this->companyEntityResults->add($companyEntityResult);
+            $companyEntityResult->setApplicantLamatch($this);
         }
 
         return $this;
     }
 
-    public function removeCompanyGroupResult(CompanyGroupResult $companyGroupResult): self
+    public function removeCompanyEntityResult(CompanyEntityResult $companyEntityResult): self
     {
-        if ($this->companyGroupResults->removeElement($companyGroupResult)) {
+        if ($this->companyEntityResults->removeElement($companyEntityResult)) {
             // set the owning side to null (unless already changed)
-            if ($companyGroupResult->getApplicantLamatch() === $this) {
-                $companyGroupResult->setApplicantLamatch(null);
+            if ($companyEntityResult->getApplicantLamatch() === $this) {
+                $companyEntityResult->setApplicantLamatch(null);
             }
         }
 

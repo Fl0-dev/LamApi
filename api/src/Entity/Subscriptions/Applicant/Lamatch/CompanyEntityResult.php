@@ -4,13 +4,13 @@ namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Company\CompanyGroup;
-use App\Repository\SubscriptionRepositories\Applicant\CompanyGroupResultRepository;
+use App\Repository\SubscriptionRepositories\Applicant\CompanyEntityResultRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CompanyGroupResultRepository::class)]
+#[ORM\Entity(repositoryClass: CompanyEntityResultRepository::class)]
 #[ApiResource]
-class CompanyGroupResult
+class CompanyEntityResult
 {
     use Uuid;
 
@@ -18,7 +18,7 @@ class CompanyGroupResult
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyGroup $companyGroup = null;
 
-    #[ORM\ManyToOne(inversedBy: 'companyGroupResults')]
+    #[ORM\ManyToOne(inversedBy: 'companyEntityResults')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ApplicantLamatch $applicantLamatch = null;
 

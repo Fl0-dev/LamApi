@@ -3,7 +3,7 @@
 namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Company\CompanyGroup;
+use App\Entity\Company\CompanyEntity;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantCompanyRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -23,7 +23,7 @@ class ApplicantCompany
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CompanyGroup $companyGroup = null;
+    private ?CompanyEntity $companyEntity = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -41,14 +41,14 @@ class ApplicantCompany
         return $this;
     }
 
-    public function getCompanyGroup(): ?CompanyGroup
+    public function getCompanyEntity(): ?CompanyEntity
     {
-        return $this->companyGroup;
+        return $this->companyEntity;
     }
 
-    public function setCompanyGroup(?CompanyGroup $companyGroup): self
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
     {
-        $this->companyGroup = $companyGroup;
+        $this->companyEntity = $companyEntity;
 
         return $this;
     }

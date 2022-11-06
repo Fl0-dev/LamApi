@@ -5,10 +5,10 @@ namespace App\Entity\Subscriptions\Applicant\Lamatch;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
+use App\Entity\ExpertiseField;
 use App\Entity\JobTitle;
 use App\Entity\Media\MediaImage;
 use App\Entity\Subscriptions\DISC\DISCQuality;
-use App\Entity\Subscriptions\MainValue;
 use App\Entity\Tool;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchProfileRepository;
 use App\Transversal\CreatedDate;
@@ -61,17 +61,15 @@ class ApplicantLamatchProfile
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $desiredWorkforce = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $desiredMiddleAge = null;
-
-    #[ORM\ManyToOne]
-    private ?MainValue $mainValue = null;
+    #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
+    private Collection $desiredExpertiseFields;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
         $this->desiredBadges = new ArrayCollection();
         $this->qualities = new ArrayCollection();
+        $this->desiredExpertiseFields = new ArrayCollection();
     }
 
     public function getIntroduction(): ?string
@@ -242,26 +240,26 @@ class ApplicantLamatchProfile
         return $this;
     }
 
-    public function getDesiredMiddleAge(): ?string
+    /**
+     * @return Collection<int, ExpertiseField>
+     */
+    public function getDesiredExpertiseFields(): Collection
     {
-        return $this->desiredMiddleAge;
+        return $this->desiredExpertiseFields;
     }
 
-    public function setDesiredMiddleAge(?string $desiredMiddleAge): self
+    public function addDesiredExpertiseField(ExpertiseField $desiredExpertiseField): self
     {
-        $this->desiredMiddleAge = $desiredMiddleAge;
+        if (!$this->desiredExpertiseFields->contains($desiredExpertiseField)) {
+            $this->desiredExpertiseFields->add($desiredExpertiseField);
+        }
 
         return $this;
     }
 
-    public function getMainValue(): ?MainValue
+    public function removeDesiredExpertiseField(ExpertiseField $desiredExpertiseField): self
     {
-        return $this->mainValue;
-    }
-
-    public function setMainValue(?MainValue $mainValue): self
-    {
-        $this->mainValue = $mainValue;
+        $this->desiredExpertiseFields->removeElement($desiredExpertiseField);
 
         return $this;
     }
