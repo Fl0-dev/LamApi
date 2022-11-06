@@ -15,6 +15,9 @@ class EmployerFixtures extends Fixture
     public const EMPLOYER_REFERENCE_4 = 'employer_4';
     public const EMPLOYER_REFERENCE_5 = 'employer_5';
     public const EMPLOYER_REFERENCE_6 = 'employer_6';
+    public const EMPLOYER_REFERENCE_7 = 'employer_7';
+    public const EMPLOYER_REFERENCE_8 = 'employer_8';
+    public const EMPLOYER_REFERENCE_9 = 'employer_9';
 
     public function __construct(private UserPasswordHasherInterface $hasher)
     {
@@ -108,6 +111,51 @@ class EmployerFixtures extends Fixture
         $employer->setLastName('Quandt');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
         $this->addReference(self::EMPLOYER_REFERENCE_6, $employer);
+
+        $manager->persist($employer);
+        $manager->flush();
+
+        $employer = new Employer();
+        $employer->setCreatedDate(new \DateTime());
+        $employer->setLastModifiedDate(new \DateTime());
+        $employer->setEmail('george@gmail.com');
+        $employer->setToken('georgeToken');
+        $employer->setActive(true);
+        $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setFirstName('George');
+        $employer->setLastName('Bouvier');
+        $employer->setBirthdate(new \DateTime('2001-01-01'));
+        $this->addReference(self::EMPLOYER_REFERENCE_7, $employer);
+
+        $manager->persist($employer);
+        $manager->flush();
+
+        $employer = new Employer();
+        $employer->setCreatedDate(new \DateTime());
+        $employer->setLastModifiedDate(new \DateTime());
+        $employer->setEmail('Kris@gmail.com');
+        $employer->setToken('krisToken');
+        $employer->setActive(true);
+        $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setFirstName('Kris');
+        $employer->setLastName('Helmer');
+        $employer->setBirthdate(new \DateTime('2001-01-01'));
+        $this->addReference(self::EMPLOYER_REFERENCE_8, $employer);
+
+        $manager->persist($employer);
+        $manager->flush();
+
+        $employer = new Employer();
+        $employer->setCreatedDate(new \DateTime());
+        $employer->setLastModifiedDate(new \DateTime());
+        $employer->setEmail('Sylvie@gmail.com');
+        $employer->setToken('sylvieToken');
+        $employer->setActive(true);
+        $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setFirstName('Sylvie');
+        $employer->setLastName('Premier');
+        $employer->setBirthdate(new \DateTime('2001-01-01'));
+        $this->addReference(self::EMPLOYER_REFERENCE_9, $employer);
 
         $manager->persist($employer);
         $manager->flush();

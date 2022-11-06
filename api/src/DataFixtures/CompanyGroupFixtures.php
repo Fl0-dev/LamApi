@@ -178,6 +178,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('tgs-france-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_1));
         $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_2));
 
         $address = new Address();
@@ -279,7 +280,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('tgs-france-est');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_2));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_1));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_3));
 
         $address = new Address();
         $address->setCity($this->getReference(CityFixtures::CITY_REFERENCE_5));
@@ -428,7 +430,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('eolis-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_3));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_4));
 
 
         $companyEntityOffice = new CompanyEntityOffice();
@@ -578,7 +580,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('livli-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_4));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_5));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli-ouest.com/assets/images/media1.png');
@@ -732,8 +734,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('in-extenso-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_5));
         $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_6));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_7));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
@@ -827,8 +829,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('in-extenso-metz');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_5));
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_6));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_8));
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-metz.com/assets/images/media1.png');
@@ -922,8 +923,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->setSlug('in-extenso-chalons-en-champagne');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_5));
-        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_6));
+        $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_9));
+
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-chalons-en-champagne.com/assets/images/media1.png');
