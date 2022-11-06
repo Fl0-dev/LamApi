@@ -55,6 +55,10 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_1)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_3));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_4));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -97,6 +101,10 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_2)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_3));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_4));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -142,6 +150,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_3)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_4));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_5));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -188,6 +199,10 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_4)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_3));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_1));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -220,6 +235,10 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_5)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_3));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_5));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -267,6 +286,12 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_6)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_3));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -314,6 +339,10 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_7)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_2));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -357,6 +386,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_8)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_4));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_1));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
 
@@ -411,6 +445,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setDesiredLocation(
             $this->getReference(DesiredLocationFixtures::DESIRED_LOCATION_REFERENCE_9)
         );
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_STEADY_1));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_2));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_5));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_5));
+        $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_4));
         $manager->persist($applicantLamatchProfile);
         $manager->flush();
     }
@@ -418,6 +457,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
     public function getDependencies()
     {
         return [
+            DISCFixtures::class,
             ExpertiseFieldFixtures::class,
             DesiredLocationFixtures::class,
             BadgeFixtures::class,
