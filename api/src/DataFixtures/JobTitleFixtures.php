@@ -8,77 +8,40 @@ use Doctrine\Persistence\ObjectManager;
 
 class JobTitleFixtures extends Fixture
 {
-    public const JOB_TITLES = [
-        'assistant-administratif' => 'Assistant administratif',
-        'assistant-comptable'      => 'Assistant comptable',
-        'assistant-juridique-droit-des-societes'      => 'Assistant juridique - Droit des Sociétés',
-        'assistant-juridique-droit-social'      => 'Assistant juridique - Droit Social',
-        'auditeur-assistant' => 'Auditeur Assistant',
-        'autres-metiers' => 'Autres métiers',
-        'avocat-droit-des-societes' => 'Avocat - Droit des Sociétés',
-        'avocat-droit-social' => 'Avocat - Droit Social',
-        'chef-de-mission-audit' => 'Chef de Mission Audit',
-        'chef-de-mission-comptable' => 'Chef de Mission Comptable',
-        'collaborateur-comptable' => 'Collaborateur Comptable',
-        'collaborateur-comptable-et-audit' => 'Collaborateur Comptable et Audit',
-        'communication-marketing' => 'Communication / Marketing',
-        'consultant-junior' => 'Consultant Junior',
-        'consultant-manager' => 'Consultant Manager',
-        'consultant-senior' => 'Consultant Senior',
-        'controleur-de-gestion' => 'Contrôleur de Gestion',
-        'directeur-audit' => 'Directeur Audit',
-        'expert-comptable' => 'Expert-Comptable',
-        'expert-comptable-stagiaire' => 'Expert-Comptable Stagiaire',
-        'fiscalite' => 'Fiscalité',
-        'gestion-pilotage' => 'Gestion / Pilotage',
-        'gestion de patrimoine' => 'Gestion de patrimoine',
-        'gestionnaire-de-paie' => 'Gestionnaire de Paie',
-        'juriste-droit-des-societes' => 'Juriste - Droit des Sociétés',
-        'juriste-droit-social' => 'Juriste - Droit Social',
-        'manager-audit' => 'Manager Audit',
-        'manager-comptable' => 'Manager Comptable',
-        'numerique' => 'Numérique',
-        'responsable-paie' => 'Responsable Paie',
-        'ressources-humaines' => 'Ressources Humaines',
-        'secretaire-juridique' => 'Secrétaire Juridique',
-        'senior-manager-audit' => 'Senior Manager Audit',
-        'transmission-cession' => 'Transmission / Cession'
-    ];
-
-    public const JOB_TITLE_REFERENCE_1 = 'job_title_reference_1';
-    public const JOB_TITLE_REFERENCE_2 = 'job_title_reference_2';
-    public const JOB_TITLE_REFERENCE_3 = 'job_title_reference_3';
-    public const JOB_TITLE_REFERENCE_4 = 'job_title_reference_4';
-    public const JOB_TITLE_REFERENCE_5 = 'job_title_reference_5';
-    public const JOB_TITLE_REFERENCE_6 = 'job_title_reference_6';
-    public const JOB_TITLE_REFERENCE_7 = 'job_title_reference_7';
-    public const JOB_TITLE_REFERENCE_8 = 'job_title_reference_8';
+    public const JOB_TITLE_REFERENCE_1 = 'assistant-administratif';
+    public const JOB_TITLE_REFERENCE_2 = 'assistant-comptable';
+    public const JOB_TITLE_REFERENCE_3 = 'assistant-juridique-droit-des-societes';
+    public const JOB_TITLE_REFERENCE_4 = 'assistant-juridique-droit-social';
+    public const JOB_TITLE_REFERENCE_5 = 'auditeur-assistant';
+    public const JOB_TITLE_REFERENCE_6 = 'autres-metiers';
+    public const JOB_TITLE_REFERENCE_7 = 'avocat-droit-des-societes';
+    public const JOB_TITLE_REFERENCE_8 = 'avocat-droit-social';
     public const JOB_TITLE_REFERENCE_9 = 'job_title_reference_9';
-    public const JOB_TITLE_REFERENCE_10 = 'job_title_reference_10';
-    public const JOB_TITLE_REFERENCE_11 = 'job_title_reference_11';
-    public const JOB_TITLE_REFERENCE_12 = 'job_title_reference_12';
-    public const JOB_TITLE_REFERENCE_13 = 'job_title_reference_13';
-    public const JOB_TITLE_REFERENCE_14 = 'job_title_reference_14';
-    public const JOB_TITLE_REFERENCE_15 = 'job_title_reference_15';
-    public const JOB_TITLE_REFERENCE_16 = 'job_title_reference_16';
-    public const JOB_TITLE_REFERENCE_17 = 'job_title_reference_17';
-    public const JOB_TITLE_REFERENCE_18 = 'job_title_reference_18';
-    public const JOB_TITLE_REFERENCE_19 = 'job_title_reference_19';
-    public const JOB_TITLE_REFERENCE_20 = 'job_title_reference_20';
-    public const JOB_TITLE_REFERENCE_21 = 'job_title_reference_21';
-    public const JOB_TITLE_REFERENCE_22 = 'job_title_reference_22';
-    public const JOB_TITLE_REFERENCE_23 = 'job_title_reference_23';
-    public const JOB_TITLE_REFERENCE_24 = 'job_title_reference_24';
-    public const JOB_TITLE_REFERENCE_25 = 'job_title_reference_25';
-    public const JOB_TITLE_REFERENCE_26 = 'job_title_reference_26';
-    public const JOB_TITLE_REFERENCE_27 = 'job_title_reference_27';
-    public const JOB_TITLE_REFERENCE_28 = 'job_title_reference_28';
-    public const JOB_TITLE_REFERENCE_29 = 'job_title_reference_29';
-    public const JOB_TITLE_REFERENCE_30 = 'job_title_reference_30';
-    public const JOB_TITLE_REFERENCE_31 = 'job_title_reference_31';
-    public const JOB_TITLE_REFERENCE_32 = 'job_title_reference_32';
-    public const JOB_TITLE_REFERENCE_33 = 'job_title_reference_33';
-    public const JOB_TITLE_REFERENCE_34 = 'job_title_reference_34';
+    public const JOB_TITLE_REFERENCE_10 = 'chef-de-mission-audit';
+    public const JOB_TITLE_REFERENCE_11 = 'chef-de-mission-comptable';
+    public const JOB_TITLE_REFERENCE_12 = 'collaborateur-comptable';
+    public const JOB_TITLE_REFERENCE_13 = 'collaborateur-comptable-et-audit';
+    public const JOB_TITLE_REFERENCE_14 = 'communication-marketing';
+    public const JOB_TITLE_REFERENCE_15 = 'consultant-junior';
+    public const JOB_TITLE_REFERENCE_16 = 'consultant-manager';
+    public const JOB_TITLE_REFERENCE_17 = 'consultant-senior';
+    public const JOB_TITLE_REFERENCE_18 = 'controleur-de-gestion';
+    public const JOB_TITLE_REFERENCE_19 = 'directeur-audit';
+    public const JOB_TITLE_REFERENCE_20 = 'expert-comptable';
+    public const JOB_TITLE_REFERENCE_21 = 'fiscalite-analyse';
+    public const JOB_TITLE_REFERENCE_22 = 'gestion-pilotage';
+    public const JOB_TITLE_REFERENCE_23 = 'gestion-de-patrimoine';
+    public const JOB_TITLE_REFERENCE_24 = 'gestionnaire-de-paie';
+    public const JOB_TITLE_REFERENCE_25 = 'juriste-droit-des-societes';
+    public const JOB_TITLE_REFERENCE_26 = 'juriste-droit-social';
+    public const JOB_TITLE_REFERENCE_27 = 'manager-audit';
+    public const JOB_TITLE_REFERENCE_28 = 'manager-comptable';
+    public const JOB_TITLE_REFERENCE_29 = 'numerique-digital';
+    public const JOB_TITLE_REFERENCE_30 = 'responsable-paie';
+    public const JOB_TITLE_REFERENCE_31 = 'ressources-humaines';
+    public const JOB_TITLE_REFERENCE_32 = 'secretaire-juridique';
+    public const JOB_TITLE_REFERENCE_33 = 'senior-manager-audit';
+    public const JOB_TITLE_REFERENCE_34 = 'transmission/cession';
 
     public function load(ObjectManager $manager): void
     {
@@ -203,8 +166,8 @@ class JobTitleFixtures extends Fixture
         $manager->persist($jobTitle);
 
         $jobTitle = new JobTitle();
-        $jobTitle->setSlug('fiscalite');
-        $jobTitle->setLabel('Fiscalité');
+        $jobTitle->setSlug('fiscalite-analyse');
+        $jobTitle->setLabel('Fiscalité Analyse');
         $this->addReference(self::JOB_TITLE_REFERENCE_21, $jobTitle);
         $manager->persist($jobTitle);
 
@@ -251,7 +214,7 @@ class JobTitleFixtures extends Fixture
         $manager->persist($jobTitle);
 
         $jobTitle = new JobTitle();
-        $jobTitle->setSlug('numerique');
+        $jobTitle->setSlug('numerique-digital');
         $jobTitle->setLabel('Numérique');
         $this->addReference(self::JOB_TITLE_REFERENCE_29, $jobTitle);
         $manager->persist($jobTitle);
@@ -281,7 +244,7 @@ class JobTitleFixtures extends Fixture
         $manager->persist($jobTitle);
 
         $jobTitle = new JobTitle();
-        $jobTitle->setSlug('transmission-cession');
+        $jobTitle->setSlug('transmission/cession');
         $jobTitle->setLabel('Transmission / Cession');
         $this->addReference(self::JOB_TITLE_REFERENCE_34, $jobTitle);
         $manager->persist($jobTitle);

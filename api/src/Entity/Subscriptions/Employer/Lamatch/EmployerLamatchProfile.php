@@ -43,7 +43,7 @@ class EmployerLamatchProfile
     private ?EmployerLamatchSubscription $employerLamatchSubscription = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $status = null;
+    private string $status;
 
     public function getExperience(): ?string
     {
@@ -129,7 +129,7 @@ class EmployerLamatchProfile
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status;
     }

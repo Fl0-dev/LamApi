@@ -15,7 +15,6 @@ class ExpertiseFieldFixtures extends Fixture
     public const EXPERTISE_FIELD_BTP = 'btp';
     public const EXPERTISE_FIELD_COMMERCE = 'commerce';
     public const EXPERTISE_FIELD_COMMUNICATION = 'communication';
-    public const EXPERTISE_FIELD_CONSEIL = 'conseil';
     public const EXPERTISE_FIELD_DISTRIBUTION = 'distribution';
     public const EXPERTISE_FIELD_EDUCATION = 'education';
     public const EXPERTISE_FIELD_ENERGIE = 'energie';
@@ -86,13 +85,6 @@ class ExpertiseFieldFixtures extends Fixture
         $expertField->setSlug('communication');
         $manager->persist($expertField);
         $this->addReference(self::EXPERTISE_FIELD_COMMUNICATION, $expertField);
-        $manager->flush();
-
-        $expertField = new ExpertiseField();
-        $expertField->setLabel('Conseil');
-        $expertField->setSlug('conseil');
-        $manager->persist($expertField);
-        $this->addReference(self::EXPERTISE_FIELD_CONSEIL, $expertField);
         $manager->flush();
 
         $expertField = new ExpertiseField();
