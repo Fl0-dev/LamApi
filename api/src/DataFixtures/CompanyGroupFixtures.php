@@ -8,10 +8,7 @@ use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Media\MediaImage;
 use App\Entity\Media\MediaVideo;
-use App\Entity\Company\CompanyProfile;
 use App\Entity\References\CompanySubscriptionType;
-use App\Entity\References\Workforce;
-use App\Entity\SocialFeed;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -45,36 +42,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         ###### TGS FRANCE ######
-        $socialFeed = new SocialFeed();
-        $socialFeed->setFacebook('https://www.facebook.com/tgs-france');
-        $socialFeed->setTwitter('https://twitter.com/tgs-france');
-
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_8, '1000 à 1999 salariés'))->getId());
-        $profile->setCreationYear(2018);
-        $profile->setSocialFeed($socialFeed);
-        $profile->setMiddleAge(35);
-        $profile->setUsText(
-            'TGS France est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés partout en France.'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_0));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_AGROALIMENTAIRE));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_BTP));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_DISTRIBUTION));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INDUSTRIE));
-
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfile($profile);
+        $companyGroup->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_1));
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('TGS France');
@@ -145,34 +114,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
 
         // CompanyEntity TGS France Ouest
-        $socialFeed = new SocialFeed();
-        $socialFeed->setFacebook('https://www.facebook.com/tgs-france-ouest');
-        $socialFeed->setTwitter('https://twitter.com/tgs-france-ouest');
-
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_7, '500 à 999 salariés'))->getId());
-        $profile->setCreationYear(2019);
-        $profile->setSocialFeed($socialFeed);
-        $profile->setMiddleAge(35);
-        $profile->setUsText(
-            'TGS France Ouest est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés dans l\'ouest.'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_0));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_AGROALIMENTAIRE));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_BTP));
-
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_2));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Ouest');
         $companyEntity->setSlug('tgs-france-ouest');
@@ -247,34 +190,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         // CompanyEntity TGS France Est
-        $socialFeed = new SocialFeed();
-        $socialFeed->setFacebook('https://www.facebook.com/tgs-france-est');
-        $socialFeed->setTwitter('https://twitter.com/tgs-france-est');
-
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_7, '500 à 999 salariés'))->getId());
-        $profile->setCreationYear(2019);
-        $profile->setSocialFeed($socialFeed);
-        $profile->setMiddleAge(35);
-        $profile->setUsText(
-            'TGS France Est est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés dans l\'est.'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_0));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_3));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_DISTRIBUTION));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INDUSTRIE));
-
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_3));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('TGS France Est');
         $companyEntity->setSlug('tgs-france-est');
@@ -329,33 +246,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         ###### EOLIS ######
-        $socialFeed = new SocialFeed();
-        $socialFeed->setFacebook('https://www.facebook.com/Eolis');
-        $socialFeed->setTwitter('https://twitter.com/Eolis');
-
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_3, '20 à 49 salariés'))->getId());
-        $profile->setSocialFeed($socialFeed);
-        $profile->setCreationYear(2015);
-        $profile->setMiddleAge(41);
-        $profile->setUsText(
-            'Eolis est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés à Nantes'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_2));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_15));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PHARMACEUTIQUE));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_MEDICAL));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INFORMATIQUE));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_MEDIAS));
-
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfile($profile);
+        $companyGroup->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_4));
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Eolis');
@@ -424,14 +316,13 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setLongitude(-1.553621);
 
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_4));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Eolis Ouest');
         $companyEntity->setSlug('eolis-ouest');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
         $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_4));
-
 
         $companyEntityOffice = new CompanyEntityOffice();
         $companyEntityOffice->setCompanyEntity($companyEntity);
@@ -472,34 +363,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         ###### LIVLI ######
-
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_2, '10 à 19 salariés'))->getId());
-        $profile->setCreationYear(2019);
-        $profile->setMiddleAge(26);
-        $profile->setUsText(
-            'Livli est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés à St Nazaire'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_1));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_2));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_2));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_14));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_13));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_ENERGIE));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_BTP));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_INDUSTRIE));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_LOGISTIQUE));
-
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfile($profile);
+        $companyGroup->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_5));
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('Livli');
@@ -574,7 +439,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $address->setLongitude(-1.553621);
 
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_5));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('Livli Ouest');
         $companyEntity->setSlug('livli-ouest');
@@ -621,34 +486,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         ###### IN EXTENSO ######
-
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_6, '200 à 499 salariés'))->getId());
-        $profile->setCreationYear(2000);
-        $profile->setMiddleAge(38);
-        $profile->setUsText(
-            'In Extenso est un cabinet comptable spécialisé 
-    dans la gestion des entreprises. Nous sommes situés en France.'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_SOCIAL));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_SPORT));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_COMMUNICATION));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PUBLIC));
-        $profile->addExpertiseField(
-            $this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PRESTATIONS_DE_SERVICES)
-        );
-
         $companyGroup = new CompanyGroup();
-        $companyGroup->setProfile($profile);
+        $companyGroup->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_6));
         $companyGroup->setCreatedDate(new \DateTime());
         $companyGroup->setLastModifiedDate(new \DateTime());
         $companyGroup->setName('In Extenso');
@@ -706,29 +545,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyGroup->addMedia($media);
 
         //CompanyEntiy in Extenso ouest
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_5, '100 à 199 salariés'))->getId());
-        $profile->setCreationYear(2000);
-        $profile->setMiddleAge(38);
-        $profile->setUsText(
-            'In Extenso est un cabinet comptable spécialisé 
-    dans la gestion des entreprises. Nous sommes situés dans l\'Ouest'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_4));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_8));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_9));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_SOCIAL));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_SPORT));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_COMMUNICATION));
-
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_7));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Ouest');
         $companyEntity->setSlug('in-extenso-ouest');
@@ -803,27 +621,8 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         //CompanyEntiy in Extenso Metz
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_5, '100 à 199 salariés'))->getId());
-        $profile->setCreationYear(2000);
-        $profile->setMiddleAge(38);
-        $profile->setUsText(
-            'In Extenso est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés à Metz'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PUBLIC));
-        $profile->addExpertiseField(
-            $this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PRESTATIONS_DE_SERVICES)
-        );
-
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_8));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Metz');
         $companyEntity->setSlug('in-extenso-metz');
@@ -897,34 +696,14 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         //CompanyEntiy in Extenso Châlons-en-Champagne
-        $profile = new CompanyProfile();
-        $profile->setWorkforce((new Workforce(Workforce::LEVEL_5, '100 à 199 salariés'))->getId());
-        $profile->setCreationYear(2000);
-        $profile->setMiddleAge(38);
-        $profile->setUsText(
-            'In Extenso est un cabinet comptable spécialisé 
-            dans la gestion des entreprises. Nous sommes situés à Châlons-en-Champagne'
-        );
-        $profile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_5));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_6));
-        $profile->addBadge($this->getReference(BadgeFixtures::BADGE_REFERENCE_3));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_1));
-        $profile->addJobType($this->getReference(JobTypeFixtures::JOB_TYPE_REFERENCE_8));
-        $profile->addExpertiseField($this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PUBLIC));
-        $profile->addExpertiseField(
-            $this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_PRESTATIONS_DE_SERVICES)
-        );
-
         $companyEntity = new CompanyEntity();
-        $companyEntity->setProfile($profile);
+        $companyEntity->setProfile($this->getReference(CompanyProfileFixtures::COMPANY_PROFILE_REFERENCE_9));
         $companyEntity->setCompanyGroup($companyGroup);
         $companyEntity->setName('In Extenso Châlons-en-Champagne');
         $companyEntity->setSlug('in-extenso-chalons-en-champagne');
         $companyEntity->setCreatedDate(new \DateTime());
         $companyEntity->setLastModifiedDate(new \DateTime());
         $companyEntity->addAdmin($this->getReference(EmployerFixtures::EMPLOYER_REFERENCE_9));
-
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-chalons-en-champagne.com/assets/images/media1.png');
@@ -975,13 +754,10 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            ExpertiseFieldFixtures::class,
+            CompanyProfileFixtures::class,
             EmployerFixtures::class,
             OrganisationFixtures::class,
             CityFixtures::class,
-            JobTypeFixtures::class,
-            ToolFixtures::class,
-            BadgeFixtures::class,
         ];
     }
 }

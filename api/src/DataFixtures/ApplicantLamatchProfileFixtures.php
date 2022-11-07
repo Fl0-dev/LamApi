@@ -182,9 +182,6 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
             $this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_BANQUE)
         );
         $applicantLamatchProfile->addDesiredExpertiseField(
-            $this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_CONSEIL)
-        );
-        $applicantLamatchProfile->addDesiredExpertiseField(
             $this->getReference(ExpertiseFieldFixtures::EXPERTISE_FIELD_FINANCE)
         );
         $applicantLamatchProfile->addDesiredBadge(
