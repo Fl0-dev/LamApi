@@ -5,6 +5,7 @@ namespace App\Transversal;
 use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trait for using Slug
@@ -15,9 +16,10 @@ trait Slug
     #[Length(
         min: 3,
         max: 255,
-        minMessage: "Le slug de l'offre doit contenir au moins {{ limit }} caractères",
-        maxMessage: "Le slug de l'offre ne doit pas dépasser {{ limit }} caractères"
+        minMessage: "The slug must contain at least {{ limit }} characters",
+        maxMessage: "The slug must not exceed {{ limit }} characters"
     )]
+    #[Assert\NotNull()]
     private ?string $slug = null;
 
     /**
