@@ -8,41 +8,22 @@ use Doctrine\Persistence\ObjectManager;
 
 class JobTypeFixtures extends Fixture
 {
-    public const JOB_TYPE_REFERENCE_0 = 'job_type_0';
-    public const JOB_TYPE_REFERENCE_1 = 'job_type_1';
-    public const JOB_TYPE_REFERENCE_2 = 'job_type_2';
-    public const JOB_TYPE_REFERENCE_3 = 'job_type_3';
-    public const JOB_TYPE_REFERENCE_4 = 'job_type_4';
-    public const JOB_TYPE_REFERENCE_5 = 'job_type_5';
-    public const JOB_TYPE_REFERENCE_6 = 'job_type_6';
-    public const JOB_TYPE_REFERENCE_7 = 'job_type_7';
-    public const JOB_TYPE_REFERENCE_8 = 'job_type_8';
-    public const JOB_TYPE_REFERENCE_9 = 'job_type_9';
-    public const JOB_TYPE_REFERENCE_10 = 'job_type_10';
-    public const JOB_TYPE_REFERENCE_11 = 'job_type_11';
-    public const JOB_TYPE_REFERENCE_12 = 'job_type_12';
-    public const JOB_TYPE_REFERENCE_13 = 'job_type_13';
-    public const JOB_TYPE_REFERENCE_14 = 'job_type_14';
-    public const JOB_TYPE_REFERENCE_15 = 'job_type_15';
-
-    public const JOB_TYPES = [
-        'expertise-comptable'       => 'Expertise comptable',
-        'audit-commissariat'        => 'Audit / Commissariat aux comptes',
-        'juridique'                 => 'Juridique',
-        'social-paie'               => 'Social / Paie',
-        'conseil'                   => 'Conseil',
-        'gestion-patrimoine'        => 'Gestion de patrimoine',
-        'transmission-cession'      => 'Transmission / Cession',
-        'fiscalite'                 => 'Fiscalité',
-        'gestion-pilotage'          => 'Gestion / Pilotage',
-        'evaluation'                => 'Evaluation',
-        'consolidation'             => 'Consolidation',
-        'daf-externalise'           => 'DAF externisé',
-        'recherche-de-financement'  => 'Recherche de financement',
-        'numerique'                 => 'Numérique',
-        'comm-market'               => 'Communication / Marketing',
-        'administratif'             => 'Administratif'
-    ];
+    public const JOB_TYPE_REFERENCE_0 = 'expertise-comptable';
+    public const JOB_TYPE_REFERENCE_1 = 'audit-commissariat';
+    public const JOB_TYPE_REFERENCE_2 = 'juridique';
+    public const JOB_TYPE_REFERENCE_3 = 'social-paie';
+    public const JOB_TYPE_REFERENCE_4 = 'conseil';
+    public const JOB_TYPE_REFERENCE_5 = 'gestion-patrimoine';
+    public const JOB_TYPE_REFERENCE_6 = 'transmission-cession';
+    public const JOB_TYPE_REFERENCE_7 = 'fiscalite';
+    public const JOB_TYPE_REFERENCE_8 = 'gestion/pilotage';
+    public const JOB_TYPE_REFERENCE_9 = 'evaluation';
+    public const JOB_TYPE_REFERENCE_10 = 'consolidation';
+    public const JOB_TYPE_REFERENCE_11 = 'daf-externalise';
+    public const JOB_TYPE_REFERENCE_12 = 'recherche-de-financement';
+    public const JOB_TYPE_REFERENCE_13 = 'numerique';
+    public const JOB_TYPE_REFERENCE_14 = 'comm-market';
+    public const JOB_TYPE_REFERENCE_15 = 'administratif';
 
     public function load(ObjectManager $manager): void
     {
