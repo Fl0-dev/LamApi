@@ -51,6 +51,29 @@ class Utils
     }
 
     /**
+     * Check if $password is a valid Password
+     */
+    public static function isPassword(string $password): bool
+    {
+        return (is_string($password)
+        && strlen($password) > 7
+        && strlen($password) < 255
+        && strpos($password, ' ') === false
+        );
+    }
+
+    /**
+     * Check is $slug is a valid slug
+     *
+     * @param string $slug
+     * @return boolean
+     */
+    public static function isSlug(string $slug): bool
+    {
+        return preg_match('/^[a-z0-9]+(-?[a-z0-9]+)*$/i', $slug);
+    }
+
+    /**
      * Check given color is a valid hexadecimal color value
      */
     public static function isHexColor(string $color): bool

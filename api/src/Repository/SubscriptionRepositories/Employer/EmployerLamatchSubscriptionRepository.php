@@ -21,7 +21,7 @@ class EmployerLamatchSubscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, EmployerLamatchSubscription::class);
     }
 
-    public function save(EmployerLamatchSubscription $entity, bool $flush = false): void
+    public function add(EmployerLamatchSubscription $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -39,28 +39,28 @@ class EmployerLamatchSubscriptionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return EmployerLamatchSubscription[] Returns an array of EmployerLamatchSubscription objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return EmployerLamatchSubscription[] Returns an array of EmployerLamatchSubscription objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('e.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?EmployerLamatchSubscription
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?EmployerLamatchSubscription
+    //    {
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

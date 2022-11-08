@@ -3,6 +3,7 @@
 namespace App\Repository\ApplicantRepositories;
 
 use App\Entity\Applicant\Applicant;
+use App\Utils\Utils;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,7 +26,7 @@ class ApplicantRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
+        if (Utils::isEmail($entity->getEmail()) && Utils::isPassword($entity->getPassword()) && $flush) {
             $this->getEntityManager()->flush();
         }
     }

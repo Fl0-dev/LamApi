@@ -21,7 +21,7 @@ class ExpertiseFieldRepository extends ServiceEntityRepository
         parent::__construct($registry, ExpertiseField::class);
     }
 
-    public function save(ExpertiseField $entity, bool $flush = false): void
+    public function add(ExpertiseField $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -38,29 +38,4 @@ class ExpertiseFieldRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return ExpertiseField[] Returns an array of ExpertiseField objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?ExpertiseField
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

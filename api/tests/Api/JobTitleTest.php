@@ -36,7 +36,7 @@ class JobTitleTest extends ApiTestCase
     public function testGetJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'assistant-administratif']);
         $id = $jobTitle->getId();
         
         $response = static::createClient()->request('GET', "/job_titles/$id");
@@ -52,14 +52,7 @@ class JobTitleTest extends ApiTestCase
         ]);
     }
 
-    public function testGetErrorIfNotJobTitleId(): void
-    {
-        $response = static::createClient()->request('GET', "/job_titles/1s1g-fdf5-sdfsfs-2131");
-
-        $this->assertResponseStatusCodeSame(404);
-    }
-
-    public function testPostJobTitle(): void
+    public function testPostJobTitleWithGoodData(): void
     {
         $response = static::createClient()->request('POST', '/job_titles', ['json' => [
             'slug' => 'test-job-title',
@@ -76,10 +69,63 @@ class JobTitleTest extends ApiTestCase
         $this->assertMatchesResourceItemJsonSchema(JobTitle::class);
     }
 
+    public function testUpdateJobTitleWithGoodValues(): void
+    {
+        $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title']);
+        $id = $jobTitle->getId();
+
+        $response = static::createClient()->request('PUT', "/job_titles/$id", ['json' => [
+            'slug' => 'test-put-job-title',
+            'label' => 'Test Put Job Title'
+        ]]);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertJsonContains([
+            '@context' => '/contexts/JobTitle',
+            '@type' => 'JobTitle',
+            'slug' => 'test-put-job-title',
+            'label' => 'Test Put Job Title'
+        ]);
+        $this->assertMatchesResourceItemJsonSchema(JobTitle::class);
+    }
+
+    public function testUpdateJobTitleWithWrongLabel(): void
+    {
+        $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-put-job-title']);
+        $id = $jobTitle->getId();
+
+        $response = static::createClient()->request('PUT', "/job_titles/$id", ['json' => [
+            'slug' => 'test-put-job-title',
+            'label' => ''
+        ]]);
+
+        $this->assertResponseStatusCodeSame(422);
+    }
+
+    public function testPostJobTitleWithEmptyValue(): void
+    {
+        $response = static::createClient()->request('POST', '/job_titles', ['json' => [
+        ]]);
+
+        $this->assertResponseStatusCodeSame(422);
+    }
+
+    public function testPostJobTitleWithEmptyLabel(): void
+    {
+        $response = static::createClient()->request('POST', '/job_titles', ['json' => [
+            'slug' => 'test-job-title',
+            'label' => null
+        ]]);
+
+        $this->assertResponseStatusCodeSame(400);
+    }
+
     public function testDeleteJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-put-job-title']);
 
         $response = static::createClient()->request('DELETE', '/job_titles/' . $jobTitle->getId());
 
@@ -89,12 +135,18 @@ class JobTitleTest extends ApiTestCase
     public function testIsJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'assistant-administratif']);
         $id = $jobTitle->getId();
-
         $response = static::createClient()->request('GET', "/job_titles/$id");
 
         $this->assertMatchesResourceItemJsonSchema(JobTitle::class);
     }
-}
 
+    public function testIsNotJobTitle(): void
+    {
+        $wrongId = '1s1g-fdf5-sdfsfs-2131';
+        $response = static::createClient()->request('GET', "/job_titles/$wrongId");
+
+        $this->assertResponseStatusCodeSame(404);
+    }
+}

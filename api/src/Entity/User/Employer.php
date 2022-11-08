@@ -4,12 +4,13 @@ namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Subscriptions\Employer\Lamatch\EmployerFavoriteCandidat;
+use App\Repository\UserRepositories\EmployerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: EmployerRepository::class)]
 #[ORM\Table(name: "employer")]
 class Employer extends UserPhysical
 {

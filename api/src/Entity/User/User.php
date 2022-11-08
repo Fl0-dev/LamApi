@@ -17,7 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Uid\Uuid as BaseUuid;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[ApiResource(operations: [
     new GetCollection(
@@ -70,6 +72,16 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 180, nullable: true)]
+    #[Groups([
+        Applicant::OPERATION_NAME_POST_APPLICANT,
+    ])]
+    #[Assert\NotNull]
+    #[Length(
+        min: 8,
+        max: 180,
+        minMessage: 'The password must contain at least {{ limit }} characters',
+        maxMessage: 'The password must not exceed {{ limit }} characters'
+    )]
     private $password;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -79,8 +91,12 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+        Applicant::OPERATION_NAME_POST_APPLICANT,
         self::OPERATION_NAME_GET_USER_INFO,
     ])]
+    #[Assert\Email(
+        message: 'The email "{{ value }}" is not a valid email.',
+    )]
     private $email;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -99,6 +115,9 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         } elseif ($this instanceof UserAbstract) {
             $this->mainType = self::TYPE_ABSTRACT;
         }
+        $this->createdDate = new DateTime();
+        $this->lastModifiedDate = new DateTime();
+        $this->active = true;
     }
 
     #[Groups([
