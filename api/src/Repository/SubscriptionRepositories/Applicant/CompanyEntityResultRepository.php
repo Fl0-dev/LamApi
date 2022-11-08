@@ -21,7 +21,7 @@ class CompanyEntityResultRepository extends ServiceEntityRepository
         parent::__construct($registry, CompanyEntityResult::class);
     }
 
-    public function save(CompanyEntityResult $entity, bool $flush = false): void
+    public function add(CompanyEntityResult $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

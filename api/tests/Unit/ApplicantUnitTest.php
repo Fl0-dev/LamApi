@@ -1,13 +1,9 @@
 <?php
 
-namespace App\Tests\Unit\ApplicantTests;
+namespace App\Tests\Unit;
 
 use App\Entity\Applicant\Applicant;
-use App\Entity\References\ApplicantStatus;
-use App\Entity\References\Experience;
-use App\Entity\References\LevelOfStudy;
 use App\Repository\ApplicantRepositories\ApplicantRepository;
-use App\Utils\Utils;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ApplicantUnitTests extends KernelTestCase
