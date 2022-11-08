@@ -21,7 +21,7 @@ class ExpertiseFieldRepository extends ServiceEntityRepository
         parent::__construct($registry, ExpertiseField::class);
     }
 
-    public function save(ExpertiseField $entity, bool $flush = false): void
+    public function add(ExpertiseField $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
