@@ -22,12 +22,22 @@ class JobTitleUnitTest extends KernelTestCase
     public function testGetJobTitleByValue(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'expert-comptable']);
         $this->assertInstanceOf(JobTitle::class, $jobTitle);
 
         $jobTitleId = $jobTitle->getId();
         $jobTitle = $jobTitleRepository->find($jobTitleId);
         $this->assertInstanceOf(JobTitle::class, $jobTitle);
+    }
+
+    public function testNoGetJobTitleByValue(): void
+    {
+        $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'nimportequoi']);
+        $this->assertNotInstanceOf(JobTitle::class, $jobTitle);
+
+        $jobTitle = $jobTitleRepository->find('1ed5ea1a-2af6-6aea-b8cf-9513b2072358');
+        $this->assertNotInstanceOf(JobTitle::class, $jobTitle);
     }
 
     public function testAddJobTitleWithGoodValues(): void
@@ -45,10 +55,10 @@ class JobTitleUnitTest extends KernelTestCase
     public function testUpdateJobTitleWithGoodValues(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title']);
         $jobTitle->setLabel('Test Job Title Updated');
 
-        $jobTitleRepository->update($jobTitle, true);
+        $jobTitleRepository->add($jobTitle, true);
 
         $this->assertEquals('Test Job Title Updated', $jobTitle->getLabel());
     }
@@ -56,10 +66,10 @@ class JobTitleUnitTest extends KernelTestCase
     public function testUpdateJobTitleWithGoodSlug(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title']);
         $jobTitle->setSlug('test-job-title-updated');
 
-        $jobTitleRepository->update($jobTitle, true);
+        $jobTitleRepository->add($jobTitle, true);
 
         $this->assertEquals('test-job-title-updated', $jobTitle->getSlug());
     }
@@ -67,9 +77,9 @@ class JobTitleUnitTest extends KernelTestCase
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
 
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title-updated');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title-updated']);
         $jobTitle->setSlug('test-job-title updated');
-        $jobTitleRepository->update($jobTitle, true);
+        $jobTitleRepository->add($jobTitle, true);
         $this->assertEquals('test-job-title-updated', $jobTitle->getSlug());
     }
 
@@ -103,10 +113,10 @@ class JobTitleUnitTest extends KernelTestCase
     public function testRemoveJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title-updated');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title-updated']);
         $jobTitleRepository->remove($jobTitle, true);
 
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title-updated');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title-updated']);
         $this->assertNull($jobTitle);
     }
 }

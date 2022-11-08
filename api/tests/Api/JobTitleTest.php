@@ -36,7 +36,7 @@ class JobTitleTest extends ApiTestCase
     public function testGetJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'assistant-administratif']);
         $id = $jobTitle->getId();
         
         $response = static::createClient()->request('GET', "/job_titles/$id");
@@ -72,7 +72,7 @@ class JobTitleTest extends ApiTestCase
     public function testUpdateJobTitleWithGoodValues(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-job-title');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-job-title']);
         $id = $jobTitle->getId();
 
         $response = static::createClient()->request('PUT', "/job_titles/$id", ['json' => [
@@ -93,7 +93,7 @@ class JobTitleTest extends ApiTestCase
     public function testUpdateJobTitleWithWrongLabel(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-put-job-title');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-put-job-title']);
         $id = $jobTitle->getId();
 
         $response = static::createClient()->request('PUT', "/job_titles/$id", ['json' => [
@@ -125,7 +125,7 @@ class JobTitleTest extends ApiTestCase
     public function testDeleteJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('test-put-job-title');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'test-put-job-title']);
 
         $response = static::createClient()->request('DELETE', '/job_titles/' . $jobTitle->getId());
 
@@ -135,7 +135,7 @@ class JobTitleTest extends ApiTestCase
     public function testIsJobTitle(): void
     {
         $jobTitleRepository = static::getContainer()->get(JobTitleRepository::class);
-        $jobTitle = $jobTitleRepository->findBySlug('assistant-administratif');
+        $jobTitle = $jobTitleRepository->findOneBy(['slug' => 'assistant-administratif']);
         $id = $jobTitle->getId();
         $response = static::createClient()->request('GET', "/job_titles/$id");
 

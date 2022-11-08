@@ -33,7 +33,13 @@ class ApplicantAction extends AbstractController
             }
 
             $password = $applicant->getPassword();
-            if ($password === null || $password === '' || strlen($password) < 8 || strlen($password) > 255 || strpos($password, ' ') !== false) {
+            if (
+                $password === null
+                || $password === ''
+                || strlen($password) < 8
+                || strlen($password) > 255
+                || strpos($password, ' ') !== false
+            ) {
                 throw new \Exception('Password is invalid');
             }
             $applicant->setPassword($this->hasher->hashPassword($applicant, $password));
