@@ -36,6 +36,7 @@ class ApplicantAction extends AbstractController
                 throw new \Exception('Password is invalid');
             }
             $applicant->setPassword($this->hasher->hashPassword($applicant, $password));
+            $applicant->setRoles(['ROLE_APPLICANT']);
 
             return $applicant;
         }
