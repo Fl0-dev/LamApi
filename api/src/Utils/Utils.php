@@ -51,6 +51,17 @@ class Utils
     }
 
     /**
+     * Check is $slug is a valid slug
+     *
+     * @param string $slug
+     * @return boolean
+     */
+    public static function isSlug(string $slug): bool
+    {
+        return preg_match('/^[a-z0-9]+(-?[a-z0-9]+)*$/i', $slug);
+    }
+
+    /**
      * Check given color is a valid hexadecimal color value
      */
     public static function isHexColor(string $color): bool
@@ -273,5 +284,27 @@ class Utils
             $pieces [] = $keyspace[random_int(0, $max)];
         }
         return implode('', $pieces);
+    }
+
+    public static function getSlugifyString(string $str): string
+    {
+        return strtolower(
+            trim(
+                preg_replace(
+                    '~[^0-9a-z]+~i',
+                    '-',
+                    html_entity_decode(
+                        preg_replace(
+                            '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i',
+                            '$1',
+                            htmlentities($str, ENT_QUOTES, 'UTF-8')
+                        ),
+                        ENT_QUOTES,
+                        'UTF-8'
+                    )
+                ),
+                '-'
+            )
+        );
     }
 }

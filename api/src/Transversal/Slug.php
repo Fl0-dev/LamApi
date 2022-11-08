@@ -35,7 +35,11 @@ trait Slug
      */
     public function setSlug(?string $slug): self
     {
-        $this->slug = $slug;
+        if (Utils::isSlug($slug)) {
+            $this->slug = $slug;
+        } else {
+            $this->slug = self::getSlugifyString($slug);
+        }
 
         return $this;
     }

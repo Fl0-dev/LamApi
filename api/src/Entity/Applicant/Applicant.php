@@ -3,10 +3,17 @@
 namespace App\Entity\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use App\Controller\ApplicantAction;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
+use App\Entity\References\ApplicantStatus;
 use App\Entity\References\ContractType;
 use App\Entity\References\Experience;
 use App\Entity\References\LevelOfStudy;
@@ -22,10 +29,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(operations: [
-    new GetCollection(
+    new GetCollection(),
+    new Get(),
+    new Put(),
+    new Patch(),
+    new Delete(),
+    new Post(
         uriTemplate: '/applicants',
-        normalizationContext: [
-            'groups' => [self::OPERATION_NAME_GET_ALL_APPLICANTS]
+        controller: ApplicantAction::class,
+        normalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT]],
+        openapiContext: [
+            'tags' => ['Applicant'],
+            'summary' => 'Create applicant',
         ],
     ),
 ])]
@@ -34,6 +49,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Applicant extends UserPhysical
 {
     public const OPERATION_NAME_GET_ALL_APPLICANTS = 'getApplicants';
+    public const OPERATION_NAME_POST_APPLICANT = 'postApplicant';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
@@ -92,6 +108,7 @@ class Applicant extends UserPhysical
         parent::__construct();
         $this->applicantCvs = new ArrayCollection();
         $this->applications = new ArrayCollection();
+        $this->status = (new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId();
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]

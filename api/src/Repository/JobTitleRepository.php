@@ -39,6 +39,15 @@ class JobTitleRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(JobTitle $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     public function findBySlug(string $slug): ?JobTitle
     {
         return $this->findOneBy(['slug' => $slug]);
