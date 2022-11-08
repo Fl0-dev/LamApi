@@ -32,6 +32,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('jpToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Jean-Pierre');
         $employer->setLastName('Dupont');
         $employer->setBirthdate(new \DateTime('1980-01-01'));
@@ -47,6 +48,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('marieToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Marie');
         $employer->setLastName('Duval');
         $employer->setBirthdate(new \DateTime('1995-01-01'));
@@ -62,6 +64,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('leaToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Lea');
         $employer->setLastName('Rivali');
         $employer->setBirthdate(new \DateTime('1985-01-01'));
@@ -77,6 +80,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('pierreToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Pierre');
         $employer->setLastName('Curé');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
@@ -92,6 +96,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('katiaToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Katia');
         $employer->setLastName('Sueur');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
@@ -107,6 +112,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('julienToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Julien');
         $employer->setLastName('Quandt');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
@@ -122,6 +128,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('georgeToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('George');
         $employer->setLastName('Bouvier');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
@@ -137,6 +144,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('krisToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Kris');
         $employer->setLastName('Helmer');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
@@ -152,6 +160,7 @@ class EmployerFixtures extends Fixture
         $employer->setToken('sylvieToken');
         $employer->setActive(true);
         $employer->setPassword($this->hasher->hashPassword($employer, 'password'));
+        $employer->setRoles(['ROLE_EMPLOYER']);
         $employer->setFirstName('Sylvie');
         $employer->setLastName('Premier');
         $employer->setBirthdate(new \DateTime('2001-01-01'));
