@@ -25,7 +25,7 @@ class ApplicantRepository extends ServiceEntityRepository
     public function add(Applicant $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
-        
+
         if (Utils::isEmail($entity->getEmail()) && Utils::isPassword($entity->getPassword()) && $flush) {
             $this->getEntityManager()->flush();
         }
