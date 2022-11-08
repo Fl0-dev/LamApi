@@ -45,6 +45,7 @@ class DISCPersonalityUnitTest extends KernelTestCase
         $DISCPersonality = new DISCPersonality();
         $DISCPersonality->setSlug('test-DISCPersonality');
         $DISCPersonality->setLabel('Test DISCPersonality');
+        $DISCPersonality->setColor('color');
 
         $DISCPersonalityRepository = static::getContainer()->get(DISCPersonalityRepository::class);
         $DISCPersonalityRepository->add($DISCPersonality, true);
@@ -80,7 +81,7 @@ class DISCPersonalityUnitTest extends KernelTestCase
         $DISCPersonality = $DISCPersonalityRepository->findOneBy(['slug' => 'test-DISCPersonality-updated']);
         $DISCPersonality->setSlug('test-DISCPersonality updated');
         $DISCPersonalityRepository->add($DISCPersonality, true);
-        $this->assertEquals('test-DISCPersonality-updated', $DISCPersonality->getSlug());
+        $this->assertEquals('test-discpersonality-updated', $DISCPersonality->getSlug());
     }
 
     public function testAddDISCPersonalityWithEmptyValue(): void
@@ -113,10 +114,10 @@ class DISCPersonalityUnitTest extends KernelTestCase
     public function testRemoveDISCPersonality(): void
     {
         $DISCPersonalityRepository = static::getContainer()->get(DISCPersonalityRepository::class);
-        $DISCPersonality = $DISCPersonalityRepository->findOneBy(['slug' => 'test-DISCPersonality-updated']);
+        $DISCPersonality = $DISCPersonalityRepository->findOneBy(['slug' => 'test-discpersonality-updated']);
         $DISCPersonalityRepository->remove($DISCPersonality, true);
 
-        $DISCPersonality = $DISCPersonalityRepository->findOneBy(['slug' => 'test-DISCPersonality-updated']);
+        $DISCPersonality = $DISCPersonalityRepository->findOneBy(['slug' => 'test-discpersonality-updated']);
         $this->assertNull($DISCPersonality);
     }
 }
