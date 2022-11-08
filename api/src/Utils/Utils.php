@@ -51,6 +51,18 @@ class Utils
     }
 
     /**
+     * Check if $password is a valid Password
+     */
+    public static function isPassword(string $password): bool
+    {
+        return (is_string($password)
+        && strlen($password) > 7
+        && strlen($password) < 255
+        && strpos($password, ' ') === false
+        );
+    }
+
+    /**
      * Check is $slug is a valid slug
      *
      * @param string $slug
@@ -284,27 +296,5 @@ class Utils
             $pieces [] = $keyspace[random_int(0, $max)];
         }
         return implode('', $pieces);
-    }
-
-    public static function getSlugifyString(string $str): string
-    {
-        return strtolower(
-            trim(
-                preg_replace(
-                    '~[^0-9a-z]+~i',
-                    '-',
-                    html_entity_decode(
-                        preg_replace(
-                            '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i',
-                            '$1',
-                            htmlentities($str, ENT_QUOTES, 'UTF-8')
-                        ),
-                        ENT_QUOTES,
-                        'UTF-8'
-                    )
-                ),
-                '-'
-            )
-        );
     }
 }

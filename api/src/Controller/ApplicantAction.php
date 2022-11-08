@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Applicant\Applicant;
+use App\Utils\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -26,20 +27,12 @@ class ApplicantAction extends AbstractController
                 throw new \Exception('Applicant not found');
             }
 
-            $email = $applicant->getEmail();
-
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (!Utils::isEMail($applicant->getEmail())) {
                 throw new \Exception('Email is not valid');
             }
 
             $password = $applicant->getPassword();
-            if (
-                $password === null
-                || $password === ''
-                || strlen($password) < 8
-                || strlen($password) > 255
-                || strpos($password, ' ') !== false
-            ) {
+            if (!Utils::isPassword($password)) {
                 throw new \Exception('Password is invalid');
             }
             $applicant->setPassword($this->hasher->hashPassword($applicant, $password));
