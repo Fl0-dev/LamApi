@@ -10,6 +10,7 @@ use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantSubscriptionRepository::class)]
 #[ApiResource]
@@ -30,6 +31,7 @@ class ApplicantSubscription
     private ?ApplicantOfferSubscription $offerSubscription = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?ApplicantLamatchSubscription $lamatchSubscription = null;
 
     public function getApplicant(): ?Applicant

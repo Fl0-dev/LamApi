@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchProfileRepository::class)]
 #[ApiResource]
@@ -31,21 +32,26 @@ class ApplicantLamatchProfile
     private ?string $introduction = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?string $experience = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?string $levelOfStudy = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?MediaImage $photo = null;
 
     #[ORM\ManyToOne]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?JobTitle $jobTitle = null;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private Collection $tools;
 
     #[ORM\ManyToMany(targetEntity: Badge::class)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private Collection $desiredBadges;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -53,15 +59,19 @@ class ApplicantLamatchProfile
     private ?Applicant $applicant = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?DesiredLocation $desiredLocation = null;
 
     #[ORM\ManyToMany(targetEntity: DISCQuality::class)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private Collection $qualities;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?string $desiredWorkforce = null;
 
     #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private Collection $desiredExpertiseFields;
 
     public function __construct()

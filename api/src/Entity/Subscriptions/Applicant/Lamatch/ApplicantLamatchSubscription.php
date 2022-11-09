@@ -3,11 +3,13 @@
 namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Applicant\Applicant;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchSubscriptionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchSubscriptionRepository::class)]
 #[ApiResource]
@@ -22,6 +24,7 @@ class ApplicantLamatchSubscription
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?ApplicantLamatchProfile $applicantLamatchProfile = null;
 
     public function getStatus(): ?string

@@ -28,6 +28,7 @@ abstract class UserPhysical extends User
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+        Applicant::OPERATION_NAME_POST_APPLICANT,
     ])]
     private $firstname;
 
@@ -35,6 +36,7 @@ abstract class UserPhysical extends User
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
+        Applicant::OPERATION_NAME_POST_APPLICANT,
     ])]
     private $lastname;
 

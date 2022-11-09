@@ -23,6 +23,8 @@ class ApplicantUnitTests extends KernelTestCase
         $applicant = new Applicant();
         $applicant->setEmail('test@gmail.com');
         $applicant->setPassword('password');
+        $applicant->setFirstName('John');
+        $applicant->setLastName('Doe');
 
         $applicantRepository = static::getContainer()->get(ApplicantRepository::class);
         $applicantRepository->add($applicant, true);
@@ -57,6 +59,18 @@ class ApplicantUnitTests extends KernelTestCase
 
         $this->assertNotInstanceOf(Applicant::class, $applicantRepository->findOneBy(['email' => 'test']));
     }
+
+    // public function testAddApplicantByAllreadyUsedEmail(): void
+    // {
+    //     $applicant = new Applicant();
+    //     $applicant->setEmail('test@gmail.com');
+    //     $applicant->setPassword('password');
+    //     $applicantRepository = static::getContainer()->get(ApplicantRepository::class);
+
+    //     $applicantRepository->add($applicant, true);
+
+        
+    // }
 
     public function testAddApplicantByBadPassword(): void
     {
