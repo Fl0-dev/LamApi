@@ -41,9 +41,9 @@ class ApplicantCv
     ])]
     public ?string $contentUrl = null;
 
-   /**
-     * @Vich\UploadableField(mapping="cv_object", fileNameProperty="filePath")
-     */
+    /**
+      * @Vich\UploadableField(mapping="cv_object", fileNameProperty="filePath")
+      */
     private ?File $file = null;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applicantCvs')]

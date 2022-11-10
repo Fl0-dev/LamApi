@@ -1,4 +1,5 @@
 <?php
+
 // api/src/Encoder/MultipartDecoder.php
 
 namespace App\Encoder;
@@ -10,7 +11,9 @@ final class MultipartDecoder implements DecoderInterface
 {
     public const FORMAT = 'multipart';
 
-    public function __construct(private RequestStack $requestStack) {}
+    public function __construct(private RequestStack $requestStack)
+    {
+    }
 
     /**
      * {@inheritdoc}
