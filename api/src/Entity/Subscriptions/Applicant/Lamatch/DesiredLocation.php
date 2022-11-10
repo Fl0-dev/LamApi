@@ -31,6 +31,8 @@ class DesiredLocation
     {
         $this->desiredCities = new ArrayCollection();
         $this->desiredDepartments = new ArrayCollection();
+        $this->setCreatedDate(new \DateTime());
+        $this->setLastModifiedDate(new \DateTime());
     }
 
     /**

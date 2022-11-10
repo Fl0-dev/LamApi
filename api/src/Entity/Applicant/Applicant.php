@@ -31,13 +31,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(operations: [
     new GetCollection(),
     new Get(),
-    new Put(),
     new Patch(),
+    new Put(),
     new Delete(),
     new Post(
         uriTemplate: '/applicants',
         controller: ApplicantAction::class,
-        normalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT]],
+        denormalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT]],
         openapiContext: [
             'tags' => ['Applicant'],
             'summary' => 'Create applicant',
@@ -56,7 +56,9 @@ class Applicant extends UserPhysical
     private $defaultMotivationText;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
+    #[Groups([
+        self::OPERATION_NAME_GET_ALL_APPLICANTS,
+    ])]
     private $linkedin;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

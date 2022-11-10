@@ -2,9 +2,6 @@
 
 namespace App\Validator;
 
-use App\Entity\References\ContractType;
-use App\Entity\References\Experience;
-use App\Entity\References\LevelOfStudy;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
 use App\Repository\ReferencesRepositories\ExperienceRepository;
 use App\Repository\ReferencesRepositories\LevelOfStudyRepository;

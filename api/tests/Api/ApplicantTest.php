@@ -70,6 +70,16 @@ class ApplicantTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    public function testAddApplicantWithAllReadyExistEmail(): void
+    {
+        $response = static::createClient()->request('POST', '/applicants', ['json' => [
+            'email' => 'test@gmail.com',
+            'password' => 'password',
+        ]]);
+
+        $this->assertResponseStatusCodeSame(500);
+    }
+
     public function testDeleteApplicant(): void
     {
         $applicantRepository = static::getContainer()->get(ApplicantRepository::class);

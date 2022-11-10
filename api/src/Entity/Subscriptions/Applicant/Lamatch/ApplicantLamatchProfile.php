@@ -3,6 +3,11 @@
 namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Controller\PostApplicantLamatchProfile;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
 use App\Entity\ExpertiseField;
@@ -11,6 +16,7 @@ use App\Entity\Media\MediaImage;
 use App\Entity\Subscriptions\DISC\DISCQuality;
 use App\Entity\Tool;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchProfileRepository;
+use App\State\ApplicantProfileProcessor;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
@@ -18,14 +24,123 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchProfileRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new Get(),
+    new Post(
+        // denormalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT_LAMATCH_PROFILE_BY_APPLICANT_ID]],
+        controller: PostApplicantLamatchProfile::class,
+        uriTemplate: '/applicants/{applicantId}/lamatch-profile',
+        uriVariables: [],
+        deserialize: false,
+        openapiContext: [
+            'tags' => ['Applicant'],
+            'summary' => 'Create applicant lamatch profile',
+            'parameters' => [
+                [
+                    'name' => 'applicantId',
+                    'in' => 'path',
+                    'required' => true,
+                    'schema' => [
+                        'type' => 'string'
+                    ]
+                ]
+            ],
+            'requestBody' => [
+                'content' => [
+                    'multipart/form-data' => [
+                        'schema' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'introduction' => [
+                                    'type' => 'string',
+                                    'format' => 'text'
+                                ],
+                                'linkedIn' => [
+                                    'type' => 'string',
+                                ],
+                                'file' => [
+                                    'type' => 'string',
+                                    'format' => 'binary'
+                                ],
+                                'experience' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'levelOfStudy' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'jobTitle' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'desiredWorkforce' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'tools' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredBadges' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'qualities' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredExpertiseFields' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredCities' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredDepartments' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+    ),
+    new Put(),
+    new Patch()
+])]
 class ApplicantLamatchProfile
 {
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
+
+    public const OPERATION_NAME_POST_APPLICANT_LAMATCH_PROFILE_BY_APPLICANT_ID =
+    'post_applicant_lamatch_profile_By_applicant_id';
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $introduction = null;
@@ -70,6 +185,8 @@ class ApplicantLamatchProfile
         $this->desiredBadges = new ArrayCollection();
         $this->qualities = new ArrayCollection();
         $this->desiredExpertiseFields = new ArrayCollection();
+        $this->createdDate = new \DateTime();
+        $this->lastModifiedDate = new \DateTime();
     }
 
     public function getIntroduction(): ?string

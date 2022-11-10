@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Applicant\Applicant;
+use App\Repository\UserRepositories\UserRepository;
 use App\Utils\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,8 +13,10 @@ class ApplicantAction extends AbstractController
 {
     public const OPERATION_NAME_POST_APPLICANT = '_api_/applicants_post';
 
-    public function __construct(private UserPasswordHasherInterface $hasher)
-    {
+    public function __construct(
+        private UserPasswordHasherInterface $hasher,
+        private UserRepository $userRepository
+    ) {
     }
 
     public function __invoke(Request $request): Applicant|null
@@ -35,6 +38,11 @@ class ApplicantAction extends AbstractController
             if (!Utils::isPassword($password)) {
                 throw new \Exception('Password is invalid');
             }
+
+            if ($this->userRepository->findOneBy(['email' => $applicant->getEmail()])) {
+                throw new \Exception('Email is already used');
+            }
+
             $applicant->setPassword($this->hasher->hashPassword($applicant, $password));
             $applicant->setRoles(['ROLE_APPLICANT']);
 
