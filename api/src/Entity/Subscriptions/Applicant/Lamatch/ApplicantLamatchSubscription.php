@@ -4,6 +4,7 @@ namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Applicant\Applicant;
+use App\Entity\References\SubscriptionStatus;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchSubscriptionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
@@ -25,6 +26,13 @@ class ApplicantLamatchSubscription
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?ApplicantLamatchProfile $applicantLamatchProfile = null;
+
+    public function __construct()
+    {
+        $this->setCreatedDate(new \DateTime());
+        $this->setLastModifiedDate(new \DateTime());
+        $this->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+    }
 
     public function getStatus(): ?string
     {

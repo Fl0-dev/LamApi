@@ -33,6 +33,12 @@ class ApplicantSubscription
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?ApplicantLamatchSubscription $lamatchSubscription = null;
 
+    public function __construct()
+    {
+        $this->setCreatedDate(new \DateTime());
+        $this->setLastModifiedDate(new \DateTime());
+    }
+
     public function getApplicant(): ?Applicant
     {
         return $this->applicant;

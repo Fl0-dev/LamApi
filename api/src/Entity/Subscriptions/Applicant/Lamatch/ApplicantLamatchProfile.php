@@ -54,75 +54,75 @@ use Symfony\Component\Serializer\Annotation\Groups;
                         'schema' => [
                             'type' => 'object',
                             'properties' => [
-                            //     'introduction' => [
-                            //         'type' => 'string',
-                            //         'format' => 'text'
-                            //     ],
-                            //     'linkedIn' => [
-                            //         'type' => 'string',
-                            //     ],
-                                'photo' => [
+                                'introduction' => [
+                                    'type' => 'string',
+                                    'format' => 'text'
+                                ],
+                                'linkedIn' => [
+                                    'type' => 'string',
+                                ],
+                                'file' => [
                                     'type' => 'string',
                                     'format' => 'binary'
                                 ],
-                                // 'experience' => [
-                                //     'type' => 'string',
-                                //     'format' => 'uuid'
-                                // ],
-                                // 'levelOfStudy' => [
-                                //     'type' => 'string',
-                                //     'format' => 'uuid'
-                                // ],
-                                // 'jobTitle' => [
-                                //     'type' => 'string',
-                                //     'format' => 'uuid'
-                                // ],
-                                // 'desiredWorkforce' => [
-                                //     'type' => 'string',
-                                //     'format' => 'uuid'
-                                // ],
-                                // 'tools' => [
-                                //     'type' => 'array',
-                                //     'items' => [
-                                //         'type' => 'string',
-                                //         'format' => 'uuid'
-                                //     ]
-                                // ],
-                                // 'desiredBadges' => [
-                                //     'type' => 'array',
-                                //     'items' => [
-                                //         'type' => 'string',
-                                //         'format' => 'uuid'
-                                //     ]
-                                // ],
-                                // 'qualities' => [
-                                //     'type' => 'array',
-                                //     'items' => [
-                                //         'type' => 'string',
-                                //         'format' => 'uuid'
-                                //     ]
-                                // ],
-                                // 'desiredExpertiseFields' => [
-                                //     'type' => 'array',
-                                //     'items' => [
-                                //         'type' => 'string',
-                                //         'format' => 'uuid'
-                                //     ]
-                                // ],
-                                // 'desiredCities' => [
-                                //     'type' => 'array',
-                                //     'items' => [
-                                //         'type' => 'string',
-                                //         'format' => 'uuid'
-                                //     ]
-                                // ],
-                                // 'desiredDepartments' => [
-                                //     'type' => 'array',
-                                //     'items' => [
-                                //         'type' => 'string',
-                                //         'format' => 'uuid'
-                                //     ]
-                                // ],
+                                'experience' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'levelOfStudy' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'jobTitle' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'desiredWorkforce' => [
+                                    'type' => 'string',
+                                    'format' => 'uuid'
+                                ],
+                                'tools' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredBadges' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'qualities' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredExpertiseFields' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredCities' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
+                                'desiredDepartments' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string',
+                                        'format' => 'uuid'
+                                    ]
+                                ],
                             ]
                         ]
                     ]
@@ -184,6 +184,8 @@ class ApplicantLamatchProfile
         $this->desiredBadges = new ArrayCollection();
         $this->qualities = new ArrayCollection();
         $this->desiredExpertiseFields = new ArrayCollection();
+        $this->createdDate = new \DateTime();
+        $this->lastModifiedDate = new \DateTime();
     }
 
     public function getIntroduction(): ?string

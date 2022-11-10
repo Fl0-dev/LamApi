@@ -4,6 +4,10 @@ namespace App\Entity\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use App\Controller\PostApplicantCv;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\Offer\Offer;
@@ -15,10 +19,31 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable
- */
-#[ApiResource]
+#[Vich\Uploadable]
+#[ApiResource(operations: [
+    new Get(),
+    new GetCollection(),
+    new Post(
+        controller: PostApplicantCv::class,
+        openapiContext: [
+            'requestBody' => [
+                'content' => [
+                    'multipart/form-data' => [
+                        'schema' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'cv' => [
+                                    'type' => 'string',
+                                    'format' => 'binary'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    )
+])]
 #[ORM\Entity(repositoryClass: ApplicantCvRepository::class)]
 class ApplicantCv
 {
@@ -41,9 +66,7 @@ class ApplicantCv
     ])]
     public ?string $contentUrl = null;
 
-    /**
-      * @Vich\UploadableField(mapping="cv_object", fileNameProperty="filePath")
-      */
+    #[Vich\UploadableField(mapping: "cv_object", fileNameProperty: "filePath")]
     private ?File $file = null;
 
     #[ORM\ManyToOne(targetEntity: Applicant::class, inversedBy: 'applicantCvs')]

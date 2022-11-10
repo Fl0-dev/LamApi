@@ -24,7 +24,7 @@ final class CvNormalizer implements NormalizerAwareInterface
     ): array|string|int|float|bool|\ArrayObject|null {
         $context[self::ALREADY_CALLED] = true;
 
-        $object->contentUrl = $this->storage->resolveUri($object, 'file');
+        $object->contentUrl = $this->storage->resolveUri($object, 'cv');
 
         return $this->normalizer->normalize($object, $format, $context);
     }
