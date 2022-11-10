@@ -27,6 +27,7 @@ abstract class UserPhysical extends User
     #[ORM\Column(type: "string", length: 180, nullable: true)]
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        Application::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
     ])]
@@ -35,6 +36,7 @@ abstract class UserPhysical extends User
     #[ORM\Column(type: "string", length: 180, nullable: true)]
     #[Groups([
         Application::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        Application::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
     ])]

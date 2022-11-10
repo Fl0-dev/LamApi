@@ -31,7 +31,6 @@ class ApplicantSubscription
     private ?ApplicantOfferSubscription $offerSubscription = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?ApplicantLamatchSubscription $lamatchSubscription = null;
 
     public function getApplicant(): ?Applicant

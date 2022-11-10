@@ -75,9 +75,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriVariables: [],
             controller: ApplicationAction::class,
             deserialize: false,
-            denormalizationContext: [
+            normalizationContext: [
                 'groups' => [
-                    'postSpontaneaousApplicationByCompanyEntityOfficeId'
+                    self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID
                 ]
             ],
             openapiContext: [
@@ -123,14 +123,15 @@ class Application
     use CreatedDate;
 
     public const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
-    public const OPERATION_NAME_PATH_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID =
+    public const OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID =
     'postSpontaneaousApplicationByCompanyEntityOfficeId';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
-        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
+        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID
     ])]
     private $motivationText;
 
@@ -157,7 +158,8 @@ class Application
     #[Groups([
         Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
-        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID
+        self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
+        self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID
     ])]
     private $cv;
 
@@ -178,7 +180,8 @@ class Application
 
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
-        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID
     ])]
     public function getCreatedDate(): ?\DateTime
     {
@@ -187,7 +190,8 @@ class Application
 
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
-        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID
+        Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID
     ])]
     public function getLastModifiedDate(): ?\DateTime
     {

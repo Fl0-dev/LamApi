@@ -24,7 +24,6 @@ class ApplicantLamatchSubscription
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([Applicant::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?ApplicantLamatchProfile $applicantLamatchProfile = null;
 
     public function getStatus(): ?string

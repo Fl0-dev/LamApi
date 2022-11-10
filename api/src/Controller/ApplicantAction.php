@@ -12,13 +12,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ApplicantAction extends AbstractController
 {
     public const OPERATION_NAME_POST_APPLICANT = '_api_/applicants_post';
-    public const OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE = '_api_/applicants/{id}_put';
 
     public function __construct(
         private UserPasswordHasherInterface $hasher,
         private UserRepository $userRepository
-    )
-    {
+    ) {
     }
 
     public function __invoke(Request $request): Applicant|null
@@ -47,13 +45,6 @@ class ApplicantAction extends AbstractController
 
             $applicant->setPassword($this->hasher->hashPassword($applicant, $password));
             $applicant->setRoles(['ROLE_APPLICANT']);
-
-            return $applicant;
-        }
-
-        if ($endpoint === self::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE) {
-            $applicant = $request->attributes->get('data');
-            dd($applicant);
 
             return $applicant;
         }

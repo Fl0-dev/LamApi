@@ -31,12 +31,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(operations: [
     new GetCollection(),
     new Get(),
-    new Put(
-        uriTemplate: '/applicants/{id}',
-        controller: ApplicantAction::class,
-        denormalizationContext: ['groups' => [self::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE]],
-    ),
     new Patch(),
+    new Put(),
     new Delete(),
     new Post(
         uriTemplate: '/applicants',
@@ -54,7 +50,6 @@ class Applicant extends UserPhysical
 {
     public const OPERATION_NAME_GET_ALL_APPLICANTS = 'getApplicants';
     public const OPERATION_NAME_POST_APPLICANT = 'postApplicant';
-    public const OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE = 'putApplicantWithProfile';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
@@ -63,7 +58,6 @@ class Applicant extends UserPhysical
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_APPLICANTS,
-        self::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE,
     ])]
     private $linkedin;
 
@@ -109,7 +103,6 @@ class Applicant extends UserPhysical
     private $optin;
 
     #[ORM\OneToOne(mappedBy: 'applicant', cascade: ['persist', 'remove'])]
-    #[Groups([self::OPERATION_NAME_PUT_APPLICANT_WITH_PROFILE])]
     private ?ApplicantSubscription $applicantSubscription = null;
 
     public function __construct()
