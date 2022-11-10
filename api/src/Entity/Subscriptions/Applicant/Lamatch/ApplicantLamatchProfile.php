@@ -138,6 +138,7 @@ class ApplicantLamatchProfile
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
+    
     public const OPERATION_NAME_POST_APPLICANT_LAMATCH_PROFILE_BY_APPLICANT_ID =
     'post_applicant_lamatch_profile_By_applicant_id';
 
