@@ -173,9 +173,13 @@ class Application
     #[ORM\JoinColumn(nullable: false)]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 
+    #[ORM\Column]
+    private ?bool $activeSending = null;
+
     public function __construct()
     {
         $this->applicantionExchanges = new ArrayCollection();
+        $this->activeSending = true;
     }
 
     #[Groups([
@@ -307,6 +311,18 @@ class Application
     public function setCompanyEntityOffice(?CompanyEntityOffice $companyEntityOffice): self
     {
         $this->companyEntityOffice = $companyEntityOffice;
+
+        return $this;
+    }
+
+    public function isActiveSending(): ?bool
+    {
+        return $this->activeSending;
+    }
+
+    public function setActiveSending(bool $activeSending): self
+    {
+        $this->activeSending = $activeSending;
 
         return $this;
     }

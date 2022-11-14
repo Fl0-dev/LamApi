@@ -15,7 +15,6 @@ class ApplicantTest extends ApiTestCase
             '@context' => '/contexts/Applicant',
             '@id' => '/applicants',
             '@type' => 'hydra:Collection',
-            "hydra:totalItems" => 9,
         ]);
     }
 
