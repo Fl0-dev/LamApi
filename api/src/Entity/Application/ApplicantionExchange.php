@@ -27,6 +27,15 @@ class ApplicantionExchange
     #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
     private $transmitter;
 
+    #[ORM\Column]
+    private ?bool $isRead = null;
+
+    public function __construct()
+    {
+        $this->isRead = false;
+        $this->createdDate = new \DateTime();
+    }
+
     public function getMessage(): ?string
     {
         return $this->message;
@@ -71,6 +80,18 @@ class ApplicantionExchange
     public function setTransmitter(?UserPhysical $transmitter): self
     {
         $this->transmitter = $transmitter;
+
+        return $this;
+    }
+
+    public function isIsRead(): ?bool
+    {
+        return $this->isRead;
+    }
+
+    public function setIsRead(bool $isRead): self
+    {
+        $this->isRead = $isRead;
 
         return $this;
     }
