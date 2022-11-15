@@ -8,6 +8,8 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Controller\GetApplicationsByCurrentApplicant;
 use App\Controller\PostApplicationByOfferId;
 use App\Controller\PostSpontaneousApplication;
 use App\Entity\Applicant\Applicant;
@@ -26,6 +28,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[
     ApiResource(operations: [
+        new GetCollection(
+            uriTemplate: '/applications',
+            controller: GetApplicationsByCurrentApplicant::class,
+            normalizationContext: ['groups' => [Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID]],
+            openapiContext: [
+                'summary' => 'Get applications by current applicant',
+                'description' => 'Get applications by current applicant',
+                'tags' => ['Application'],
+            ],
+        ),
         new Get(),
         new Put(),
         new Patch(),
