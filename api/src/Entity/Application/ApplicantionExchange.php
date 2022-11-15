@@ -2,11 +2,13 @@
 
 namespace App\Entity\Application;
 
+use App\Entity\Applicant\Applicant;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicationRepositories\ApplicantionExchangeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantionExchangeRepository::class)]
 class ApplicantionExchange
@@ -15,6 +17,7 @@ class ApplicantionExchange
     use CreatedDate;
 
     #[ORM\Column(type: 'text')]
+    #[Groups([Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID])]
     private $message;
 
     #[ORM\ManyToOne(targetEntity: Application::class, inversedBy: 'applicantionExchanges')]
@@ -28,6 +31,7 @@ class ApplicantionExchange
     private $transmitter;
 
     #[ORM\Column]
+    #[Groups([Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID])]
     private ?bool $isRead = null;
 
     public function __construct()
