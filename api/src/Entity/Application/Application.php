@@ -181,11 +181,11 @@ class Application
     ])]
     private $cv;
 
-    #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicantionExchange::class)]
+    #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicationExchange::class)]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
     ])]
-    private $applicantionExchanges;
+    private $applicationExchanges;
 
     #[ORM\Column]
     #[Groups([
@@ -208,7 +208,7 @@ class Application
 
     public function __construct()
     {
-        $this->applicantionExchanges = new ArrayCollection();
+        $this->applicationExchanges = new ArrayCollection();
         $this->activeSending = true;
     }
 
@@ -294,29 +294,29 @@ class Application
     }
 
     /**
-     * @return Collection<int, ApplicantionExchange>
+     * @return Collection<int, ApplicationExchange>
      */
-    public function getApplicantionExchanges(): Collection
+    public function getApplicationExchanges(): Collection
     {
-        return $this->applicantionExchanges;
+        return $this->applicationExchanges;
     }
 
-    public function addApplicantionExchange(ApplicantionExchange $applicantionExchange): self
+    public function addApplicationExchange(ApplicationExchange $applicationExchange): self
     {
-        if (!$this->applicantionExchanges->contains($applicantionExchange)) {
-            $this->applicantionExchanges[] = $applicantionExchange;
-            $applicantionExchange->setApplication($this);
+        if (!$this->applicationExchanges->contains($applicationExchange)) {
+            $this->applicationExchanges[] = $applicationExchange;
+            $applicationExchange->setApplication($this);
         }
 
         return $this;
     }
 
-    public function removeApplicantionExchange(ApplicantionExchange $applicantionExchange): self
+    public function removeApplicationExchange(ApplicationExchange $applicationExchange): self
     {
-        if ($this->applicantionExchanges->removeElement($applicantionExchange)) {
+        if ($this->applicationExchanges->removeElement($applicationExchange)) {
             // set the owning side to null (unless already changed)
-            if ($applicantionExchange->getApplication() === $this) {
-                $applicantionExchange->setApplication(null);
+            if ($applicationExchange->getApplication() === $this) {
+                $applicationExchange->setApplication(null);
             }
         }
 

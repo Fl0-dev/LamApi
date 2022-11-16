@@ -9,7 +9,7 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use App\Controller\ApplicantAction;
+use App\Controller\PostApplicant;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
@@ -43,7 +43,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Delete(),
     new Post(
         uriTemplate: '/applicants',
-        controller: ApplicantAction::class,
+        controller: PostApplicant::class,
         denormalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT]],
         openapiContext: [
             'tags' => ['Applicant'],
