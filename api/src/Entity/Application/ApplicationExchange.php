@@ -4,7 +4,9 @@ namespace App\Entity\Application;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
+use App\Controller\PostApplicationExchangeByApplicationId;
 use App\Entity\Applicant\Applicant;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicationRepositories\ApplicationExchangeRepository;
@@ -14,26 +16,59 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    new GetCollection(
-        order: ['createdDate' => 'DESC'],
-        paginationEnabled: false,
-    ),
-    new Post(
-        uriTemplate: '/application/{applicantId}/exchanges',
+    operations: [
+        new GetCollection(
+            order: ['createdDate' => 'DESC'],
+            paginationEnabled: false,
+        ),
+        new Post(
+            uriTemplate: '/application_exchanges/{applicationId}',
+            controller: PostApplicationExchangeByApplicationId::class,
+            uriVariables: [],
+            openapiContext: [
+                'summary' => 'Create an exchange for an application',
+                'parameters' => [
+                    [
+                        'name' => 'applicationId',
+                        'in' => 'path',
+                        'required' => true,
+                        'schema' => [
+                            'type' => 'string',
+                            'format' => 'uuid',
 
-        denormalizationContext: [self::OPERATION_NAME_POST_APPLICATION_EXCHANGE_BY_APPLICATION],
-    ),
+                        ]
+                    ]
+                ],
+                'requestBody' => [
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'message' => [
+                                        'type' => 'string',
+                                        'format' => 'text',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ],
+
+        ),
+    ]
 )]
 #[ORM\Entity(repositoryClass: ApplicationExchangeRepository::class)]
 class ApplicationExchange
 {
-    public const OPERATION_NAME_POST_APPLICATION_EXCHANGE_BY_APPLICATION = 'post_application_exchange_by_application';
-
     use Uuid;
     use CreatedDate;
 
     #[ORM\Column(type: 'text')]
-    #[Groups([Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID])]
+    #[Groups([
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+    ])]
     private $message;
 
     #[ORM\ManyToOne(targetEntity: Application::class, inversedBy: 'applicationExchanges')]
