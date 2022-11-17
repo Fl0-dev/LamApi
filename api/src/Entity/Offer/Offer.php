@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Revision\OfferRevision;
 use App\Validator;
 use App\Controller\OfferAction;
+use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyGroup;
@@ -142,6 +143,7 @@ class Offer
             self::OPERATION_NAME_GET_OFFER_TEASERS,
             CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
             UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+            Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
             self::OPERATION_NAME_POST_OFFER
         ]),
         Length(
@@ -230,6 +232,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
         UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $startASAP;
@@ -241,6 +244,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
         UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $salaryMin;
@@ -252,6 +256,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
         UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $salaryMax;
@@ -263,6 +268,7 @@ class Offer
         self::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_OFFERS_BY_COMPANY_GROUP_ID,
         UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_OFFER
     ])]
     private $startDate;
@@ -296,7 +302,8 @@ class Offer
     #[ORM\JoinColumn(nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS,
-        self::OPERATION_NAME_GET_OFFER_TEASERS
+        self::OPERATION_NAME_GET_OFFER_TEASERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
     ])]
     private $headerMedia;
 
@@ -362,7 +369,8 @@ class Offer
     #[Groups([
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_OFFER_TEASERS,
-        self::OPERATION_NAME_POST_OFFER
+        self::OPERATION_NAME_POST_OFFER,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
     ])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 
@@ -394,7 +402,8 @@ class Offer
 
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFERS,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         ])]
     public function getCreatedDate(): ?\DateTime
     {
@@ -412,7 +421,8 @@ class Offer
 
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFERS,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         ])]
     public function getJobTitleLabel(): string
     {
@@ -423,7 +433,8 @@ class Offer
         self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
         self::OPERATION_NAME_GET_OFFER_TEASERS,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         ])]
     public function getContractType(): ?string
     {
@@ -470,7 +481,8 @@ class Offer
     #[Groups([
         self::OPERATION_NAME_GET_ALL_OFFERS,
         self::OPERATION_NAME_GET_OFFER_DETAILS,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         ])]
     public function getUrl(): ?string
     {

@@ -9,7 +9,7 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use App\Controller\ApplicantAction;
+use App\Controller\PostApplicant;
 use App\Entity\Application\Application;
 use App\Entity\Location\City;
 use App\Entity\JobTitle;
@@ -31,12 +31,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(operations: [
     new GetCollection(),
     new Get(),
+    new Get(
+        uriTemplate: '/applicant/{id}/applications',
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID]],
+        openapiContext: [
+            'summary' => 'Get all applications by applicant id',
+        ],
+    ),
     new Patch(),
     new Put(),
     new Delete(),
     new Post(
         uriTemplate: '/applicants',
-        controller: ApplicantAction::class,
+        controller: PostApplicant::class,
         denormalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT]],
         openapiContext: [
             'tags' => ['Applicant'],
@@ -50,6 +57,7 @@ class Applicant extends UserPhysical
 {
     public const OPERATION_NAME_GET_ALL_APPLICANTS = 'getApplicants';
     public const OPERATION_NAME_POST_APPLICANT = 'postApplicant';
+    public const OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID = 'getApplicationsByApplicantId';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
@@ -68,6 +76,9 @@ class Applicant extends UserPhysical
     private $applicantCvs;
 
     #[ORM\OneToMany(mappedBy: 'applicant', targetEntity: Application::class)]
+    #[Groups([
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+    ])]
     private $applications;
 
     #[ORM\Column(type: 'string', nullable: true)]

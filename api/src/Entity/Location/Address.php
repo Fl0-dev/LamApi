@@ -5,6 +5,7 @@ namespace App\Entity\Location;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\ApiResource;
 use App\Controller\LocalisationAction;
+use App\Entity\Applicant\Applicant;
 use App\Entity\Company\CompanyGroup;
 use App\Entity\User\UserJobBoard;
 use App\Entity\Offer\Offer;
@@ -172,7 +173,8 @@ class Address
 
     #[Groups([
         Offer::OPERATION_NAME_GET_ALL_OFFERS,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
     ])]
     public function getCityInfos(): ?array
     {

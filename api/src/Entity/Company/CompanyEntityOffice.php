@@ -3,6 +3,7 @@
 namespace App\Entity\Company;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use App\Entity\User\UserJobBoard;
 use App\Entity\Location\Address;
@@ -32,7 +33,8 @@ class CompanyEntityOffice
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_TEASERS,
         Offer::OPERATION_NAME_GET_OFFER_DETAILS,
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
     ])]
     private ?string $name = null;
 
@@ -44,7 +46,8 @@ class CompanyEntityOffice
         Offer::OPERATION_NAME_GET_OFFER_TEASERS,
         CompanyGroup::OPERATION_NAME_GET_COMPANY_GROUP_DETAILS,
         CompanyGroup::OPERATION_NAME_GET_OFFICES_BY_COMPANY_GROUP_ID,
-        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS
+        UserJobBoard::OPERATION_NAME_GET_JOB_BOARD_OFFERS,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
     ])]
     private ?Address $address = null;
 
