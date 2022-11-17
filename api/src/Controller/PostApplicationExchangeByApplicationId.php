@@ -36,14 +36,15 @@ class PostApplicationExchangeByApplicationId extends AbstractController
         }
 
         $applicationExchange->setApplication($application);
-        $applicationExchange->setTransmitter($physicalUser);
 
-        if ($physicalUser instanceof Applicant) {
+        if ($physicalUser instanceof Applicant && $application->getApplicant() === $physicalUser) {
+            $applicationExchange->setTransmitter($physicalUser);
             $applicationExchange->setReceiver($application->getOffer()->getAuthor());
-        }
-
-        if ($physicalUser instanceof Employer) {
+        } elseif ($physicalUser instanceof Employer && $application->getOffer()->getAuthor() === $physicalUser) {
+            $applicationExchange->setTransmitter($physicalUser);
             $applicationExchange->setReceiver($application->getApplicant());
+        } else {
+            throw new \Exception('You are not allowed to do this');
         }
 
         return $applicationExchange;

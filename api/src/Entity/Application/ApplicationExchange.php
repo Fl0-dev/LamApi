@@ -17,10 +17,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     operations: [
-        new GetCollection(
-            order: ['createdDate' => 'DESC'],
-            paginationEnabled: false,
-        ),
         new Post(
             uriTemplate: '/application_exchanges/{applicationId}',
             controller: PostApplicationExchangeByApplicationId::class,
@@ -55,7 +51,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
                     ]
                 ]
             ],
-
         ),
     ]
 )]
