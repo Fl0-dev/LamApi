@@ -3,8 +3,6 @@
 namespace App\Entity\Application;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use App\Controller\PostApplicationExchangeByApplicationId;
 use App\Entity\Applicant\Applicant;
@@ -63,6 +61,7 @@ class ApplicationExchange
     #[ORM\Column(type: 'text')]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
     ])]
     private $message;
 
@@ -71,13 +70,18 @@ class ApplicationExchange
     private $application;
 
     #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
+    #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
     private $receiver;
 
     #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
+    #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
     private $transmitter;
 
     #[ORM\Column]
-    #[Groups([Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID])]
+    #[Groups([
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
+    ])]
     private ?bool $isRead = null;
 
     public function __construct()

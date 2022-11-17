@@ -38,6 +38,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'tags' => ['Application'],
             ],
         ),
+        new GetCollection(
+            uriTemplate: '/applications/{id}/exchanges',
+            normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID]],
+        ),
         new Get(),
         new Put(),
         new Patch(),
@@ -138,6 +142,8 @@ class Application
     public const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
     public const OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID =
     'postSpontaneaousApplicationByCompanyEntityOfficeId';
+    public const OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID =
+    'getApplicationExchangesByApplicationId';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
@@ -183,7 +189,8 @@ class Application
 
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicationExchange::class)]
     #[Groups([
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
     ])]
     private $applicationExchanges;
 
