@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             uriTemplate: '/applications',
             controller: GetApplicationsByCurrentApplicant::class,
-            normalizationContext: ['groups' => [Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID]],
+            normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT]],
             openapiContext: [
                 'summary' => 'Get applications by current applicant',
                 'description' => 'Get applications by current applicant',
@@ -39,14 +39,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ),
         new GetCollection(
+            security: "is_granted('ROLE_USER')",
             uriTemplate: '/applications/{id}/exchanges',
             normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID]],
+            order: ['applicationExchanges.createdDate' => 'ASC'],
         ),
-        new Get(),
-        new Put(),
-        new Patch(),
-        new Delete(),
+        new Get(
+            security: "is_granted('ROLE_USER')",
+        ),
+        new Patch(
+            security: "is_granted('ROLE_APPLICANT')",
+        ),
+        new Delete(
+            security: "is_granted('ROLE_APPLICANT')",
+        ),
         new Post(
+            security: "is_granted('ROLE_APPLICANT')",
             uriTemplate: '/applications/{offerId}',
             controller: PostApplicationByOfferId::class,
             deserialize: false,
@@ -88,6 +96,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ]
         ),
         new Post(
+            security: "is_granted('ROLE_APPLICANT')",
             uriTemplate: '/applications/spontaneous/{companyEntityOfficeId}',
             uriVariables: [],
             controller: PostSpontaneousApplication::class,
@@ -144,14 +153,16 @@ class Application
     'postSpontaneaousApplicationByCompanyEntityOfficeId';
     public const OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID =
     'getApplicationExchangesByApplicationId';
+    public const OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT = 'getApplicationsByCurrentApplicant';
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID,
         self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     private $motivationText;
 
@@ -159,7 +170,8 @@ class Application
     #[Groups([
         Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     private $score;
 
@@ -174,7 +186,8 @@ class Application
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'applications', cascade: ['persist'])]
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     private $offer;
 
@@ -190,40 +203,45 @@ class Application
     #[ORM\OneToMany(mappedBy: 'application', targetEntity: ApplicationExchange::class)]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
         self::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
     ])]
     private $applicationExchanges;
 
     #[ORM\Column]
     #[Groups([
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'applications', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     private ?CompanyEntityOffice $companyEntityOffice = null;
 
     #[ORM\Column]
     #[Groups([
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     private ?bool $activeSending = null;
 
     public function __construct()
     {
         $this->applicationExchanges = new ArrayCollection();
-        $this->activeSending = true;
+        $this->activeSending = false;
     }
 
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
         Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
     ])]
     public function getCreatedDate(): ?\DateTime
     {
@@ -233,8 +251,9 @@ class Application
     #[Groups([
         CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
         Offer::OPERATION_NAME_GET_APPLICATIONS_BY_OFFER_ID,
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
-        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
     ])]
     public function getLastModifiedDate(): ?\DateTime
     {

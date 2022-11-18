@@ -10,12 +10,15 @@ use App\Entity\User\UserPhysical;
 use App\Repository\ApplicationRepositories\ApplicationExchangeRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\Uuid;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     operations: [
         new Post(
+            security: "is_granted('ROLE_USER')",
             uriTemplate: '/application_exchanges/{applicationId}',
             controller: PostApplicationExchangeByApplicationId::class,
             uriVariables: [],
@@ -61,8 +64,10 @@ class ApplicationExchange
     #[ORM\Column(type: 'text')]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
-        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
+        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID,
+        Application::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
+    #[Assert\NotNull()]
     private $message;
 
     #[ORM\ManyToOne(targetEntity: Application::class, inversedBy: 'applicationExchanges')]
@@ -80,6 +85,7 @@ class ApplicationExchange
     #[ORM\Column]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        Application::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
         Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
     ])]
     private ?bool $isRead = null;
@@ -88,6 +94,16 @@ class ApplicationExchange
     {
         $this->isRead = false;
         $this->createdDate = new \DateTime();
+    }
+
+    #[Groups([
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        Application::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
+        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
+    ])]
+    public function getCreatedDate(): ?DateTime
+    {
+        return $this->createdDate;
     }
 
     public function getMessage(): ?string

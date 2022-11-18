@@ -32,6 +32,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new GetCollection(),
     new Get(),
     new Get(
+        security: "is_granted('ROLE_ADMIN')",
         uriTemplate: '/applicant/{id}/applications',
         normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID]],
         openapiContext: [
