@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\User\UserPhysical;
 use App\Repository\ApplicationRepositories\ApplicationExchangeRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -17,16 +18,29 @@ class ApplicationExchangeSubscriber implements EventSubscriberInterface
 
     public function exchangeIsRead(RequestEvent $event): void
     {
-        $operationName = $event->getRequest()->attributes->get('_route');
-        if ($operationName ===  self::OPERATION_NAME) {
-            $response = $event->getRequest()->attributes->get('data')->getIterator();
-            $application = $response[0];
-            $applicationExchanges = $application->getApplicationExchanges();
+        $user = $event->getRequest()->getSession()->get('_security_main');
 
-            if ($applicationExchanges !== null) {
-                foreach ($applicationExchanges as $applicationExchange) {
-                    $applicationExchange->setIsRead(true);
-                    $this->applicationExchangeRepository->add($applicationExchange, true);
+        if (is_string($user)) {
+            $user = unserialize($user);
+        } else {
+            throw new \Exception('User not found');
+        }
+
+        if ($user instanceof UserPhysical) {
+            $operationName = $event->getRequest()->attributes->get('_route');
+
+            if ($operationName ===  self::OPERATION_NAME) {
+                $response = $event->getRequest()->attributes->get('data')->getIterator();
+                $application = $response[0];
+                $applicationExchanges = $application->getApplicationExchanges();
+
+                if ($applicationExchanges !== null) {
+                    foreach ($applicationExchanges as $applicationExchange) {
+                        if ($applicationExchange->getReceiver() === $user) {
+                            $applicationExchange->setIsRead(true);
+                            $this->applicationExchangeRepository->save($applicationExchange);
+                        }
+                    }
                 }
             }
         }

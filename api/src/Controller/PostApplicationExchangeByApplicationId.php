@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use App\Entity\Application\ApplicationExchange;
+use App\Entity\Offer\Offer;
 use App\Entity\User\Employer;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicationRepositories\ApplicationRepository;
@@ -36,15 +37,20 @@ class PostApplicationExchangeByApplicationId extends AbstractController
         }
 
         $applicationExchange->setApplication($application);
-
+        $admins = $application->getCompanyEntityOffice()->getCompanyEntity()->getAdmins();
         if ($physicalUser instanceof Applicant && $application->getApplicant() === $physicalUser) {
             $applicationExchange->setTransmitter($physicalUser);
             $applicationExchange->setReceiver($application->getOffer()->getAuthor());
-        } elseif ($physicalUser instanceof Employer && $application->getOffer()->getAuthor() === $physicalUser) {
-            $applicationExchange->setTransmitter($physicalUser);
-            $applicationExchange->setReceiver($application->getApplicant());
-        } else {
-            throw new \Exception('You are not allowed to do this');
+        } elseif ($physicalUser instanceof Employer) {
+            if ($application->getOffer() instanceof Offer && $application->getOffer()->getAuthor() === $physicalUser) {
+                $applicationExchange->setTransmitter($physicalUser);
+                $applicationExchange->setReceiver($application->getApplicant());
+            } elseif ($admins->contains($physicalUser)) {
+                $applicationExchange->setTransmitter($physicalUser);
+                $applicationExchange->setReceiver($application->getApplicant());
+            } else {
+                throw new \Exception('You are not allowed to send messages to this applicant');
+            }
         }
 
         return $applicationExchange;
