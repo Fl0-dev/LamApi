@@ -20,7 +20,7 @@ class ApplicationExchangeSubscriber implements EventSubscriberInterface
     {
         $user = $event->getRequest()->getSession()->get('_security_main');
 
-        if ($user instanceof String) {
+        if (is_string($user)) {
             $user = unserialize($user);
         } else {
             throw new \Exception('User not found');

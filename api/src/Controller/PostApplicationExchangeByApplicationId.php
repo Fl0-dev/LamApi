@@ -45,7 +45,9 @@ class PostApplicationExchangeByApplicationId extends AbstractController
             if ($application->getOffer() instanceof Offer && $application->getOffer()->getAuthor() === $physicalUser) {
                 $applicationExchange->setTransmitter($physicalUser);
                 $applicationExchange->setReceiver($application->getApplicant());
-            } elseif ($application->getCompanyEntityOffice()->getCompanyEntity()->getAdmins()->contains($physicalUser)) {
+            } elseif ($application->getCompanyEntityOffice()
+                ->getCompanyEntity()->getAdmins()->contains($physicalUser)
+            ) {
                 $applicationExchange->setTransmitter($physicalUser);
                 $applicationExchange->setReceiver($application->getApplicant());
             } else {
