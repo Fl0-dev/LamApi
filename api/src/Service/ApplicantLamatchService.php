@@ -33,10 +33,14 @@ class ApplicantLamatchService
 
             $applicantExpertiseFields = $applicantLamatchProfile->getDesiredExpertiseFields();
             $expertiseFieldsMatch = $this->getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields);
+
+            //Matching avec Tools
+            $companyTools = $companyEntity->getProfile()->getTools();
+            $applicantTools = $applicantLamatchProfile->getTools();
+            $toolsMatch = $this->getToolsMatch($companyTools, $applicantTools);
         }
 
-        //Matching avec ExpertiseFields
-        //Matching avec Tools
+
         //Matching avec Badges
         //Matching avec JobTitles
         //Matching avec Localisation
@@ -44,11 +48,27 @@ class ApplicantLamatchService
         dd($companyEntities);
     }
 
+    public function getToolsMatch($companyTools, $applicantTools)
+    {
+        $toolsMatch = 0;
+        foreach ($companyTools as $companyTool) {
+            foreach ($applicantTools as $applicantTool) {
+                if ($companyTool->getId() === $applicantTool->getId()) {
+                    $toolsMatch++;
+                }
+            }
+        }
+
+        $toolsMatch = $toolsMatch * 100 / count($companyTools);
+
+        return (int)$toolsMatch;
+    }
+
     public function getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields)
     {
         $expertiseFieldsMatch = 100;
 
-        if ($applicantExpertiseFields === null) {
+        if ($applicantExpertiseFields === null || $applicantExpertiseFields->isEmpty()) {
             return $expertiseFieldsMatch;
         }
 

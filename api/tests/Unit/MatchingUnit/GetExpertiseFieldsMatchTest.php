@@ -78,5 +78,12 @@ class GetExpertiseFieldsMatchTest extends KernelTestCase
 
         $this->assertIsInt($expertiseFieldsMatch);
         $this->assertEquals(100, $expertiseFieldsMatch);
+
+        $applicantExpertiseFields = new ArrayCollection();
+
+        $expertiseFieldsMatch = $applicantLamatchService->getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields);
+
+        $this->assertIsInt($expertiseFieldsMatch);
+        $this->assertEquals(100, $expertiseFieldsMatch);
     }
 }
