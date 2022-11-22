@@ -38,14 +38,36 @@ class ApplicantLamatchService
             $companyTools = $companyEntity->getProfile()->getTools();
             $applicantTools = $applicantLamatchProfile->getTools();
             $toolsMatch = $this->getToolsMatch($companyTools, $applicantTools);
+
+            //Matching avec Badges
+            $companyBadges = $companyEntity->getProfile()->getBadges();
+            $applicantBadges = $applicantLamatchProfile->getDesiredBadges();
+            $badgesMatch = $this->getBadgesMatch($companyBadges, $applicantBadges);
         }
 
-
-        //Matching avec Badges
         //Matching avec JobTitles
         //Matching avec Localisation
         //Matching avec DISCQualities
         dd($companyEntities);
+    }
+
+    public function getBadgesMatch($companyBadges, $applicantBadges)
+    {
+        if ($applicantBadges->isEmpty() || $applicantBadges === null) {
+            return 100;
+        }
+
+        $badgesMatch = 0;
+        foreach ($applicantBadges as $applicantBadge) {
+            foreach ($companyBadges as $companyBadge) {
+                if ($applicantBadge->getId() === $companyBadge->getId()) {
+                    $badgesMatch++;
+                }
+            }
+        }
+        $badgesMatch = $badgesMatch * 100 / count($applicantBadges);
+
+        return (int)$badgesMatch;
     }
 
     public function getToolsMatch($companyTools, $applicantTools)
@@ -76,7 +98,7 @@ class ApplicantLamatchService
         foreach ($applicantExpertiseFields as $applicantExpertiseField) {
             foreach ($companyExpertiseFields as $companyExpertiseField) {
                 if ($applicantExpertiseField->getId() === $companyExpertiseField->getId()) {
-                    return $expertiseFieldsMatch ;
+                    return $expertiseFieldsMatch;
                 }
             }
         }
