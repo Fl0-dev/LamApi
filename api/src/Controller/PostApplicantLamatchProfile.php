@@ -3,17 +3,28 @@
 namespace App\Controller;
 
 use App\Entity\Applicant\Applicant;
+use App\Entity\Badge;
+use App\Entity\ExpertiseField;
+use App\Entity\JobTitle;
+use App\Entity\Location\City;
+use App\Entity\Location\Department;
+use App\Entity\Media\Media;
 use App\Entity\Media\MediaImage;
+use App\Entity\References\Experience;
 use App\Entity\Subscriptions\Applicant\ApplicantSubscription;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Entity\Subscriptions\Applicant\Lamatch\DesiredLocation;
-use App\Repository\ApplicantRepositories\ApplicantRepository;
+use App\Entity\Subscriptions\DISC\DISCQuality;
+use App\Entity\Tool;
 use App\Repository\BadgeRepository;
 use App\Repository\ExpertiseFieldRepository;
 use App\Repository\JobTitleRepository;
 use App\Repository\LocationRepositories\CityRepository;
 use App\Repository\LocationRepositories\DepartmentRepository;
+use App\Repository\ReferencesRepositories\ExperienceRepository;
+use App\Repository\ReferencesRepositories\LevelOfStudyRepository;
+use App\Repository\ReferencesRepositories\WorkforceRepository;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantSubscriptionRepository;
 use App\Repository\SubscriptionRepositories\DISC\DISCQualityRepository;
 use App\Repository\ToolRepository;
@@ -25,7 +36,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class PostApplicantLamatchProfile extends AbstractController
 {
     public function __construct(
-        private ApplicantRepository $applicantRepository,
         private ApplicantSubscriptionRepository $applicantSubscriptionRepository,
         private JobTitleRepository $jobTitleRepository,
         private BadgeRepository $badgeRepository,
@@ -34,6 +44,9 @@ class PostApplicantLamatchProfile extends AbstractController
         private DepartmentRepository $departmentRepository,
         private ExpertiseFieldRepository $expertiseFieldRepository,
         private ToolRepository $toolRepository,
+        private ExperienceRepository $experienceRepository,
+        private LevelOfStudyRepository $levelOfStudyRepository,
+        private WorkforceRepository $workforceRepository,
     ) {
     }
 
@@ -42,11 +55,11 @@ class PostApplicantLamatchProfile extends AbstractController
         $applicant = $this->getUser();
 
         if (!$applicant instanceof Applicant) {
-            $applicantId = $request->attributes->get('applicantId');
-            $applicant = $this->applicantRepository->find($applicantId);
+            throw new BadRequestHttpException('Applicant not found');
         }
 
         $uploadedFile = $request->files->get('file');
+        
         //TODO: gestion slug
         $slugPhoto = $uploadedFile->getClientOriginalName();
 
@@ -55,8 +68,8 @@ class PostApplicantLamatchProfile extends AbstractController
         }
 
         $mediaImage = new MediaImage();
+        
         $mediaImage->setFile($uploadedFile);
-
         $mediaImage->setCreatedDate(new \DateTime());
         $mediaImage->setLastModifiedDate(new \DateTime());
         $mediaImage->setSlug($slugPhoto);
@@ -71,62 +84,106 @@ class PostApplicantLamatchProfile extends AbstractController
         $applicantLamatchProfile = new ApplicantLamatchProfile();
         $applicantLamatchProfile->setApplicant($applicant);
         $applicantLamatchProfile->setPhoto($mediaImage);
-        $applicantLamatchProfile->setExperience(Utils::getArrayValue('experience', $infoProfile));
-        $applicantLamatchProfile->setLevelOfStudy(Utils::getArrayValue('levelOfStudy', $infoProfile));
+        // dd($mediaImage);
+        $experienceId = Utils::getArrayValue('experience', $infoProfile);
+        $experience = $this->experienceRepository->find($experienceId);
+
+        if ($experience instanceof Experience) {
+            $applicantLamatchProfile->setExperience($experienceId);
+        }
+
+        $levelOfStudyId = Utils::getArrayValue('levelOfStudy', $infoProfile);
+        $levelOfStudy = $this->levelOfStudyRepository->find($levelOfStudyId);
+
+        if ($levelOfStudy instanceof Experience) {
+            $applicantLamatchProfile->setLevelOfStudy($levelOfStudyId);
+        }
 
         $jobTitle = $this->jobTitleRepository->find(Utils::getArrayValue('jobTitle', $infoProfile));
-        $applicantLamatchProfile->setJobTitle($jobTitle);
+
+        if ($jobTitle instanceof JobTitle) {
+            $applicantLamatchProfile->setJobTitle($jobTitle);
+        }
+        $desiredWorkforceId = Utils::getArrayValue('desiredWorkforce', $infoProfile);
+        $desiredWorkforce = $this->workforceRepository->find($desiredWorkforceId);
+
+        if ($desiredWorkforce instanceof Experience) {
+            $applicantLamatchProfile->setDesiredWorkforce($desiredWorkforceId);
+        }
 
         $applicantLamatchProfile->setIntroduction(Utils::getArrayValue('introduction', $infoProfile));
-        $applicantLamatchProfile->setDesiredWorkforce(Utils::getArrayValue('desiredWorkforce', $infoProfile));
 
         $desiredBadges = Utils::getArrayValue('desiredBadges', $infoProfile);
+
         if (is_array($desiredBadges)) {
             foreach ($desiredBadges as $badgeId) {
                 $badge = $this->badgeRepository->find($badgeId);
-                $applicantLamatchProfile->addDesiredBadge($badge);
+
+                if ($badge instanceof Badge) {
+                    $applicantLamatchProfile->addDesiredBadge($badge);
+                }
             }
         }
 
         $qualities = Utils::getArrayValue('qualities', $infoProfile);
+
         if (is_array($qualities)) {
             foreach ($qualities as $qualityId) {
                 $quality = $this->discQualityRepository->find($qualityId);
-                $applicantLamatchProfile->addQuality($quality);
+
+                if ($quality instanceof DISCQuality) {
+                    $applicantLamatchProfile->addQuality($quality);
+                }
             }
         }
 
         $tools = Utils::getArrayValue('tools', $infoProfile);
+
         if (is_array($tools)) {
             foreach ($tools as $toolId) {
                 $tool = $this->toolRepository->find($toolId);
-                $applicantLamatchProfile->addTool($tool);
+
+                if ($tool instanceof Tool) {
+                    $applicantLamatchProfile->addTool($tool);
+                }
             }
         }
 
-        $expertiseFields = Utils::getArrayValue('expertiseFields', $infoProfile);
+        $expertiseFields = Utils::getArrayValue('desiredExpertiseFields', $infoProfile);
+
         if (is_array($expertiseFields)) {
             foreach ($expertiseFields as $expertiseFieldId) {
                 $expertiseField = $this->expertiseFieldRepository->find($expertiseFieldId);
-                $applicantLamatchProfile->addDesiredExpertiseField($expertiseField);
+
+                if ($expertiseField instanceof ExpertiseField) {
+                    $applicantLamatchProfile->addDesiredExpertiseField($expertiseField);
+                }
             }
         }
 
         $desiredLocation = new DesiredLocation();
 
-        $cities = Utils::getArrayValue('cities', $infoProfile);
+        $cities = Utils::getArrayValue('desiredCities', $infoProfile);
+
         if (is_array($cities)) {
             foreach ($cities as $cityId) {
                 $city = $this->cityRepository->find($cityId);
-                $desiredLocation->addDesiredCity($city);
+
+                if ($city instanceof City) {
+                    $desiredLocation->addDesiredCity($city);
+                }
             }
         }
 
-        $departments = Utils::getArrayValue('departments', $infoProfile);
+        $departments = Utils::getArrayValue('desiredDepartments', $infoProfile);
+
         if (is_array($departments)) {
             foreach ($departments as $departmentId) {
                 $department = $this->departmentRepository->find($departmentId);
-                $desiredLocation->addDesiredDepartment($department);
+
+                if ($department instanceof Department) {
+                    $desiredLocation->addDesiredDepartment($department);
+                }
             }
         }
 

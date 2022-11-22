@@ -64,16 +64,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/logo.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-logo.png');
         $media->setSlug('tgs-france-logo');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/header.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-header.png');
         $media->setSlug('tgs-france-header');
         $companyGroup->setHeaderMedia($media);
@@ -81,8 +77,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/tgs-france.mp4');
         $media->setSlug('tgs-france-video');
         $media->setAutoplay(true);
@@ -90,24 +84,18 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-media1.png');
         $media->setSlug('tgs-france-media1');
         $companyGroup->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-media2.png');
         $media->setSlug('tgs-france-media2');
         $companyGroup->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france.com/assets/images/media3.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-media3.png');
         $media->setSlug('tgs-france-media3');
         $companyGroup->addMedia($media);
@@ -165,17 +153,13 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
         $media = new MediaImage();
-        $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
+        $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media1.png');       
         $media->setFilePath('/assets/images/tgs-france-ouest-media1.png');
         $media->setSlug('tgs-france-ouest-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-ouest-media2.png');
         $media->setSlug('tgs-france-ouest-media2');
         $companyEntity->addMedia($media);
@@ -222,16 +206,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france-est.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-est-media1.png');
         $media->setSlug('tgs-france-est-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.tgs-france-est.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/tgs-france-est-media2.png');
         $media->setSlug('tgs-france-est-media2');
         $companyEntity->addMedia($media);
@@ -267,16 +247,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/logo.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-logo.png');
         $media->setSlug('eolis-logo');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/header.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-header.png');
         $media->setSlug('eolis-header');
         $companyGroup->setHeaderMedia($media);
@@ -284,8 +260,6 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/eolis.mp4');
         $media->setSlug('eolis-video');
         $media->setAutoplay(true);
@@ -293,16 +267,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-media1.png');
         $media->setSlug('eolis-media1');
         $companyGroup->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-media2.png');
         $media->setSlug('eolis-media2');
         $companyGroup->addMedia($media);
@@ -339,16 +309,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis-ouest.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-ouest-media1.png');
         $media->setSlug('eolis-ouest-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.eolis-ouest.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/eolis-ouest-media2.png');
         $media->setSlug('eolis-ouest-media2');
         $companyEntity->addMedia($media);
@@ -383,24 +349,18 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/logo.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-logo.png');
         $media->setSlug('livli-logo');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/header.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-header.png');
         $media->setSlug('livli-header');
         $companyGroup->setHeaderMedia($media);
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/livli.mp4');
         $media->setSlug('livli-video');
         $media->setAutoplay(true);
@@ -408,24 +368,18 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-media1.png');
         $media->setSlug('livli-media1');
         $companyGroup->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-media2.png');
         $media->setSlug('livli-media2');
         $companyGroup->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli.com/assets/images/media3.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-media3.png');
         $media->setSlug('livli-media3');
         $companyGroup->addMedia($media);
@@ -449,16 +403,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli-ouest.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-ouest-media1.png');
         $media->setSlug('livli-ouest-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.livli-ouest.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/livli-ouest-media2.png');
         $media->setSlug('livli-ouest-media2');
         $companyEntity->addMedia($media);
@@ -505,24 +455,18 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso.com/assets/images/logo.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-logo.png');
         $media->setSlug('in-extenso-logo');
         $companyGroup->setLogo($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso.com/assets/images/header.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-header.png');
         $media->setSlug('in-extenso-header');
         $companyGroup->setHeaderMedia($media);
 
         $media = new MediaVideo();
         $media->setContentUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/videos/in-extenso.mp4');
         $media->setSlug('in-extenso-video');
         $media->setAutoplay(true);
@@ -530,16 +474,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-media1.png');
         $media->setSlug('in-extenso-media1');
         $companyGroup->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-media2.png');
         $media->setSlug('in-extenso-media2');
         $companyGroup->addMedia($media);
@@ -557,16 +497,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-ouest-media1.png');
         $media->setSlug('in-extenso-ouest-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-ouest.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-ouest-media2.png');
         $media->setSlug('in-extenso-ouest-media2');
         $companyEntity->addMedia($media);
@@ -632,16 +568,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-metz.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-metz-media1.png');
         $media->setSlug('in-extenso-metz-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-metz.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-metz-media2.png');
         $media->setSlug('in-extenso-metz-media2');
         $companyEntity->addMedia($media);
@@ -707,16 +639,12 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-chalons-en-champagne.com/assets/images/media1.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-chalons-en-champagne-media1.png');
         $media->setSlug('in-extenso-chalons-en-champagne-media1');
         $companyEntity->addMedia($media);
 
         $media = new MediaImage();
         $media->setContentUrl('https://www.in-extenso-chalons-en-champagne.com/assets/images/media2.png');
-        $media->setCreatedDate(new \DateTime());
-        $media->setLastModifiedDate(new \DateTime());
         $media->setFilePath('/assets/images/in-extenso-chalons-en-champagne-media2.png');
         $media->setSlug('in-extenso-chalons-en-champagne');
         $companyEntity->addMedia($media);

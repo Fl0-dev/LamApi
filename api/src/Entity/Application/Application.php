@@ -125,7 +125,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                             'schema' => [
                                 'type' => 'object',
                                 'properties' => [
-                                    'file' => [
+                                    'cv' => [
                                         'type' => 'string',
                                         'format' => 'binary'
                                     ],

@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: MediaImageRepository::class)]
-#[ORM\Table(name: "media_image")]
 class MediaImage extends Media
 {
     public const DEFAULT_IMAGE_QUALITY_COMPRESSION = 60;
@@ -17,16 +16,6 @@ class MediaImage extends Media
     public const DEFAULT_WP_IMAGE_EDITOR_WIDTH = 1200;
     public const MAX_IMAGE_FILE_SIZE = 307200;
     // 307 200 octets = 300 Kio (for Windows)
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function getType(): string
-    {
-        return self::TYPE_IMAGE;
-    }
 
     /**
      * MediaImage Width in pixels
@@ -51,6 +40,16 @@ class MediaImage extends Media
 
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $alt = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE_IMAGE;
+    }
 
     /**
      * Set MediaImage Dimensions informations (width and height)

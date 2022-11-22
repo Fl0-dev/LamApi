@@ -5,9 +5,6 @@ namespace App\Entity\Media;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Company\CompanyGroup;
@@ -20,14 +17,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
+#[Vich\Uploadable]
 #[ApiResource(
     operations: [
-        new Get(),
-        new Put(),
-        new Patch(),
         new Delete(),
         new GetCollection(
             uriTemplate: '/media',
@@ -38,7 +30,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             normalizationContext: ['groups' => [self::OPERATION_NAME_POST_MEDIA]]
         )
     ],
-    normalizationContext: ['getMedia']
 )]
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 #[ORM\InheritanceType("JOINED")]
@@ -54,7 +45,6 @@ abstract class Media
     public const TYPE_VIDEO = 'video';
 
     #[ApiProperty(iris: ['https://schema.org/contentUrl'])]
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_MEDIA,
         self::OPERATION_NAME_POST_MEDIA,
@@ -71,13 +61,14 @@ abstract class Media
     ])]
     private $filePath;
 
-    /**
-     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
-     */
+
+    #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
     private ?File $file = null;
 
     public function __construct()
     {
+        $this->createdDate = new \DateTime();
+        $this->lastModifiedDate = new \DateTime();
     }
 
     public function getContentUrl(): ?string
