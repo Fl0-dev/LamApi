@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class ApplicantLamatch
 {
     use Uuid;

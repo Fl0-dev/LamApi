@@ -115,7 +115,7 @@ class Applicant extends UserPhysical
     private $optin;
 
     #[ORM\OneToOne(mappedBy: 'applicant', cascade: ['persist', 'remove'])]
-    private ?ApplicantSubscription $applicantSubscription = null;
+    private ?ApplicantSubscription $applicantSubscription;
 
     public function __construct()
     {

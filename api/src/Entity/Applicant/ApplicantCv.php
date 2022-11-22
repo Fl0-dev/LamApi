@@ -24,6 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     new Get(),
     new GetCollection(),
     new Post(
+        security: "is_granted('ROLE_APPLICANT')",
         controller: PostApplicantCv::class,
         openapiContext: [
             'requestBody' => [

@@ -26,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource(operations: [
     new Get(),
     new Post(
+        security: "is_granted('ROLE_APPLICANT')",
         controller: PostApplicantLamatchProfile::class,
         uriTemplate: '/applicants/lamatch-profile',
         uriVariables: [],
@@ -126,19 +127,19 @@ class ApplicantLamatchProfile
     'post_applicant_lamatch_profile_by_current_applicant';
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $introduction = null;
+    private ?string $introduction;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $experience = null;
+    private ?string $experience;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $levelOfStudy = null;
+    private ?string $levelOfStudy;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?MediaImage $photo = null;
+    private ?MediaImage $photo;
 
     #[ORM\ManyToOne]
-    private ?JobTitle $jobTitle = null;
+    private ?JobTitle $jobTitle;
 
     #[ORM\ManyToMany(targetEntity: Tool::class)]
     private Collection $tools;
@@ -148,16 +149,16 @@ class ApplicantLamatchProfile
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Applicant $applicant = null;
+    private ?Applicant $applicant;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?DesiredLocation $desiredLocation = null;
+    private ?DesiredLocation $desiredLocation;
 
     #[ORM\ManyToMany(targetEntity: DISCQuality::class)]
     private Collection $qualities;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $desiredWorkforce = null;
+    private ?string $desiredWorkforce;
 
     #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
     private Collection $desiredExpertiseFields;
