@@ -8,9 +8,9 @@ use App\Entity\ExpertiseField;
 use App\Entity\JobTitle;
 use App\Entity\Location\City;
 use App\Entity\Location\Department;
-use App\Entity\Media\Media;
 use App\Entity\Media\MediaImage;
 use App\Entity\References\Experience;
+use App\Entity\References\Workforce;
 use App\Entity\Subscriptions\Applicant\ApplicantSubscription;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
@@ -104,10 +104,11 @@ class PostApplicantLamatchProfile extends AbstractController
         if ($jobTitle instanceof JobTitle) {
             $applicantLamatchProfile->setJobTitle($jobTitle);
         }
+
         $desiredWorkforceId = Utils::getArrayValue('desiredWorkforce', $infoProfile);
         $desiredWorkforce = $this->workforceRepository->find($desiredWorkforceId);
 
-        if ($desiredWorkforce instanceof Experience) {
+        if ($desiredWorkforce instanceof Workforce) {
             $applicantLamatchProfile->setDesiredWorkforce($desiredWorkforceId);
         }
 

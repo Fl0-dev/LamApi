@@ -3,13 +3,26 @@
 namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Controller\GetApplicantLamatchResults;
 use App\Entity\Company\CompanyGroup;
 use App\Repository\SubscriptionRepositories\Applicant\CompanyEntityResultRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyEntityResultRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new GetCollection(
+        security: "is_granted('ROLE_APPLICANT')",
+        uriTemplate: '/applicant/lamatch/results',
+        controller: GetApplicantLamatchResults::class,
+        uriVariables: [],
+        openapiContext: [
+            'summary' => 'Start a matching',
+            'tags' => ['Lamatch'],
+        ]
+    )
+])]
 class CompanyEntityResult
 {
     use Uuid;

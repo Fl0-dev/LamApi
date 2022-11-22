@@ -95,12 +95,21 @@ class Workforce extends Reference
         ]
     ];
 
-    public function __construct(string $slug,
-    string $label,int $level)
+    public function __construct(
+        string $slug,
+        string $label,
+        int $level
+    )
     {
         parent::__construct($slug, $label);
         $this->level = $level;
     }
+
+    public function getLevel(): int
+    {
+        return $this->level;
+    }
+
 
     public static function isWorkforce(array $workforceSlugs): bool
     {
