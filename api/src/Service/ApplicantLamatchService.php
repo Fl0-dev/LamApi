@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
-use App\Entity\References\Workforce;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
+use App\Repository\ExpertiseFieldRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
 
 class ApplicantLamatchService
@@ -12,6 +12,7 @@ class ApplicantLamatchService
     public function __construct(
         private CompanyEntityRepository $companyEntityRepository,
         private WorkforceRepository $workforceRepository,
+        private ExpertiseFieldRepository $expertiseFieldRepository,
     ) {
     }
 
@@ -26,6 +27,12 @@ class ApplicantLamatchService
             $companyWorkforceId = $companyEntity->getProfile()->getWorkforce();
             $applicantWorkforceId = $applicantLamatchProfile->getDesiredWorkforce();
             $workforceMatch = $this->getWorkforceMatch($companyWorkforceId, $applicantWorkforceId);
+
+            //Matching avec ExpertiseFields
+            $companyExpertiseFields = ($companyEntity->getProfile()->getExpertiseFields());
+
+            $applicantExpertiseFields = $applicantLamatchProfile->getDesiredExpertiseFields();
+            $expertiseFieldsMatch = $this->getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields);
         }
 
         //Matching avec ExpertiseFields
@@ -35,6 +42,26 @@ class ApplicantLamatchService
         //Matching avec Localisation
         //Matching avec DISCQualities
         dd($companyEntities);
+    }
+
+    public function getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields)
+    {
+        $expertiseFieldsMatch = 100;
+
+        if ($applicantExpertiseFields === null) {
+            return $expertiseFieldsMatch;
+        }
+
+
+        foreach ($applicantExpertiseFields as $applicantExpertiseField) {
+            foreach ($companyExpertiseFields as $companyExpertiseField) {
+                if ($applicantExpertiseField->getId() === $companyExpertiseField->getId()) {
+                    return $expertiseFieldsMatch ;
+                }
+            }
+        }
+
+        return 0;
     }
 
     public function getWorkforceMatch(string $companyWorkforceId, ?string $applicantWorkforceId): int
