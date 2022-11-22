@@ -37,7 +37,7 @@ class ApplicantLamatchService
         dd($companyEntities);
     }
 
-    public function getWorkforceMatch(String $companyWorkforceId, ?String $applicantWorkforceId): int
+    public function getWorkforceMatch(string $companyWorkforceId, ?string $applicantWorkforceId): int
     {
         $workforceMatch = 100;
         $companyWorkforceLevel = $this->workforceRepository->find($companyWorkforceId)->getLevel();

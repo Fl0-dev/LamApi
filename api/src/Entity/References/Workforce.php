@@ -95,12 +95,13 @@ class Workforce extends Reference
         ]
     ];
 
+    private int $level;
+
     public function __construct(
         string $slug,
         string $label,
         int $level
-    )
-    {
+    ) {
         parent::__construct($slug, $label);
         $this->level = $level;
     }

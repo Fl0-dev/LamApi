@@ -25,9 +25,11 @@ class GetApplicantLamatchResults extends AbstractController
         }
 
         $applicantLamatchSubscription = $applicant->getApplicantSubscription()->getLamatchSubscription();
-        if (!$applicantLamatchSubscription instanceof ApplicantLamatchSubscription ||
-            !$applicantLamatchSubscription->getStatus() === SubscriptionStatus::ACTIVE ||
-            !$applicantLamatchSubscription->getApplicantLamatchProfile() instanceof ApplicantLamatchProfile) {
+        if (
+            !$applicantLamatchSubscription instanceof ApplicantLamatchSubscription
+            || !$applicantLamatchSubscription->getStatus() === SubscriptionStatus::ACTIVE
+            || !$applicantLamatchSubscription->getApplicantLamatchProfile() instanceof ApplicantLamatchProfile
+        ) {
             throw new \Exception('User has no active lamatch subscription');
         }
 
