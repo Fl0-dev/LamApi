@@ -59,7 +59,7 @@ class PostApplicantLamatchProfile extends AbstractController
         }
 
         $uploadedFile = $request->files->get('file');
-        
+
         //TODO: gestion slug
         $slugPhoto = $uploadedFile->getClientOriginalName();
 
@@ -68,7 +68,7 @@ class PostApplicantLamatchProfile extends AbstractController
         }
 
         $mediaImage = new MediaImage();
-        
+
         $mediaImage->setFile($uploadedFile);
         $mediaImage->setCreatedDate(new \DateTime());
         $mediaImage->setLastModifiedDate(new \DateTime());

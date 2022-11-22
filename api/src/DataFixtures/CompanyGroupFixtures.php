@@ -153,7 +153,7 @@ class CompanyGroupFixtures extends Fixture implements DependentFixtureInterface
         $companyEntity->addCompanyEntityOffice($companyEntityOffice);
 
         $media = new MediaImage();
-        $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media1.png');       
+        $media->setContentUrl('https://www.tgs-france-ouest.com/assets/images/media1.png');
         $media->setFilePath('/assets/images/tgs-france-ouest-media1.png');
         $media->setSlug('tgs-france-ouest-media1');
         $companyEntity->addMedia($media);
