@@ -53,6 +53,17 @@ class ApplicantLamatchService
             $applicantJobTypes = $applicantLamatchProfile->getJobTitle()->getJobTypes();
             $jobTitleMatch = $this->getJobTitleMatch($companyJobTypes, $applicantJobTypes);
 
+            //Matching avec Location
+            $applicantLocation = $applicantLamatchProfile->getDesiredLocation();
+            $companyEntitiesOffices = $companyEntity->getCompanyEntityOffices();
+            $companyEntityCities = new ArrayCollection();
+
+            foreach ($companyEntitiesOffices as $companyEntitiesOffice) {
+                $companyEntityCities->add($companyEntitiesOffice->getAddress()->getCityObject());
+            }
+
+            $locationMatch = $this->getLocationMatch($companyEntityCities, $applicantLocation);
+
             //Matching avec DISCPersonalities
             $applicantQualities = $applicantLamatchProfile->getQualities();
             $employerLamatchProfiles =
@@ -66,18 +77,69 @@ class ApplicantLamatchService
                 $personalitiesResearchByCompany->add($employerLamatchProfile->getPersonnality());
             }
 
-            $applicantPersonalities = DISCPersonality::getLeadingPersonalitiesByQualities($applicantQualities);
-            $qualitiesMatch = $this->getPersonalitiesMatch($personalitiesResearchByCompany, $applicantPersonalities);
-
-            //Matching avec Localisation
+            $applicantPersonalityPercentages = DISCPersonality::getPersonalityPercentagesByQualities(
+                $applicantQualities
+            );
+            $companyPersonalityPercentages = DISCPersonality::getPersonalityPercentagesByPersonalities(
+                $personalitiesResearchByCompany
+            );
+            // $qualitiesMatch = $this->getPersonalitiesMatch(
+            //     $companyPersonalityPercentages,
+            //     $applicantPersonalityPercentages
+            // );
         }
 
         dd($companyEntities);
     }
 
-    public function getPersonalitiesMatch($personalitiesResearchByCompany, $applicantQualities)
+    public function getLocationMatch($companyEntityCities, $applicantLocation)
     {
+        $cityMatch = 0;
+        $departmentMatch = 0;
+        $applicantDesiredCities = $applicantLocation->getDesiredCities();
+        $numberOfapplicantDesiredCities = count($applicantDesiredCities);
+        $applicantDesiredDepartments = $applicantLocation->getDesiredDepartments();
+        $numberOfapplicantDesiredDepartments = count($applicantDesiredDepartments);
+
+        foreach ($companyEntityCities as $companyEntityCity) {
+            if ($applicantDesiredCities->contains($companyEntityCity)) {
+                $cityMatch += 1;
+            }
+        }
+
+        foreach ($companyEntityCities as $companyEntityCity) {
+            if ($applicantDesiredDepartments->contains($companyEntityCity->getDepartment())) {
+                $departmentMatch += 1;
+            }
+        }
+
+        if ($numberOfapplicantDesiredCities > 0) {
+            $cityMatch += ($cityMatch / $numberOfapplicantDesiredCities) * 100;
+        }
+
+        if ($numberOfapplicantDesiredDepartments > 0) {
+            $departmentMatch += ($departmentMatch / $numberOfapplicantDesiredDepartments) * 100;
+        }
+
+        return ($cityMatch + $departmentMatch) / 2;
     }
+
+    // public function getPersonalitiesMatch(array $companyPersonalityPercentages, array $applicantPersonalityPercentages)
+    // {
+    //     $personalitiesMatch = 0;
+    //     dd($companyPersonalityPercentages, $applicantPersonalityPercentages);
+    //     foreach ($companyPersonalityPercentages as $companyPersonality => $companyPersonalityPercentage) {
+
+    //         foreach ($applicantPersonalityPercentages as $applicantPersonality => $applicantPersonalityPercentage) {
+
+    //             if ($applicantPersonality === $companyPersonality) {
+    //                 $personalitiesMatch += $companyPersonalityPercentage + $applicantPersonalityPercentage;
+    //             }
+    //         }
+    //     }
+    //    dd($personalitiesMatch);
+    //     return $personalitiesMatch;
+    // }
 
     public function getJobTitleMatch($companyJobTypes, $applicantJobTypes)
     {

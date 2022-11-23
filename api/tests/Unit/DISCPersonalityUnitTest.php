@@ -134,12 +134,13 @@ class DISCPersonalityUnitTest extends KernelTestCase
         $qualities->add($DISCQualityRepository->findOneBy(['label' => 'Réservé']));
 
         $DISCExpectedPersonnalities = [
-            "Dominant" => 3,
-            "Influent" => 1,
-            "Consciencieux" => 1
+            "Dominant" => 60,
+            "Influent" => 20,
+            "Stable" => 0,
+            "Consciencieux" => 20
         ];
 
-        $DISCApplicantPersonalities = DISCPersonality::getLeadingPersonalitiesByQualities($qualities);
+        $DISCApplicantPersonalities = DISCPersonality::getPersonalityPercentagesByQualities($qualities);
 
         $this->assertEquals($DISCExpectedPersonnalities, $DISCApplicantPersonalities);
     }
