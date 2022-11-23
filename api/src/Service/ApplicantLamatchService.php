@@ -143,7 +143,7 @@ class ApplicantLamatchService
     //     return $personalitiesMatch;
     // }
 
-    
+
 
     public function getJobTitleMatch($companyJobTypes, $applicantJobTypes)
     {
