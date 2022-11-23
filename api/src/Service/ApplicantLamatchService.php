@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\JobTitle;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
 use App\Repository\ExpertiseFieldRepository;
@@ -43,12 +44,35 @@ class ApplicantLamatchService
             $companyBadges = $companyEntity->getProfile()->getBadges();
             $applicantBadges = $applicantLamatchProfile->getDesiredBadges();
             $badgesMatch = $this->getBadgesMatch($companyBadges, $applicantBadges);
+
+            //Matching avec JobTitle
+            $companyJobTypes = $companyEntity->getProfile()->getJobTypes();
+            $applicantJobTypes = $applicantLamatchProfile->getJobTitle()->getJobTypes();
+            $jobTitleMatch = $this->getJobTitleMatch($companyJobTypes, $applicantJobTypes);
+            dd($jobTitleMatch);
         }
 
-        //Matching avec JobTitles
+        //Matching avec JobTitle
         //Matching avec Localisation
         //Matching avec DISCQualities
         dd($companyEntities);
+    }
+
+    public function getJobTitleMatch($companyJobTypes, $applicantJobTypes)
+    {
+        $jobTitleMatch = 100;
+
+        if (!$applicantJobTypes) {
+            return 0;
+        }
+
+        foreach ($companyJobTypes as $companyJobType) {
+            if ($applicantJobTypes->contains($companyJobType)) {
+                return $jobTitleMatch;
+            }
+        }
+
+        return 0;
     }
 
     public function getBadgesMatch($companyBadges, $applicantBadges)
