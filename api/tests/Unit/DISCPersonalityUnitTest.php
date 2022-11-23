@@ -4,6 +4,8 @@ namespace App\Tests\Unit;
 
 use App\Entity\Subscriptions\DISC\DISCPersonality;
 use App\Repository\SubscriptionRepositories\DISC\DISCPersonalityRepository;
+use App\Repository\SubscriptionRepositories\DISC\DISCQualityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DISCPersonalityUnitTest extends KernelTestCase
@@ -119,5 +121,26 @@ class DISCPersonalityUnitTest extends KernelTestCase
 
         $DISCPersonality = $DISCPersonalityRepository->findOneBy(['slug' => 'test-discpersonality-updated']);
         $this->assertNull($DISCPersonality);
+    }
+
+    public function testGetApplicantPersonalitiesByQualitiesWithGoodValues(): void
+    {
+        $DISCQualityRepository = static::getContainer()->get(DISCQualityRepository::class);
+        $qualities = new ArrayCollection();
+        $qualities->add($DISCQualityRepository->findOneBy(['label' => 'Direct']));
+        $qualities->add($DISCQualityRepository->findOneBy(['label' => 'Volontaire']));
+        $qualities->add($DISCQualityRepository->findOneBy(['label' => 'Solide']));
+        $qualities->add($DISCQualityRepository->findOneBy(['label' => 'Optimiste']));
+        $qualities->add($DISCQualityRepository->findOneBy(['label' => 'Réservé']));
+
+        $DISCExpectedPersonnalities = [
+            "Dominant" => 3,
+            "Influent" => 1,
+            "Consciencieux" => 1
+        ];
+
+        $DISCApplicantPersonalities = DISCPersonality::getLeadingPersonalitiesByQualities($qualities);
+
+        $this->assertEquals($DISCExpectedPersonnalities, $DISCApplicantPersonalities);
     }
 }

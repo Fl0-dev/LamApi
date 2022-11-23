@@ -7,6 +7,7 @@ use App\Repository\SubscriptionRepositories\DISC\DISCPersonalityRepository;
 use App\Transversal\Label;
 use App\Transversal\Slug;
 use App\Transversal\Uuid;
+use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DISCPersonalityRepository::class)]
@@ -30,5 +31,17 @@ class DISCPersonality
         $this->color = $color;
 
         return $this;
+    }
+
+    public static function getLeadingPersonalitiesByQualities($qualities): array
+    {
+        $personalities = [];
+
+        foreach ($qualities as $quality) {
+            $personalities[$quality->getPersonality()->getLabel()] =
+                (int) Utils::getArrayValue($quality->getPersonality()->getLabel(), $personalities) + 1;
+        }
+
+        return $personalities;
     }
 }

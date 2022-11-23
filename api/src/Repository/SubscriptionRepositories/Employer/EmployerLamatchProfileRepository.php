@@ -39,6 +39,17 @@ class EmployerLamatchProfileRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllEmployerLamatchProfilesByCompanyProfile(string $companyProfileId): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.companyProfile', 'cp')
+            ->andWhere('cp.id = :companyProfileId')
+            ->setParameter('companyProfileId', $companyProfileId)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return EmployerLamatchProfile[] Returns an array of EmployerLamatchProfile objects
     //     */

@@ -4,9 +4,12 @@ namespace App\Service;
 
 use App\Entity\JobTitle;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
+use App\Entity\Subscriptions\DISC\DISCPersonality;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
 use App\Repository\ExpertiseFieldRepository;
 use App\Repository\ReferencesRepositories\WorkforceRepository;
+use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ApplicantLamatchService
 {
@@ -49,13 +52,31 @@ class ApplicantLamatchService
             $companyJobTypes = $companyEntity->getProfile()->getJobTypes();
             $applicantJobTypes = $applicantLamatchProfile->getJobTitle()->getJobTypes();
             $jobTitleMatch = $this->getJobTitleMatch($companyJobTypes, $applicantJobTypes);
-            dd($jobTitleMatch);
+
+            //Matching avec DISCPersonalities
+            $applicantQualities = $applicantLamatchProfile->getQualities();
+            $employerLamatchProfiles =
+                $this->employerLamatchProfileRepository->findAllEmployerLamatchProfilesByCompanyProfile(
+                    $companyEntity->getProfile()->getId()
+                );
+
+            $personalitiesResearchByCompany = new ArrayCollection();
+
+            foreach ($employerLamatchProfiles as $employerLamatchProfile) {
+                $personalitiesResearchByCompany->add($employerLamatchProfile->getPersonnality());
+            }
+
+            $applicantPersonalities = DISCPersonality::getLeadingPersonalitiesByQualities($applicantQualities);
+            $qualitiesMatch = $this->getPersonalitiesMatch($personalitiesResearchByCompany, $applicantPersonalities);
+
+            //Matching avec Localisation
         }
 
-        //Matching avec JobTitle
-        //Matching avec Localisation
-        //Matching avec DISCQualities
         dd($companyEntities);
+    }
+
+    public function getPersonalitiesMatch($personalitiesResearchByCompany, $applicantQualities)
+    {
     }
 
     public function getJobTitleMatch($companyJobTypes, $applicantJobTypes)
