@@ -124,8 +124,10 @@ class ApplicantLamatchService
         return ($cityMatch + $departmentMatch) / 2;
     }
 
-    // public function getPersonalitiesMatch(array $companyPersonalityPercentages, array $applicantPersonalityPercentages)
-    // {
+    // public function getPersonalitiesMatch(
+    //     array $companyPersonalityPercentages,
+    //     array $applicantPersonalityPercentages
+    // ) {
     //     $personalitiesMatch = 0;
     //     dd($companyPersonalityPercentages, $applicantPersonalityPercentages);
     //     foreach ($companyPersonalityPercentages as $companyPersonality => $companyPersonalityPercentage) {
@@ -140,6 +142,8 @@ class ApplicantLamatchService
     //    dd($personalitiesMatch);
     //     return $personalitiesMatch;
     // }
+
+    
 
     public function getJobTitleMatch($companyJobTypes, $applicantJobTypes)
     {
