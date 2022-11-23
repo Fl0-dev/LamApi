@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Entity\JobTitle;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Entity\Subscriptions\DISC\DISCPersonality;
 use App\Repository\CompanyRepositories\CompanyEntityRepository;
@@ -17,6 +16,7 @@ class ApplicantLamatchService
         private CompanyEntityRepository $companyEntityRepository,
         private WorkforceRepository $workforceRepository,
         private ExpertiseFieldRepository $expertiseFieldRepository,
+        private EmployerLamatchProfileRepository $employerLamatchProfileRepository,
     ) {
     }
 
