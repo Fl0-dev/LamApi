@@ -64,7 +64,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_8));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Avocat social office 1 rouge employer 1');
         $employerLamatchProfile->setSlug('avocat-social-office-1-rouge-employer-1');
 
@@ -99,7 +99,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_21));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Fiscalité office 1 rouge employer 1');
         $employerLamatchProfile->setSlug('fiscalite-office-1-rouge-employer-1');
 
@@ -134,7 +134,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_21));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Fiscalité office 2 rouge employer 1');
         $employerLamatchProfile->setSlug('fiscalite-office-2-rouge-employer-1');
 
@@ -169,7 +169,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_CONSCIENTIOUS));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_CONSCIENTIOUS));
         $employerLamatchProfile->setLabel('Expert Comptable office 2 bleu employer 1');
         $employerLamatchProfile->setSlug('expert-comptable-office-2-bleu-employer-1');
 
@@ -205,7 +205,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_8));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Avocat social office 1 rouge employer 2');
         $employerLamatchProfile->setSlug('avocat-social-office-1-rouge-employer-2');
 
@@ -240,7 +240,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Expert-comptable office 2 rouge employer 2');
         $employerLamatchProfile->setSlug('expert-comptable-office-2-rouge-employer-2');
 
@@ -276,7 +276,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_15));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
         $employerLamatchProfile->setLabel('Consultant Junior office 10 vert employer 3');
         $employerLamatchProfile->setSlug('consultant-junior-office-10-vert-employer-3');
 
@@ -311,7 +311,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_15));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
         $employerLamatchProfile->setLabel('Consultant Junior office 10 jaune employer 3');
         $employerLamatchProfile->setSlug('consultant-junior-office-10-jaune-employer-3');
 
@@ -346,7 +346,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_15));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
         $employerLamatchProfile->setLabel('Consultant Junior junior office 10 jaune employer 3');
         $employerLamatchProfile->setSlug('consultant-junior-junior-office-10-jaune-employer-3');
 
@@ -382,7 +382,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_15));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
         $employerLamatchProfile->setLabel('Expert comptable office 3 jaune employer 4');
         $employerLamatchProfile->setSlug('expert-comptable-office-3-jaune-employer-4');
 
@@ -417,7 +417,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_25));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_INFLUENTIAL));
         $employerLamatchProfile->setLabel('juriste société office 3 jaune employer 4');
         $employerLamatchProfile->setSlug('juriste-societe-office-3-jaune-employer-4');
 
@@ -453,7 +453,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_29));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
         $employerLamatchProfile->setLabel('Dev office 4 vert employer 5');
         $employerLamatchProfile->setSlug('dev-office-3-vert-employer-5');
 
@@ -488,7 +488,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
         $employerLamatchProfile->setLabel('Expert comptable office 4 vert employer 5');
         $employerLamatchProfile->setSlug('expert-comptable-office-4-vert-employer-5');
 
@@ -524,7 +524,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Expert comptable office 5 rouge employer 6');
         $employerLamatchProfile->setSlug('expert-comptable-office-5-rouge-employer-6');
 
@@ -559,7 +559,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Expert comptable office 6 rouge employer 6');
         $employerLamatchProfile->setSlug('expert-comptable-office-6-rouge-employer-6');
 
@@ -594,7 +594,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_22));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Pilote office 6 rouge employer 6');
         $employerLamatchProfile->setSlug('pilote-office-6-rouge-employer-6');
 
@@ -630,7 +630,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Expert comptable office 6 rouge employer 7');
         $employerLamatchProfile->setSlug('expert-comptable-office-6-rouge-employer-7');
 
@@ -666,7 +666,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_DOMINANT));
         $employerLamatchProfile->setLabel('Expert comptable office 7 rouge employer 8');
         $employerLamatchProfile->setSlug('expert-comptable-office-7-rouge-employer-8');
 
@@ -701,7 +701,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
         $employerLamatchProfile->setLabel('Expert comptable office 8 vert employer 8');
         $employerLamatchProfile->setSlug('expert-comptable-office-8-vert-employer-8');
 
@@ -737,7 +737,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_20));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
         $employerLamatchProfile->setLabel('Expert comptable office 9 vert employer 9');
         $employerLamatchProfile->setSlug('expert-comptable-office-9-vert-employer-9');
 
@@ -772,7 +772,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         )
         )->getId());
         $employerLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_27));
-        $employerLamatchProfile->setPersonnality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
+        $employerLamatchProfile->setPersonality($this->getReference(DISCFixtures::DISC_PERSONALITY_STEADY));
         $employerLamatchProfile->setLabel('Manager audit office 9 vert employer 9');
         $employerLamatchProfile->setSlug('manager-audit-office-9-vert-employer-9');
 

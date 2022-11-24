@@ -9,7 +9,6 @@ use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Entity\Subscriptions\Applicant\Lamatch\CompanyEntityResult;
 use App\Service\ApplicantLamatchService;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GetApplicantLamatchResults extends AbstractController
