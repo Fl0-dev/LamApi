@@ -259,4 +259,19 @@ class CompanyEntity
 
         return $this;
     }
+
+    public function getAllLabelDepartments(): array
+    {
+        $departments = [];
+
+        foreach ($this->getCompanyEntityOffices() as $office) {
+            $label = $office->getAddress()->getCityObject()->getDepartment()->getName();
+
+            if (!in_array($label, $departments)) {
+                $departments[] = $label;
+            }
+        }
+
+        return $departments;
+    }
 }

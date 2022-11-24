@@ -7,9 +7,10 @@ use App\Entity\References\SubscriptionStatus;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatch;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
+use App\Entity\Subscriptions\Applicant\Lamatch\CompanyEntityResult;
 use App\Service\ApplicantLamatchService;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class GetApplicantLamatchResults extends AbstractController
 {
@@ -18,7 +19,7 @@ class GetApplicantLamatchResults extends AbstractController
     ) {
     }
 
-    public function __invoke()
+    public function __invoke(): array
     {
         $applicant = $this->getUser();
         if (!$applicant instanceof Applicant) {
@@ -36,6 +37,11 @@ class GetApplicantLamatchResults extends AbstractController
         $applicantLamatch = new ApplicantLamatch();
         $applicantLamatch->setLamatchSubscription($applicantLamatchSubscription);
 
-        $companyResults = $this->applicantLamatchService->getCompanyResults($applicantLamatchSubscription, $applicantLamatch);
+        $companyResults =
+            $this->applicantLamatchService->getCompanyResults($applicantLamatchSubscription, $applicantLamatch);
+
+
+        $companyResults = CompanyEntityResult::getCompanyEntityResultsForDisplay($companyResults);
+        return $companyResults;
     }
 }

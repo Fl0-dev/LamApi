@@ -238,6 +238,15 @@ class CompanyProfile
         return $nbBadges;
     }
 
+    public function getAllLabelBadges(): ?array
+    {
+        $badges = $this->getBadges();
+        $badgesLabel = [];
+        foreach ($badges as $badge) {
+            $badgesLabel[] = $badge->getLabel();
+        }
+        return $badgesLabel;
+    }
 
     /**
      * @return Collection<int, CompanyProfileRevision>
