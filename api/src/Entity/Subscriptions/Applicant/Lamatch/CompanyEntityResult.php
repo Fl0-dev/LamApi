@@ -5,7 +5,7 @@ namespace App\Entity\Subscriptions\Applicant\Lamatch;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Controller\GetApplicantLamatchResults;
-use App\Entity\Company\CompanyGroup;
+use App\Entity\Company\CompanyEntity;
 use App\Repository\SubscriptionRepositories\Applicant\CompanyEntityResultRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +29,7 @@ class CompanyEntityResult
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CompanyGroup $companyGroup = null;
+    private ?CompanyEntity $companyEntity = null;
 
     #[ORM\ManyToOne(inversedBy: 'companyEntityResults')]
     #[ORM\JoinColumn(nullable: false)]
@@ -43,14 +43,14 @@ class CompanyEntityResult
         return $this->id;
     }
 
-    public function getCompanyGroup(): ?CompanyGroup
+    public function getCompanyEntity(): ?CompanyEntity
     {
-        return $this->companyGroup;
+        return $this->companyEntity;
     }
 
-    public function setCompanyGroup(?CompanyGroup $companyGroup): self
+    public function setCompanyEntity(?CompanyEntity $companyEntity): self
     {
-        $this->companyGroup = $companyGroup;
+        $this->companyEntity = $companyEntity;
 
         return $this;
     }

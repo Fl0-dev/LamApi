@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Applicant\Applicant;
 use App\Entity\References\SubscriptionStatus;
+use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatch;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use App\Service\ApplicantLamatchService;
@@ -17,7 +18,7 @@ class GetApplicantLamatchResults extends AbstractController
     ) {
     }
 
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         $applicant = $this->getUser();
         if (!$applicant instanceof Applicant) {
@@ -32,7 +33,9 @@ class GetApplicantLamatchResults extends AbstractController
         ) {
             throw new \Exception('User has no active lamatch subscription');
         }
+        $applicantLamatch = new ApplicantLamatch();
+        $applicantLamatch->setLamatchSubscription($applicantLamatchSubscription);
 
-        $companyResults = $this->applicantLamatchService->getCompanyResults($applicantLamatchSubscription);
+        $companyResults = $this->applicantLamatchService->getCompanyResults($applicantLamatchSubscription, $applicantLamatch);
     }
 }
