@@ -99,7 +99,7 @@ class ApplicantLamatchService
             // $personalitiesResearchByCompany = new ArrayCollection();
 
             // foreach ($employerLamatchProfiles as $employerLamatchProfile) {
-            //     $personalitiesResearchByCompany->add($employerLamatchProfile->getPersonnality());
+            //     $personalitiesResearchByCompany->add($employerLamatchProfile->getPersonality());
             // }
 
             // $applicantPersonalityPercentages = DISCPersonality::getPersonalityPercentagesByQualities(

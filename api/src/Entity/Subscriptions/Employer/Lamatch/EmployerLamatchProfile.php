@@ -3,30 +3,56 @@
 namespace App\Entity\Subscriptions\Employer\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use App\Controller\PostEmployerLamatchProfile;
 use App\Entity\Company\CompanyEntityOffice;
 use App\Entity\Company\CompanyProfile;
 use App\Entity\JobTitle;
+use App\Entity\References\SubscriptionStatus;
 use App\Entity\Subscriptions\DISC\DISCPersonality;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
 use App\Transversal\Label;
 use App\Transversal\TechnicalProperties;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EmployerLamatchProfileRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new GetCollection(),
+    new Get(),
+    new Post(
+        security: "is_granted('ROLE_EMPLOYER')",
+        controller: PostEmployerLamatchProfile::class,
+        uriTemplate: '/employer/lamatch/profiles',
+        openapiContext: [
+            'summary' => 'Create a new profile',
+            'description' => 'Create a new profile',
+        ]
+    ),
+    new Patch(),
+    new Delete(),
+])]
 class EmployerLamatchProfile
 {
     use TechnicalProperties;
     use Label;
+    public const OPERATION_NAME_POST_EMPLOYER_LAMATCH_PROFILE = 'post_employer_lamatch_profile';
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([self::OPERATION_NAME_POST_EMPLOYER_LAMATCH_PROFILE])]
     private ?string $experience = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([self::OPERATION_NAME_POST_EMPLOYER_LAMATCH_PROFILE])]
     private ?string $levelOfStudy = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups([self::OPERATION_NAME_POST_EMPLOYER_LAMATCH_PROFILE])]
     private ?JobTitle $jobTitle = null;
 
     #[ORM\ManyToOne]
@@ -36,7 +62,8 @@ class EmployerLamatchProfile
     private ?CompanyProfile $companyProfile = null;
 
     #[ORM\ManyToOne]
-    private ?DISCPersonality $personnality = null;
+    #[Groups([self::OPERATION_NAME_POST_EMPLOYER_LAMATCH_PROFILE])]
+    private ?DISCPersonality $personality = null;
 
     #[ORM\ManyToOne(inversedBy: 'employerLamatchProfiles')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,6 +71,14 @@ class EmployerLamatchProfile
 
     #[ORM\Column(length: 50)]
     private string $status;
+
+    public function __construct()
+    {
+        $this->createdDate = new \DateTime();
+        $this->lastModifiedDate = new \DateTime();
+        $this->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+    }
+
 
     public function getExperience(): ?string
     {
@@ -105,14 +140,14 @@ class EmployerLamatchProfile
         return $this;
     }
 
-    public function getPersonnality(): ?DISCPersonality
+    public function getPersonality(): ?DISCPersonality
     {
-        return $this->personnality;
+        return $this->personality;
     }
 
-    public function setPersonnality(?DISCPersonality $personnality): self
+    public function setPersonality(?DISCPersonality $personality): self
     {
-        $this->personnality = $personnality;
+        $this->personality = $personality;
 
         return $this;
     }
