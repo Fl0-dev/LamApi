@@ -92,7 +92,7 @@ class CompanyEntityResult
                     'logo' => $companyEntityResult->getCompanyEntity()->getCompanyGroup()->getLogo()->getFilePath(),
                     'workforce' => $companyEntityResult->getCompanyEntity()->getProfile()->getWorkforceLabel(),
                     'departments' => $companyEntityResult->getCompanyEntity()->getAllLabelDepartments(),
-                    'badges'=> $companyEntityResult->getCompanyEntity()->getProfile()->getAllLabelBadges(),
+                    'badges' => $companyEntityResult->getCompanyEntity()->getProfile()->getAllLabelBadges(),
                 ],
                 'matchingPercentage' => $companyEntityResult->getMatchingPercentage(),
             ];
