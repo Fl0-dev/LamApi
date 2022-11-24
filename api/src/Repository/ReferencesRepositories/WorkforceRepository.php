@@ -19,7 +19,8 @@ class WorkforceRepository
             foreach ($arrayWorkforces as $workforce) {
                 $workforces[] = new Workforce(
                     Utils::getArrayValue('slug', $workforce),
-                    Utils::getArrayValue('label', $workforce)
+                    Utils::getArrayValue('label', $workforce),
+                    Utils::getArrayValue('level', $workforce)
                 );
             }
         }

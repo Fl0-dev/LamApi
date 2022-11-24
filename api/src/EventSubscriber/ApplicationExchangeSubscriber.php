@@ -18,18 +18,17 @@ class ApplicationExchangeSubscriber implements EventSubscriberInterface
 
     public function exchangeIsRead(RequestEvent $event): void
     {
-        $user = $event->getRequest()->getSession()->get('_security_main');
+        $operationName = $event->getRequest()->attributes->get('_route');
+        if ($operationName ===  self::OPERATION_NAME) {
+            $user = $event->getRequest()->getSession()->get('_security_main');
 
-        if (is_string($user)) {
-            $user = unserialize($user);
-        } else {
-            throw new \Exception('User not found');
-        }
+            if (is_string($user)) {
+                $user = unserialize($user);
+            } else {
+                throw new \Exception('User not found');
+            }
 
-        if ($user instanceof UserPhysical) {
-            $operationName = $event->getRequest()->attributes->get('_route');
-
-            if ($operationName ===  self::OPERATION_NAME) {
+            if ($user instanceof UserPhysical) {
                 $response = $event->getRequest()->attributes->get('data')->getIterator();
                 $application = $response[0];
                 $applicationExchanges = $application->getApplicationExchanges();

@@ -5,7 +5,6 @@ namespace App\Entity\Application;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
@@ -125,7 +124,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                             'schema' => [
                                 'type' => 'object',
                                 'properties' => [
-                                    'file' => [
+                                    'cv' => [
                                         'type' => 'string',
                                         'format' => 'binary'
                                     ],

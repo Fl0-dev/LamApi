@@ -11,34 +11,23 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class ApplicantLamatch
 {
     use Uuid;
     use CreatedDate;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ApplicantLamatchSubscription $lamatchSubscription = null;
-
     #[ORM\OneToMany(mappedBy: 'applicantLamatch', targetEntity: CompanyEntityResult::class)]
     private Collection $companyEntityResults;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ApplicantLamatchSubscription $lamatchSubscription = null;
+
     public function __construct()
     {
+        $this->createdDate = new \DateTime();
         $this->companyEntityResults = new ArrayCollection();
-    }
-
-    public function getLamatchSubscription(): ?ApplicantLamatchSubscription
-    {
-        return $this->lamatchSubscription;
-    }
-
-    public function setLamatchSubscription(ApplicantLamatchSubscription $lamatchSubscription): self
-    {
-        $this->lamatchSubscription = $lamatchSubscription;
-
-        return $this;
     }
 
     /**
@@ -67,6 +56,18 @@ class ApplicantLamatch
                 $companyEntityResult->setApplicantLamatch(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLamatchSubscription(): ?ApplicantLamatchSubscription
+    {
+        return $this->lamatchSubscription;
+    }
+
+    public function setLamatchSubscription(?ApplicantLamatchSubscription $lamatchSubscription): self
+    {
+        $this->lamatchSubscription = $lamatchSubscription;
 
         return $this;
     }

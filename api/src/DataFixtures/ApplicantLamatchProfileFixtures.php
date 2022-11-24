@@ -30,7 +30,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
             24
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
-        $applicantLamatchProfile->setDesiredWorkforce((new Workforce(Workforce::LEVEL_2, '10 à 19 salariés'))->getId());
+        $applicantLamatchProfile->setDesiredWorkforce(
+            (new Workforce(Workforce::LEVEL_2, '10 à 19 salariés', 2))->getId()
+        );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
@@ -79,7 +81,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         )
         )->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-        $applicantLamatchProfile->setDesiredWorkforce((new Workforce(Workforce::LEVEL_3, '20 à 49 salariés'))->getId());
+        $applicantLamatchProfile->setDesiredWorkforce(
+            (new Workforce(Workforce::LEVEL_3, '20 à 49 salariés', 3))->getId()
+        );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_4));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_5));
@@ -124,7 +128,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
             60
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_19));
-        $applicantLamatchProfile->setDesiredWorkforce((new Workforce(Workforce::LEVEL_4, '50 à 99 salariés'))->getId());
+        $applicantLamatchProfile->setDesiredWorkforce(
+            (new Workforce(Workforce::LEVEL_4, '50 à 99 salariés', 4))->getId()
+        );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_7));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_4));
@@ -174,7 +180,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
             0
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_10));
-        $applicantLamatchProfile->setDesiredWorkforce((new Workforce(Workforce::LEVEL_1, '1 à 9 salariés'))->getId());
+        $applicantLamatchProfile->setDesiredWorkforce(
+            (new Workforce(Workforce::LEVEL_1, '1 à 9 salariés', 1))->getId()
+        );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_5));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_7));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_8));
@@ -221,7 +229,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
             0
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-        $applicantLamatchProfile->setDesiredWorkforce((new Workforce(Workforce::LEVEL_1, '1 à 9 salariés'))->getId());
+        $applicantLamatchProfile->setDesiredWorkforce(
+            (new Workforce(Workforce::LEVEL_1, '1 à 9 salariés', 1))->getId()
+        );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_4));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_5));
@@ -255,7 +265,9 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
             0
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
-        $applicantLamatchProfile->setDesiredWorkforce((new Workforce(Workforce::LEVEL_1, '1 à 9 salariés'))->getId());
+        $applicantLamatchProfile->setDesiredWorkforce(
+            (new Workforce(Workforce::LEVEL_1, '1 à 9 salariés', 1))->getId()
+        );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_9));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_10));
@@ -309,7 +321,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicantLamatchProfile->setDesiredWorkforce(
-            (new Workforce(Workforce::LEVEL_5, '100 à 199 salariés'))->getId()
+            (new Workforce(Workforce::LEVEL_5, '100 à 199 salariés', 5))->getId()
         );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_4));
@@ -360,7 +372,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_2));
         $applicantLamatchProfile->setDesiredWorkforce(
-            (new Workforce(Workforce::LEVEL_5, '100 à 199 salariés'))->getId()
+            (new Workforce(Workforce::LEVEL_5, '100 à 199 salariés', 5))->getId()
         );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_3));
@@ -408,7 +420,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         ))->getId());
         $applicantLamatchProfile->setJobTitle($this->getReference(JobTitleFixtures::JOB_TITLE_REFERENCE_6));
         $applicantLamatchProfile->setDesiredWorkforce(
-            (new Workforce(Workforce::LEVEL_8, '1000 à 1999 salariés'))->getId()
+            (new Workforce(Workforce::LEVEL_8, '1000 à 1999 salariés', 8))->getId()
         );
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_1));
         $applicantLamatchProfile->addTool($this->getReference(ToolFixtures::TOOL_REFERENCE_2));

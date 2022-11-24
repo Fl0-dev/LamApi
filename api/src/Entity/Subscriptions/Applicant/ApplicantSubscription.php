@@ -22,16 +22,16 @@ class ApplicantSubscription
 
     #[ORM\OneToOne(inversedBy: 'applicantSubscription', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Applicant $applicant = null;
+    private ?Applicant $applicant;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?ApplicantCompanySubscription $companySubscription = null;
+    private ?ApplicantCompanySubscription $companySubscription;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?ApplicantOfferSubscription $offerSubscription = null;
+    private ?ApplicantOfferSubscription $offerSubscription;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?ApplicantLamatchSubscription $lamatchSubscription = null;
+    private ?ApplicantLamatchSubscription $lamatchSubscription;
 
     public function __construct()
     {

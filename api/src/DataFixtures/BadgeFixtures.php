@@ -152,12 +152,11 @@ class BadgeFixtures extends Fixture
         $this->addReference(self::BADGE_REFERENCE_5, $badge);
 
         $badge = new Badge();
-        $badge->setLabel('Horaires flexibles');
-        $badge->setImageUri('horaires-flexibles.svg');
-        $badge->setBadgePath('/assets/images/badges/' . 'horaires-flexibles.svg');
-        $badge->setDescription("Le cabinet peut avoir ce badge s'il laisse la possibilité à ses collaborateurs
-         d'adapter les horaires, permettant ainsi à ces derniers de pouvoir s'organiser de manière plus flexible
-          et selon leurs propres contraintes.");
+        $badge->setLabel('International');
+        $badge->setImageUri('international.svg');
+        $badge->setBadgePath('/assets/images/badges/' . 'international.svg');
+        $badge->setDescription("Le cabinet peut avoir ce badge s'il dispose de bureau à l'international ou s'il
+        travaille avec des clients à l'international.");
         $badge->setSlug('international');
         $manager->persist($badge);
         $this->addReference(self::BADGE_REFERENCE_6, $badge);

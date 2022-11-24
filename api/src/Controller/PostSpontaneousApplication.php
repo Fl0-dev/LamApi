@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PostSpontaneousApplication extends AbstractController
 {
     public const APPLICATION_PROPERTY_MOTIVATION_TEXT = 'motivationText';
-    public const APPLICATION_PROPERTY_FILE = 'file';
+    public const APPLICATION_PROPERTY_FILE = 'cv';
     public const POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME = 'companyEntityOfficeId';
 
     public function __construct(
@@ -32,9 +32,8 @@ class PostSpontaneousApplication extends AbstractController
 
         $companyEntityOfficeId = $request->attributes->get(self::POST_APPLICATION_SPONTANEOUS_IDENTIFIER_NAME);
         $file = $request->files->get(self::APPLICATION_PROPERTY_FILE);
-
         if (!$file instanceof File) {
-            throw new \Exception('No file');
+            throw new \Exception('No cv');
         }
 
         $motivation = $request->request->get(self::APPLICATION_PROPERTY_MOTIVATION_TEXT);
@@ -45,10 +44,12 @@ class PostSpontaneousApplication extends AbstractController
         }
 
         $application = new Application();
+        $application->setApplicant($applicant);
         $application->setMotivationText((string) $motivation);
         $application->setcompanyEntityOffice($companyEntityOffice);
 
         $applicantCV = new ApplicantCv();
+        $applicantCV->setApplicant($applicant);
         $applicantCV->setFile($file);
         $applicantCV->setCreatedDate(new \DateTime());
 

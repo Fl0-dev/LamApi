@@ -39,49 +39,78 @@ class Workforce extends Reference
     public const WORKFORCES = [
         [
             'slug' => self::LEVEL_1,
-            'label' => '1 à 9 salariés'
+            'label' => '1 à 9 salariés',
+            'level' => 1
         ],
         [
             'slug' => self::LEVEL_2,
-            'label' => '10 à 19 salariés'
+            'label' => '10 à 19 salariés',
+            'level' => 2
+
         ],
         [
             'slug' => self::LEVEL_3,
-            'label' => '20 à 49 salariés'
+            'label' => '20 à 49 salariés',
+            'level' => 3
         ],
         [
             'slug' => self::LEVEL_4,
-            'label' => '50 à 99 salariés'
+            'label' => '50 à 99 salariés',
+            'level' => 4
         ],
         [
             'slug' => self::LEVEL_5,
-            'label' => '100 à 199 salariés'
+            'label' => '100 à 199 salariés',
+            'level' => 5
         ],
         [
             'slug' => self::LEVEL_6,
-            'label' => '200 à 499 salariés'
+            'label' => '200 à 499 salariés',
+            'level' => 6
         ],
         [
             'slug' => self::LEVEL_7,
-            'label' => '500 à 999 salariés'
+            'label' => '500 à 999 salariés',
+            'level' => 7
         ],
         [
             'slug' => self::LEVEL_8,
-            'label' => '1000 à 1999 salariés'
+            'label' => '1000 à 1999 salariés',
+            'level' => 8
         ],
         [
             'slug' => self::LEVEL_9,
-            'label' => '2000 à 4999 salariés'
+            'label' => '2000 à 4999 salariés',
+            'level' => 9
         ],
         [
             'slug' => self::LEVEL_10,
-            'label' => '5000 à 9999 salariés'
+            'label' => '5000 à 9999 salariés',
+            'level' => 10
         ],
         [
             'slug' => self::LEVEL_11,
-            'label' => '+ de 10000 salariés'
+            'label' => '+ de 10000 salariés',
+            'level' => 11
         ]
     ];
+
+    private int $level;
+
+    public function __construct(
+        string $slug,
+        string $label,
+        int $level
+    ) {
+        parent::__construct($slug, $label);
+        $this->level = $level;
+    }
+
+    public function getLevel(): int
+    {
+        return $this->level;
+    }
+
 
     public static function isWorkforce(array $workforceSlugs): bool
     {
