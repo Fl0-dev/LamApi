@@ -113,17 +113,20 @@ class EmployerLamatchService
                 $applicantResult->setApplicantLamatchProfile($applicantLamatchProfile);
 
                 $this->applicantResultRepository->add($applicantResult, true);
+
                 $applicantResults->add($applicantResult);
             }
         }
 
-        $applicantResults = $this->getApplicantResultsForDisplay($applicantResults);
+        $applicantResults = $this->getApplicantResultsForDisplay($applicantResults, $employerLamatchProfile);
 
         return $applicantResults;
     }
 
-    public function getApplicantResultsForDisplay(ArrayCollection $applicantResults): array
-    {
+    public function getApplicantResultsForDisplay(
+        ArrayCollection $applicantResults,
+        EmployerLamatchProfile $employerLamatchProfile
+    ): array {
         $applicantResultsForDisplay = [];
 
         foreach ($applicantResults as $applicantResult) {
@@ -148,6 +151,24 @@ class EmployerLamatchService
                 'photo' => $photoFilePath,
             ];
         }
+
+        $levelOfStudyLabelOfCompanyProfile = $this->levelOfStudyRepository->getLevelOfStudyLabel(
+            $employerLamatchProfile->getLevelOfStudy()
+        );
+
+        $experienceLabelOfCompanyProfile = $this->experienceRepository->getExperienceLabel(
+            $employerLamatchProfile->getExperience()
+        );
+
+        $applicantResultsForDisplay[]['EmployerLamatchProfile'] = [
+            'id' => $employerLamatchProfile->getId(),
+            'name' => $employerLamatchProfile->getLabel(),
+            'jobTitle' => $employerLamatchProfile->getJobTitle()->getLabel(),
+            'experience' => $experienceLabelOfCompanyProfile,
+            'levelOfStudy' => $levelOfStudyLabelOfCompanyProfile,
+            'personality' => $employerLamatchProfile->getPersonality()->getLabel(),
+            'office' => $employerLamatchProfile->getCompanyEntityOffice()->getName(),
+        ];
 
         return $applicantResultsForDisplay;
     }
