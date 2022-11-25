@@ -30,6 +30,7 @@ class EmployerLamatch
 
     public function __construct()
     {
+        $this->createdDate = new \DateTime();
         $this->applicantResults = new ArrayCollection();
     }
 

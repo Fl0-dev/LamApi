@@ -6,12 +6,23 @@ use App\Entity\References\Experience;
 use App\Entity\References\LevelOfStudy;
 use App\Entity\References\Workforce;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
+use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_1 = 'applicant-lamatch-profile-1';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_2 = 'applicant-lamatch-profile-2';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_3 = 'applicant-lamatch-profile-3';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_4 = 'applicant-lamatch-profile-4';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_5 = 'applicant-lamatch-profile-5';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_6 = 'applicant-lamatch-profile-6';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_7 = 'applicant-lamatch-profile-7';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_8 = 'applicant-lamatch-profile-8';
+    public const APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_9 = 'applicant-lamatch-profile-9';
+
     public function load(ObjectManager $manager)
     {
         // ApplicantLamatchProfile for Applicant 1
@@ -62,6 +73,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_3));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_4));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_1, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 2
@@ -110,6 +126,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_3));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_4));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_2, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 3
@@ -160,6 +181,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_4));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_5));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_3, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 4
@@ -209,6 +235,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_3));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_1));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_4, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 5
@@ -247,6 +278,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_3));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_5));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_5, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 6
@@ -302,6 +338,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_2));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_3));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_6, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 7
@@ -353,6 +394,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_1));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_2));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_7, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 8
@@ -401,6 +447,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_2));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_INFLUENTIAL_1));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_8, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
 
         // ApplicantLamatchProfile for Applicant 9
@@ -460,6 +511,11 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_DOMINANT_5));
         $applicantLamatchProfile->addQuality($this->getReference(DISCFixtures::DISC_QUALITY_CONSCIENTIOUS_4));
         $manager->persist($applicantLamatchProfile);
+
+        $applicantLamatchSubscription = new ApplicantLamatchSubscription();
+        $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
+        $this->addReference(self::APPLICANT_LAMATCH_SUBSCRIPTION_REFERENCE_9, $applicantLamatchSubscription);
+        $manager->persist($applicantLamatchSubscription);
         $manager->flush();
     }
 
