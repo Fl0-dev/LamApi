@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Subscriptions\Employer\Lamatch\ApplicantResult;
 use App\Entity\Subscriptions\Employer\Lamatch\EmployerLamatch;
 use App\Entity\User\Employer;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchRepository;
 use App\Repository\SubscriptionRepositories\Employer\EmployerSubscriptionRepository;
 use App\Service\EmployerLamatchService;
+use App\Utils\Utils;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,7 +32,9 @@ class GetEmployerLamatchResultsByProfileId extends AbstractController
             throw new \Exception('User is not an employer');
         }
 
-        $profileId = $request->attributes->get('profileId');
+        $profileIdContent = json_decode($request->getContent(), true);
+        $profileId = Utils::getArrayValue('profileId', $profileIdContent);
+
         $employerLamatchProfile = $this->employerLamatchProfileRepository->findOneBy([
             'id' => $profileId,
         ]);
