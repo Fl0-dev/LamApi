@@ -46,6 +46,7 @@ class MatchingService
         $levelOfStudyMatch = 100;
         $companyDesiredLevelOfStudyLevel =
             $this->levelOfStudyRepository->find($companyDesiredLevelOfStudyId)->getLevel();
+        $applicantLevelOfStudyLevel = 0;
 
         if ($applicantLevelOfStudyId !== null) {
             $applicantLevelOfStudyLevel = $this->levelOfStudyRepository->find($applicantLevelOfStudyId)->getLevel();
@@ -72,6 +73,7 @@ class MatchingService
     {
         $experienceMatch = 100;
         $companyDesiredExperienceLevel = $this->experienceRepository->find($companyDesiredExperienceId)->getValue();
+        $applicantExperienceLevel = 0;
 
         if ($applicantExperienceId !== null) {
             $applicantExperienceLevel = $this->experienceRepository->find($applicantExperienceId)->getValue();

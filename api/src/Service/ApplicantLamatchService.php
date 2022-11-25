@@ -40,7 +40,7 @@ class ApplicantLamatchService
             $companyWorkforceId = $companyEntity->getProfile()->getWorkforce();
             $applicantWorkforceId = $applicantLamatchProfile->getDesiredWorkforce();
             $workforceMatch =
-                $this->matchingservice->getWorkforceMatch($companyWorkforceId, $applicantWorkforceId);
+                $this->matchingService->getWorkforceMatch($companyWorkforceId, $applicantWorkforceId);
             $matchResults['workforce'] = $workforceMatch;
 
             //Matching avec ExpertiseFields
@@ -65,7 +65,7 @@ class ApplicantLamatchService
             //Matching avec JobTitle
             $companyJobTypes = $companyEntity->getProfile()->getJobTypes();
             $applicantJobTypes = $applicantLamatchProfile->getJobTitle()->getJobTypes();
-            $jobTitleMatch = $this->matchingservice->getJobTypeMatch($companyJobTypes, $applicantJobTypes);
+            $jobTitleMatch = $this->matchingService->getJobTypeMatch($companyJobTypes, $applicantJobTypes);
             $matchResults['jobTitle'] = $jobTitleMatch;
 
             //Matching avec Location
@@ -80,7 +80,7 @@ class ApplicantLamatchService
             $locationMatch = $this->matchingService->getLocationMatch($companyEntityCities, $applicantLocation);
             $matchResults['location'] = $locationMatch;
 
-            $matchingPercentage = $this->matchService->getMatchingPercentage($matchResults);
+            $matchingPercentage = $this->matchingService->getMatchingPercentage($matchResults);
 
             $this->applicantLamatchRepository->add($applicantLamatch, true);
 
