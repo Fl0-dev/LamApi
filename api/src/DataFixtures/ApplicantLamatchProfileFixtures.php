@@ -31,7 +31,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Jean-eudes et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7', 9))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -86,7 +86,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Estelle et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2', 4))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -139,7 +139,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Esteban et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'BAC + 5'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'BAC + 5', 7))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'lamexpert',
             'Lamexpert ',
@@ -195,7 +195,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Yann et je le vaux bien');
         $applicantLamatchProfile->setLevelOfStudy(
-            (new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId()
+            (new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise', 0))->getId()
         );
         $applicantLamatchProfile->setExperience((new Experience(
             'lamajunior',
@@ -249,7 +249,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Gisele et je le vaux bien');
         $applicantLamatchProfile->setLevelOfStudy(
-            (new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId()
+            (new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise', 0))->getId()
         );
         $applicantLamatchProfile->setExperience((new Experience(
             'lamajunior',
@@ -291,7 +291,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Anna et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'non-precise',
             'Non précisé',
@@ -351,7 +351,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis David et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -407,7 +407,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Mohamed et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7', 9))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -460,7 +460,7 @@ class ApplicantLamatchProfileFixtures extends Fixture implements DependentFixtur
         $applicantLamatchProfile->setCreatedDate(new \DateTime());
         $applicantLamatchProfile->setLastModifiedDate(new \DateTime());
         $applicantLamatchProfile->setIntroduction('Je suis Lucie et je le vaux bien');
-        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicantLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7', 9))->getId());
         $applicantLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',

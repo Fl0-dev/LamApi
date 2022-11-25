@@ -19,7 +19,8 @@ class LevelOfStudyRepository
             foreach ($arrayLevelOfStudies as $levelOfStudy) {
                 $levelOfStudies[] = new LevelOfStudy(
                     Utils::getArrayValue('slug', $levelOfStudy),
-                    Utils::getArrayValue('label', $levelOfStudy)
+                    Utils::getArrayValue('label', $levelOfStudy),
+                    Utils::getArrayValue('level', $levelOfStudy)
                 );
             }
         }

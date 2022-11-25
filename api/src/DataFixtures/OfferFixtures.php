@@ -45,7 +45,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             24
         )
         )->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 1 CDI de TGS France Nantes");
@@ -88,7 +88,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             24
         )
         )->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 2 CDI de TGS France Nantes");
@@ -132,7 +132,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
                 0
             ))->getId()
         );
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2', 4))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 1 CDD de de TGS France St Nazaire");
@@ -176,7 +176,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
                 0
             ))->getId()
         );
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2', 4))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 2 CDD de de TGS France St Nazaire");
@@ -218,7 +218,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "de 2 à 5 ans d'expérience",
             24
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 1 CDI de Eolis Nantes");
@@ -256,7 +256,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "Non précisé",
             0
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'Non précisé'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'Non précisé', 0))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 2 stage de Eolis Nantes");
@@ -294,7 +294,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "Non précisé",
             0
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 1 CDI de Livli");
@@ -336,7 +336,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "Non précisé",
             0
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 2 CDD de Livli");
@@ -378,7 +378,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "Non précisé",
             0
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 3 CDI de Livli");
@@ -421,7 +421,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "+ de 5 ans d'expérience",
             60
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_8, 'BAC + 8'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_8, 'BAC + 8', 10))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 1 de In Extenso Challans");
@@ -461,7 +461,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "+ de 5 ans d'expérience",
             60
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_8, 'BAC + 8'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_8, 'BAC + 8', 10))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 2 de In Extenso Challans");
@@ -501,7 +501,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "< 1 an d'expérience",
             0
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'BAC'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'BAC', 2))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 1 alternance de In Extenso Luçon");
@@ -541,7 +541,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             "< 1 an d'expérience",
             0
         ))->getId());
-        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'BAC'))->getId());
+        $offer->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'BAC', 2))->getId());
         $offer->setCreatedDate(new \DateTime());
         $offer->setLastModifiedDate(new \DateTime());
         $offer->setTitle("Offre 2 alternance de In Extenso Luçon");
