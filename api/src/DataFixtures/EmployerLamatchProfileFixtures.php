@@ -53,7 +53,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_1)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2', 4))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -88,7 +88,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_1)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'Bac + 4'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'Bac + 4', 6))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -123,7 +123,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_1)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'Bac'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'Bac', 2))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'non-precise',
             'Non précisé',
@@ -158,7 +158,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_1)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'Bac + 5'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'Bac + 5', 7))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamexpert',
             'Lamexpert',
@@ -194,7 +194,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_2)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2', 4))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -229,7 +229,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_2)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_3, 'Bac + 3'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_3, 'Bac + 3', 5))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -265,7 +265,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_3)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_3, 'Bac + 3'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_3, 'Bac + 3', 5))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -300,7 +300,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_3)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_3, 'Bac + 3'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_3, 'Bac + 3', 5))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -335,7 +335,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_3)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'Bac'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'Bac', 2))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -371,7 +371,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_4)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'Bac'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC, 'Bac', 2))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -406,7 +406,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_4)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'Bac + 4'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'Bac + 4', 6))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamexpert',
             'Lamexpert',
@@ -442,7 +442,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_5)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'Bac + 4'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'Bac + 4', 6))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamexpert',
             'Lamexpert',
@@ -477,7 +477,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_5)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1', 3))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -513,7 +513,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_6)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1', 3))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -548,7 +548,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_6)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1', 3))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -583,7 +583,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_6)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2', 4))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -619,7 +619,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_7)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_1, 'Bac + 1', 3))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -655,7 +655,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_8)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2', 4))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -690,7 +690,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_8)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2', 4))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -726,7 +726,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_9)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'Bac + 2', 4))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamaffirmé',
             'Lamaffirmé',
@@ -761,7 +761,7 @@ class EmployerLamatchProfileFixtures extends Fixture implements DependentFixture
         $employerLamatchProfile->setEmployerLamatchSubscription(
             $this->getReference(EmployerLamatchSubscriptionFixtures::EMPLOYER_LAMATCH_SUBSCRIPTION_REFERENCE_9)
         );
-        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_6, 'Bac + 6'))->getId());
+        $employerLamatchProfile->setLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_6, 'Bac + 6', 8))->getId());
         $employerLamatchProfile->setExperience((new Experience(
             'lamasenior',
             'Lamasenior',

@@ -41,7 +41,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1980-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/jean-eudes-gally-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2', 4))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -72,7 +72,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1990-01-01'));
         $applicant->setDefaultMotivationText('Je suis une candidat hyper motivée');
         $applicant->setLinkedin('https://www.linkedin.com/in/estelle-fran%C3%A7ois-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_2, 'BAC + 2', 4))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -103,7 +103,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1970-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/esteban-carlos-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'BAC + 5'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_5, 'BAC + 5', 7))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamexpert',
             'Lamexpert ',
@@ -133,7 +133,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1988-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/yann-sigaud-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise', 0))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -163,7 +163,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1988-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/gisele-bundchen-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::UNSPECIFIED, 'non-precise', 0))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamajunior',
             'Lamajunior',
@@ -193,7 +193,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1985-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/anna-kournikova-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $applicant->setCurrentExperience((new Experience(
             'non-precise',
             'Non précisé',
@@ -223,7 +223,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1992-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/david-beckhim-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_4, 'BAC + 4', 6))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -253,7 +253,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1999-01-01'));
         $applicant->setDefaultMotivationText('Je suis un candidat moyennement motivé');
         $applicant->setLinkedin('https://www.linkedin.com/in/mohamed-salah-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7', 9))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',
@@ -283,7 +283,7 @@ class ApplicantFixtures extends Fixture implements DependentFixtureInterface
         $applicant->setBirthdate(new \DateTime('1999-01-01'));
         $applicant->setDefaultMotivationText('Je suis une candidate moyennement motivée');
         $applicant->setLinkedin('https://www.linkedin.com/in/lucie-bourdeau-2b1b4b1/');
-        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7'))->getId());
+        $applicant->setCurrentLevelOfStudy((new LevelOfStudy(LevelOfStudy::BAC_7, 'BAC + 7', 9))->getId());
         $applicant->setCurrentExperience((new Experience(
             'lamasenior',
             'Lamasenior',

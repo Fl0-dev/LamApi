@@ -3,14 +3,12 @@
 namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Applicant\Applicant;
 use App\Entity\References\SubscriptionStatus;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantLamatchSubscriptionRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchSubscriptionRepository::class)]
 #[ApiResource]
