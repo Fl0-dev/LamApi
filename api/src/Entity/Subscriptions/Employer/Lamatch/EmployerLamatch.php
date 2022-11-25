@@ -17,11 +17,11 @@ class EmployerLamatch
     use Uuid;
     use CreatedDate;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?EmployerLamatchProfile $EmployerLamatchProfile = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?EmployerLamatchSubscription $employerLamatchSubscription = null;
 

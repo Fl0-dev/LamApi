@@ -59,4 +59,11 @@ class ExperienceRepository
 
         return null;
     }
+
+    public function getExperienceLabel(?string $id): ?string
+    {
+        $experience = self::find($id);
+
+        return $experience ? $experience->getFull() : null;
+    }
 }

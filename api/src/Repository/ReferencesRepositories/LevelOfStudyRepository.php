@@ -40,4 +40,11 @@ class LevelOfStudyRepository
 
         return null;
     }
+
+    public function getLevelOfStudyLabel(?string $id): ?string
+    {
+        $levelOfStudy = self::find($id);
+
+        return $levelOfStudy ? $levelOfStudy->getLabel() : null;
+    }
 }

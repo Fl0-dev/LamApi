@@ -7,7 +7,6 @@ use App\Entity\References\SubscriptionStatus;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatch;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchSubscription;
-use App\Entity\Subscriptions\Applicant\Lamatch\CompanyEntityResult;
 use App\Service\ApplicantLamatchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -39,8 +38,6 @@ class GetApplicantLamatchResults extends AbstractController
         $companyResults =
             $this->applicantLamatchService->getCompanyResults($applicantLamatchSubscription, $applicantLamatch);
 
-
-        $companyResults = CompanyEntityResult::getCompanyEntityResultsForDisplay($companyResults);
         return $companyResults;
     }
 }
