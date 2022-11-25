@@ -40,6 +40,7 @@ class EmployerLamatchProfile
 {
     use TechnicalProperties;
     use Label;
+
     public const OPERATION_NAME_POST_EMPLOYER_LAMATCH_PROFILE = 'post_employer_lamatch_profile';
 
     #[ORM\Column(length: 255, nullable: true)]
