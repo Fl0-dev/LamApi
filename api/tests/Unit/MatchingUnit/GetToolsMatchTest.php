@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\MatchingUnit;
 
 use App\Repository\ToolRepository;
-use App\Service\ApplicantLamatchService;
+use App\Service\MatchingService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -23,8 +23,8 @@ class GetToolssMatchTest extends KernelTestCase
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Dext']));
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Fygr']));
 
-        $applicantLamatchService = static::getContainer()->get(ApplicantLamatchService::class);
-        $toolsMatch = $applicantLamatchService->getToolsMatch($companyTools, $applicantTools);
+        $matchingService = static::getContainer()->get(MatchingService::class);
+        $toolsMatch = $matchingService->getToolsMatch($companyTools, $applicantTools);
 
         $this->assertIsInt($toolsMatch);
         $this->assertEquals(100, $toolsMatch);
@@ -36,7 +36,7 @@ class GetToolssMatchTest extends KernelTestCase
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Teams']));
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Dext']));
 
-        $toolsMatch = $applicantLamatchService->getToolsMatch($companyTools, $applicantTools);
+        $toolsMatch = $matchingService->getToolsMatch($companyTools, $applicantTools);
 
         $this->assertIsInt($toolsMatch);
         $this->assertEquals(100, $toolsMatch);
@@ -48,7 +48,7 @@ class GetToolssMatchTest extends KernelTestCase
         $applicantTools = new ArrayCollection();
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Teams']));
 
-        $toolsMatch = $applicantLamatchService->getToolsMatch($companyTools, $applicantTools);
+        $toolsMatch = $matchingService->getToolsMatch($companyTools, $applicantTools);
         
         $this->assertIsInt($toolsMatch);
         $this->assertEquals(50, $toolsMatch);
@@ -62,7 +62,7 @@ class GetToolssMatchTest extends KernelTestCase
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Teams']));
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Dext']));
 
-        $toolsMatch = $applicantLamatchService->getToolsMatch($companyTools, $applicantTools);
+        $toolsMatch = $matchingService->getToolsMatch($companyTools, $applicantTools);
         
         $this->assertIsInt($toolsMatch);
         $this->assertEquals(66, $toolsMatch);
@@ -81,7 +81,7 @@ class GetToolssMatchTest extends KernelTestCase
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Dext']));
         $applicantTools->add($toolRepository->findOneBy(['label' => 'Fygr']));
 
-        $toolsMatch = $applicantLamatchService->getToolsMatch($companyTools, $applicantTools);
+        $toolsMatch = $matchingService->getToolsMatch($companyTools, $applicantTools);
     
         $this->assertIsInt($toolsMatch);
         $this->assertEquals(42, $toolsMatch);
@@ -98,8 +98,8 @@ class GetToolssMatchTest extends KernelTestCase
 
         $applicantTools = new ArrayCollection();
 
-        $applicantLamatchService = static::getContainer()->get(ApplicantLamatchService::class);
-        $toolsMatch = $applicantLamatchService->getToolsMatch($companyTools, $applicantTools);
+        $matchingService = static::getContainer()->get(MatchingService::class);
+        $toolsMatch = $matchingService->getToolsMatch($companyTools, $applicantTools);
 
         $this->assertIsInt($toolsMatch);
         $this->assertEquals(0, $toolsMatch);

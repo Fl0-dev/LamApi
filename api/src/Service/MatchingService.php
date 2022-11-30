@@ -103,7 +103,7 @@ class MatchingService
         return 0;
     }
 
-    public function getjobTitleMatch($companyJobTitle, $applicantJobTitle)
+    public function getJobTitleMatch($companyJobTitle, $applicantJobTitle)
     {
         $jobTitleMatch = 100;
 

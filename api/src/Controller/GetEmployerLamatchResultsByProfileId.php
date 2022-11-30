@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Subscriptions\Employer\Lamatch\ApplicantResult;
 use App\Entity\Subscriptions\Employer\Lamatch\EmployerLamatch;
 use App\Entity\User\Employer;
 use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchProfileRepository;
@@ -10,7 +9,6 @@ use App\Repository\SubscriptionRepositories\Employer\EmployerLamatchRepository;
 use App\Repository\SubscriptionRepositories\Employer\EmployerSubscriptionRepository;
 use App\Service\EmployerLamatchService;
 use App\Utils\Utils;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -36,39 +36,39 @@ class ApplicantLamatchService
         $matchResults = [];
 
         foreach ($companyEntities as $companyEntity) {
-            //Matching avec Workforce
+            //Matching with Workforce
             $companyWorkforceId = $companyEntity->getProfile()->getWorkforce();
             $applicantWorkforceId = $applicantLamatchProfile->getDesiredWorkforce();
             $workforceMatch =
                 $this->matchingService->getWorkforceMatch($companyWorkforceId, $applicantWorkforceId);
             $matchResults['workforce'] = $workforceMatch;
 
-            //Matching avec ExpertiseFields
+            //Matching with ExpertiseFields
             $companyExpertiseFields = ($companyEntity->getProfile()->getExpertiseFields());
             $applicantExpertiseFields = $applicantLamatchProfile->getDesiredExpertiseFields();
             $expertiseFieldsMatch =
                 $this->matchingService->getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields);
             $matchResults['expertiseField'] = $expertiseFieldsMatch;
 
-            //Matching avec Tools
+            //Matching with Tools
             $companyTools = $companyEntity->getProfile()->getTools();
             $applicantTools = $applicantLamatchProfile->getTools();
             $toolsMatch = $this->matchingService->getToolsMatch($companyTools, $applicantTools);
             $matchResults['tool'] = $toolsMatch;
 
-            //Matching avec Badges
+            //Matching with Badges
             $companyBadges = $companyEntity->getProfile()->getBadges();
             $applicantBadges = $applicantLamatchProfile->getDesiredBadges();
             $badgesMatch = $this->matchingService->getBadgesMatch($companyBadges, $applicantBadges);
             $matchResults['badge'] = $badgesMatch;
 
-            //Matching avec JobTitle
+            //Matching with JobTypes
             $companyJobTypes = $companyEntity->getProfile()->getJobTypes();
             $applicantJobTypes = $applicantLamatchProfile->getJobTitle()->getJobTypes();
             $jobTitleMatch = $this->matchingService->getJobTypeMatch($companyJobTypes, $applicantJobTypes);
             $matchResults['jobTitle'] = $jobTitleMatch;
 
-            //Matching avec Location
+            //Matching with Location
             $applicantLocation = $applicantLamatchProfile->getDesiredLocation();
             $companyEntitiesOffices = $companyEntity->getCompanyEntityOffices();
             $companyEntityCities = new ArrayCollection();

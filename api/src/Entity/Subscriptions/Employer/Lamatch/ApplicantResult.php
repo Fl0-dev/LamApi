@@ -5,13 +5,13 @@ namespace App\Entity\Subscriptions\Employer\Lamatch;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Controller\GetDetailEmployerLamatchResultByResultId;
 use App\Controller\GetEmployerLamatchResultsByProfileId;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Repository\SubscriptionRepositories\Employer\ApplicantResultRepository;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantResultRepository::class)]
 #[ApiResource(operations: [
@@ -44,7 +44,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Get(
         security: "is_granted('ROLE_EMPLOYER')",
         uriTemplate: '/employer/lamatch/results/applicant/{id}',
-        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_EMPLOYER_LAMATCH_RESULTS_BY_RESULT_ID]],
+        controller: GetDetailEmployerLamatchResultByResultId::class,
         openapiContext: [
             'summary' => 'Get a detail of a result of a matching',
             'tags' => ['Lamatch'],
@@ -55,14 +55,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ApplicantResult
 {
     use Uuid;
-    public const OPERATION_NAME_GET_EMPLOYER_LAMATCH_RESULTS_BY_RESULT_ID = 'get_employer_lamatch_results_by_result_id';
 
     #[ORM\Column]
-    #[Groups([self::OPERATION_NAME_GET_EMPLOYER_LAMATCH_RESULTS_BY_RESULT_ID])]
     private ?int $matchingPercentage = null;
 
     #[ORM\ManyToOne]
-    #[Groups([self::OPERATION_NAME_GET_EMPLOYER_LAMATCH_RESULTS_BY_RESULT_ID])]
     private ?Applicant $applicant = null;
 
     #[ORM\ManyToOne(inversedBy: 'applicantResults')]
@@ -71,7 +68,7 @@ class ApplicantResult
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups([self::OPERATION_NAME_GET_EMPLOYER_LAMATCH_RESULTS_BY_RESULT_ID])]
+
     private ?ApplicantLamatchProfile $applicantLamatchProfile = null;
 
     public function getMatchingPercentage(): ?int
