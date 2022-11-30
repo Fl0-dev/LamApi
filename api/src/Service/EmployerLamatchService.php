@@ -45,59 +45,59 @@ class EmployerLamatchService
 
         if ($allApplicantLamatchProfiles instanceof ArrayCollection) {
             foreach ($allApplicantLamatchProfiles as $applicantLamatchProfile) {
-                //Matching avec Workforce
+                //Matching with Workforce
                 $companyWorkforceId = $employerLamatchProfile->getCompanyProfile()->getWorkforce();
                 $applicantWorkforceId = $applicantLamatchProfile->getDesiredWorkforce();
                 $workforceMatch = $this->matchingService->getWorkforceMatch($companyWorkforceId, $applicantWorkforceId);
                 $matchResults['workforce'] = $workforceMatch;
 
-                //Matching avec LevelOfStudy
+                //Matching with LevelOfStudy
                 $companyLevelOfStudyId = $employerLamatchProfile->getLevelOfStudy();
                 $applicantLevelOfStudyId = $applicantLamatchProfile->getLevelOfStudy();
                 $levelOfStudyMatch =
                     $this->matchingService->getLevelOfStudyMatch($companyLevelOfStudyId, $applicantLevelOfStudyId);
                 $matchResults['levelOfStudy'] = $levelOfStudyMatch;
 
-                //Matching avec Experience
+                //Matching with Experience
                 $companyExperienceId = $employerLamatchProfile->getExperience();
                 $applicantExperienceId = $applicantLamatchProfile->getExperience();
                 $experienceMatch =
                     $this->matchingService->getExperienceMatch($companyExperienceId, $applicantExperienceId);
                 $matchResults['experience'] = $experienceMatch;
 
-                //Matching avec JobTitle
+                //Matching with JobTitle
                 $companyDesiredJobtitle = $employerLamatchProfile->getJobtitle();
                 $applicantJobtitle = $applicantLamatchProfile->getJobtitle();
                 $jobtitleMatch = $this->matchingService->getJobtitleMatch($companyDesiredJobtitle, $applicantJobtitle);
                 $matchResults['jobtitle'] = $jobtitleMatch;
 
-                //Matching avec Badges
+                //Matching with Badges
                 $companyBadges = $employerLamatchProfile->getCompanyProfile()->getBadges();
                 $applicantBadges = $applicantLamatchProfile->getDesiredBadges();
                 $badgesMatch = $this->matchingService->getBadgesMatch($companyBadges, $applicantBadges);
                 $matchResults['badges'] = $badgesMatch;
 
-                //Matching avec Tools
+                //Matching with Tools
                 $companyTools = $employerLamatchProfile->getCompanyProfile()->getTools();
                 $applicantTools = $applicantLamatchProfile->getTools();
                 $toolsMatch = $this->matchingService->getToolsMatch($companyTools, $applicantTools);
                 $matchResults['tools'] = $toolsMatch;
 
-                //Matching avec ExpertiseFields
+                //Matching with ExpertiseFields
                 $companyExpertiseFields = $employerLamatchProfile->getCompanyProfile()->getExpertiseFields();
                 $applicantExpertiseFields = $applicantLamatchProfile->getDesiredExpertiseFields();
                 $expertiseFieldsMatch =
                     $this->matchingService->getExpertiseFieldsMatch($companyExpertiseFields, $applicantExpertiseFields);
                 $matchResults['expertiseFields'] = $expertiseFieldsMatch;
 
-                //Matching avec Location
+                //Matching with Location
                 $applicantLocation = $applicantLamatchProfile->getDesiredLocation();
                 $companyLocation = new ArrayCollection();
                 $companyLocation->add($employerLamatchProfile->getCompanyEntityOffice()->getAddress()->getCityObject());
                 $locationMatch = $this->matchingService->getLocationMatch($companyLocation, $applicantLocation);
                 $matchResults['location'] = $locationMatch;
 
-                //Matching avec Personality
+                //Matching with Personality
                 $companyPersonality = $employerLamatchProfile->getPersonality();
                 $applicantQualities = $applicantLamatchProfile->getQualities();
                 $personalityMatch =
@@ -140,7 +140,8 @@ class EmployerLamatchService
             $photoFilePath = $applicantPhoto ? $applicantPhoto->getFilePath() : 'default.png';
 
             $applicantResultsForDisplay[] = [
-                'id' => $applicantResult->getApplicant()->getId(),
+                'applicantResultId' => $applicantResult->getId(),
+                'applicantId' => $applicantResult->getApplicant()->getId(),
                 'name' => $applicantResult->getApplicant()->getFirstName() . ' ' .
                     $applicantResult->getApplicant()->getLastName(),
                 'matchingPercentage' => $applicantResult->getMatchingPercentage(),

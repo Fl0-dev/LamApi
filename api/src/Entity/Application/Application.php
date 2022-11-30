@@ -40,7 +40,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             security: "is_granted('ROLE_USER')",
             uriTemplate: '/applications/{id}/exchanges',
-            normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID]],
+            normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID]],
             order: ['applicationExchanges.createdDate' => 'ASC'],
         ),
         new Get(
@@ -150,7 +150,7 @@ class Application
     public const OPERATION_NAME_POST_APPLICATION_BY_OFFER_ID = 'postApplicationByOfferId';
     public const OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID =
     'postSpontaneaousApplicationByCompanyEntityOfficeId';
-    public const OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID =
+    public const OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID =
     'getApplicationExchangesByApplicationId';
     public const OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT = 'getApplicationsByCurrentApplicant';
 
@@ -203,7 +203,7 @@ class Application
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
-        self::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
+        self::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID
     ])]
     private $applicationExchanges;
 
