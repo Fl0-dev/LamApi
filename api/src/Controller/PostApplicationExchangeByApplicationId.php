@@ -10,6 +10,7 @@ use App\Entity\Offer\Offer;
 use App\Entity\User\Employer;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicationRepositories\ApplicationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,6 +20,7 @@ class PostApplicationExchangeByApplicationId extends AbstractController
         private ApplicationRepository $applicationRepository,
     ) {
     }
+
     public function __invoke(Request $request): ?ApplicationExchange
     {
         $currentPhysicalUser = $this->getUser();
@@ -41,6 +43,7 @@ class PostApplicationExchangeByApplicationId extends AbstractController
         }
 
         $applicationExchange->setApplication($application);
+        $admins = new ArrayCollection();
 
         if ($application->getCompanyEntityOffice() instanceof CompanyEntityOffice) {
             $admins = $application->getCompanyEntityOffice()->getCompanyEntity()->getAdmins();
