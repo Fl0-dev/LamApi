@@ -53,8 +53,8 @@ class PostApplicationExchangeByApplicationId extends AbstractController
             }
         }
 
-        if (($currentPhysicalUser instanceof Applicant && $application->getApplicant() !== $currentPhysicalUser) ||
-            ($currentPhysicalUser instanceof Employer && !$admins->contains($currentPhysicalUser))
+        if (($currentPhysicalUser instanceof Applicant && $application->getApplicant() !== $currentPhysicalUser)
+            || ($currentPhysicalUser instanceof Employer && !$admins->contains($currentPhysicalUser))
         ) {
             throw new \Exception('You are not allowed to send an exchange for this application');
         }
