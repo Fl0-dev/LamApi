@@ -44,6 +44,7 @@ class PostSpontaneousApplication extends AbstractController
         }
 
         $application = new Application();
+        $application->setIsSpontaneous(true);
         $application->setApplicant($applicant);
         $application->setMotivationText((string) $motivation);
         $application->setcompanyEntityOffice($companyEntityOffice);
