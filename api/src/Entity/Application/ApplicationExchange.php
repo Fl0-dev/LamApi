@@ -14,6 +14,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\UuidV6;
 
 #[ApiResource(
     operations: [
@@ -74,9 +75,9 @@ class ApplicationExchange
     #[ORM\JoinColumn(nullable: false)]
     private $application;
 
-    #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
+    #[ORM\Column(type: 'uuid')]
     #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
-    private $receiver;
+    private UuidV6 $receiver;
 
     #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
     #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
@@ -130,12 +131,12 @@ class ApplicationExchange
         return $this;
     }
 
-    public function getReceiver(): ?UserPhysical
+    public function getReceiver(): ?UuidV6
     {
         return $this->receiver;
     }
 
-    public function setReceiver(?UserPhysical $receiver): self
+    public function setReceiver(?UuidV6 $receiver): self
     {
         $this->receiver = $receiver;
 
