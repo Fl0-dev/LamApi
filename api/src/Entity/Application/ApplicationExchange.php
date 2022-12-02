@@ -76,7 +76,7 @@ class ApplicationExchange
     private $application;
 
     #[ORM\Column(type: 'uuid')]
-    #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
+    #[Groups([Application::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID])]
     private UuidV6 $receiver;
 
     #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
