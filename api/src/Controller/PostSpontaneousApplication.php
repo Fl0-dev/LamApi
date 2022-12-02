@@ -40,10 +40,11 @@ class PostSpontaneousApplication extends AbstractController
         $companyEntityOffice = $this->companyEntityOfficeRepository->find($companyEntityOfficeId);
 
         if (!$companyEntityOffice instanceof CompanyEntityOffice || !$companyEntityOffice->hasId()) {
-            throw new \Exception('CompanyEntity not found');
+            throw new \Exception('Office not found');
         }
 
         $application = new Application();
+        $application->setIsSpontaneous(true);
         $application->setApplicant($applicant);
         $application->setMotivationText((string) $motivation);
         $application->setcompanyEntityOffice($companyEntityOffice);

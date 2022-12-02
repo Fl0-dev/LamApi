@@ -229,10 +229,20 @@ class Application
     ])]
     private ?bool $activeSending = null;
 
+    #[ORM\Column]
+    #[Groups([
+        Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
+        self::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
+        CompanyGroup::OPERATION_NAME_GET_APPLICATIONS_BY_COMPANY_GROUP_ID,
+        self::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
+    ])]
+    private ?bool $isSpontaneous = null;
+
     public function __construct()
     {
         $this->applicationExchanges = new ArrayCollection();
         $this->activeSending = false;
+        $this->isSpontaneous = false;
     }
 
     #[Groups([
@@ -380,6 +390,18 @@ class Application
     public function setActiveSending(bool $activeSending): self
     {
         $this->activeSending = $activeSending;
+
+        return $this;
+    }
+
+    public function isIsSpontaneous(): ?bool
+    {
+        return $this->isSpontaneous;
+    }
+
+    public function setIsSpontaneous(bool $isSpontaneous): self
+    {
+        $this->isSpontaneous = $isSpontaneous;
 
         return $this;
     }

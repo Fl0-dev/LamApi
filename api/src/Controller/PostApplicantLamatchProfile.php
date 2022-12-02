@@ -192,7 +192,7 @@ class PostApplicantLamatchProfile extends AbstractController
 
         $applicantLamatchSubscription->setApplicantLamatchProfile($applicantLamatchProfile);
         $applicantSubscription->setLamatchSubscription($applicantLamatchSubscription);
-        $this->applicantSubscriptionRepository->add($applicantSubscription);
+        $this->applicantSubscriptionRepository->add($applicantSubscription, true);
 
         return $applicantLamatchProfile;
     }
