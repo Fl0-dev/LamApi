@@ -19,7 +19,7 @@ class EmployerLamatch
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?EmployerLamatchProfile $EmployerLamatchProfile = null;
+    private ?EmployerLamatchProfile $employerLamatchProfile = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -36,12 +36,12 @@ class EmployerLamatch
 
     public function getEmployerLamatchProfile(): ?EmployerLamatchProfile
     {
-        return $this->EmployerLamatchProfile;
+        return $this->employerLamatchProfile;
     }
 
-    public function setEmployerLamatchProfile(EmployerLamatchProfile $EmployerLamatchProfile): self
+    public function setEmployerLamatchProfile(?EmployerLamatchProfile $employerLamatchProfile): self
     {
-        $this->EmployerLamatchProfile = $EmployerLamatchProfile;
+        $this->employerLamatchProfile = $employerLamatchProfile;
 
         return $this;
     }

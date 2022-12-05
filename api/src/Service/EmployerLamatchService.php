@@ -153,6 +153,10 @@ class EmployerLamatchService
             ];
         }
 
+        usort($applicantResultsForDisplay, function ($a, $b) {
+            return $b['matchingPercentage'] <=> $a['matchingPercentage'];
+        });
+
         $levelOfStudyLabelOfCompanyProfile = $this->levelOfStudyRepository->getLevelOfStudyLabel(
             $employerLamatchProfile->getLevelOfStudy()
         );
