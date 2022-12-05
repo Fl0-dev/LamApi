@@ -35,49 +35,76 @@ class LevelOfStudy extends Reference
     public const LEVEL_OF_STUDIES = [
         [
             'slug' => self::UNSPECIFIED,
-            'label' => 'Non précisé'
+            'label' => 'Non précisé',
+            'level' => 0
         ],
         [
             'slug' => self::CAP_BEP,
-            'label' => 'Cap BEP'
+            'label' => 'Cap BEP',
+            'level' => 1
         ],
         [
             'slug' => self::BAC,
-            'label' => 'BAC'
+            'label' => 'BAC',
+            'level' => 2
         ],
         [
             'slug' => self::BAC_1,
-            'label' => 'BAC + 1'
+            'label' => 'BAC + 1',
+            'level' => 3
         ],
         [
             'slug' => self::BAC_2,
-            'label' => 'BAC + 2'
+            'label' => 'BAC + 2',
+            'level' => 4
         ],
         [
             'slug' => self::BAC_3,
-            'label' => 'BAC + 3'
+            'label' => 'BAC + 3',
+            'level' => 5
         ],
         [
             'slug' => self::BAC_4,
-            'label' => 'BAC + 4'
+            'label' => 'BAC + 4',
+            'level' => 6
         ],
         [
             'slug' => self::BAC_5,
-            'label' => 'BAC + 5'
+            'label' => 'BAC + 5',
+            'level' => 7
         ],
         [
             'slug' => self::BAC_6,
-            'label' => 'BAC + 6'
+            'label' => 'BAC + 6',
+            'level' => 8
         ],
         [
             'slug' => self::BAC_7,
-            'label' => 'BAC + 7'
+            'label' => 'BAC + 7',
+            'level' => 9
         ],
         [
             'slug' => self::BAC_8,
-            'label' => 'BAC + 8'
+            'label' => 'BAC + 8',
+            'level' => 10
         ]
     ];
+
+    private int $level;
+
+    public function __construct(
+        string $slug,
+        string $label,
+        int $level
+    ) {
+        parent::__construct($slug, $label);
+        $this->level = $level;
+    }
+
+    public function getLevel(): int
+    {
+        return $this->level;
+    }
 
     public static function isLevelOfStudy($levelOfStudySlug)
     {

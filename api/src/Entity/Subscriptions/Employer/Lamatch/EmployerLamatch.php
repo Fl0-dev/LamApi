@@ -17,11 +17,11 @@ class EmployerLamatch
     use Uuid;
     use CreatedDate;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?EmployerLamatchProfile $EmployerLamatchProfile = null;
+    private ?EmployerLamatchProfile $employerLamatchProfile = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?EmployerLamatchSubscription $employerLamatchSubscription = null;
 
@@ -30,17 +30,18 @@ class EmployerLamatch
 
     public function __construct()
     {
+        $this->createdDate = new \DateTime();
         $this->applicantResults = new ArrayCollection();
     }
 
     public function getEmployerLamatchProfile(): ?EmployerLamatchProfile
     {
-        return $this->EmployerLamatchProfile;
+        return $this->employerLamatchProfile;
     }
 
-    public function setEmployerLamatchProfile(EmployerLamatchProfile $EmployerLamatchProfile): self
+    public function setEmployerLamatchProfile(?EmployerLamatchProfile $employerLamatchProfile): self
     {
-        $this->EmployerLamatchProfile = $EmployerLamatchProfile;
+        $this->employerLamatchProfile = $employerLamatchProfile;
 
         return $this;
     }

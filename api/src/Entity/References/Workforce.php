@@ -111,7 +111,6 @@ class Workforce extends Reference
         return $this->level;
     }
 
-
     public static function isWorkforce(array $workforceSlugs): bool
     {
         return !empty(array_intersect($workforceSlugs, array_column(self::WORKFORCES, 'slug')));

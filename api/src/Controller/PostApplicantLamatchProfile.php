@@ -60,8 +60,21 @@ class PostApplicantLamatchProfile extends AbstractController
 
         $uploadedFile = $request->files->get('file');
 
-        //TODO: gestion slug
-        $slugPhoto = $uploadedFile->getClientOriginalName();
+        if (
+            $uploadedFile->guessExtension() !== 'jpg' &&
+            $uploadedFile->guessExtension() !== 'jpeg' &&
+            $uploadedFile->guessExtension() !== 'png'
+        ) {
+            throw new BadRequestHttpException('File must be a jpg or png or jpeg');
+        }
+
+        $namePhoto = $uploadedFile->getClientOriginalName();
+
+        $slugPhoto = preg_replace('/\.[^.]*$/', '', $namePhoto);
+
+        if (!Utils::isSlug($slugPhoto)) {
+            throw new BadRequestHttpException('File name must not contain special characters');
+        }
 
         if (!$uploadedFile) {
             throw new BadRequestHttpException('"file" is required');
@@ -84,7 +97,7 @@ class PostApplicantLamatchProfile extends AbstractController
         $applicantLamatchProfile = new ApplicantLamatchProfile();
         $applicantLamatchProfile->setApplicant($applicant);
         $applicantLamatchProfile->setPhoto($mediaImage);
-        // dd($mediaImage);
+
         $experienceId = Utils::getArrayValue('experience', $infoProfile);
         $experience = $this->experienceRepository->find($experienceId);
 

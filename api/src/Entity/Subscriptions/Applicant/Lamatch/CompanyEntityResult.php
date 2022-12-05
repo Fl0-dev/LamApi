@@ -8,9 +8,7 @@ use App\Controller\GetApplicantLamatchResults;
 use App\Entity\Company\CompanyEntity;
 use App\Repository\SubscriptionRepositories\Applicant\CompanyEntityResultRepository;
 use App\Transversal\Uuid;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyEntityResultRepository::class)]
 #[ApiResource(operations: [
@@ -79,25 +77,5 @@ class CompanyEntityResult
         $this->matchingPercentage = $matchingPercentage;
 
         return $this;
-    }
-
-    public static function getCompanyEntityResultsForDisplay(ArrayCollection $companyEntityResults): array
-    {
-        $companyEntityResultsForDisplay = [];
-        foreach ($companyEntityResults as $companyEntityResult) {
-            $companyEntityResultsForDisplay[] = [
-                'companyEntity' => [
-                    'id' => $companyEntityResult->getCompanyEntity()->getId(),
-                    'name' => $companyEntityResult->getCompanyEntity()->getName(),
-                    'logo' => $companyEntityResult->getCompanyEntity()->getCompanyGroup()->getLogo()->getFilePath(),
-                    'workforce' => $companyEntityResult->getCompanyEntity()->getProfile()->getWorkforceLabel(),
-                    'departments' => $companyEntityResult->getCompanyEntity()->getAllLabelDepartments(),
-                    'badges' => $companyEntityResult->getCompanyEntity()->getProfile()->getAllLabelBadges(),
-                ],
-                'matchingPercentage' => $companyEntityResult->getMatchingPercentage(),
-            ];
-        }
-
-        return $companyEntityResultsForDisplay;
     }
 }

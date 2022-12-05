@@ -141,10 +141,10 @@ class ApplicantLamatchProfile
     #[ORM\ManyToOne]
     private ?JobTitle $jobTitle;
 
-    #[ORM\ManyToMany(targetEntity: Tool::class)]
+    #[ORM\ManyToMany(targetEntity: Tool::class, cascade: ['persist', 'remove'])]
     private Collection $tools;
 
-    #[ORM\ManyToMany(targetEntity: Badge::class)]
+    #[ORM\ManyToMany(targetEntity: Badge::class, cascade: ['persist', 'remove'])]
     private Collection $desiredBadges;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -154,13 +154,13 @@ class ApplicantLamatchProfile
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?DesiredLocation $desiredLocation;
 
-    #[ORM\ManyToMany(targetEntity: DISCQuality::class)]
+    #[ORM\ManyToMany(targetEntity: DISCQuality::class, cascade: ['persist', 'remove'])]
     private Collection $qualities;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $desiredWorkforce;
 
-    #[ORM\ManyToMany(targetEntity: ExpertiseField::class)]
+    #[ORM\ManyToMany(targetEntity: ExpertiseField::class, cascade: ['persist', 'remove'])]
     private Collection $desiredExpertiseFields;
 
     public function __construct()

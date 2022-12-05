@@ -19,7 +19,8 @@ class LevelOfStudyRepository
             foreach ($arrayLevelOfStudies as $levelOfStudy) {
                 $levelOfStudies[] = new LevelOfStudy(
                     Utils::getArrayValue('slug', $levelOfStudy),
-                    Utils::getArrayValue('label', $levelOfStudy)
+                    Utils::getArrayValue('label', $levelOfStudy),
+                    Utils::getArrayValue('level', $levelOfStudy)
                 );
             }
         }
@@ -38,5 +39,12 @@ class LevelOfStudyRepository
         }
 
         return null;
+    }
+
+    public function getLevelOfStudyLabel(?string $id): ?string
+    {
+        $levelOfStudy = self::find($id);
+
+        return $levelOfStudy ? $levelOfStudy->getLabel() : null;
     }
 }

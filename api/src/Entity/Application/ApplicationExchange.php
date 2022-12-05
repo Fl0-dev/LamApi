@@ -65,7 +65,7 @@ class ApplicationExchange
     #[ORM\Column(type: 'text')]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
-        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID,
+        Application::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID,
         Application::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT
     ])]
     #[Assert\NotNull()]
@@ -76,18 +76,18 @@ class ApplicationExchange
     private $application;
 
     #[ORM\Column(type: 'uuid')]
-    #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
+    #[Groups([Application::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID])]
     private UuidV6 $receiver;
 
     #[ORM\ManyToOne(targetEntity: UserPhysical::class)]
-    #[Groups([Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID])]
+    #[Groups([Application::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID])]
     private $transmitter;
 
     #[ORM\Column]
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         Application::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
-        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
+        Application::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID
     ])]
     private ?bool $isRead = null;
 
@@ -100,7 +100,7 @@ class ApplicationExchange
     #[Groups([
         Applicant::OPERATION_NAME_GET_APPLICATIONS_BY_APPLICANT_ID,
         Application::OPERATION_NAME_GET_APPLICATIONS_BY_CURRENT_APPLICANT,
-        Application::OPERATION_NAME_GET_APPLICATIONEXCHANGES_BY_APPLICATION_ID
+        Application::OPERATION_NAME_GET_APPLICATION_EXCHANGES_BY_APPLICATION_ID
     ])]
     public function getCreatedDate(): ?DateTime
     {

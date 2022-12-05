@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\MatchingUnit;
 
 use App\Repository\BadgeRepository;
-use App\Service\ApplicantLamatchService;
+use App\Service\MatchingService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -23,8 +23,8 @@ class GetBadgesMatchTest extends KernelTestCase
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Café et thé illimité']));
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Equilibre vie pro/perso']));
 
-        $applicantLamatchService = static::getContainer()->get(ApplicantLamatchService::class);
-        $badgesMatch = $applicantLamatchService->getBadgesMatch($companyBadges, $applicantBadges);
+        $matchingService = static::getContainer()->get(MatchingService::class);
+        $badgesMatch = $matchingService->getBadgesMatch($companyBadges, $applicantBadges);
 
         $this->assertIsInt($badgesMatch);
         $this->assertEquals(100, $badgesMatch);
@@ -36,7 +36,7 @@ class GetBadgesMatchTest extends KernelTestCase
         $applicantBadges = new ArrayCollection();
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Cabinet à impact +']));
 
-        $badgesMatch = $applicantLamatchService->getBadgesMatch($companyBadges, $applicantBadges);
+        $badgesMatch = $matchingService->getBadgesMatch($companyBadges, $applicantBadges);
 
         $this->assertIsInt($badgesMatch);
         $this->assertEquals(100, $badgesMatch);
@@ -48,7 +48,7 @@ class GetBadgesMatchTest extends KernelTestCase
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Cabinet à impact +']));
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Café et thé illimité']));
 
-        $badgesMatch = $applicantLamatchService->getBadgesMatch($companyBadges, $applicantBadges);
+        $badgesMatch = $matchingService->getBadgesMatch($companyBadges, $applicantBadges);
 
         $this->assertIsInt($badgesMatch);
         $this->assertEquals(50, $badgesMatch);
@@ -65,8 +65,8 @@ class GetBadgesMatchTest extends KernelTestCase
 
         $applicantBadges = new ArrayCollection();
 
-        $applicantLamatchService = static::getContainer()->get(ApplicantLamatchService::class);
-        $badgesMatch = $applicantLamatchService->getBadgesMatch($companyBadges, $applicantBadges);
+        $matchingService = static::getContainer()->get(MatchingService::class);
+        $badgesMatch = $matchingService->getBadgesMatch($companyBadges, $applicantBadges);
 
         $this->assertIsInt($badgesMatch);
         $this->assertEquals(100, $badgesMatch);
@@ -85,8 +85,8 @@ class GetBadgesMatchTest extends KernelTestCase
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Café et thé illimité']));
         $applicantBadges->add($badgeRepository->findOneBy(['label' => 'Equilibre vie pro/perso']));
 
-        $applicantLamatchService = static::getContainer()->get(ApplicantLamatchService::class);
-        $badgesMatch = $applicantLamatchService->getBadgesMatch($companyBadges, $applicantBadges);
+        $matchingService = static::getContainer()->get(MatchingService::class);
+        $badgesMatch = $matchingService->getBadgesMatch($companyBadges, $applicantBadges);
 
         $this->assertIsInt($badgesMatch);
         $this->assertEquals(0, $badgesMatch);
