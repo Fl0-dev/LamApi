@@ -177,4 +177,47 @@ class EmployerLamatchService
 
         return $applicantResultsForDisplay;
     }
+
+    public function getDetailsforOneApplicantResult(ApplicantResult $applicantResult): array
+    {
+        $applicantLamatchProfile = $applicantResult->getApplicantLamatchProfile();
+        $applicant = $applicantLamatchProfile->getApplicant();
+        $applicantPhoto = $applicantLamatchProfile->getPhoto();
+        $photoFilePath = $applicantPhoto ? $applicantPhoto->getFilePath() : 'default.png';
+
+        $levelOfStudyLabel = $this->levelOfStudyRepository->getLevelOfStudyLabel(
+            $applicantLamatchProfile->getLevelOfStudy()
+        );
+        $experienceLabel = $this->experienceRepository->getExperienceLabel(
+            $applicantLamatchProfile->getExperience()
+        );
+
+        $applicantTools = $applicantLamatchProfile->getTools();
+        $applicantToolsForDisplay = [];
+        foreach ($applicantTools as $applicantTool) {
+            $applicantToolsForDisplay[$applicantTool->getLabel()] = $applicantTool->getLogo()->getFilePath();
+        }
+
+        $applicantQualities = $applicantLamatchProfile->getQualities();
+        $applicantQualitiesForDisplay = [];
+        foreach ($applicantQualities as $applicantQuality) {
+            $applicantQualitiesForDisplay[] = $applicantQuality->getLabel();
+        }
+
+        $applicantResultDetails = [
+            'applicantResultId' => $applicantResult->getId(),
+            'applicantId' => $applicant->getId(),
+            'name' => $applicant->getFirstName() . ' ' . $applicant->getLastName(),
+            'matchingPercentage' => $applicantResult->getMatchingPercentage(),
+            'jobTitle' => $applicantLamatchProfile->getJobTitle()->getLabel(),
+            'levelOfStudy' => $levelOfStudyLabel,
+            'experience' => $experienceLabel,
+            'introduction' => $applicantLamatchProfile->getIntroduction(),
+            'photo' => $photoFilePath,
+            'tools' => $applicantToolsForDisplay,
+            'qualities' => $applicantQualitiesForDisplay,
+        ];
+
+        return $applicantResultDetails;
+    }
 }

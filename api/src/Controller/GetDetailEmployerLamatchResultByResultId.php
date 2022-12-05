@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Subscriptions\Employer\Lamatch\ApplicantResult;
 use App\Entity\User\Employer;
 use App\Repository\SubscriptionRepositories\Employer\EmployerSubscriptionRepository;
+use App\Service\EmployerLamatchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,6 +13,7 @@ class GetDetailEmployerLamatchResultByResultId extends AbstractController
 {
     public function __construct(
         private EmployerSubscriptionRepository $employerSubscriptionRepository,
+        private EmployerLamatchService $employerLamatchService,
     ) {
     }
     public function __invoke(Request $request)
@@ -38,6 +40,9 @@ class GetDetailEmployerLamatchResultByResultId extends AbstractController
         ) {
             throw new \Exception('Employer is not the owner of this result');
         }
-        dd($applicantResult->getId());
+
+        $applicantResultToDisplay = $this->employerLamatchService->getDetailsforOneApplicantResult($applicantResult);
+
+        return $this->json($applicantResultToDisplay);
     }
 }
