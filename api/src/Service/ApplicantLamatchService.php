@@ -116,6 +116,10 @@ class ApplicantLamatchService
             ];
         }
 
+        usort($companyEntityResultsForDisplay, function ($a, $b) {
+            return $b['matchingPercentage'] <=> $a['matchingPercentage'];
+        });
+
         return $companyEntityResultsForDisplay;
     }
 }
