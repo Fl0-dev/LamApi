@@ -30,6 +30,7 @@ use App\Repository\SubscriptionRepositories\DISC\DISCQualityRepository;
 use App\Repository\ToolRepository;
 use App\Utils\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -63,21 +64,25 @@ class PostApplicantLamatchProfile extends AbstractController
         if (
             $uploadedFile->guessExtension() !== 'jpg' &&
             $uploadedFile->guessExtension() !== 'jpeg' &&
-            $uploadedFile->guessExtension() !== 'png'
+            $uploadedFile->guessExtension() !== 'png' &&
+            $uploadedFile->guessExtension() !== 'pdf'
         ) {
-            throw new BadRequestHttpException('File must be a jpg or png or jpeg');
+            throw new BadRequestHttpException('File must be a .jpg or .png or .jpeg or .pdf');
+        }
+
+        if ($uploadedFile->getSize() > 2000000) {
+            throw new BadRequestHttpException('File must be less than 2 Mo');
         }
 
         $namePhoto = $uploadedFile->getClientOriginalName();
-
         $slugPhoto = preg_replace('/\.[^.]*$/', '', $namePhoto);
 
         if (!Utils::isSlug($slugPhoto)) {
             throw new BadRequestHttpException('File name must not contain special characters');
         }
 
-        if (!$uploadedFile) {
-            throw new BadRequestHttpException('"file" is required');
+        if (!$uploadedFile instanceof File) {
+            throw new BadRequestHttpException('file is required');
         }
 
         $mediaImage = new MediaImage();
