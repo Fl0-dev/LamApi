@@ -123,6 +123,7 @@ class Applicant extends UserPhysical
         $this->applicantCvs = new ArrayCollection();
         $this->applications = new ArrayCollection();
         $this->status = (new ApplicantStatus(ApplicantStatus::ACTIVE, 'active'))->getId();
+        $this->optin = true;
     }
 
     #[Groups([self::OPERATION_NAME_GET_ALL_APPLICANTS])]
