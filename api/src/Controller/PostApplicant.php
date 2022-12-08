@@ -38,6 +38,14 @@ class PostApplicant extends AbstractController
             throw new \Exception('Email is already used');
         }
 
+        if (!preg_match('/^[\p{L} \'-]+$/u', $applicant->getFirstname())) {
+            throw new \Exception('Firstname must not contain special characters and required');
+        }
+
+        if (!preg_match('/^[\p{L} \'-]+$/u', $applicant->getLastname())) {
+            throw new \Exception('Lastname must not contain special characters and required');
+        }
+
         $applicant->setPassword($this->hasher->hashPassword($applicant, $password));
         $applicant->setRoles(['ROLE_APPLICANT']);
 
