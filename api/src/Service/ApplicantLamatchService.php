@@ -77,7 +77,11 @@ class ApplicantLamatchService
                 $companyEntityCities->add($companyEntitiesOffice->getAddress()->getCityObject());
             }
 
-            $locationMatch = $this->matchingService->getLocationMatch($companyEntityCities, $applicantLocation);
+            $locationMatch = $this->matchingService->getLocationMatch(
+                $companyEntityCities,
+                $applicantLocation,
+                'applicant'
+            );
             $matchResults['location'] = $locationMatch;
 
             $matchingPercentage = $this->matchingService->getMatchingPercentage($matchResults);
@@ -115,6 +119,10 @@ class ApplicantLamatchService
                 'matchingPercentage' => $companyEntityResult->getMatchingPercentage(),
             ];
         }
+
+        usort($companyEntityResultsForDisplay, function ($a, $b) {
+            return $b['matchingPercentage'] <=> $a['matchingPercentage'];
+        });
 
         return $companyEntityResultsForDisplay;
     }

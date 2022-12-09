@@ -168,7 +168,7 @@ class MatchingService
         return 0;
     }
 
-    public function getLocationMatch($companyEntityCities, $applicantLocation): int
+    public function getLocationMatch($companyEntityCities, $applicantLocation, string $context): int
     {
         $cityMatch = 0;
         $departmentMatch = 0;
@@ -196,15 +196,33 @@ class MatchingService
             }
         }
 
-        if ($numberOfapplicantDesiredCities > 0) {
-            $cityMatch = $cityMatch * 100 / $numberOfapplicantDesiredCities;
+        if ($context === 'applicant') {
+            if ($numberOfapplicantDesiredCities > 0) {
+                $cityMatch = $cityMatch * 100 / $numberOfapplicantDesiredCities;
+            }
+
+            if ($numberOfapplicantDesiredDepartments > 0) {
+                $departmentMatch = $departmentMatch * 100 / $numberOfapplicantDesiredDepartments;
+            }
+
+            $div = 1;
+
+            if ($numberOfapplicantDesiredCities > 0 && $numberOfapplicantDesiredDepartments > 0) {
+                $div = 2;
+            }
+
+            return (int) ($cityMatch + $departmentMatch) / $div;
         }
 
-        if ($numberOfapplicantDesiredDepartments > 0) {
-            $departmentMatch = $departmentMatch * 100 / $numberOfapplicantDesiredDepartments;
+        if ($context === 'employer') {
+            if ($cityMatch > 0 || $departmentMatch > 0) {
+                return 100;
+            }
+
+            return 0;
         }
 
-        return ($cityMatch + $departmentMatch) / 2;
+        return 0;
     }
 
     public function getPersonalityMatch(DISCPersonality $companyPersonality, $applicantQualities): int
