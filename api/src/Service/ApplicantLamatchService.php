@@ -77,7 +77,7 @@ class ApplicantLamatchService
                 $companyEntityCities->add($companyEntitiesOffice->getAddress()->getCityObject());
             }
 
-            $locationMatch = $this->matchingService->getLocationMatch($companyEntityCities, $applicantLocation);
+            $locationMatch = $this->matchingService->getLocationMatch($companyEntityCities, $applicantLocation, 'applicant');
             $matchResults['location'] = $locationMatch;
 
             $matchingPercentage = $this->matchingService->getMatchingPercentage($matchResults);

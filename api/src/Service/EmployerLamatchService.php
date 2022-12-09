@@ -94,7 +94,7 @@ class EmployerLamatchService
                 $applicantLocation = $applicantLamatchProfile->getDesiredLocation();
                 $companyLocation = new ArrayCollection();
                 $companyLocation->add($employerLamatchProfile->getCompanyEntityOffice()->getAddress()->getCityObject());
-                $locationMatch = $this->matchingService->getLocationMatch($companyLocation, $applicantLocation);
+                $locationMatch = $this->matchingService->getLocationMatch($companyLocation, $applicantLocation, 'employer');
                 $matchResults['location'] = $locationMatch;
 
                 //Matching with Personality

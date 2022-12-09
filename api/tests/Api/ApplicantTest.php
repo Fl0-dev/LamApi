@@ -64,6 +64,8 @@ class ApplicantTest extends ApiTestCase
         $response = static::createClient()->request('POST', '/applicants', ['json' => [
             'email' => 'test@gmail.com',
             'password' => 'password',
+            'firstname' => 'test',
+            'lastname' => 'test',
         ]]);
 
         $this->assertResponseIsSuccessful();
