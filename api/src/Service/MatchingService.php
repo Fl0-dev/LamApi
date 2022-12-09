@@ -221,6 +221,8 @@ class MatchingService
 
             return 0;
         }
+
+        return 0;
     }
 
     public function getPersonalityMatch(DISCPersonality $companyPersonality, $applicantQualities): int
