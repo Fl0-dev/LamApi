@@ -3,31 +3,56 @@
 namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
+use App\Controller\PostApplicantFavoriteCompanyEntity;
 use App\Entity\Company\CompanyEntity;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantCompanyRepository;
 use App\Transversal\CreatedDate;
 use App\Transversal\LastModifiedDate;
 use App\Transversal\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantCompanyRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new Post(
+        uriTemplate: '/applicant/favorite_company',
+        controller: PostApplicantFavoriteCompanyEntity::class,
+        uriVariables: [],
+        denormalizationContext: ['groups' => [self::OPERATION_NAME_POST_APPLICANT_FAVORITE_COMPANY_ENTITY]],
+        openapiContext: [
+            'tags' => ['ApplicantCompanySubscription'],
+            'summary' => 'Add a company to the applicant favorite companies',
+            'description' => 'Add a company to the applicant favorite companies',
+        ],
+    )
+])]
 class ApplicantCompany
 {
     use Uuid;
     use CreatedDate;
     use LastModifiedDate;
 
+    public const OPERATION_NAME_POST_APPLICANT_FAVORITE_COMPANY_ENTITY = 'post_applicant_favorite_company_entity';
+
     #[ORM\Column]
     private ?bool $activeSending = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups([self::OPERATION_NAME_POST_APPLICANT_FAVORITE_COMPANY_ENTITY])]
     private ?CompanyEntity $companyEntity = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'applicantCompanies', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?ApplicantCompanySubscription $applicantCompanySubscription = null;
+
+    public function __construct()
+    {
+        $this->createdDate = new \DateTime();
+        $this->lastModifiedDate = new \DateTime();
+        $this->setActiveSending(false);
+    }
 
     public function isActiveSending(): ?bool
     {
