@@ -26,13 +26,13 @@ class PostApplicantFavoriteCompanyEntity extends AbstractController
             throw new BadRequestHttpException('Applicant not found');
         }
 
-        $applicantCompany = $request->attributes->get('data');
+        $currentApplicantCompany = $request->attributes->get('data');
 
-        if (!$applicantCompany instanceof ApplicantCompany) {
+        if (!$currentApplicantCompany instanceof ApplicantCompany) {
             throw new BadRequestHttpException('ApplicantCompany not found');
         }
 
-        if (!$applicantCompany->getCompanyEntity() instanceof CompanyEntity) {
+        if (!$currentApplicantCompany->getCompanyEntity() instanceof CompanyEntity) {
             throw new BadRequestHttpException('CompanyEntity not found');
         }
 
@@ -42,18 +42,22 @@ class PostApplicantFavoriteCompanyEntity extends AbstractController
 
         if (!$applicantCompanySubscription instanceof ApplicantCompanySubscription) {
             $applicantCompanySubscription = new ApplicantCompanySubscription();
-
             $applicantSubscription->setCompanySubscription($applicantCompanySubscription);
         } else {
-            if ($applicantCompanySubscription->getApplicantCompanies()->contains($applicantCompany)) {
-                throw new BadRequestHttpException('ApplicantCompany already exists');
+            $applicantCompanyCollection = $applicantCompanySubscription->getApplicantCompanies();
+
+            foreach ($applicantCompanyCollection as $applicantCompany) {
+                if ($applicantCompany->getCompanyEntity()->getId() === $currentApplicantCompany->getCompanyEntity()->getId()) {
+                    throw new BadRequestHttpException('Company already in list');
+                }
             }
+
             $applicantCompanySubscription->setLastModifiedDate(new \DateTime());
         }
 
-        $applicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
-        $applicantCompanySubscription->addApplicantCompany($applicantCompany);
+        $currentApplicantCompany->setApplicantCompanySubscription($applicantCompanySubscription);
+        $applicantCompanySubscription->addApplicantCompany($currentApplicantCompany);
 
-        return $applicantCompany;
+        return $currentApplicantCompany;
     }
 }
