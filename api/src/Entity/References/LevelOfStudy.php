@@ -106,7 +106,7 @@ class LevelOfStudy extends Reference
         return $this->level;
     }
 
-    public static function isLevelOfStudy($levelOfStudySlug)
+    public static function isLevelOfStudy(string $levelOfStudySlug)
     {
         return in_array($levelOfStudySlug, array_column(self::LEVEL_OF_STUDIES, 'slug'));
     }
