@@ -47,7 +47,10 @@ class PostApplicantFavoriteCompanyEntity extends AbstractController
             $applicantCompanyCollection = $applicantCompanySubscription->getApplicantCompanies();
 
             foreach ($applicantCompanyCollection as $applicantCompany) {
-                if ($applicantCompany->getCompanyEntity()->getId() === $currentApplicantCompany->getCompanyEntity()->getId()) {
+                if (
+                    $applicantCompany->getCompanyEntity()->getId()
+                    === $currentApplicantCompany->getCompanyEntity()->getId()
+                ) {
                     throw new BadRequestHttpException('Company already in list');
                 }
             }
