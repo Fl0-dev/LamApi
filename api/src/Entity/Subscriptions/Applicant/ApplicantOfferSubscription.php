@@ -3,6 +3,7 @@
 namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\References\SubscriptionStatus;
 use App\Entity\Research\OfferResearch;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantOfferSubscriptionRepository;
 use App\Transversal\CreatedDate;
@@ -24,6 +25,13 @@ class ApplicantOfferSubscription
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?OfferResearch $offerResearch = null;
+
+    public function __construct()
+    {
+        $this->createdDate = new \DateTime();
+        $this->lastModifiedDate = new \DateTime();
+        $this->setStatus((new SubscriptionStatus(SubscriptionStatus::ACTIVE, 'Actif'))->getId());
+    }
 
     public function getStatus(): ?string
     {
