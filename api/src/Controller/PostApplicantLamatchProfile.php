@@ -58,7 +58,7 @@ class PostApplicantLamatchProfile extends AbstractController
         if (!$applicant instanceof Applicant) {
             throw new BadRequestHttpException('Applicant not found');
         }
-
+        //TODO: factorize this code in a service
         $uploadedFile = $request->files->get('file');
 
         if (
@@ -98,11 +98,11 @@ class PostApplicantLamatchProfile extends AbstractController
         $applicantSubscription = new ApplicantSubscription();
         $applicantLamatchSubscription = new ApplicantLamatchSubscription();
         $applicantSubscription->setApplicant($applicant);
-        //TODO: à factoriser ->
+        //TODO: factorize this code in a service
         $applicantLamatchProfile = new ApplicantLamatchProfile();
         $applicantLamatchProfile->setApplicant($applicant);
         $applicantLamatchProfile->setPhoto($mediaImage);
-
+        //TODO: factorize this code in a service
         $experienceId = Utils::getArrayValue('experience', $infoProfile);
         $experience = $this->experienceRepository->find($experienceId);
 

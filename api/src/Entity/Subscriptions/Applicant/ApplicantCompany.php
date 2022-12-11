@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ApplicantCompanyRepository::class)]
 #[ApiResource(operations: [
     new Post(
+        security: "is_granted('ROLE_APPLICANT')",
         uriTemplate: '/applicant/favorite_company',
         controller: PostApplicantFavoriteCompanyEntity::class,
         uriVariables: [],

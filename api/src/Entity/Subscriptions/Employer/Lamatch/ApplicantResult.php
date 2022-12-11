@@ -43,7 +43,7 @@ use Doctrine\ORM\Mapping as ORM;
     ),
     new Get(
         security: "is_granted('ROLE_EMPLOYER')",
-        uriTemplate: '/employer/lamatch/results/applicant/{id}',
+        uriTemplate: '/applicant_results/{id}',
         controller: GetDetailEmployerLamatchResultByResultId::class,
         openapiContext: [
             'summary' => 'Get a detail of a result of a matching',
