@@ -30,7 +30,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(operations: [
     new GetCollection(),
-    new Get(),
     new Get(
         security: "is_granted('ROLE_ADMIN')",
         uriTemplate: '/applicant/{id}/applications',

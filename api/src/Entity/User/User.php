@@ -3,6 +3,7 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Controller\UserInfoAction;
 use App\Entity\Applicant\Applicant;
@@ -27,7 +28,7 @@ use Symfony\Component\Validator\Constraints\Length;
         uriTemplate: '/users',
         provider: UserDataProvider::class,
     ),
-    new GetCollection(
+    new Get(
         uriTemplate: '/user-info',
         controller: UserInfoAction::class,
         paginationEnabled: false,
@@ -93,6 +94,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
         self::OPERATION_NAME_GET_USER_INFO,
+        UserPhysical::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
     ])]
     #[Assert\Email(
         message: 'The email "{{ value }}" is not a valid email.',
@@ -133,6 +135,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         self::OPERATION_NAME_GET_USERS,
         self::OPERATION_NAME_GET_USER_INFO,
+        UserPhysical::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
     ])]
     public function getId(): ?BaseUuid
     {
