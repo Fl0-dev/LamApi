@@ -5,9 +5,11 @@ namespace App\Entity\Subscriptions\Applicant;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Controller\DeleteApplicantFavoriteCompanyEntity;
 use App\Controller\GetFavoriteCompanyByCurrentApplicant;
+use App\Controller\PatchApplicantFavoriteCompanyEntity;
 use App\Controller\PostApplicantFavoriteCompanyEntity;
 use App\Entity\Company\CompanyEntity;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantCompanyRepository;
@@ -38,7 +40,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
     new Delete(
         security: "is_granted('ROLE_APPLICANT')",
         controller: DeleteApplicantFavoriteCompanyEntity::class,
-    )
+    ),
+    new Patch(
+        security: "is_granted('ROLE_APPLICANT')",
+        controller: PatchApplicantFavoriteCompanyEntity::class,
+        denormalizationContext: ['groups' => [self::OPERATION_NAME_PATCH_APPLICANT_FAVORITE_COMPANY_ENTITY]],
+    ),
 ])]
 class ApplicantCompany
 {
@@ -47,8 +54,10 @@ class ApplicantCompany
     use LastModifiedDate;
 
     public const OPERATION_NAME_POST_APPLICANT_FAVORITE_COMPANY_ENTITY = 'post_applicant_favorite_company_entity';
+    public const OPERATION_NAME_PATCH_APPLICANT_FAVORITE_COMPANY_ENTITY = 'patch_applicant_favorite_company_entity';
 
     #[ORM\Column]
+    #[Groups([self::OPERATION_NAME_PATCH_APPLICANT_FAVORITE_COMPANY_ENTITY])]
     private ?bool $activeSending = null;
 
     #[ORM\ManyToOne]
