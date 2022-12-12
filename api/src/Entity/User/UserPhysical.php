@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use App\Controller\GetLightCurrentApplicant;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
+use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -47,6 +48,7 @@ abstract class UserPhysical extends User
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
         Applicant::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
+        ApplicantLamatchProfile::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT,
     ])]
     private $firstname;
 
@@ -57,6 +59,7 @@ abstract class UserPhysical extends User
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
         Applicant::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
+        ApplicantLamatchProfile::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT,
     ])]
     private $lastname;
 

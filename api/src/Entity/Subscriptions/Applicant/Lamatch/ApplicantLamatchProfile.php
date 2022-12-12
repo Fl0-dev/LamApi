@@ -4,7 +4,9 @@ namespace App\Entity\Subscriptions\Applicant\Lamatch;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use App\Controller\GetApplicantLamatchProfileByCurrentApplicant;
 use App\Controller\PostApplicantLamatchProfile;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Badge;
@@ -21,10 +23,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApplicantLamatchProfileRepository::class)]
 #[ApiResource(operations: [
-    new Get(),
+    new GetCollection(
+        uriTemplate: '/applicants/lamatch-profile',
+        controller: GetApplicantLamatchProfileByCurrentApplicant::class,
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT]],
+        uriVariables: [],
+        openapiContext: [
+            'tags' => ['Applicant'],
+            'summary' => 'Get applicant lamatch profile by current user',
+        ],
+    ),
     new Post(
         security: "is_granted('ROLE_APPLICANT')",
         controller: PostApplicantLamatchProfile::class,
@@ -125,42 +137,56 @@ class ApplicantLamatchProfile
 
     public const OPERATION_NAME_POST_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT =
     'post_applicant_lamatch_profile_by_current_applicant';
+    public const OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT =
+    'get_applicant_lamatch_profile_by_current_applicant';
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?string $introduction;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?string $experience;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?string $levelOfStudy;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?MediaImage $photo;
 
     #[ORM\ManyToOne]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?JobTitle $jobTitle;
 
     #[ORM\ManyToMany(targetEntity: Tool::class, cascade: ['persist', 'remove'])]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private Collection $tools;
 
     #[ORM\ManyToMany(targetEntity: Badge::class, cascade: ['persist', 'remove'])]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private Collection $desiredBadges;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?Applicant $applicant;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?DesiredLocation $desiredLocation;
 
     #[ORM\ManyToMany(targetEntity: DISCQuality::class, cascade: ['persist', 'remove'])]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private Collection $qualities;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private ?string $desiredWorkforce;
 
     #[ORM\ManyToMany(targetEntity: ExpertiseField::class, cascade: ['persist', 'remove'])]
+    #[Groups([self::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT])]
     private Collection $desiredExpertiseFields;
 
     public function __construct()
