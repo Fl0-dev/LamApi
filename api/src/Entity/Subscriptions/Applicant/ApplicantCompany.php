@@ -3,7 +3,9 @@
 namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
+use App\Controller\GetFavoriteCompanyByCurrentApplicant;
 use App\Controller\PostApplicantFavoriteCompanyEntity;
 use App\Entity\Company\CompanyEntity;
 use App\Repository\SubscriptionRepositories\Applicant\ApplicantCompanyRepository;
@@ -26,7 +28,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'summary' => 'Add a company to the applicant favorite companies',
             'description' => 'Add a company to the applicant favorite companies',
         ],
-    )
+    ),
+    new Get(
+        security: "is_granted('ROLE_APPLICANT')",
+        controller: GetFavoriteCompanyByCurrentApplicant::class,
+    ),
 ])]
 class ApplicantCompany
 {
