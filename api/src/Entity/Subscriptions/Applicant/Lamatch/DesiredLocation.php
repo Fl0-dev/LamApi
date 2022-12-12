@@ -12,6 +12,7 @@ use App\Transversal\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DesiredLocationRepository::class)]
 #[ApiResource]
@@ -22,9 +23,11 @@ class DesiredLocation
     use LastModifiedDate;
 
     #[ORM\ManyToMany(targetEntity: City::class)]
+    #[Groups([ApplicantLamatchProfile::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT,])]
     private Collection $desiredCities;
 
     #[ORM\ManyToMany(targetEntity: Department::class)]
+    #[Groups([ApplicantLamatchProfile::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT,])]
     private Collection $desiredDepartments;
 
     public function __construct()

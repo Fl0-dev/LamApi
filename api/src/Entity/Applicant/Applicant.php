@@ -18,6 +18,7 @@ use App\Entity\References\ContractType;
 use App\Entity\References\Experience;
 use App\Entity\References\LevelOfStudy;
 use App\Entity\Subscriptions\Applicant\ApplicantSubscription;
+use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Entity\User\UserPhysical;
 use App\Repository\ApplicantRepositories\ApplicantRepository;
 use App\Repository\ReferencesRepositories\ContractTypeRepository;
@@ -66,6 +67,7 @@ class Applicant extends UserPhysical
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         self::OPERATION_NAME_GET_ALL_APPLICANTS,
+        ApplicantLamatchProfile::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT,
     ])]
     private $linkedin;
 

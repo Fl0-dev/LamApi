@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Controller\UserInfoAction;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
+use App\Entity\Subscriptions\Applicant\Lamatch\ApplicantLamatchProfile;
 use App\Repository\UserRepositories\UserRepository;
 use App\State\UserDataProvider;
 use App\Transversal\CreatedDate;
@@ -95,6 +96,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         Applicant::OPERATION_NAME_POST_APPLICANT,
         self::OPERATION_NAME_GET_USER_INFO,
         UserPhysical::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
+        ApplicantLamatchProfile::OPERATION_NAME_GET_APPLICANT_LAMATCH_PROFILE_BY_CURRENT_APPLICANT,
     ])]
     #[Assert\Email(
         message: 'The email "{{ value }}" is not a valid email.',
