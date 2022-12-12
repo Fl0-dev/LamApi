@@ -3,12 +3,27 @@
 namespace App\Entity\User;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use App\Controller\GetLightCurrentApplicant;
 use App\Entity\Applicant\Applicant;
 use App\Entity\Application\Application;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(operations: [
+    new Get(
+        security: "is_granted('ROLE_APPLICANT')",
+        uriTemplate: '/applicant/{id}/light-infos',
+        controller: GetLightCurrentApplicant::class,
+        formats: ['json'],
+        normalizationContext: ['groups' => [self::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS]],
+        openapiContext: [
+            'summary' => 'Get light applicant infos',
+            'description' => 'Get light applicant infos',
+            'tags' => ['Applicant'],
+        ]
+    ),
+])]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
 #[ORM\DiscriminatorMap([
@@ -23,6 +38,7 @@ abstract class UserPhysical extends User
     public const TYPE_ADMIN = "admin";
     public const TYPE_APPLICANT = "applicant";
     public const TYPE_EMPLOYER = "employer";
+    public const OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS = 'get_light_applicant_infos';
 
     #[ORM\Column(type: "string", length: 180, nullable: true)]
     #[Groups([
@@ -30,6 +46,7 @@ abstract class UserPhysical extends User
         Application::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
+        Applicant::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
     ])]
     private $firstname;
 
@@ -39,6 +56,7 @@ abstract class UserPhysical extends User
         Application::OPERATION_NAME_POST_SPONTANEOUS_APPLICATION_BY_COMPANY_ENTITY_OFFICE_ID,
         Applicant::OPERATION_NAME_GET_ALL_APPLICANTS,
         Applicant::OPERATION_NAME_POST_APPLICANT,
+        Applicant::OPERATION_NAME_GET_LIGHT_APPLICANT_INFOS,
     ])]
     private $lastname;
 
