@@ -3,8 +3,10 @@
 namespace App\Entity\Subscriptions\Applicant;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
+use App\Controller\DeleteApplicantFavoriteCompanyEntity;
 use App\Controller\GetFavoriteCompanyByCurrentApplicant;
 use App\Controller\PostApplicantFavoriteCompanyEntity;
 use App\Entity\Company\CompanyEntity;
@@ -33,6 +35,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
         security: "is_granted('ROLE_APPLICANT')",
         controller: GetFavoriteCompanyByCurrentApplicant::class,
     ),
+    new Delete(
+        security: "is_granted('ROLE_APPLICANT')",
+        controller: DeleteApplicantFavoriteCompanyEntity::class,
+    )
 ])]
 class ApplicantCompany
 {
