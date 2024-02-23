@@ -15,7 +15,7 @@ Application construite avec Api Platform et assurera le Back de Lamacompat.co V2
 Tout d'abord cloner le repository présent sur Gitlab dans un répertoire cible à l'intérieur de l'image Linux
 
 ```bash
-git clone https://gitlab.com/lamacompta/lamapi.git
+git clone https://github.com/Fl0-dev/lamapi.git
 ```
 ## Installation
 
